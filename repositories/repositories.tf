@@ -19,9 +19,10 @@ resource "ibm_toolchain_tool_git" "pipeline_repo" {
   toolchain_id = var.toolchain_id
   name         = "pipeline-repo"  
   initialization {
-    type = "link"
+    type = "clone"
     repo_url = var.pipeline_repo
     private_repo = true
+    repo_name = join("-", [split(".", split("/", var.pipeline_repo)[4])[0], formatdate("DDMMYYYYhhmmss", timestamp())])
   }
   parameters {
     has_issues          = false
