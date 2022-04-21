@@ -16,11 +16,11 @@ app_repo                        = "https://mon01.git.cloud.ibm.com/open-toolchai
 app_repo_type                   = "hostedgit"
 pipeline_repo                   = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-pipelines.git"
 pipeline_repo_type              = "hostedgit"
-evidence_repo                   = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-evidence.git"
+evidence_repo                   = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-evidence-locker.git"
 evidence_repo_type              = "hostedgit"
 inventory_repo                  = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-inventory.git"
 inventory_repo_type             = "hostedgit"
-issues_repo                     = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-issues.git"
+issues_repo                     = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-incident-issues.git"
 issues_repo_type                = "hostedgit"
 ibm_cloud_api                   = "https://test.cloud.ibm.com"
 
