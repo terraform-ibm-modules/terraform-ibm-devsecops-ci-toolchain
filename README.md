@@ -8,59 +8,48 @@
 The terraform code for DevSecOps CI Toolchain comprises of different folders to provide a logical grouping of various resources. 
 Terraform considers each folder as a module, and hence each of these logical groups (folders) are treated by terraform as seperate modules.
 
-1. repositories
-
+ 1. repositories
 Resource definitions for all the repositories required for the DevSecOps CI Toolchain. All these repositories are created as **`ibm_toolchain_tool_git`** Toolchain Integrations. By default, the terrform template **`clones`** these repositories in your GRIT (default provider) account. If you wish to use a different provider please update the variables in **`variables.tf`** file. The repositories created are:
-
- - Application Repository 
- - Pipeline Repository 
- - Evidence Repository
- - Inventory Repository 
- - Issues/Incidence Repository
+	 - Application Repository 
+	 - Pipeline Repository 
+	 - Evidence Repository
+	 - Inventory Repository 
+	 - Issues/Incidence Repository
 
 2. pipeline-pr
-
 Resource definitions for setting up the tekton delivery pipeline. The toolchain i.e. the main module itself creates **`ibm_toolchain_tool_pipeline`** Toolchain Integration. However, all the other resource required by the Delivery Pipeline itself are created within this module. These resources primarily includes
-
- - Tekton Pipeline 
- - Tekton Pipeline Definitions ( DevSecOps Compliance )
- - Tekton Pipeline Triggers
+	 - Tekton Pipeline 
+	 - Tekton Pipeline Definitions ( DevSecOps Compliance )
+	 - Tekton Pipeline Triggers
  
-3. pipeline-ci
-
+3. pipeline-ci 
 Resource definitions for setting up the tekton delivery pipeline. The toolchain i.e. the main module itself creates **`ibm_toolchain_tool_pipeline`** Toolchain Integration. However, all the other resource required by the Delivery Pipeline itself are created within this module. These resources primarily includes
-
- - Tekton Pipeline 
- - Tekton Pipeline Definitions ( DevSecOps Compliance )
- - Tekton Pipeline Triggers
+	 - Tekton Pipeline 
+	 - Tekton Pipeline Definitions ( DevSecOps Compliance )
+	 - Tekton Pipeline Triggers
 
 4. integrations
-
 Toolchain Integrations required by the toolchain are created here. Currently, the toolchain creates following integrations. More integrations will be added soon.
-
- - Key Protect 
- - Cloud Object Store 
- - Slack 
- - DevOps Insight 
- - Eclipse Orion Web IDE
+	 - Key Protect 
+	 - Cloud Object Store 
+	 - Slack 
+	 - DevOps Insight 
+	 - Eclipse Orion Web IDE
 
 5. service
-
 Toolchain can leverage information about other IBM Cloud Services like IKS Cluster, ICR, COS and can lookup respective resources via terraform data sources which can then be used to setup up other integrations.
-
- - IBM Cloud IKS Cluster `ibm_container_cluster` 
- - IBM Cloud ICR `ibm_cr_namespaces` 
- - IBM Cloud Resource for Key Protect `ibm_resource_instance`
+	 - IBM Cloud IKS Cluster `ibm_container_cluster` 
+	 - IBM Cloud ICR `ibm_cr_namespaces` 
+	 - IBM Cloud Resource for Key Protect `ibm_resource_instance`
 
 6. main
-
 The main module is where all the other modules are instantiated. The current dependencies between various module and also on the main module is depicted below.
 
- - repositories - Independent
- - services - Independent
- - integrations - repositories, services
- - pipeline-ci - repositories, services, integrations
- - pipeline-pr - repositories, services, integrations
+	 - repositories - Independent
+	 - services - Independent
+	 - integrations - repositories, services
+	 - pipeline-ci - repositories, services, integrations
+	 - pipeline-pr - repositories, services, integrations
 
 #### Setup and Run the template
 
@@ -68,7 +57,6 @@ Please refer to the documentation [here](https://ibm.ent.box.com/file/9375743870
 to setup the provider and go-runtime required for creating the toolchain via terraform.
 
 1. Export the below set of environment variable within your console
-
 ```
 export IBMCLOUD_IS_NG_API_ENDPOINT=us-south-stage01.iaasdev.cloud.ibm.com
 
@@ -88,7 +76,6 @@ export IBMCLOUD_RESOURCE_CATALOG_API_ENDPOINT=https://globalcatalog.test.cloud.i
 2. Rename the **`variables.tfvar.example`** to **`variables.tfvar`**.
 
 3. Provide appropriate values for the variables in the **`variables.tfvar`** to point to various resources within your account.
-
 
 | Variable      | Description | 
 | ---           | ----        | 
@@ -120,7 +107,6 @@ export IBMCLOUD_RESOURCE_CATALOG_API_ENDPOINT=https://globalcatalog.test.cloud.i
 
 
 4. Run the terraform initialization command
-
 ```
 terraform init
 ```
