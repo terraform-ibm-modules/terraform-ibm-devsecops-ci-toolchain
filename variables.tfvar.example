@@ -12,15 +12,15 @@ app_image_name                  = "hello-compliance-app-image"
 /* Variables for Module "Repositories"               */
 /*****************************************************/
 ibm_cloud_api_key               = ""
-app_repo                        = "https://dev.us-south.git.test.cloud.ibm.com/open-toolchain/hello-compliance-app.git"
+app_repo                        = "https://mon01.git.cloud.ibm.com/open-toolchain/hello-compliance-app.git"
 app_repo_type                   = "hostedgit"
-pipeline_repo                   = "https://dev.us-south.git.test.cloud.ibm.com/open-toolchain/compliance-pipelines.git"
+pipeline_repo                   = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-pipelines.git"
 pipeline_repo_type              = "hostedgit"
-evidence_repo                   = "https://dev.us-south.git.test.cloud.ibm.com/open-toolchain/hello-compliance-evidence.git"
+evidence_repo                   = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-evidence.git"
 evidence_repo_type              = "hostedgit"
-inventory_repo                  = "https://dev.us-south.git.test.cloud.ibm.com/open-toolchain/hello-compliance-inventory.git"
+inventory_repo                  = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-inventory.git"
 inventory_repo_type             = "hostedgit"
-issues_repo                     = "https://dev.us-south.git.test.cloud.ibm.com/open-toolchain/hello-compliance-issues.git"
+issues_repo                     = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-issues.git"
 issues_repo_type                = "hostedgit"
 ibm_cloud_api                   = "https://test.cloud.ibm.com"
 
@@ -33,7 +33,6 @@ cluster_region                  = "ibm:ys1:us-south"
 registry_namespace              = "my-icr-ns"
 registry_region                 = "ibm:ys1:us-south"
 kp_name                         = "Key Protect Service"
-
 
 /*****************************************************/
 /* Variables for Module "Integrations"               */

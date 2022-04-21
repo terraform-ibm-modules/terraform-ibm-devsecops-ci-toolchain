@@ -21,12 +21,14 @@ Resource definitions for setting up the tekton delivery pipeline. The toolchain 
 	 - Tekton Pipeline 
 	 - Tekton Pipeline Definitions ( DevSecOps Compliance )
 	 - Tekton Pipeline Triggers
+     - Tekton Pipeline Environment Variables
  
 3. pipeline-ci 
 Resource definitions for setting up the tekton delivery pipeline. The toolchain i.e. the main module itself creates **`ibm_toolchain_tool_pipeline`** Toolchain Integration. However, all the other resource required by the Delivery Pipeline itself are created within this module. These resources primarily includes
 	 - Tekton Pipeline 
 	 - Tekton Pipeline Definitions ( DevSecOps Compliance )
 	 - Tekton Pipeline Triggers
+    - Tekton Pipeline Environment Variables
 
 4. integrations
 Toolchain Integrations required by the toolchain are created here. Currently, the toolchain creates following integrations. More integrations will be added soon.
