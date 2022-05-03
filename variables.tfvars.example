@@ -1,0 +1,42 @@
+/*****************************************************/
+/* Variables for Module "Main"                       */
+/*****************************************************/
+resource_group                  = "Default"
+region                          = "us-south"
+toolchain_name                  = "DevSecOps CI Toolchain - Terraform"
+toolchain_description           = "Toolchain created with Template for DevSecOps Best Practices"
+app_name                        = "hello-compliance-app"
+app_image_name                  = "hello-compliance-app-image"
+
+/*****************************************************/
+/* Variables for Module "Repositories"               */
+/*****************************************************/
+ibm_cloud_api_key               = ""
+app_repo                        = "https://mon01.git.cloud.ibm.com/open-toolchain/hello-compliance-app.git"
+app_repo_type                   = "hostedgit"
+pipeline_repo                   = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-pipelines.git"
+pipeline_repo_type              = "hostedgit"
+evidence_repo                   = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-evidence-locker.git"
+evidence_repo_type              = "hostedgit"
+inventory_repo                  = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-inventory.git"
+inventory_repo_type             = "hostedgit"
+issues_repo                     = "https://mon01.git.cloud.ibm.com/open-toolchain/compliance-incident-issues.git"
+issues_repo_type                = "hostedgit"
+ibm_cloud_api                   = "https://test.cloud.ibm.com"
+
+/*****************************************************/
+/* Variables for Module "Services"                   */
+/*****************************************************/
+cluster_name                    = "my-iks-cluster"
+cluster_namespace               = "dev-ns"
+cluster_region                  = "ibm:ys1:us-south"
+registry_namespace              = "my-icr-ns"
+registry_region                 = "ibm:ys1:us-south"
+kp_name                         = "Key Protect Service"
+
+/*****************************************************/
+/* Variables for Module "Integrations"               */
+/*****************************************************/
+slack_channel_name              = "slack-channel"
+slack_api_token                 = "slack-token"
+slack_user_name                 = "slack-user"
