@@ -73,7 +73,7 @@ resource "ibm_toolchain_tool_git" "issues_repo" {
     repo_name = join("-", [split(".", split("/", var.issues_repo)[4])[0], formatdate("DDMMYYYYhhmmss", timestamp())])
   }   
   parameters {
-    has_issues          = false
+    has_issues          = true
     enable_traceability = false
   }
 }

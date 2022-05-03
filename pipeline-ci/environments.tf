@@ -133,22 +133,22 @@ resource "ibm_tekton_pipeline_property" "ci_pipeline_registry_region" {
 #   pipeline_id    = var.pipeline_id                   
 # }
 
-# resource "ibm_tekton_pipeline_property" "ci_pipeline_doi_environment" {
-#   name           = "doi-environment"
-#   type           = "TEXT"
-#   value          = ""
-#   pipeline_id    = var.pipeline_id                   
-# }
+resource "ibm_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+  name           = "doi-environment"
+  type           = "TEXT"
+  value          = " "
+  pipeline_id    = var.pipeline_id                   
+}
 
-# resource "ibm_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
-#   name           = "doi_toolchain_id"
-#   type           = "TEXT"
-#   value          = ""
-#   pipeline_id    = var.pipeline_id                   
-# }
+resource "ibm_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
+  name           = "doi-toolchain-id"
+  type           = "TEXT"
+  value          = " "
+  pipeline_id    = var.pipeline_id                   
+}
 
 resource "ibm_tekton_pipeline_property" "ci_pipeline_signing_key" {
-  name           = "signing_key"
+  name           = "signing-key"
   type           = "SECURE"
   value          = format("{vault::%s.signing_key}", var.kp_integration_name)
   pipeline_id    = ibm_tekton_pipeline.ci_pipeline_instance.pipeline_id

@@ -28,7 +28,14 @@ Resource definitions for setting up the tekton delivery pipeline. The toolchain 
 	 - Tekton Pipeline 
 	 - Tekton Pipeline Definitions ( DevSecOps Compliance )
 	 - Tekton Pipeline Triggers
-    - Tekton Pipeline Environment Variables
+     - Tekton Pipeline Environment Variables
+
+> While referring any environment variables from Secret Store ( Key Protect, Secrets Manager ) use the below syntax
+> ```
+>
+>```
+
+
 
 4. integrations
 Toolchain Integrations required by the toolchain are created here. Currently, the toolchain creates following integrations. More integrations will be added soon.

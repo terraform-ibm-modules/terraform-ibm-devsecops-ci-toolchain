@@ -89,7 +89,14 @@ module "integrations" {
 
 module "services" {
   source                    = "./services"
-  key_protect_instance_name = var.kp_name 
+  key_protect_instance_name = var.kp_name
+  region                    = var.region
+  ibm_cloud_api             = var.ibm_cloud_api   
+  cluster_name              = var.cluster_name
+  cluster_namespace         = var.cluster_namespace
+  cluster_region            = var.cluster_region
+  registry_namespace        = var.registry_namespace
+  registry_region           = var.registry_region   
 }
 
 output "toolchain_id" {
