@@ -93,9 +93,9 @@ export IBMCLOUD_TEKTON_PIPELINE_ENDPOINT=https://devops-api.us-south.devops.test
 export IBMCLOUD_RESOURCE_CATALOG_API_ENDPOINT=https://globalcatalog.test.cloud.ibm.com
 ```
 
-2. Rename the **`variables.tfvar.example`** to **`variables.tfvar`**.
+2. Rename the **`variables.tfvars.example`** to **`variables.tfvars`**.
 
-3. Provide appropriate values for the variables in the **`variables.tfvar`** to point to various resources within your account.
+3. Provide appropriate values for the variables in the **`variables.tfvars`** to point to various resources within your account.
 
 | Variable      | Description | 
 | ---           | ----        | 
@@ -176,5 +176,5 @@ commands will detect it and remind you to do so if necessary.
 ```
 5. Create the toolchain with variable overrides present in **`variables.tfvar`** file
 ```
- terraform apply -var-file=./variables.tfvar 
+ terraform apply -var-file=./variables.tfvars
 ```
