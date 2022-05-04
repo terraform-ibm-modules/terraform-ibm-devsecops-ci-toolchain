@@ -3,6 +3,17 @@
 
 #### Introduction
 
+Welcome to the world of Toolchain As Code !!! 
+
+The current project provides code to create DevSecOps CI Reference Toolchain using Terraform Code. Inaddtion to creating the toolchain, the code also creates various toolchain integrations required by the PR (Pull Request) and CI (Continuous Integration) Pipelines.
+
+#### Prerequisites
+
+Please follow instructions in below to setup IBM Terraform Provider on your machine
+
+ 1. [Windows](https://ibm.ent.box.com/notes/951309977533?s=irxa6b7cpbezk9rbgvo6merz2z3eviz2)
+ 2. [MacOS](https://ibm.ent.box.com/notes/951299304687?s=seifm5b6mwfoc3ua5fwkrnmfusdzhw8p)  
+
 #### Code Structure
 
 The terraform code for DevSecOps CI Toolchain comprises of different folders to provide a logical grouping of various resources. 
