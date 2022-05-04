@@ -1,20 +1,20 @@
 
 ## DevSecOps CI Toolchain Terraform Template
 
-#### Introduction
+### Introduction
 
 Welcome to the world of Toolchain As Code !!! 
 
 The current project provides code to create DevSecOps CI Reference Toolchain using Terraform Code. Inaddtion to creating the toolchain, the code also creates various toolchain integrations required by the PR (Pull Request) and CI (Continuous Integration) Pipelines.
 
-#### Prerequisites
+### Prerequisites
 
 Please follow instructions in below to setup IBM Terraform Provider on your machine
 
  1. [Windows](https://ibm.ent.box.com/notes/951309977533?s=irxa6b7cpbezk9rbgvo6merz2z3eviz2)
  2. [MacOS](https://ibm.ent.box.com/notes/951299304687?s=seifm5b6mwfoc3ua5fwkrnmfusdzhw8p)  
 
-#### Code Structure
+### Code Structure
 
 The terraform code for DevSecOps CI Toolchain comprises of different folders to provide a logical grouping of various resources. 
 Terraform considers each folder as a module, and hence each of these logical groups (folders) are treated by terraform as seperate modules.
@@ -71,7 +71,7 @@ The main module is where all the other modules are instantiated. The current dep
 	 - pipeline-ci - repositories, services, integrations
 	 - pipeline-pr - repositories, services, integrations
 
-#### Setup and Run the template
+### Setup and Run the template
 
 Please refer to the documentation [here](https://ibm.ent.box.com/file/937574387078)
 to setup the provider and go-runtime required for creating the toolchain via terraform.
