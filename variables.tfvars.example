@@ -29,11 +29,11 @@ ibm_cloud_api                   = "https://cloud.ibm.com"
 /*****************************************************/
 cluster_name                    = "mycluster-free"
 cluster_namespace               = "devsecops-ci-ns"
-cluster_region                  = "ibm:yp1:us-south"
+cluster_region                  = "ibm:yp:us-south"
 registry_namespace              = "devsecops-ci-registry"
-registry_region                 = "ibm:yp1:us-south"
+registry_region                 = "ibm:yp:us-south"
 kp_name                         = "Key Protect Service"
-kp_region                       = "ibm:ys1:us-south"
+kp_region                       = "ibm:yp:us-south"
 
 /*****************************************************/
 /* Variables for Module "Integrations"               */

@@ -60,7 +60,7 @@ variable "cluster_namespace" {
 variable "cluster_region" {
   type        = string
   description = "Region of the kubernetes cluster where the application will be deployed."
-  default     = "ibm:yp1:us-south"
+  default     = "ibm:yp:us-south"
 }
 
 variable "registry_namespace" {
@@ -83,7 +83,7 @@ variable "kp_name" {
 variable "kp_region" {
   type        = string
   description = "IBM Cloud Region where the Key Protect Instance is created."
-  default     = "ibm:yp1:us-south"
+  default     = "ibm:yp:us-south"
 }
 
 variable "app_repo" {
