@@ -24,60 +24,66 @@ variable "region" {
 variable "toolchain_name" {
   type        = string
   description = "Name of the Toolchain."
-  default     = "Terraform Toolchain Empty"
+  default     = "DevSecOps CI Toolchain - Terraform"
 }
 
 variable "toolchain_description" {
   type        = string
   description = "Description for the Toolchain."
-  default     = "Toolchain created using IBM Cloud Continuous Delivery Service"
+  default     = "Toolchain created with Template for DevSecOps Best Practices"
 }
 
 variable "app_name" {
   type        = string
   description = "Name of the application."
-  default     = "secure-app-nonterraform"
+  default     = "hello-compliance-app"
 }
 
 variable "app_image_name" {
   type        = string
   description = "Name of the application image."
-  default     = "secure-app-nonterraform-image"
+  default     = "hello-compliance-app-image"
 }
 
 variable "cluster_name" {
   type        = string
   description = "Name of the kubernetes cluster where the application will be deployed."
-  default     = "MyFreeCluster"
+  default     = "mycluster-free"
 }
 
 variable "cluster_namespace" {
   type        = string
   description = "Name of the kubernetes cluster where the application will be deployed."
-  default     = "prod"
+  default     = "devsecops-ci-ns"
 }
 
 variable "cluster_region" {
   type        = string
   description = "Region of the kubernetes cluster where the application will be deployed."
-  default     = "ibm:ys1:us-south"
+  default     = "ibm:yp1:us-south"
 }
 
 variable "registry_namespace" {
   type        = string
   description = "Namespace within the IBM Cloud Container Registry where application image need to be stored."
-  default     = "alpha-cd-namespace"
+  default     = "devsecops-ci-registry"
 }
 
 variable "registry_region" {
   type        = string
   description = "IBM Cloud Region where the IBM Cloud Container Registry where registry is to be created."
-  default     = "ibm:ys1:us-south"
+  default     = "ibm:yp1:us-south"
 }
 
 variable "kp_name" {
   type        = string
   description = "Name of the Key Protect Instance to store the secrets."
+}
+
+variable "kp_region" {
+  type        = string
+  description = "IBM Cloud Region where the Key Protect Instance is created."
+  default     = "ibm:yp1:us-south"
 }
 
 variable "app_repo" {

@@ -2,15 +2,15 @@ data "ibm_resource_group" "resource_group" {
   name = var.resource_group
 }
 
-resource "ibm_toolchain" "toolchain_instance" {
-  name        = var.toolchain_name
-  description = var.toolchain_description
+resource "ibm_cd_toolchain" "toolchain_instance" {
+  name              = var.toolchain_name
+  description       = var.toolchain_description
   resource_group_id = data.ibm_resource_group.resource_group.id
 }
 
 module "repositories" {
   source                          = "./repositories"
-  toolchain_id                    = ibm_toolchain.toolchain_instance.id
+  toolchain_id                    = ibm_cd_toolchain.toolchain_instance.id
   resource_group                  = data.ibm_resource_group.resource_group.id  
   ibm_cloud_api_key               = var.ibm_cloud_api_key
   region                          = var.region  
@@ -19,10 +19,11 @@ module "repositories" {
   evidence_repo                   = var.evidence_repo
   inventory_repo                  = var.inventory_repo
   issues_repo                     = var.issues_repo
+  repositories_prefix             = var.app_name  
 }
 
-resource "ibm_toolchain_tool_pipeline" "ci_pipeline" {
-  toolchain_id = ibm_toolchain.toolchain_instance.id
+resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
+  toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "ci-pipeline"
     type = "tekton"
@@ -35,7 +36,7 @@ module "pipeline-ci" {
   ibm_cloud_api             = var.ibm_cloud_api
   ibm_cloud_api_key         = var.ibm_cloud_api_key
   region                    = var.region
-  pipeline_id               = split("/", ibm_toolchain_tool_pipeline.ci_pipeline.id)[1]
+  pipeline_id               = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
   resource_group            = var.resource_group
   app_name                  = var.app_name
   app_image_name            = var.app_image_name  
@@ -52,8 +53,8 @@ module "pipeline-ci" {
   kp_integration_name       = module.integrations.keyprotect_integration_name
 }
 
-resource "ibm_toolchain_tool_pipeline" "pr_pipeline" {
-  toolchain_id = ibm_toolchain.toolchain_instance.id
+resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
+  toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "pr-pipeline"
     type = "tekton"
@@ -66,7 +67,7 @@ module "pipeline-pr" {
   ibm_cloud_api            = var.ibm_cloud_api
   ibm_cloud_api_key        = var.ibm_cloud_api_key
   region                   = var.region  
-  pipeline_id              = split("/", ibm_toolchain_tool_pipeline.pr_pipeline.id)[1]
+  pipeline_id              = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
   resource_group           = var.resource_group
   app_name                 = var.app_name
   app_repo                  = module.repositories.app_repo_url 
@@ -78,7 +79,7 @@ module "integrations" {
   source                    = "./integrations"
   depends_on                = [ module.repositories, module.services ]  
   region                    = var.region  
-  toolchain_id              = ibm_toolchain.toolchain_instance.id
+  toolchain_id              = ibm_cd_toolchain.toolchain_instance.id
   resource_group            = var.resource_group
   key_protect_instance_name = module.services.key_protect_instance_name
   key_protect_instance_guid = module.services.key_protect_instance_guid
@@ -100,7 +101,7 @@ module "services" {
 }
 
 output "toolchain_id" {
-  value = ibm_toolchain.toolchain_instance.id
+  value = ibm_cd_toolchain.toolchain_instance.id
 }
 
 output "key_protect_instance_id" {

@@ -1,12 +1,12 @@
-resource "ibm_tekton_pipeline" "ci_pipeline_instance" {
+resource "ibm_cd_tekton_pipeline" "ci_pipeline_instance" {
   pipeline_id = var.pipeline_id
   worker {
     id = "public"
   }
 }
 
-resource "ibm_tekton_pipeline_definition" "ci_pipeline_definition" {
-  pipeline_id   = ibm_tekton_pipeline.ci_pipeline_instance.pipeline_id
+resource "ibm_cd_tekton_pipeline_definition" "ci_pipeline_definition" {
+  pipeline_id   = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   scm_source {
     url         = var.pipeline_repo
     branch      = var.pipeline_branch
@@ -14,8 +14,8 @@ resource "ibm_tekton_pipeline_definition" "ci_pipeline_definition" {
   }
 }
 
-resource "ibm_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
-  pipeline_id       = ibm_tekton_pipeline.ci_pipeline_instance.pipeline_id
+resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
+  pipeline_id       = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   trigger {
     type            = var.ci_pipeline_manual_trigger_type
     name            = var.ci_pipeline_manual_trigger_name
@@ -27,8 +27,8 @@ resource "ibm_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
   }
 }
 
-resource "ibm_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
-  pipeline_id       = ibm_tekton_pipeline.ci_pipeline_instance.pipeline_id
+resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
+  pipeline_id       = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   trigger {
     type            = var.ci_pipeline_scm_trigger_type
     name            = var.ci_pipeline_scm_trigger_name
@@ -49,8 +49,8 @@ resource "ibm_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
   }
 }
 
-resource "ibm_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
-  pipeline_id       = ibm_tekton_pipeline.ci_pipeline_instance.pipeline_id
+resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
+  pipeline_id       = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   trigger {
     type            = var.ci_pipeline_timed_trigger_type
     name            = var.ci_pipeline_timed_trigger_name

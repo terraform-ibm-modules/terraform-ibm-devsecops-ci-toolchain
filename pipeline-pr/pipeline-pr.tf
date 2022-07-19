@@ -1,12 +1,12 @@
-resource "ibm_tekton_pipeline" "pr_pipeline_instance" {
+resource "ibm_cd_tekton_pipeline" "pr_pipeline_instance" {
   pipeline_id = var.pipeline_id
   worker {
     id = "public"
   }
 }
 
-resource "ibm_tekton_pipeline_definition" "pr_pipeline_definition" {
-  pipeline_id     = ibm_tekton_pipeline.pr_pipeline_instance.pipeline_id
+resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {
+  pipeline_id     = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   scm_source {
     url           = var.pipeline_repo
     branch        = var.pipeline_branch
@@ -14,8 +14,8 @@ resource "ibm_tekton_pipeline_definition" "pr_pipeline_definition" {
   }
 }
 
-resource "ibm_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
-  pipeline_id       = ibm_tekton_pipeline.pr_pipeline_instance.pipeline_id
+resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
+  pipeline_id       = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   trigger {
     type            = var.pr_pipeline_scm_trigger_type
     name            = var.pr_pipeline_scm_trigger_name
