@@ -134,6 +134,41 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
 # }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+  name           = "opt-in-dynamic-api-scan"
+  type           = "TEXT"
+  value          = "1"
+  pipeline_id    = var.pipeline_id                   
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+  name           = "opt-in-dynamic-ui-scan"
+  type           = "TEXT"
+  value          = "1"
+  pipeline_id    = var.pipeline_id                   
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+  name           = "opt-in-dynamic-scan"
+  type           = "TEXT"
+  value          = "1"
+  pipeline_id    = var.pipeline_id                   
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+  name           = "opt-in-sonar"
+  type           = "TEXT"
+  value          = "1"
+  pipeline_id    = var.pipeline_id                   
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+  name           = "git-token"
+  type           = "TEXT"
+  value          = " "
+  pipeline_id    = var.pipeline_id                   
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
   name           = "doi-environment"
   type           = "TEXT"
   value          = " "
