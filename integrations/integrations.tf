@@ -6,28 +6,28 @@ resource "ibm_iam_authorization_policy" "toolchain_keyprotect_auth_policy" {
   roles                       = ["Viewer", "ReaderPlus"]
 }
 
-resource "ibm_cd_toolchain_tool_keyprotect" "keyprotect" {
-  toolchain_id = var.toolchain_id
-  parameters {
-    name           = var.key_protect_integration_name
-    region         = var.region
-    resource_group = var.resource_group
-    instance_name  = var.key_protect_instance_name
-  }
-}
+# resource "ibm_cd_toolchain_tool_keyprotect" "keyprotect" {
+#   toolchain_id = var.toolchain_id
+#   parameters {
+#     name           = var.key_protect_integration_name
+#     region         = var.region
+#     resource_group = var.resource_group
+#     instance_name  = var.key_protect_instance_name
+#   }
+# }
 
 resource "ibm_cd_toolchain_tool_devopsinsights" "devopsinsights_tool" {
   toolchain_id = var.toolchain_id
 }
 
-resource "ibm_cd_toolchain_tool_slack" "slack_tool" {
-  toolchain_id = var.toolchain_id
-  parameters {
-    api_token = var.slack_api_token
-    channel_name = var.slack_channel_name
-    team_url = var.slack_user_name
-  }
-}
+# resource "ibm_cd_toolchain_tool_slack" "slack_tool" {
+#   toolchain_id = var.toolchain_id
+#   parameters {
+#     api_token = var.slack_api_token
+#     channel_name = var.slack_channel_name
+#     team_url = var.slack_user_name
+#   }
+# }
 
 resource "ibm_cd_toolchain_tool_custom" "cos_integration" {
   toolchain_id = var.toolchain_id
