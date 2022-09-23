@@ -133,35 +133,35 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
 #   pipeline_id    = var.pipeline_id                   
 # }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_api_environment" {
   name           = "opt-in-dynamic-api-scan"
   type           = "TEXT"
   value          = "1"
   pipeline_id    = var.pipeline_id                   
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_ui_environment" {
   name           = "opt-in-dynamic-ui-scan"
   type           = "TEXT"
   value          = "1"
   pipeline_id    = var.pipeline_id                   
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_environment" {
   name           = "opt-in-dynamic-scan"
   type           = "TEXT"
   value          = "1"
   pipeline_id    = var.pipeline_id                   
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
   name           = "opt-in-sonar"
   type           = "TEXT"
   value          = "1"
   pipeline_id    = var.pipeline_id                   
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_git_token_environment" {
   name           = "git-token"
   type           = "TEXT"
   value          = " "
@@ -175,12 +175,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
   pipeline_id    = var.pipeline_id                   
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
-  name           = "doi-toolchain-id"
-  type           = "TEXT"
-  value          = " "
-  pipeline_id    = var.pipeline_id                   
-}
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key" {
   name           = "signing-key"
