@@ -93,7 +93,7 @@ variable "app_repo" {
 
 variable "app_repo_type" {
     type        = string
-    description = "The repository type for application repo. One of [clone, link, hostedgit]"
+    description = "The repository type for application repo. One of [clone, link]"
     default     = "hostedgit"    
 }
 
@@ -104,7 +104,7 @@ variable "pipeline_repo" {
 
 variable "pipeline_repo_type" {
     type        = string
-    description = "The repository type for pipeline repo. One of [clone, link, hostedgit]"
+    description = "The repository type for pipeline repo. One of [clone, link]"
     default     = "hostedgit"
 }
 
@@ -115,7 +115,7 @@ variable "inventory_repo" {
 
 variable "inventory_repo_type" {
     type        = string
-    description = "The repository type for inventory repo. One of [clone, link, hostedgit]"
+    description = "The repository type for inventory repo. One of [clone, link]"
     default     = "hostedgit"
 }
 
@@ -126,7 +126,7 @@ variable "evidence_repo" {
 
 variable "evidence_repo_type" {
     type        = string
-    description = "The repository type for evidence repo. One of [clone, link, hostedgit]"
+    description = "The repository type for evidence repo. One of [clone, link]"
     default     = "hostedgit"
 }
 
