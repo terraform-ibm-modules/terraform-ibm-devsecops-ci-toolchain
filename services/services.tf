@@ -42,9 +42,12 @@
 # output "key_protect_instance_name" {
 #   value = data.ibm_resource_instance.key_protect_instance.name
 # }
-
+data "ibm_resource_group" "sm_resource_group" {
+  name = var.sm_resource_group
+}
 data ibm_resource_instance "secrets_manager_instance" {
   name = var.secrets_manager_instance_name
+  resource_group_id = data.ibm_resource_group.sm_resource_group.id
 }
 
 output "secrets_manager_instance_guid" {

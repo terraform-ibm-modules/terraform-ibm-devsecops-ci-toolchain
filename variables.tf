@@ -182,3 +182,9 @@ variable "sm_group" {
   description = "The default Secrets Manager group for your secrets. "
   default     = "Default"
 }
+
+variable "sm_resource_group" {
+  type        = string
+  description = "The default Secrets Manager group for your secrets. "
+  default     = "default"
+}

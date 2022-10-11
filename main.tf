@@ -102,8 +102,9 @@ module "services" {
   cluster_namespace         = var.cluster_namespace
   cluster_region            = var.cluster_region
   registry_namespace        = var.registry_namespace
-  registry_region           = var.registry_region   
-}
+  registry_region           = var.registry_region
+  sm_resource_group         = var.resource_group
+  }
 
 output "toolchain_id" {
   value = ibm_cd_toolchain.toolchain_instance.id
