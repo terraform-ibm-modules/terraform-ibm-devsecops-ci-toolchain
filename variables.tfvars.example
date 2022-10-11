@@ -28,7 +28,7 @@ cluster_region                  = "ibm:yp:us-south"
 registry_namespace              = "devsecops-ci-registry"
 registry_region                 = "ibm:yp:us-south"
 sm_name                         = "sm-prod-dal"
-sm_region                       = "ibm:yp:us-south"
+sm_region                       = "us-south"
 sm_group                        = "Default"
 
 /*****************************************************/
