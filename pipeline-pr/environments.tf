@@ -1,7 +1,7 @@
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibmcloud_api_key" {
   name           = "ibmcloud-api-key"
   type           = "secure"
-  value          = format("{vault::%s.ibmcloud-api-key}", var.kp_integration_name)
+  value          = format("{vault::%s.%s.ibmcloud-api-key}", var.sm_integration_name, var.sm_group)
   pipeline_id    = var.pipeline_id          
 }
 

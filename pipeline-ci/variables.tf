@@ -34,10 +34,19 @@ variable "ibm_cloud_api" {
 variable "ibm_cloud_api_key" {
 }
 
-variable "kp_integration_name" {
+variable "sm_integration_name" {
 }
 
 variable "app_repo" {
+}
+
+variable "cos_api_key" {
+}
+
+variable "cos_bucket_name" {
+}
+
+variable "cos_endpoint" {
 }
 
 variable "pipeline_repo" {
@@ -54,6 +63,11 @@ variable "evidence_repo" {
 variable "issues_repo" {    
 }
 
+variable "sm_group" {
+  type        = string
+  description = "The default Secrets Manager group for your secrets. "
+  default     = "Default"
+}
 variable "pipeline_branch" {
   type        = string
   description = "The branch within pipeline definitions repository for Compliance CI Toolchain."

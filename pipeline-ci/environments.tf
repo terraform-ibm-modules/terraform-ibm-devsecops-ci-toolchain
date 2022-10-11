@@ -43,7 +43,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_slack_notifications" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_ibmcloud_api_key" {
   name           = "ibmcloud-api-key"
   type           = "secure"
-  value          = format("{vault::%s.ibmcloud-api-key}", var.kp_integration_name)
+  value          = format("{vault::%s.%s.ibmcloud-api-key}", var.sm_integration_name, var.sm_group)
   pipeline_id    = var.pipeline_id          
 }
 
@@ -112,26 +112,26 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-# resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key" {
-#   name           = "cos-api-key"
-#   type           = "secure"
-#   value          = ""
-#   pipeline_id    = var.pipeline_id                   
-# }
+ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key" {
+   name           = "cos-api-key"
+   type           = "secure"
+   value          = format("{vault::%s.%s.cos-api-key}", var.sm_integration_name, var.sm_group)
+   pipeline_id    = var.pipeline_id                   
+ }
 
-# resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_bucket_name" {
-#   name           = "cos-bucket-name"
-#   type           = "text"
-#   value          = ""
-#   pipeline_id    = var.pipeline_id                   
-# }
+ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_bucket_name" {
+   name           = "cos-bucket-name"
+   type           = "text"
+   value          = var.cos_bucket_name
+   pipeline_id    = var.pipeline_id                   
+ }
 
-# resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_endpoint" {
-#   name           = "cos-endpoint"
-#   type           = "text"
-#   value          = ""
-#   pipeline_id    = var.pipeline_id                   
-# }
+ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_endpoint" {
+   name           = "cos-endpoint"
+   type           = "text"
+   value          = var.cos_endpoint
+   pipeline_id    = var.pipeline_id                   
+ }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_api_environment" {
   name           = "opt-in-dynamic-api-scan"
@@ -179,7 +179,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key" {
   name           = "signing-key"
   type           = "secure"
-  value          = format("{vault::%s.signing-key}", var.kp_integration_name)
+  value          = format("{vault::%s.%s.signing-key}", var.sm_integration_name, var.sm_group)
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

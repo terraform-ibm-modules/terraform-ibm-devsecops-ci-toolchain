@@ -1,8 +1,11 @@
-variable "key_protect_instance_name" {
+#variable "key_protect_instance_name" {
+#  type        = string
+#  description = "Name of the Key Protect Toolchain Service Instance in IBM Cloud"
+#}
+variable "secrets_manager_instance_name" {
   type        = string
-  description = "Name of the Key Protect Toolchain Service Instance in IBM Cloud"
+  description = "Name of the Secrets Manager Toolchain Service Instance in IBM Cloud"
 }
-
 variable "cluster_name" {
 }
 

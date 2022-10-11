@@ -75,14 +75,14 @@ variable "registry_region" {
   default     = "ibm:yp1:us-south"
 }
 
-variable "kp_name" {
+variable "sm_name" {
   type        = string
   description = "Name of the Key Protect Instance to store the secrets."
 }
 
-variable "kp_region" {
+variable "sm_region" {
   type        = string
-  description = "IBM Cloud Region where the Key Protect Instance is created."
+  description = "IBM Cloud Region where the Secrets Manager Instance is created."
   default     = "ibm:yp:us-south"
 }
 
@@ -157,4 +157,28 @@ variable "slack_user_name" {
   type        = string
   description = "Name of Slack User"
   default     = ""
+}
+
+variable "cos_api_key" {
+  type        = string
+  description = "cos api key"
+  default     = ""
+}
+
+variable "cos_endpoint" {
+  type        = string
+  description = "cos endpoint name"
+  default     = ""
+}
+
+variable "cos_bucket_name" {
+  type        = string
+  description = "cos bucket name"
+  default     = ""
+}
+
+variable "sm_group" {
+  type        = string
+  description = "The default Secrets Manager group for your secrets. "
+  default     = "Default"
 }

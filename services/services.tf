@@ -31,14 +31,26 @@
 #
 ####################################################################################
 
-data ibm_resource_instance "key_protect_instance" {
-  name = var.key_protect_instance_name
+# data ibm_resource_instance "key_protect_instance" {
+#   name = var.key_protect_instance_name
+# }
+
+# output "key_protect_instance_guid" {
+#   value = data.ibm_resource_instance.key_protect_instance.guid
+# }
+
+# output "key_protect_instance_name" {
+#   value = data.ibm_resource_instance.key_protect_instance.name
+# }
+
+data ibm_resource_instance "secrets_manager_instance" {
+  name = var.secrets_manager_instance_name
 }
 
-output "key_protect_instance_guid" {
-  value = data.ibm_resource_instance.key_protect_instance.guid
+output "secrets_manager_instance_guid" {
+  value = data.ibm_resource_instance.secrets_manager_instance.guid
 }
 
-output "key_protect_instance_name" {
-  value = data.ibm_resource_instance.key_protect_instance.name
+output "secrets_manager_instance_name" {
+  value = data.ibm_resource_instance.secrets_manager_instance.name
 }

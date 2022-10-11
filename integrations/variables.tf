@@ -7,26 +7,32 @@ variable "resource_group" {
 variable "region" {
 }
 
-variable "key_protect_integration_name" {
+variable "secrets_manager_integration_name" {
   type        = string
-  description = "Name of the Key Protect Toolchain Integration"
-  default     = "Key Protect Integration Instance"
+  description = "Name of the Secrets Manager Toolchain Integration"
+  default     = "SM Integration Instance"
 }
 
-variable "key_protect_instance_name" {
+variable "secrets_manager_instance_name" {
   type        = string
-  description = "Name of the Key Protect Toolchain Service Instance in IBM Cloud"
+  description = "Name of the Secrets Manager Toolchain Service Instance in IBM Cloud"
 }
 
-variable "key_protect_instance_guid" {
+variable "secrets_manager_instance_guid" {
   type        = string
-  description = "GUID of the Key Protect Toolchain Service Instance in IBM Cloud"
+  description = "GUID of the Secrets Manager Toolchain Service Instance in IBM Cloud"
 }
 
-variable "key_protect_service_auth" {
+#variable "key_protect_service_auth" {
+#  type        = string
+#  description = "Authorization Permission for the Key Protect Toolchain Service Instance in IBM Cloud"
+#  default     = "[\"Viewer\", \"ReaderPlus\"]"
+#}
+
+variable "secrets_manager_service_auth" {
   type        = string
-  description = "Authorization Permission for the Key Protect Toolchain Service Instance in IBM Cloud"
-  default     = "[\"Viewer\", \"ReaderPlus\"]"
+  description = "Authorization Permission for the Secrets Manager Toolchain Service Instance in IBM Cloud"
+  default     = "[\"Viewer\", \"SecretReader\"]"
 }
 
 variable "slack_api_token" {

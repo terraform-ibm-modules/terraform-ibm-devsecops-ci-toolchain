@@ -50,7 +50,11 @@ module "pipeline-ci" {
   evidence_repo             = module.repositories.evidence_repo_url 
   inventory_repo            = module.repositories.inventory_repo_url 
   issues_repo               = module.repositories.issues_repo_url 
-  kp_integration_name       = module.integrations.keyprotect_integration_name
+  sm_integration_name       = module.integrations.secretsmanager_integration_name
+  sm_group                  = var.sm_group
+  cos_bucket_name           = var.cos_bucket_name
+  cos_api_key               = var.cos_api_key
+  cos_endpoint              = var.cos_endpoint
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -72,17 +76,18 @@ module "pipeline-pr" {
   app_name                 = var.app_name
   app_repo                  = module.repositories.app_repo_url 
   pipeline_repo             = module.repositories.pipeline_repo_url 
-  kp_integration_name      = module.integrations.keyprotect_integration_name
+  sm_integration_name      = module.integrations.secretsmanager_integration_name
+  sm_group                 = var.sm_group  
 }
 
 module "integrations" {
   source                    = "./integrations"
   depends_on                = [ module.repositories, module.services ]  
-  region                    = var.region  
+  region                    = var.sm_region  
   toolchain_id              = ibm_cd_toolchain.toolchain_instance.id
   resource_group            = var.resource_group
-  key_protect_instance_name = module.services.key_protect_instance_name
-  key_protect_instance_guid = module.services.key_protect_instance_guid
+  secrets_manager_instance_name = module.services.secrets_manager_instance_name
+  secrets_manager_instance_guid = module.services.secrets_manager_instance_guid
   slack_channel_name        = var.slack_channel_name
   slack_api_token           = var.slack_api_token
   slack_user_name           = var.slack_user_name
@@ -90,8 +95,8 @@ module "integrations" {
 
 module "services" {
   source                    = "./services"
-  key_protect_instance_name = var.kp_name
-  region                    = var.region
+  secrets_manager_instance_name = var.sm_name
+  region                    = var.sm_region
   ibm_cloud_api             = var.ibm_cloud_api   
   cluster_name              = var.cluster_name
   cluster_namespace         = var.cluster_namespace
@@ -104,6 +109,6 @@ output "toolchain_id" {
   value = ibm_cd_toolchain.toolchain_instance.id
 }
 
-output "key_protect_instance_id" {
-  value = module.services.key_protect_instance_guid
+output "secrets_manager_instance_id" {
+  value = module.services.secrets_manager_instance_guid
 }

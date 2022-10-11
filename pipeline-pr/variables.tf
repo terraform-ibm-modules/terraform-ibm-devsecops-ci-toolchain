@@ -7,7 +7,13 @@ variable "resource_group" {
 variable "app_name" {
 }
 
-variable "kp_integration_name" {
+variable "sm_integration_name" {
+}
+
+variable "sm_group" {
+  type        = string
+  description = "The default Secrets Manager group for your secrets. "
+  default     = "Default"
 }
 
 variable "app_repo" {
