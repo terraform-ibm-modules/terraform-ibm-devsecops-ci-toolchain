@@ -37,3 +37,7 @@ sm_group                        = "Default"
 slack_channel_name              = "slack-channel"
 slack_api_token                 = "slack-token"
 slack_user_name                 = "slack-user"
+
+cos_api_key = " "
+cos_bucket_name = " "
+cos_endpoint = " "
