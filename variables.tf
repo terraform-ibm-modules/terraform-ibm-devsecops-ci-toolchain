@@ -102,21 +102,9 @@ variable "pipeline_repo" {
     description = "This repository contains the tekton definitions for compliance pipelines."
 }
 
-variable "pipeline_repo_type" {
-    type        = string
-    description = "The repository type for pipeline repo. One of [clone, link]"
-    default     = "hostedgit"
-}
-
 variable "inventory_repo" {
     type        = string
     description = "This is a template repository to clone compliance-inventory for reference DevSecOps toolchain templates."
-}
-
-variable "inventory_repo_type" {
-    type        = string
-    description = "The repository type for inventory repo. One of [clone, link]"
-    default     = "hostedgit"
 }
 
 variable "evidence_repo" {
@@ -124,21 +112,9 @@ variable "evidence_repo" {
     description = "This is a template repository to clone compliance-evidence-locker for reference DevSecOps toolchain templates."
 }
 
-variable "evidence_repo_type" {
-    type        = string
-    description = "The repository type for evidence repo. One of [clone, link]"
-    default     = "hostedgit"
-}
-
 variable "issues_repo" {
     type        = string
     description = "This is a template repository to clone compliance-issues for reference DevSecOps toolchain templates."
-}
-
-variable "issues_repo_type" {
-    type        = string
-    description = "The repository type for issues repo. One of [clone, link, hostedgit]"
-    default     = "hostedgit"
 }
 
 variable "slack_api_token" {
@@ -162,19 +138,19 @@ variable "slack_user_name" {
 variable "cos_api_key" {
   type        = string
   description = "cos api key"
-  default     = ""
+  default     = " "
 }
 
 variable "cos_endpoint" {
   type        = string
   description = "cos endpoint name"
-  default     = ""
+  default     = " "
 }
 
 variable "cos_bucket_name" {
   type        = string
   description = "cos bucket name"
-  default     = ""
+  default     = " "
 }
 
 variable "sm_group" {
