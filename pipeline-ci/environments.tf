@@ -15,7 +15,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_branch" 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo" {
   name           = "pipeline-config-repo"
   type           = "text"
-  value          = " "
+  value          = ""
   pipeline_id    = var.pipeline_id          
 }
 
@@ -29,7 +29,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_debug" {
 # resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_dockerconfigjson" {
 #   name           = "pipeline-dockerconfigjson"
 #   type           = "secure"
-#   value          = " "
+#   value          = ""
 #   pipeline_id    = var.pipeline_id          
 # }
 
@@ -164,14 +164,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_git_token_environment" {
   name           = "git-token"
   type           = "text"
-  value          = " "
+  value          = ""
   pipeline_id    = var.pipeline_id                   
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
   name           = "doi-environment"
   type           = "text"
-  value          = " "
+  value          = ""
   pipeline_id    = var.pipeline_id                   
 }
 

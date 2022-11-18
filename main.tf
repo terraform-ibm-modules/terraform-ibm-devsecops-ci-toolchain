@@ -26,7 +26,6 @@ resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "ci-pipeline"
-    type = "tekton"
   }
 }
 
@@ -61,7 +60,6 @@ resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "pr-pipeline"
-    type = "tekton"
   }
 }
 
@@ -74,8 +72,8 @@ module "pipeline-pr" {
   pipeline_id              = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
   resource_group           = var.resource_group
   app_name                 = var.app_name
-  app_repo                  = module.repositories.app_repo_url 
-  pipeline_repo             = module.repositories.pipeline_repo_url 
+  app_repo                 = module.repositories.app_repo_url 
+  pipeline_repo            = module.repositories.pipeline_repo_url 
   sm_integration_name      = module.integrations.secretsmanager_integration_name
   sm_group                 = var.sm_group  
 }

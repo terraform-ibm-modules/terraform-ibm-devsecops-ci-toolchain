@@ -19,10 +19,10 @@ resource "ibm_iam_authorization_policy" "toolchain_secretsmanager_auth_policy" {
  resource "ibm_cd_toolchain_tool_secretsmanager" "secretsmanager" {
    toolchain_id = var.toolchain_id
    parameters {
-     name           = var.secrets_manager_integration_name
-     region         = var.region
-     resource_group = var.resource_group
-     instance_name  = var.secrets_manager_instance_name
+     name                = var.secrets_manager_integration_name
+     location            = var.region
+     resource_group_name = var.resource_group
+     instance_name       = var.secrets_manager_instance_name
    }
  }
 

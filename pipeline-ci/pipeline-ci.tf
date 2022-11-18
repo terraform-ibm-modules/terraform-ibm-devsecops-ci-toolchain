@@ -6,49 +6,50 @@ resource "ibm_cd_tekton_pipeline" "ci_pipeline_instance" {
 }
 
 resource "ibm_cd_tekton_pipeline_definition" "ci_pipeline_definition" {
-  pipeline_id   = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  scm_source {
-    url         = var.pipeline_repo
-    branch      = var.pipeline_branch
-    path        = var.pipeline_path
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  source {
+    type = "git"
+    properties {
+      url    = var.pipeline_repo
+      branch = var.pipeline_branch
+      path   = var.pipeline_path
+    }
   }
 }
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
-  pipeline_id       = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  type            = var.ci_pipeline_manual_trigger_type
-  name            = var.ci_pipeline_manual_trigger_name
-  event_listener  = var.ci_pipeline_manual_trigger_listener_name
-  disabled        = var.ci_pipeline_manual_trigger_disabled
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  type           = var.ci_pipeline_manual_trigger_type
+  name           = var.ci_pipeline_manual_trigger_name
+  event_listener = var.ci_pipeline_manual_trigger_listener_name
+  enabled        = var.ci_pipeline_manual_trigger_disabled
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
 }
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
-  pipeline_id       = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  type            = var.ci_pipeline_scm_trigger_type
-  name            = var.ci_pipeline_scm_trigger_name
-  event_listener  = var.ci_pipeline_scm_trigger_listener_name
-  scm_source {
-    url     = var.app_repo
-    branch  = "master"
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  type           = var.ci_pipeline_scm_trigger_type
+  name           = var.ci_pipeline_scm_trigger_name
+  event_listener = var.ci_pipeline_scm_trigger_listener_name
+  events         = ["push"]
+  enabled        = var.ci_pipeline_scm_trigger_disabled
+  source {
+    type = "git"
+    properties {
+      url    = var.app_repo
+      branch = "master"
+    }
   }
-  events {
-    push                = true
-    pull_request_closed = false
-    pull_request        = false
-  } 
-  disabled         = var.ci_pipeline_scm_trigger_disabled 
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
-
 }
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
-  pipeline_id       = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  type            = var.ci_pipeline_timed_trigger_type
-  name            = var.ci_pipeline_timed_trigger_name
-  event_listener  = var.ci_pipeline_timed_trigger_listener_name
-  cron            = "0 4 * * *"
-  timezone        = "UTC"
-  disabled        = var.ci_pipeline_manual_trigger_disabled
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  type           = var.ci_pipeline_timed_trigger_type
+  name           = var.ci_pipeline_timed_trigger_name
+  event_listener = var.ci_pipeline_timed_trigger_listener_name
+  cron           = "0 4 * * *"
+  timezone       = "UTC"
+  enabled        = var.ci_pipeline_manual_trigger_disabled
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
 }

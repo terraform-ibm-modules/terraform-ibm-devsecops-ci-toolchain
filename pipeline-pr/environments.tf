@@ -22,7 +22,7 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_branch" 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo" {
   name           = "pipeline-config-repo"
   type           = "text"
-  value          = " "
+  value          = ""
   pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
