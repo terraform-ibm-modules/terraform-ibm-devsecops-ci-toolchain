@@ -63,12 +63,6 @@ variable "pr_pipeline_scm_trigger_listener_name" {
   default     = "pr-listener-gitlab"
 }
 
-variable "pr_pipeline_scm_trigger_disabled" {
-  type        = bool
-  description = "Flag to disable SCM CI Trigger"
-  default     = false
-}
-
 variable "pr_pipeline_max_concurrent_runs" {
   type        = number
   description = "The number of maximum concurrent runs to be supported by PR Pipeline"

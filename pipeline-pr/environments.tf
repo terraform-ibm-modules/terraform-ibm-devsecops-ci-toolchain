@@ -2,21 +2,21 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibmcloud_api_key" {
   name           = "ibmcloud-api-key"
   type           = "secure"
   value          = format("{vault::%s.%s.ibmcloud-api-key}", var.sm_integration_name, var.sm_group)
-  pipeline_id    = var.pipeline_id          
+  pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config" {
   name           = "pipeline-config"
   type           = "text"
   value          = ".pipeline-config.yaml"
-  pipeline_id    = var.pipeline_id          
+  pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_branch" {
   name           = "pipeline-config-branch"
   type           = "text"
   value          = "master"
-  pipeline_id    = var.pipeline_id          
+  pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo" {
@@ -44,5 +44,5 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibm_cloud_api" {
   name           = "ibmcloud-api"
   type           = "text"
   value          = var.ibm_cloud_api
-  pipeline_id    = var.pipeline_id          
+  pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }

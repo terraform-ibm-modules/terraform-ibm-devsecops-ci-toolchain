@@ -22,7 +22,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
   type           = var.pr_pipeline_scm_trigger_type
   name           = var.pr_pipeline_scm_trigger_name
   event_listener = var.pr_pipeline_scm_trigger_listener_name
-  events         = ["push", "pull_request_closed", "pull_request"]
+  events         = ["push", "pull_request", "pull_request_closed"]
   source {
     type = "git"
     properties {
