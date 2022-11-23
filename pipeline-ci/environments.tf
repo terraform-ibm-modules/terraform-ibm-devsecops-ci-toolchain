@@ -235,7 +235,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
   name           = "sonarqube"
   type           = "text"
   value          = "{}"
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id 
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
