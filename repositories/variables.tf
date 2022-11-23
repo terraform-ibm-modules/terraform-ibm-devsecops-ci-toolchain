@@ -29,11 +29,5 @@ variable "repositories_prefix" {
 variable "toolchain_id" {
 }
 
-variable "resource_group" {
-}
-
-variable "region" {
-}
-
-variable "ibm_cloud_api_key" {
+variable "toolchain_region" {
 }

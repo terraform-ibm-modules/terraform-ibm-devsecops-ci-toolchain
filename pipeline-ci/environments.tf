@@ -43,7 +43,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_slack_notifications" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_ibmcloud_api_key" {
   name           = "ibmcloud-api-key"
   type           = "secure"
-  value          = format("{vault::%s.%s.ibmcloud-api-key}", var.sm_integration_name, var.sm_group)
+  value          = format("{vault::%s.ibmcloud-api-key}", var.secret_tool)
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -87,14 +87,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_cluster_namespace" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_region" {
   name           = "dev-region"
   type           = "text"
-  value          = var.cluster_region
+  value          = var.dev_region
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_resource_group" {
   name           = "dev-resource-group"
   type           = "text"
-  value          = var.resource_group
+  value          = var.dev_resource_group
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -115,7 +115,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key" {
   name           = "cos-api-key"
   type           = "secure"
-  value          = format("{vault::%s.%s.cos-api-key}", var.sm_integration_name, var.sm_group)
+  value          = format("{vault::%s.cos-api-key}", var.secret_tool)
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -213,7 +213,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_version" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key" {
   name           = "signing-key"
   type           = "secure"
-  value          = format("{vault::%s.%s.signing-key}", var.sm_integration_name, var.sm_group)
+  value          = format("{vault::%s.signing-key}", var.secret_tool)
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

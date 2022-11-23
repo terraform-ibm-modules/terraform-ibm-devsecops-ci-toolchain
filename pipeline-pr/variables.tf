@@ -1,19 +1,12 @@
 variable "pipeline_id" {
 }
 
-variable "resource_group" {
-}
-
 variable "app_name" {
 }
 
-variable "sm_integration_name" {
-}
-
-variable "sm_group" {
+variable "secret_tool" {
   type        = string
-  description = "The default Secrets Manager group for your secrets. "
-  default     = "Default"
+  description = "Used as part of secret references to point to the secret store tool integration"
 }
 
 variable "app_repo" {
@@ -34,9 +27,6 @@ variable "pipeline_path" {
   type        = string
   description = "The relative folder path within pipeline definitions repository containing tekton definitions for pipelines."
   default     = "definitions"
-}
-
-variable "region" {
 }
 
 variable "ibm_cloud_api_key" {

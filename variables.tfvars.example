@@ -1,8 +1,8 @@
 /*****************************************************/
 /* Variables for Module "Main"                       */
 /*****************************************************/
-resource_group                  = "Default"
-region                          = "us-south"
+toolchain_resource_group        = "Default"
+toolchain_region                = "us-south"
 toolchain_name                  = "DevSecOps CI Toolchain - Terraform"
 toolchain_description           = "CI Toolchain created with Template for DevSecOps Best Practices"
 app_name                        = "hello-compliance-app"
@@ -24,13 +24,14 @@ ibm_cloud_api                   = "https://cloud.ibm.com"
 /*****************************************************/
 cluster_name                    = "mycluster-free"
 cluster_namespace               = "devsecops-ci-ns"
-cluster_region                  = "ibm:yp:us-south"
+dev_region                      = "ibm:yp:us-south"
+dev_resource_group              = "Default"
 registry_namespace              = "devsecops-ci-registry"
 registry_region                 = "ibm:yp:us-south"
 sm_name                         = "sm-prod-dal"
-sm_region                       = "us-south"
-sm_group                        = "Default"
-sm_resource_group               = "default"
+sm_location                     = "us-south"
+sm_secret_group                 = "Default"
+sm_resource_group               = "Default"
 
 /*****************************************************/
 /* Variables for Module "Integrations"               */
@@ -39,6 +40,6 @@ slack_channel_name              = "slack-channel"
 slack_api_token                 = "slack-token"
 slack_user_name                 = "slack-user"
 
-cos_api_key = " "
-cos_bucket_name = " "
-cos_endpoint = " "
+#cos_api_key = ""
+cos_bucket_name = ""
+cos_endpoint = ""

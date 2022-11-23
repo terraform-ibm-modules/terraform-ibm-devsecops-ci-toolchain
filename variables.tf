@@ -1,4 +1,4 @@
-variable "resource_group" {
+variable "toolchain_resource_group" {
   type        = string
   description = "Resource group within which toolchain will be created"
   default     = "Default"
@@ -6,7 +6,8 @@ variable "resource_group" {
 
 variable "ibm_cloud_api_key" {
   type        = string
-  description = "IBM Cloud API KEY to fetch cloud resources"
+  description = "IBM Cloud API KEY to fetch/post cloud resources in terraform. Not used in the pipeline, where a secret reference is used instead."
+  sensitive   = true
 }
 
 variable "ibm_cloud_api" {
@@ -15,7 +16,7 @@ variable "ibm_cloud_api" {
   default     = "https://cloud.ibm.com"
 }
 
-variable "region" {
+variable "toolchain_region" {
   type        = string
   description = "IBM Cloud region where your toolchain will be created"
   default     = "us-south"
@@ -30,7 +31,7 @@ variable "toolchain_name" {
 variable "toolchain_description" {
   type        = string
   description = "Description for the Toolchain."
-  default     = "Toolchain created with Template for DevSecOps Best Practices"
+  default     = "Toolchain created with terraform template for DevSecOps CI Best Practices"
 }
 
 variable "app_name" {
@@ -57,10 +58,16 @@ variable "cluster_namespace" {
   default     = "devsecops-ci-ns"
 }
 
-variable "cluster_region" {
+variable "dev_region" {
   type        = string
   description = "Region of the kubernetes cluster where the application will be deployed."
   default     = "ibm:yp:us-south"
+}
+
+variable "dev_resource_group" {
+  type        = string
+  description = "The cluster resource group."
+  default     = "Default"
 }
 
 variable "registry_namespace" {
@@ -77,13 +84,13 @@ variable "registry_region" {
 
 variable "sm_name" {
   type        = string
-  description = "Name of the Key Protect Instance to store the secrets."
+  description = "Name of the Secrets Manager instance where the secrets are stored."
 }
 
-variable "sm_region" {
+variable "sm_location" {
   type        = string
-  description = "IBM Cloud Region where the Secrets Manager Instance is created."
-  default     = "ibm:yp:us-south"
+  description = "IBM Cloud location containing the Secrets Manager instance."
+  default     = "us-south"
 }
 
 variable "app_repo" {
@@ -135,11 +142,11 @@ variable "slack_user_name" {
   default     = ""
 }
 
-variable "cos_api_key" {
-  type        = string
-  description = "cos api key"
-  default     = ""
-}
+# variable "cos_api_key" {
+#   type        = string
+#   description = "cos api key"
+#   default     = ""
+# }
 
 variable "cos_endpoint" {
   type        = string
@@ -153,14 +160,14 @@ variable "cos_bucket_name" {
   default     = ""
 }
 
-variable "sm_group" {
+variable "sm_secret_group" {
   type        = string
-  description = "The default Secrets Manager group for your secrets. "
+  description = "The Secrets Manager secret group containing your secrets."
   default     = "Default"
 }
 
 variable "sm_resource_group" {
   type        = string
-  description = "The default Secrets Manager group for your secrets. "
-  default     = "default"
+  description = "The resource group containing the Secrets Manager instance for your secrets."
+  default     = "Default"
 }

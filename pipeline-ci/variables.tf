@@ -1,7 +1,7 @@
 variable "pipeline_id" {
 }
 
-variable "resource_group" {
+variable "dev_resource_group" {
 }
 
 variable "app_name" {
@@ -16,7 +16,7 @@ variable "cluster_name" {
 variable "cluster_namespace" {
 }
 
-variable "cluster_region" {
+variable "dev_region" {
 }
 
 variable "registry_namespace" {
@@ -25,23 +25,22 @@ variable "registry_namespace" {
 variable "registry_region" {
 }
 
-variable "region" {
-}
-
 variable "ibm_cloud_api" {
 }
 
 variable "ibm_cloud_api_key" {
 }
 
-variable "sm_integration_name" {
+variable "secret_tool" {
+  type        = string
+  description = "Used as part of secret references to point to the secret store tool integration"
 }
 
 variable "app_repo" {
 }
 
-variable "cos_api_key" {
-}
+# variable "cos_api_key" {
+# }
 
 variable "cos_bucket_name" {
 }
@@ -61,12 +60,6 @@ variable "evidence_repo" {
 }
 
 variable "issues_repo" {  
-}
-
-variable "sm_group" {
-  type        = string
-  description = "The default Secrets Manager group for your secrets. "
-  default     = "Default"
 }
 
 variable "pipeline_branch" {
