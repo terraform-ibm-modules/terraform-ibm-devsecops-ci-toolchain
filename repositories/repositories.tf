@@ -6,7 +6,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "app_repo" {
     source_repo_url = var.app_repo
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "app-repo" ])
-  }  
+  }
   parameters {
     toolchain_issues_enabled = false
     enable_traceability      = false
@@ -15,7 +15,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "app_repo" {
 
 resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_repo" {
   toolchain_id = var.toolchain_id
-  name         = "pipeline-repo"  
+  name         = "pipeline-repo"
   initialization {
     type = "link"
     repo_url = var.pipeline_repo
@@ -34,7 +34,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "inventory_repo" {
     source_repo_url = var.inventory_repo
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "inventory-repo" ])
-  }  
+  }
   parameters {
     toolchain_issues_enabled = false
     enable_traceability      = false
@@ -49,7 +49,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "evidence_repo" {
     source_repo_url = var.evidence_repo
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "evidence-repo" ])
-  }  
+  }
   parameters {
     toolchain_issues_enabled = false
     enable_traceability      = false
@@ -64,7 +64,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "issues_repo" {
     source_repo_url = var.issues_repo
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "issues-repo" ])
-  }   
+  }
   parameters {
     toolchain_issues_enabled = true
     enable_traceability      = false

@@ -45,24 +45,6 @@ variable "ibm_cloud_api_key" {
 variable "ibm_cloud_api" {
 }
 
-variable "pr_pipeline_scm_trigger_type" {
-  type        = string
-  description = "The type of SCM Trigger for PR Pipeline as defined in tekton definition."
-  default     = "scm"
-}
-
-variable "pr_pipeline_scm_trigger_name" {
-  type        = string
-  description = "The name of SCM Trigger for PR Pipeline as defined in tekton definition."
-  default     = "SCM Trigger"
-}
-
-variable "pr_pipeline_scm_trigger_listener_name" {
-  type        = string
-  description = "The name of EventListener for the PR Pipeline SCM Trigger as defined in tekton definition."
-  default     = "pr-listener-gitlab"
-}
-
 variable "pr_pipeline_max_concurrent_runs" {
   type        = number
   description = "The number of maximum concurrent runs to be supported by PR Pipeline"

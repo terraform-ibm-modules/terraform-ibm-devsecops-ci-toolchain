@@ -94,7 +94,7 @@ variable "app_repo" {
 variable "app_repo_type" {
     type        = string
     description = "The repository type for application repo. One of [clone, link]"
-    default     = "hostedgit"    
+    default     = "hostedgit"
 }
 
 variable "pipeline_repo" {
@@ -138,19 +138,19 @@ variable "slack_user_name" {
 variable "cos_api_key" {
   type        = string
   description = "cos api key"
-  default     = " "
+  default     = ""
 }
 
 variable "cos_endpoint" {
   type        = string
   description = "cos endpoint name"
-  default     = " "
+  default     = ""
 }
 
 variable "cos_bucket_name" {
   type        = string
   description = "cos bucket name"
-  default     = " "
+  default     = ""
 }
 
 variable "sm_group" {
