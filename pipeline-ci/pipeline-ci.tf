@@ -17,20 +17,11 @@ resource "ibm_cd_tekton_pipeline_definition" "ci_pipeline_definition" {
   }
 }
 
-resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  type           = var.ci_pipeline_manual_trigger_type
-  name           = var.ci_pipeline_manual_trigger_name
-  event_listener = var.ci_pipeline_manual_trigger_listener_name
-  enabled        = true
-  max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
-}
-
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  type           = var.ci_pipeline_scm_trigger_type
-  name           = var.ci_pipeline_scm_trigger_name
-  event_listener = var.ci_pipeline_scm_trigger_listener_name
+  type           = "scm"
+  name           = "Git CI Trigger"
+  event_listener = "ci-listener-gitlab"
   events         = ["push"]
   enabled        = true
   source {
@@ -45,11 +36,36 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  type           = var.ci_pipeline_timed_trigger_type
-  name           = var.ci_pipeline_timed_trigger_name
-  event_listener = var.ci_pipeline_timed_trigger_listener_name
+  type           = "timer"
+  name           = "Git CI Timed Trigger"
+  event_listener = "ci-listener-gitlab"
   cron           = "0 4 * * *"
   timezone       = "UTC"
   enabled        = false
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
+}
+
+resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  type           = "manual"
+  name           = "Manual Trigger"
+  event_listener = "ci-listener-gitlab"
+  enabled        = true
+  max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
+}
+
+resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_app_name" {
+   name           = "app-name"
+   type           = "text"
+   value          = "hello-compliance-app"
+   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+   trigger_id     = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
+}
+
+resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_repository" {
+   name           = "repository"
+   type           = "text"
+   value          = var.app_repo
+   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+   trigger_id     = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
 }

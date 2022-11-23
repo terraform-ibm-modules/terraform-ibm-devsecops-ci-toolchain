@@ -19,10 +19,10 @@ resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {
 
 resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
   pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-  type           = var.pr_pipeline_scm_trigger_type
-  name           = var.pr_pipeline_scm_trigger_name
-  event_listener = var.pr_pipeline_scm_trigger_listener_name
-  events         = ["push", "pull_request", "pull_request_closed"]
+  type           = "scm"
+  name           = "Git PR Trigger"
+  event_listener = "pr-listener-gitlab"
+  events         = ["pull_request"]
   source {
     type = "git"
     properties {

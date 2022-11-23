@@ -80,60 +80,6 @@ variable "pipeline_path" {
   default     = "definitions"
 }
 
-variable "ci_pipeline_manual_trigger_name" {
-  type        = string
-  description = "The name of Manual Trigger for CI Pipeline as defined in tekton definition."
-  default     = "Manual Trigger"
-}
-
-variable "ci_pipeline_manual_trigger_type" {
-  type        = string
-  description = "The type of Manual Trigger for CI Pipeline as defined in tekton definition."
-  default     = "manual"
-}
-
-variable "ci_pipeline_manual_trigger_listener_name" {
-  type        = string
-  description = "The name of EventListener for the CI Pipeline SCM Trigger as defined in tekton definition."
-  default     = "ci-listener-gitlab"
-}
-
-variable "ci_pipeline_scm_trigger_name" {
-  type        = string
-  description = "The name of SCM Trigger for CI Pipeline as defined in tekton definition."
-  default     = "SCM Trigger"
-}
-
-variable "ci_pipeline_scm_trigger_type" {
-  type        = string
-  description = "The type of SCM Trigger for CI Pipeline as defined in tekton definition."
-  default     = "scm"
-}
-
-variable "ci_pipeline_scm_trigger_listener_name" {
-  type        = string
-  description = "The name of EventListener for the CI Pipeline SCM Trigger as defined in tekton definition."
-  default     = "ci-listener-gitlab"
-}
-
-variable "ci_pipeline_timed_trigger_name" {
-  type        = string
-  description = "The name of Timed Trigger for CI Pipeline as defined in tekton definition."
-  default     = "Timed Trigger"
-}
-
-variable "ci_pipeline_timed_trigger_type" {
-  type        = string
-  description = "The type of Trigger for CI Pipeline as defined in tekton definition."
-  default     = "timer"
-}
-
-variable "ci_pipeline_timed_trigger_listener_name" {
-  type        = string
-  description = "The name of EventListener for the CI Pipeline Timed Trigger as defined in tekton definition."
-  default     = "ci-listener-gitlab"
-}
-
 variable "ci_pipeline_max_concurrent_runs" {
   type        = number
   description = "The number of maximum concurrent runs to be supported by CI Pipeline"

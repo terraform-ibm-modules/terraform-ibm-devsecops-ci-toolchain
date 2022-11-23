@@ -36,7 +36,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_debug" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_slack_notifications" {
   name           = "slack-notifications"
   type           = "text"
-  value          = "1"
+  value          = "0"
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -154,6 +154,13 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_environment" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_opt_out_v1_evidence" {
+  name           = "opt_out_v1_evidence"
+  type           = "text"
+  value          = "1"
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                  
+}
+
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
   name           = "opt-in-sonar"
   type           = "text"
@@ -175,6 +182,33 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
+  name           = "doi-toolchain-id"
+  type           = "text"
+  value          = " "
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                   
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cra_generate_cyclonedx_format" {
+  name           = "cra-generate-cyclonedx-format"
+  type           = "text"
+  value          = "1"
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                  
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_custom_image_tag" {
+  name           = "custom-image-tag"
+  type           = "text"
+  value          = " "
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                   
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_version" {
+   name           = "version"
+   type           = "text"
+   value          = "v1"
+   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key" {
   name           = "signing-key"
@@ -197,20 +231,18 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_ibm_cloud_api" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_app_name" {
-   name           = "app-name"
-   type           = "text"
-   value          = "hello-compliance-app"
-   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-   trigger_id     = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
+  name           = "sonarqube"
+  type           = "text"
+  value          = "{}"
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id        
 }
 
-resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_repository" {
-   name           = "repository"
-   type           = "text"
-   value          = var.app_repo
-   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-   trigger_id     = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
+  name           = "sonarqube-config"
+  type           = "text"
+  value          = "default"
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id         
 }
 
 # resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
