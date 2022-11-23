@@ -61,7 +61,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_inventory_repo" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-// Limitation with issues repository url: How to fetch issues repository url 
+// Limitation with issues repository url: How to fetch issues repository url
 // as it is created internally while creating application repository resource
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
   name           = "incident-repo"
@@ -186,7 +186,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
   name           = "doi-toolchain-id"
   type           = "text"
   value          = ""
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id           
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cra_generate_cyclonedx_format" {
@@ -200,7 +200,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_custom_image_tag" {
   name           = "custom-image-tag"
   type           = "text"
   value          = ""
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id            
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id       
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_version" {
