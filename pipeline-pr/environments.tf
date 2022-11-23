@@ -51,5 +51,5 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_git-token" {
   name           = "git-token"
   type           = "text"
   value          = ""
-  pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id      
+  pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
