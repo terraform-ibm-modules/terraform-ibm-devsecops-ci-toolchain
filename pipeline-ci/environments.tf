@@ -185,7 +185,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
   name           = "doi-toolchain-id"
   type           = "text"
-  value          = " "
+  value          = ""
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                   
 }
 
@@ -199,7 +199,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cra_generate_cyclonedx_f
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_custom_image_tag" {
   name           = "custom-image-tag"
   type           = "text"
-  value          = " "
+  value          = ""
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                   
 }
 
