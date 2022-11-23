@@ -60,7 +60,7 @@ variable "inventory_repo" {
 variable "evidence_repo" {
 }
 
-variable "issues_repo" {    
+variable "issues_repo" {  
 }
 
 variable "sm_group" {
@@ -68,6 +68,7 @@ variable "sm_group" {
   description = "The default Secrets Manager group for your secrets. "
   default     = "Default"
 }
+
 variable "pipeline_branch" {
   type        = string
   description = "The branch within pipeline definitions repository for Compliance CI Toolchain."

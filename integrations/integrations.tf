@@ -60,12 +60,11 @@ output "secretsmanager_integration_name" {
   # Before returning this tool integration name
   # used to construct {vault:: secret references,
   # the authorization_policy must have been successfully created,
-  # and the tool integration must have been created, 
-  # otherwise the secret references would not resolve and 
+  # and the tool integration must have been created,
+  # otherwise the secret references would not resolve and
   # other tools using secret references could give errors during tool integration creation
   depends_on = [
     ibm_iam_authorization_policy.toolchain_secretsmanager_auth_policy,
     ibm_cd_toolchain_tool_secretsmanager.secretsmanager
   ]
 }
-

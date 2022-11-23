@@ -94,7 +94,7 @@ variable "app_repo" {
 variable "app_repo_type" {
     type        = string
     description = "The repository type for application repo. One of [clone, link]"
-    default     = "hostedgit"    
+    default     = "hostedgit"
 }
 
 variable "pipeline_repo" {

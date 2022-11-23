@@ -158,7 +158,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_opt_out_v1_evidence" {
   name           = "opt_out_v1_evidence"
   type           = "text"
   value          = "1"
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                  
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
@@ -186,14 +186,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
   name           = "doi-toolchain-id"
   type           = "text"
   value          = ""
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                   
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                 
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cra_generate_cyclonedx_format" {
   name           = "cra-generate-cyclonedx-format"
   type           = "text"
   value          = "1"
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id                  
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id              
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_custom_image_tag" {
@@ -235,14 +235,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
   name           = "sonarqube"
   type           = "text"
   value          = "{}"
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id        
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id     
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
   name           = "sonarqube-config"
   type           = "text"
   value          = "default"
-  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id         
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id      
 }
 
 # resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
