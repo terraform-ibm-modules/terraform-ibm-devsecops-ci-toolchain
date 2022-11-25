@@ -12,11 +12,7 @@ app_image_name                  = "hello-compliance-app-image"
 /* Variables for Module "Repositories"               */
 /*****************************************************/
 ibm_cloud_api_key               = ""
-app_repo                        = "https://us-south.git.cloud.ibm.com/open-toolchain/hello-compliance-app.git"
-pipeline_repo                   = "https://us-south.git.cloud.ibm.com/open-toolchain/compliance-pipelines.git"
-evidence_repo                   = "https://us-south.git.cloud.ibm.com/open-toolchain/compliance-evidence-locker.git"
-inventory_repo                  = "https://us-south.git.cloud.ibm.com/open-toolchain/compliance-inventory.git"
-issues_repo                     = "https://us-south.git.cloud.ibm.com/open-toolchain/compliance-incident-issues.git"
+app_repo_clone_from_url         = ""
 ibm_cloud_api                   = "https://cloud.ibm.com"
 
 /*****************************************************/

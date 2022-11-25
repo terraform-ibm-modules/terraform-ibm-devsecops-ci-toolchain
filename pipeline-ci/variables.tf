@@ -36,7 +36,7 @@ variable "secret_tool" {
   description = "Used as part of secret references to point to the secret store tool integration"
 }
 
-variable "app_repo" {
+variable "app_repo_url" {
 }
 
 # variable "cos_api_key" {
@@ -48,18 +48,16 @@ variable "cos_bucket_name" {
 variable "cos_endpoint" {
 }
 
-variable "pipeline_repo" {
-    type        = string
-    description = "The repository url containing pipeline definitions for Compliance CI Toolchain."
+variable "pipeline_repo_url" {
 }
 
-variable "inventory_repo" {
+variable "inventory_repo_url" {
 }
 
-variable "evidence_repo" {
+variable "evidence_repo_url" {
 }
 
-variable "issues_repo" {  
+variable "issues_repo_url" {
 }
 
 variable "pipeline_branch" {

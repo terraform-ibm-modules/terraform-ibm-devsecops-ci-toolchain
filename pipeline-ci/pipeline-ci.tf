@@ -10,7 +10,7 @@ resource "ibm_cd_tekton_pipeline_definition" "ci_pipeline_definition" {
   source {
     type = "git"
     properties {
-      url    = var.pipeline_repo
+      url    = var.pipeline_repo_url
       branch = var.pipeline_branch
       path   = var.pipeline_path
     }
@@ -27,7 +27,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
   source {
     type = "git"
     properties {
-      url    = var.app_repo
+      url    = var.app_repo_url
       branch = "master"
     }
   }
@@ -65,7 +65,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_p
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_repository" {
    name           = "repository"
    type           = "text"
-   value          = var.app_repo
+   value          = var.app_repo_url
    pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
    trigger_id     = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
 }

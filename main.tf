@@ -13,11 +13,8 @@ module "repositories" {
 
   toolchain_id                    = ibm_cd_toolchain.toolchain_instance.id
   toolchain_region                = var.toolchain_region
-  app_repo                        = var.app_repo
-  pipeline_repo                   = var.pipeline_repo
-  evidence_repo                   = var.evidence_repo
-  inventory_repo                  = var.inventory_repo
-  issues_repo                     = var.issues_repo
+  toolchain_crn                   = ibm_cd_toolchain.toolchain_instance.crn
+  app_repo_clone_from_url         = var.app_repo_clone_from_url
   repositories_prefix             = var.app_name
 }
 
@@ -43,11 +40,11 @@ module "pipeline-ci" {
   dev_resource_group        = var.dev_resource_group
   registry_namespace        = var.registry_namespace
   registry_region           = var.registry_region
-  app_repo                  = module.repositories.app_repo_url
-  pipeline_repo             = module.repositories.pipeline_repo_url
-  evidence_repo             = module.repositories.evidence_repo_url
-  inventory_repo            = module.repositories.inventory_repo_url
-  issues_repo               = module.repositories.issues_repo_url
+  app_repo_url              = module.repositories.app_repo_url
+  pipeline_repo_url         = module.repositories.pipeline_repo_url
+  evidence_repo_url         = module.repositories.evidence_repo_url
+  inventory_repo_url        = module.repositories.inventory_repo_url
+  issues_repo_url           = module.repositories.issues_repo_url
   secret_tool               = module.integrations.secret_tool
   cos_bucket_name           = var.cos_bucket_name
   # cos_api_key               = var.cos_api_key
@@ -69,14 +66,14 @@ module "pipeline-pr" {
   ibm_cloud_api_key        = var.ibm_cloud_api_key
   pipeline_id              = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
   app_name                 = var.app_name
-  app_repo                 = module.repositories.app_repo_url
-  pipeline_repo            = module.repositories.pipeline_repo_url
+  app_repo_url             = module.repositories.app_repo_url
+  pipeline_repo_url        = module.repositories.pipeline_repo_url
   secret_tool              = module.integrations.secret_tool
 }
 
 module "integrations" {
   source                    = "./integrations"
-  depends_on                = [ module.repositories, module.services ]  
+  depends_on                = [ module.repositories, module.services ]
 
   sm_location               = var.sm_location
   toolchain_id              = ibm_cd_toolchain.toolchain_instance.id
@@ -108,3 +105,7 @@ output "toolchain_id" {
 output "secrets_manager_instance_id" {
   value = module.services.sm_instance_guid
 }
+
+# output "test_output" {
+#   value = module.repositories.test_output
+# }

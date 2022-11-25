@@ -87,12 +87,8 @@ The main module is where all the other modules are instantiated. The current dep
 | ibm_cloud_api_key         | IBM Cloud API KEY to fetch/post cloud resources in terraform. Not used in the pipeline, where a secret reference is used instead. |
 | ibm_cloud_api             | IBM Cloud API Endpoint     |
 |: Variable for Repositories : |
-| app_repo                  | Git Repository and Issue Tracking (GRIT) repository hosting sample nodejs application |
+| app_repo_clone_from_url   | (Optional) Override the default sample app by providing your own sample app url, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged. |
 | app_repo_type             | hostedgit, github     |
-| pipeline_repo             | Git Repository and Issue Tracking (GRIT) repository hosting DevSecOps Compliance Pipeline Definition |
-| evidence_repo             | Git Repository and Issue Tracking (GRIT) repository hosting template for Evidence Locker |
-| inventory_repo            | Git Repository and Issue Tracking (GRIT) repository hosting template for Inventory |
-| issues_repo               | Git Repository and Issue Tracking (GRIT) repository hosting template for Incident/Issues |
 |:    Variables for Services    :|
 | cluster_name              | IBM Cloud IKS Cluster name where the sample application is to be deployed by the toolchain    |
 | cluster_namespace         | Namespace within the IBM Cloud IKS Cluster where the sample application is to be deployed  |

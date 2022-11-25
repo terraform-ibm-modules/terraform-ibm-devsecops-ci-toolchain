@@ -10,7 +10,7 @@ resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {
   source {
     type = "git"
     properties {
-      url     = var.pipeline_repo
+      url     = var.pipeline_repo_url
       branch  = var.pipeline_branch
       path    = var.pipeline_path
     }
@@ -26,7 +26,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
   source {
     type = "git"
     properties {
-      url    = var.app_repo
+      url    = var.app_repo_url
       branch = "master"
     }
   }

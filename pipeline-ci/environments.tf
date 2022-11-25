@@ -50,14 +50,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_ibmcloud_api_key" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_evidence_repo" {
   name           = "evidence-repo"
   type           = "text"
-  value          = var.evidence_repo
+  value          = var.evidence_repo_url
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_inventory_repo" {
   name           = "inventory-repo"
   type           = "text"
-  value          = var.inventory_repo
+  value          = var.inventory_repo_url
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -66,7 +66,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_inventory_repo" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
   name           = "incident-repo"
   type           = "text"
-  value          = var.issues_repo
+  value          = var.issues_repo_url
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
