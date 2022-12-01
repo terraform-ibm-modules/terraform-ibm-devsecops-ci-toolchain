@@ -113,6 +113,14 @@ output "secrets_manager_instance_id" {
   value = module.services.sm_instance_guid
 }
 
+output "ci_pipeline_id" {
+  value = module.pipeline-ci.pipeline_id
+}
+
+output "pr_pipeline_id" {
+  value = module.pipeline-pr.pipeline_id
+}
+
 # output "test_output" {
 #   value = module.repositories.test_output
 # }

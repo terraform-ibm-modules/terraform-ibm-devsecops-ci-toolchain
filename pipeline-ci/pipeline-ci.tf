@@ -77,3 +77,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_p
    pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
    trigger_id     = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
 }
+
+output "pipeline_id" {
+  value = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
