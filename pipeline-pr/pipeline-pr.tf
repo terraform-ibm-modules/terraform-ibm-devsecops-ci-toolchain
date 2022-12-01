@@ -27,7 +27,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
     type = "git"
     properties {
       url    = var.app_repo_url
-      branch = "master"
+      branch = var.app_repo_branch
     }
   }
   max_concurrent_runs = var.pr_pipeline_max_concurrent_runs

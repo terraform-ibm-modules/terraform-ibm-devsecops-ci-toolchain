@@ -18,20 +18,54 @@ locals {
     (local.is_staging) ? local.git_mon01 : local.compliance_pipelines_git_server
   )
 
-  app_repo_source = (
-    (length(var.app_repo_clone_from_url) > 0)? var.app_repo_clone_from_url
+  app_repo_mode = ((length(var.app_repo_existing_url) > 0)? "byo_app"
+    : (length(var.app_repo_clone_from_url) > 0) ? "byo_sample"
+    : "auto-sample")
+
+  app_repo_clone_from = (
+    (local.app_repo_mode == "byo_app") ? ""
+    : (local.app_repo_mode == "byo_sample") ? var.app_repo_clone_from_url
     : format("%s/open-toolchain/hello-compliance-app.git", local.clone_from_git_server)
   )
+  app_repo_branch = (
+    (local.app_repo_mode == "byo_app") ? 
+        ((length(var.app_repo_existing_branch) > 0)? var.app_repo_existing_branch
+          : file("[Error] var app_repo_existing_branch must be provided when using var app_repo_existing_url.")
+        )
+    : (local.app_repo_mode == "byo_sample") ?
+        ((length(var.app_repo_clone_from_branch) > 0)? var.app_repo_clone_from_branch
+          : file("[Error] var app_repo_clone_from_branch must be provided when using var app_repo_clone_from_url.")
+        )
+    : "master" # hello-compliance-app has branch master
+  )
+  config_repo_branch = local.app_repo_branch # not yet support for separate config repo url/branch
 }
 
-resource "ibm_cd_toolchain_tool_hostedgit" "app_repo" {
+resource "ibm_cd_toolchain_tool_hostedgit" "app_repo_clone_from" {
+  count = ((local.app_repo_mode == "byo_sample") || (local.app_repo_mode == "auto-sample")) ? 1 : 0
+
   toolchain_id = var.toolchain_id
   name         = "app-repo"
   initialization {
     type = "clone_if_not_exists"
-    source_repo_url = local.app_repo_source
+    source_repo_url = local.app_repo_clone_from
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "app-repo" ])
+  }
+  parameters {
+    toolchain_issues_enabled = false
+    enable_traceability      = false
+  }
+}
+
+resource "ibm_cd_toolchain_tool_hostedgit" "app_repo_existing" {
+  count = (local.app_repo_mode == "byo_app") ? 1 : 0
+
+  toolchain_id = var.toolchain_id
+  name         = "app-repo"
+  initialization {
+    type = "link"
+    repo_url = var.app_repo_existing_url
   }
   parameters {
     toolchain_issues_enabled = false
@@ -98,9 +132,21 @@ resource "ibm_cd_toolchain_tool_hostedgit" "issues_repo" {
 }
 
 output "app_repo_url" {
-  value = ibm_cd_toolchain_tool_hostedgit.app_repo.parameters[0].repo_url
+  value = (((local.app_repo_mode == "byo_app")) ? ibm_cd_toolchain_tool_hostedgit.app_repo_existing[0].parameters[0].repo_url
+    : ibm_cd_toolchain_tool_hostedgit.app_repo_clone_from[0].parameters[0].repo_url)
   description = "The app repository instance url containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
 }
+
+output "app_repo_branch" {
+  value = local.app_repo_branch
+  description = "The app repo default branch that will be used by the CI build, usually either main or master."
+}
+
+output "config_repo_branch" {
+  value = local.config_repo_branch
+  description = "The config or app repo branch containing the .pipeline-config.yaml file; usually main or master."
+}
+
 
 output "pipeline_repo_url" {
   value = ibm_cd_toolchain_tool_hostedgit.pipeline_repo.parameters[0].repo_url

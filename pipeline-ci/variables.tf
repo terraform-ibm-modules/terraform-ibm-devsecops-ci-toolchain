@@ -39,6 +39,12 @@ variable "secret_tool" {
 variable "app_repo_url" {
 }
 
+variable "app_repo_branch" {
+}
+
+variable "config_repo_branch" {
+}
+
 # variable "cos_api_key" {
 # }
 

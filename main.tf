@@ -14,7 +14,10 @@ module "repositories" {
   toolchain_id                    = ibm_cd_toolchain.toolchain_instance.id
   toolchain_region                = var.toolchain_region
   toolchain_crn                   = ibm_cd_toolchain.toolchain_instance.crn
+  app_repo_existing_url           = var.app_repo_existing_url
+  app_repo_existing_branch        = var.app_repo_existing_branch
   app_repo_clone_from_url         = var.app_repo_clone_from_url
+  app_repo_clone_from_branch      = var.app_repo_clone_from_branch
   repositories_prefix             = var.app_name
 }
 
@@ -41,6 +44,8 @@ module "pipeline-ci" {
   registry_namespace        = var.registry_namespace
   registry_region           = var.registry_region
   app_repo_url              = module.repositories.app_repo_url
+  app_repo_branch           = module.repositories.app_repo_branch
+  config_repo_branch        = module.repositories.config_repo_branch
   pipeline_repo_url         = module.repositories.pipeline_repo_url
   evidence_repo_url         = module.repositories.evidence_repo_url
   inventory_repo_url        = module.repositories.inventory_repo_url
@@ -67,6 +72,8 @@ module "pipeline-pr" {
   pipeline_id              = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
   app_name                 = var.app_name
   app_repo_url             = module.repositories.app_repo_url
+  app_repo_branch          = module.repositories.app_repo_branch
+  config_repo_branch       = module.repositories.config_repo_branch
   pipeline_repo_url        = module.repositories.pipeline_repo_url
   secret_tool              = module.integrations.secret_tool
 }

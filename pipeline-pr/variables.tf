@@ -12,6 +12,12 @@ variable "secret_tool" {
 variable "app_repo_url" {
 }
 
+variable "app_repo_branch" {
+}
+
+variable "config_repo_branch" {
+}
+
 variable "pipeline_repo_url" {
     type        = string
     description = "The repository url containing pipeline definitions for Compliance CI Toolchain."

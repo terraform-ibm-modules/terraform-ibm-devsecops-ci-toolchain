@@ -8,7 +8,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_branch" {
   name           = "pipeline-config-branch"
   type           = "text"
-  value          = "master"
+  value          = var.config_repo_branch
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

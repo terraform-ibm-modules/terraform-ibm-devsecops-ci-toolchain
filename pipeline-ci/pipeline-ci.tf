@@ -28,7 +28,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
     type = "git"
     properties {
       url    = var.app_repo_url
-      branch = "master"
+      branch = var.app_repo_branch
     }
   }
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
@@ -66,6 +66,14 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_p
    name           = "repository"
    type           = "text"
    value          = var.app_repo_url
+   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+   trigger_id     = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
+}
+
+resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_branch" {
+   name           = "branch"
+   type           = "text"
+   value          = var.app_repo_branch
    pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
    trigger_id     = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
 }

@@ -99,6 +99,24 @@ variable "app_repo_clone_from_url" {
     default     = ""
 }
 
+variable "app_repo_clone_from_branch" {
+    type        = string
+    description = "Used when app_repo_clone_from_url is provided, the default branch that will be used by the CI build, usually either main or master."
+    default     = ""
+}
+
+variable "app_repo_existing_url" {
+    type        = string
+    description = "(Optional) Override to bring your own existing application repository URL, which will be used directly instead of cloning the default sample."
+    default     = ""
+}
+
+variable "app_repo_existing_branch" {
+    type        = string
+    description = "Used when app_repo_existing_url is provided, the default branch that will be used by the CI build, usually either main or master."
+    default     = ""
+}
+
 variable "app_repo_type" {
     type        = string
     description = "The repository type for application repo. One of [clone, link]"

@@ -1,6 +1,13 @@
+variable "app_repo_existing_url" {
+}
+
+variable "app_repo_existing_branch" {
+}
+
 variable "app_repo_clone_from_url" {
-    type        = string
-    description = "This repository contains a simple Node.js microservice that can be deployed with reference DevSecOps toolchain templates."
+}
+
+variable "app_repo_clone_from_branch" {
 }
 
 variable "repositories_prefix" { 

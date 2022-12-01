@@ -87,7 +87,10 @@ The main module is where all the other modules are instantiated. The current dep
 | ibm_cloud_api_key         | IBM Cloud API KEY to fetch/post cloud resources in terraform. Not used in the pipeline, where a secret reference is used instead. |
 | ibm_cloud_api             | IBM Cloud API Endpoint     |
 |: Variable for Repositories : |
-| app_repo_clone_from_url   | (Optional) Override the default sample app by providing your own sample app url, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged. |
+| app_repo_clone_from_url    | (Optional) Override the default sample app by providing your own sample app url, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged. |
+| app_repo_clone_from_branch | (Optional) Used when app_repo_clone_from_url is provided, the default branch that will be used by the CI build, usually either main or master. | 
+| app_repo_existing_url     | (Optional) Override to bring your own existing application repository URL, which will be used directly instead of cloning the default sample.   |
+| app_repo_existing_branch   | Used when app_repo_existing_url is provided, the default branch that will be used by the CI build, usually either main or master.   |
 | app_repo_type             | hostedgit, github     |
 |:    Variables for Services    :|
 | cluster_name              | IBM Cloud IKS Cluster name where the sample application is to be deployed by the toolchain    |

@@ -13,6 +13,9 @@ app_image_name                  = "hello-compliance-app-image"
 /*****************************************************/
 ibm_cloud_api_key               = ""
 app_repo_clone_from_url         = ""
+app_repo_clone_from_branch      = ""
+app_repo_existing_url           = ""
+app_repo_existing_branch        = ""
 ibm_cloud_api                   = "https://cloud.ibm.com"
 
 /*****************************************************/
