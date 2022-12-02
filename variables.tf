@@ -73,7 +73,7 @@ variable "registry_namespace" {
 variable "registry_region" {
   type        = string
   description = "IBM Cloud Region where the IBM Cloud Container Registry where registry is to be created."
-  default     = "ibm:yp1:us-south"
+  default     = "ibm:yp:us-south"
 }
 
 variable "sm_name" {
