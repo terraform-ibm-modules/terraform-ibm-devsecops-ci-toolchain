@@ -23,3 +23,12 @@ variable "toolchain_crn" {
     type        = string
     description = "The CRN of the created toolchain"
 }
+
+variable "app_repo_existing_git_provider" {
+}
+variable "app_repo_existing_git_id" {
+}
+variable "app_repo_clone_to_git_provider" {
+}
+variable "app_repo_clone_to_git_id" {
+}

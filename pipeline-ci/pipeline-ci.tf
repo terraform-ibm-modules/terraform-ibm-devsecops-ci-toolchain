@@ -21,7 +21,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type           = "scm"
   name           = "Git CI Trigger"
-  event_listener = "ci-listener-gitlab"
+  event_listener = ((var.app_repo_provider_webhook_syntax == "github")? 
+                    "ci-listener" : "ci-listener-gitlab")
   events         = ["push"]
   enabled        = true
   source {
@@ -38,7 +39,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type           = "timer"
   name           = "Git CI Timed Trigger"
-  event_listener = "ci-listener-gitlab"
+  event_listener = ((var.app_repo_provider_webhook_syntax == "github")? 
+                  "ci-listener" : "ci-listener-gitlab")
   cron           = "0 4 * * *"
   timezone       = "UTC"
   enabled        = false
@@ -49,7 +51,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type           = "manual"
   name           = "Manual Trigger"
-  event_listener = "ci-listener-gitlab"
+  event_listener = ((var.app_repo_provider_webhook_syntax == "github")? 
+                  "ci-listener" : "ci-listener-gitlab")
   enabled        = true
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
 }

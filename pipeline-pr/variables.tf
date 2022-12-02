@@ -46,3 +46,6 @@ variable "pr_pipeline_max_concurrent_runs" {
   description = "The number of maximum concurrent runs to be supported by PR Pipeline"
   default     = 1
 }
+
+variable "app_repo_provider_webhook_syntax" {
+}

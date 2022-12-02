@@ -210,3 +210,24 @@ variable "code_engine_source" {
   description = "The path to the location of code to build in the repository"
   default     = ""
 }
+
+variable "app_repo_existing_git_provider" {
+  type        = string
+  description = "By default hostedgit, else use 'githubconsolidated'"
+  default     = ""
+}
+variable "app_repo_existing_git_id" {
+  type        = string
+  description = "By default absent, else custom server guid, or other options for 'git_id' field in the browser UI"
+  default     = ""
+}
+variable "app_repo_clone_to_git_provider" {
+  type        = string
+  description = "By default hostedgit, else use 'githubconsolidated'"
+  default     = ""
+}
+variable "app_repo_clone_to_git_id" {
+  type        = string
+  description = "By default absent, else custom server guid, or other options for 'git_id' field in the browser UI"
+  default     = ""
+}

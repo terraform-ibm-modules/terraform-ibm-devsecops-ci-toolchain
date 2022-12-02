@@ -105,3 +105,6 @@ variable "code_engine_build_strategy" {
 
 variable "code_engine_source" {
 }
+
+variable "app_repo_provider_webhook_syntax" {
+}

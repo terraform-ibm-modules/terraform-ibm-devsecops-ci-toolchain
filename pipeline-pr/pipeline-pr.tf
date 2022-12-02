@@ -21,7 +21,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
   pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   type           = "scm"
   name           = "Git PR Trigger"
-  event_listener = "pr-listener-gitlab"
+  event_listener = ((var.app_repo_provider_webhook_syntax == "github")? 
+                      "pr-listener" : "pr-listener-gitlab")
   events         = ["pull_request"]
   source {
     type = "git"
