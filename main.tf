@@ -131,6 +131,31 @@ output "secret_tool" {
   value = module.integrations.secret_tool
 }
 
+output "inventory_repo_url" {
+  value = module.repositories.inventory_repo_url
+  description = "The inventory repository instance url, with details of which artifact has been built and will be deployed"
+}
+
+output "evidence_repo_url" {
+  value = module.repositories.evidence_repo_url
+  description = "The evidence repository instance url, where evidence of the builds and scans are stored, ready for any compliance audit"
+}
+
+output "issues_repo_url" {
+  value = module.repositories.issues_repo_url
+  description = "The incident issues repository instance url, where issues are created when vulnerabilities and CVEs are detected"
+}
+
+output "pipeline_repo_url" {
+  value = module.repositories.pipeline_repo_url
+  description = "This repository url contains the tekton definitions for compliance pipelines"
+}
+
+output "app_repo_url" {
+  value = module.repositories.app_repo_url
+  description = "The app repository instance url containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
+}
+
 # output "test_output" {
 #   value = module.repositories.test_output
 # }
