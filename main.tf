@@ -121,6 +121,10 @@ output "pr_pipeline_id" {
   value = module.pipeline-pr.pipeline_id
 }
 
+output "secret_tool" {
+  value = module.integrations.secret_tool
+}
+
 # output "test_output" {
 #   value = module.repositories.test_output
 # }
