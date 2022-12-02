@@ -83,7 +83,6 @@ The main module is where all the other modules are instantiated. The current dep
 | toolchain_name            | Name for the toolchain      |
 | toolchain_description     | Description for the toolchain |
 | app_name                  | Name of the application       |
-| app_image_name            | Name of the docker image for the application     |
 | ibm_cloud_api_key         | IBM Cloud API KEY to fetch/post cloud resources in terraform. Not used in the pipeline, where a secret reference is used instead. |
 | ibm_cloud_api             | IBM Cloud API Endpoint     |
 |: Variable for Repositories : |
@@ -106,6 +105,14 @@ The main module is where all the other modules are instantiated. The current dep
 | sm_secret_group           | The Secrets Manager secret group containing your secrets. |
 | cos_endpoint              | Cloud Object Storage endpoint name |
 | cos_bucket_name           | Cloud Object Storage bucket name |
+| deployment_target         | set as 'code-engine' for Code Engine. Defaults to Kubernetes |
+| code_engine_project       | The name of the Code Engine project|
+| code_engine_region        | The region for Code Engine         |
+| code_engine_resource_group| The resource group for Code Engine |
+| code_engine_entity_type    | 'application' or 'job' type       |
+| code_engine_build_strategy | 'dockerfile' or 'buildpacks'      |
+| code_engine_source         | path to the code with the repo    |      
+
 
 4. Run the terraform initialization command
 ```

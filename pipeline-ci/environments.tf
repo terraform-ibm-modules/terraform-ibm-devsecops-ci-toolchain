@@ -71,6 +71,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cluster_name" {
+  count          = (var.deployment_target != "code-engine") ? 1:0
   name           = "cluster-name"
   type           = "text"
   value          = var.cluster_name
@@ -78,6 +79,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cluster_name" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_cluster_namespace" {
+  count          = (var.deployment_target != "code-engine") ? 1:0
   name           = "dev-cluster-namespace"
   type           = "text"
   value          = var.cluster_namespace
@@ -251,3 +253,63 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
 #   integration_id = ""
 #   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 # }
+
+######## Deployment Strategy ##################
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_deployment_target" {
+  count          = (var.deployment_target == "code-engine") ? 1:0
+  name           = "deployment-target"
+  type           = "text"
+  value          = var.deployment_target
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+######## Code Engine Vars #####################
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_project" {
+  count          = (var.deployment_target == "code-engine") ? 1:0
+  name           = "code-engine-project"
+  type           = "text"
+  value          = var.code_engine_project
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_region" {
+  count          = (var.deployment_target == "code-engine") ? 1:0
+  name           = "code-engine-region"
+  type           = "text"
+  value          = var.code_engine_region
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_resource_group" {
+  count          = (var.deployment_target == "code-engine") ? 1:0
+  name           = "code-engine-resource-group"
+  type           = "text"
+  value          = var.code_engine_resource_group
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_entity_type" {
+  count          = (var.deployment_target == "code-engine") ? 1:0
+  name           = "code-engine-entity-type"
+  type           = "text"
+  value          = var.code_engine_entity_type
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_build_strategy" {
+  count          = (var.deployment_target == "code-engine") ? 1:0
+  name           = "code-engine-build-strategy"
+  type           = "text"
+  value          = var.code_engine_build_strategy
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_source" {
+  count          = (var.deployment_target == "code-engine") ? 1:0
+  name           = "source"
+  type           = "text"
+  value          = var.code_engine_source
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}

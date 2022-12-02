@@ -7,9 +7,6 @@ variable "dev_resource_group" {
 variable "app_name" {
 }
 
-variable "app_image_name" {
-}
-
 variable "cluster_name" {
 }
 
@@ -82,4 +79,29 @@ variable "ci_pipeline_max_concurrent_runs" {
   type        = number
   description = "The number of maximum concurrent runs to be supported by CI Pipeline"
   default     = 1
+}
+
+######## Deployment Strategy ##################
+
+variable "deployment_target" {
+}
+
+######## Code Engine Vars #####################
+
+variable "code_engine_project" {
+}
+
+variable "code_engine_region" {
+}
+
+variable "code_engine_resource_group" {
+}
+
+variable "code_engine_entity_type" {
+}
+
+variable "code_engine_build_strategy" {
+}
+
+variable "code_engine_source" {
 }

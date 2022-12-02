@@ -42,3 +42,15 @@ slack_user_name                 = "slack-user"
 #cos_api_key = ""
 cos_bucket_name = ""
 cos_endpoint = ""
+
+/*****************************************************/
+/* Variables for "Code Engine"                       */
+/*****************************************************/
+
+#deployment_target              = "code-engine" . #set "code-engine" to enable the code-engine vars
+#code_engine_project            = "DevSecOps_CE"  
+#code_engine_region             = "ibm:yp:us-south"
+#code_engine_resource_group     = "Default"
+#code_engine_entity_type        = "application"   #Default type is 'application'. Set as 'job' for 'job' type"
+#code_engine_build_strategy     = "dockerfile"    #Default strategy is 'dockerfile'. Set as 'buildpacks' for 'buildpacks' build"
+#code_engine_source             = "path in repository to code"

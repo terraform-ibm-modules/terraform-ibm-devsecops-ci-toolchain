@@ -40,12 +40,6 @@ variable "app_name" {
   default     = "hello-compliance-app"
 }
 
-variable "app_image_name" {
-  type        = string
-  description = "Name of the application image."
-  default     = "hello-compliance-app-image"
-}
-
 variable "cluster_name" {
   type        = string
   description = "Name of the kubernetes cluster where the application will be deployed."
@@ -169,4 +163,50 @@ variable "sm_resource_group" {
   type        = string
   description = "The resource group containing the Secrets Manager instance for your secrets."
   default     = "Default"
+}
+
+######## Deployment Strategy ##################
+
+variable "deployment_target" {
+  type        = string
+  description = "The deployment target, cluster or code-engine"
+  default     = "cluster"
+}
+
+######## Code Engine Vars #####################
+
+variable "code_engine_project" {
+  type        = string
+  description = "The name of the Code Engine project to use (or create)"
+  default     = "DevSecOps_CE"
+}
+
+variable "code_engine_region" {
+  type        = string
+  description = "The region to create/lookup for the Code Engine project"
+  default     = "ibm:yp:us-south"
+}
+
+variable "code_engine_resource_group" {
+  type        = string
+  description = "The resource group of the Code Engine project"
+  default     = "Default"
+}
+
+variable "code_engine_entity_type" {
+  type        = string
+  description = "Type of Code Engine entity to create/update as part of deployment. Default type is 'application'. Set as 'job' for 'job' type"
+  default     = ""
+}
+
+variable "code_engine_build_strategy" {
+  type        = string
+  description = "The build strategy for the Code Engine entity. Default strategy is 'dockerfile'. Set as 'buildpacks' for 'buildpacks' build"
+  default     = ""
+}
+
+variable "code_engine_source" {
+  type        = string
+  description = "The path to the location of code to build in the repository"
+  default     = ""
 }
