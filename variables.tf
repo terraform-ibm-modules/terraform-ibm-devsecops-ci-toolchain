@@ -117,6 +117,12 @@ variable "app_repo_type" {
     default     = "hostedgit"
 }
 
+variable "repositories_prefix" { 
+  type        = string
+  description = "Prefix name for the cloned compliance repos."
+  default     = "compliance-tf"   
+}
+
 variable "slack_api_token" {
   type        = string
   description = "API Token for Slack Channel"

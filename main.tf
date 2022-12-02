@@ -20,9 +20,9 @@ module "repositories" {
   app_repo_existing_git_id        = var.app_repo_existing_git_id
   app_repo_clone_from_url         = var.app_repo_clone_from_url
   app_repo_clone_from_branch      = var.app_repo_clone_from_branch
+  repositories_prefix             = var.repositories_prefix
   app_repo_clone_to_git_provider  = var.app_repo_clone_to_git_provider
   app_repo_clone_to_git_id        = var.app_repo_clone_to_git_id
-  repositories_prefix             = var.app_name
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
