@@ -6,7 +6,7 @@ toolchain_region                = "us-south"
 toolchain_name                  = "DevSecOps CI Toolchain - Terraform"
 toolchain_description           = "CI Toolchain created with Template for DevSecOps Best Practices"
 app_name                        = "hello-compliance-app"
-app_image_name                  = "hello-compliance-app-image"
+repositories_prefix             = "compliance-tf"
 
 /*****************************************************/
 /* Variables for Module "Repositories"               */

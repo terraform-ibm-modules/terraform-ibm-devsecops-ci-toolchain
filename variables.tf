@@ -36,7 +36,7 @@ variable "toolchain_description" {
 
 variable "app_name" {
   type        = string
-  description = "Name of the application."
+  description = "Name of the application image and inventory entry."
   default     = "hello-compliance-app"
 }
 
@@ -72,7 +72,7 @@ variable "registry_namespace" {
 
 variable "registry_region" {
   type        = string
-  description = "IBM Cloud Region where the IBM Cloud Container Registry where registry is to be created."
+  description = "IBM Cloud Region where the IBM Cloud Container Registry namespace is to be created."
   default     = "ibm:yp:us-south"
 }
 
@@ -83,7 +83,7 @@ variable "sm_name" {
 
 variable "sm_location" {
   type        = string
-  description = "IBM Cloud location containing the Secrets Manager instance."
+  description = "IBM Cloud location/region containing the Secrets Manager instance."
   default     = "us-south"
 }
 
@@ -109,12 +109,6 @@ variable "app_repo_existing_branch" {
     type        = string
     description = "Used when app_repo_existing_url is provided, the default branch that will be used by the CI build, usually either main or master."
     default     = ""
-}
-
-variable "app_repo_type" {
-    type        = string
-    description = "The repository type for application repo. One of [clone, link]"
-    default     = "hostedgit"
 }
 
 variable "repositories_prefix" { 
@@ -219,21 +213,24 @@ variable "code_engine_source" {
 
 variable "app_repo_existing_git_provider" {
   type        = string
-  description = "By default hostedgit, else use 'githubconsolidated'"
+  description = "By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'."
   default     = ""
 }
+
 variable "app_repo_existing_git_id" {
   type        = string
-  description = "By default absent, else custom server guid, or other options for 'git_id' field in the browser UI"
+  description = "By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI."
   default     = ""
 }
+
 variable "app_repo_clone_to_git_provider" {
   type        = string
-  description = "By default hostedgit, else use 'githubconsolidated'"
+  description = "By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'."
   default     = ""
 }
+
 variable "app_repo_clone_to_git_id" {
   type        = string
-  description = "By default absent, else custom server guid, or other options for 'git_id' field in the browser UI"
+  description = "By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI."
   default     = ""
 }

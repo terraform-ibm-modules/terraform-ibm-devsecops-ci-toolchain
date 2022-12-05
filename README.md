@@ -82,25 +82,28 @@ The main module is where all the other modules are instantiated. The current dep
 | toolchain_region          | IBM Cloud Region for the toolchain |
 | toolchain_name            | Name for the toolchain      |
 | toolchain_description     | Description for the toolchain |
-| app_name                  | Name of the application       |
+| app_name                  | Name of the application image and inventory entry. |
+| repositories_prefix       | Prefix name for the cloned compliance repos. |
 | ibm_cloud_api_key         | IBM Cloud API KEY to fetch/post cloud resources in terraform. Not used in the pipeline, where a secret reference is used instead. |
 | ibm_cloud_api             | IBM Cloud API Endpoint     |
 |: Variable for Repositories : |
 | app_repo_clone_from_url    | (Optional) Override the default sample app by providing your own sample app url, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged. |
 | app_repo_clone_from_branch | (Optional) Used when app_repo_clone_from_url is provided, the default branch that will be used by the CI build, usually either main or master. | 
-| app_repo_existing_url     | (Optional) Override to bring your own existing application repository URL, which will be used directly instead of cloning the default sample.   |
+| app_repo_clone_to_git_provider | By default 'hostedgit', else use 'githubconsolidated' or 'gitlab' |
+| app_repo_clone_to_git_id   | By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI. | 
+| app_repo_existing_url      | (Optional) Override to bring your own existing application repository URL, which will be used directly instead of cloning the default sample.   |
 | app_repo_existing_branch   | Used when app_repo_existing_url is provided, the default branch that will be used by the CI build, usually either main or master.   |
-| app_repo_type             | hostedgit, github     |
+| app_repo_existing_git_provider | By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'. | 
+| app_repo_existing_git_id   | By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI. |
 |:    Variables for Services    :|
 | cluster_name              | IBM Cloud IKS Cluster name where the sample application is to be deployed by the toolchain    |
 | cluster_namespace         | Namespace within the IBM Cloud IKS Cluster where the sample application is to be deployed  |
 | dev_region                | IBM Cloud IKS Cluster region |
 | dev_resource_group        | The cluster resource group |
 | registry_namespace        | IBM Cloud ICR Namespace where the docker image built for the application is to be pushed |
-| kp_name                   | Name of the Key Protect Instance within your account from where secrets are to be referred  |
-| kp_region                 | IBMCloud Region of the Key Protect Instance within your account from where secrets are to be referred  |
+| registry_region           | IBM Cloud Region where the IBM Cloud Container Registry namespace is to be created. |
 | sm_resource_group         | The resource group containing the Secrets Manager instance for your secrets. |
-| sm_location               | IBM Cloud location containing the Secrets Manager instance. |
+| sm_location               | IBM Cloud location/region containing the Secrets Manager instance. |
 | sm_name                   | Name of the Secrets Manager instance where the secrets are stored. |
 | sm_secret_group           | The Secrets Manager secret group containing your secrets. |
 | cos_endpoint              | Cloud Object Storage endpoint name |
@@ -111,8 +114,7 @@ The main module is where all the other modules are instantiated. The current dep
 | code_engine_resource_group| The resource group for Code Engine |
 | code_engine_entity_type    | 'application' or 'job' type       |
 | code_engine_build_strategy | 'dockerfile' or 'buildpacks'      |
-| code_engine_source         | path to the code with the repo    |      
-
+| code_engine_source         | path to the code with the repo    |
 
 4. Run the terraform initialization command
 ```
