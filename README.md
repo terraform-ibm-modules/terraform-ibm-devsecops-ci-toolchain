@@ -1,82 +1,173 @@
 
 ## DevSecOps CI Toolchain Terraform Template
 
+### Note: Very early access to this terraform toolchain is being provided on as is basis and under active development, variables and variable names might change.
+
 ### Introduction
 
 Welcome to the world of Toolchain As Code !!! 
 
-The current project provides code to create DevSecOps CI Reference Toolchain using Terraform Code. Inaddtion to creating the toolchain, the code also creates various toolchain integrations required by the PR (Pull Request) and CI (Continuous Integration) Pipelines.
+The current project provides code to create DevSecOps CI Reference Toolchain using Terraform Code. In addition to creating the toolchain, the code also creates various toolchain integrations required by the PR (Pull Request) and CI (Continuous Integration) Pipelines.
 
 ### Prerequisites
 
-### Code Structure
+#### Resources
 
-The terraform code for DevSecOps CI Toolchain comprises of different folders to provide a logical grouping of various resources. 
-Terraform considers each folder as a module, and hence each of these logical groups (folders) are treated by terraform as seperate modules.
+The DevSecOps CI Toolchain requires the following
+* A Kubernetes Cluster (For deploying the default Node application sample). See [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-getting-started)
+* An instance of [Secrets Manager](https://cloud.ibm.com/catalog/services/secrets-manager) with the following named secrets.
+   1.  'ibmcloud-api-key' - an apikey for the account containing the toolchain. See [APIKEY](https://cloud.ibm.com/iam/apikeys)
+   2. 'signing_key' - a gpg key used to sign image builds. See [Signing Key](https://cloud.ibm.com/docs/devsecops?topic=devsecops-devsecops-image-signing). The most straight forward means to generate the signing key would be to do the following. Add the secret to your instance of Secrets Manager by going through the setup wizard for the DevSecOps Compliance CI toolchain and jump to the 'Image Signing' step and click "New", then save that key to your Secrets Manager instance.
 
- 1. repositories
-Resource definitions for all the repositories required for the DevSecOps CI Toolchain. All these repositories are created as **`ibm_cd_toolchain_tool_hostedgit`** Toolchain Integrations. By default, the terrform template **`clones`** these repositories in your GRIT (default provider) account. If you wish to use a different provider please update the resource type in **`repositories/repositories.tf`** file. The repository types supported are:
+#### Terraform CLI Installation
+The Terraform CLI is a command line application from HashiCorp that is required to run the different Terraform commands. 
+##### MacOS
+Run the following to install the Hashicorp repository of Homebrew packages
+- brew tap hashicorp/tap
 
-| Terraform Type      									| Description | 
-| ---           										| ----        | 
-| ibm_cd_toolchain_tool_githubconsolidated            	| Github instance			     	|
-| ibm_cd_toolchain_tool_githubintegrated            	| Github Whitewater Instance     	|
-| ibm_cd_toolchain_tool_gitlab            				| Native Gitlab Instance     		|
-| ibm_cd_toolchain_tool_hostedgit            			| IBM Hosted Gitlab Instance	    |
+- brew install hashicorp/tap/terraform
 
-2. pipeline-pr
-Resource definitions for setting up the tekton delivery pipeline. The toolchain i.e. the main module itself creates **`ibm_cd_toolchain_tool_pipeline`** Toolchain Integration. However, all the other resource required by the Delivery Pipeline itself are created within this module. These resources primarily includes
-	 - Tekton Pipeline 
-	 - Tekton Pipeline Definitions ( DevSecOps Compliance )
-	 - Tekton Pipeline Triggers
-     - Tekton Pipeline Environment Variables
- 
-3. pipeline-ci 
-Resource definitions for setting up the tekton delivery pipeline. The toolchain i.e. the main module itself creates **`ibm_cd_toolchain_tool_pipeline`** Toolchain Integration. However, all the other resource required by the Delivery Pipeline itself are created within this module. These resources primarily includes
-	 - Tekton Pipeline 
-	 - Tekton Pipeline Definitions ( DevSecOps Compliance )
-	 - Tekton Pipeline Triggers
-     - Tekton Pipeline Environment Variables
+##### RHEL/yum
+- sudo yum install -y yum-utils
+- sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/$release/hashicorp.repo
 
-> While referring any environment variables from Secret Store ( Key Protect, Secrets Manager ) use the below syntax
-> ```
-> resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key" {
->  name           = "signing-key"
->  type           = "secure"
->  value          = format("{vault::%s.signing-key}", var.kp_integration_name)
->  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-> }
->```
+- yum install terraform
 
-4. integrations
-Toolchain Integrations required by the toolchain are created here. Currently, the toolchain creates following integrations. More integrations will be added soon.
-	 - Key Protect 
-	 - Cloud Object Store 
-	 - Slack 
-	 - DevOps Insight 
+##### Ubuntu
+- sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 
-5. service
-Toolchain can leverage information about other IBM Cloud Services like IKS Cluster, ICR, COS and can lookup respective resources via terraform data sources which can then be used to setup up other integrations.
-	 - IBM Cloud IKS Cluster `ibm_container_cluster` 
-	 - IBM Cloud ICR `ibm_cr_namespaces` 
-	 - IBM Cloud Resource for Key Protect `ibm_resource_instance`
+- wget -O- https://apt.releases.hashicorp.com/gpg | \
+    gpg --dearmor | \
+    sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
 
-6. main
-The main module is where all the other modules are instantiated. The current dependencies between various module and also on the main module is depicted below.
+- gpg --no-default-keyring \
+    --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+    --fingerprint
 
-	 - repositories - Independent
-	 - services - Independent
-	 - integrations - repositories, services
-	 - pipeline-ci - repositories, services, integrations
-	 - pipeline-pr - repositories, services, integrations
+- echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+    https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+    sudo tee /etc/apt/sources.list.d/hashicorp.list
 
-### Setup and Run the template
+- sudo apt update
 
-1. Rename the **`variables.tfvars.example`** to **`terraform.tfvars`**.
+- sudo apt-get install terraform
 
-3. Provide appropriate values for the variables in the **`terraform.tfvars`** to point to various resources within your account.
+##### Verify Installation
+Run 'terraform -help'
 
-| Variable      | Description | 
+##### Other Platforms
+For additional platforms please see https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+
+
+
+### Terraform Commands (basic)
+1. terraform init - this command initialises the working directory containing the Terraform configuration files
+2. terraform plan - a command that provides a preview of the actions that Terraform will perform on your infrastructure.
+3. terraform apply - the command to perform the infrastructure modifications outlined using the plan command. 
+4. terraform destroy - the command to delete all the resources managed by the Terraform project.
+5. terraform help - lists and describes Terraform CLI commands
+
+### Setup and create the toolchain
+
+The following steps will create the default CI toolchain with the example application deploying to your Kubernetes cluster
+
+1. Download the repository
+2. cd into the downloaded directory
+3. Rename the **`variables.tfvars.example`** to **`terraform.tfvars`**.
+4. Provide appropriate values for the variables in the **`terraform.tfvars`** to point to various resources within your account. It is expected that the Secrets Manager already has the secrets outlined earlier. The example terraform.tfvars file contains all the required and optional variables. At a minimum the required variables are as follows:
+   - toolchain_resource_group
+   - toolchain_region
+   - toolchain_name
+   - ibm_cloud_api_key
+   - cluster_name
+   - cluster_namespace
+   - dev_region
+   - dev_resource_group
+   - registry_namespace
+   - registry_region
+   - sm_resource_group
+   - sm_location
+   - sm_name
+   - sm_secret_group
+
+   Pay attention to values that use 'Default'. Some accounts might require it in lower case 'default'.
+   Other variables can be deleted.
+
+5. Run the terraform initialization command. Only needs to be run once. Multiple runs does not cause problems.
+
+```
+	terraform init
+```
+   You should see an output similar to
+```
+	Initializing modules...
+	- integrations in integrations
+	- pipeline-ci in pipeline-ci
+	- pipeline-pr in pipeline-pr
+	- repositories in repositories
+	- services in services
+
+	Initializing the backend...
+
+	Initializing provider plugins...
+	- Finding ibm-cloud/ibm versions matching ">= 1.48.0"...
+	- Installing ibm-cloud/ibm v1.48.0...
+	- Installed ibm-cloud/ibm v1.48.0 (self-signed, key ID AAD3B791C49CC253)
+```
+6. Run the plan command. This will generate an output showing resources that will be created and highlight potential issues
+
+```
+    terraform plan
+```
+
+7. Run the apply command which will create all the resources
+
+```
+   terraform apply
+```
+
+You should see a similar output
+```
+app_repo_url = "https://github.ibm.com/HUAYUENH/ci-ce-example.git"
+ci_pipeline_id = "ee951d12-2305-4a5c-97d8-504b5fd678f6"
+evidence_repo_url = "https://us-south.git.cloud.ibm.com/huayuenh/compliance-tf-evidence-repo.git"
+inventory_repo_url = "https://us-south.git.cloud.ibm.com/huayuenh/compliance-tf-inventory-repo.git"
+issues_repo_url = "https://us-south.git.cloud.ibm.com/huayuenh/compliance-tf-issues-repo.git"
+pipeline_repo_url = "https://us-south.git.cloud.ibm.com/open-toolchain/compliance-pipelines.git"
+pr_pipeline_id = "de5c3af4-02a8-45bc-9ed8-beaba0359950"
+secret_tool = "sm-compliance-secrets.Default"
+secrets_manager_instance_id = "cd1472b8-9a3a-481e-96a1-55515bcc574f"
+toolchain_id = "847b26ec-d7f4-41b9-a90d-e73ec3a927ce"
+
+```
+
+Take note of the outputs. The values can be used for setting up the DevSecOps Terraform CD and CC toolchains
+
+8. The new toolchain should now be visible in your account
+You can navigate directly to it by going to
+```
+   https://cloud.ibm.com/devops/toolchains/{toolchain_id}?env_id=ibm:yp:us-south
+```
+
+Where {toolchain_id} is replaced with the toolchain_id value from the output
+```
+   https://cloud.ibm.com/devops/toolchains/847b26ec-d7f4-41b9-a90d-e73ec3a927ce?env_id=ibm:yp:us-south
+```
+### Configurability
+See the complete list of supported variables and their descriptions in the next section. The Terraform tfvars file can be populated with variables to clone other application repositories or link to your existing ones . 
+###### Clone
+- app_repo_clone_from_url
+- app_repo_clone_from_branch
+
+or
+###### Link (existing)
+- app_repo_existing_url
+- app_repo_existing_branch
+
+
+
+### Complete list of supported variables
+| Variables      | Description | 
 | ---           | ----        | 
 | toolchain_resource_group  | Resource Group for the toolchain     |
 | toolchain_region          | IBM Cloud Region for the toolchain |
@@ -86,7 +177,7 @@ The main module is where all the other modules are instantiated. The current dep
 | repositories_prefix       | Prefix name for the cloned compliance repos. |
 | ibm_cloud_api_key         | IBM Cloud API KEY to fetch/post cloud resources in terraform. Not used in the pipeline, where a secret reference is used instead. |
 | ibm_cloud_api             | IBM Cloud API Endpoint     |
-|: Variable for Repositories : |
+|**Variables for Repositories** |
 | app_repo_clone_from_url    | (Optional) Override the default sample app by providing your own sample app url, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged. |
 | app_repo_clone_from_branch | (Optional) Used when app_repo_clone_from_url is provided, the default branch that will be used by the CI build, usually either main or master. | 
 | app_repo_clone_to_git_provider | By default 'hostedgit', else use 'githubconsolidated' or 'gitlab' |
@@ -95,7 +186,7 @@ The main module is where all the other modules are instantiated. The current dep
 | app_repo_existing_branch   | Used when app_repo_existing_url is provided, the default branch that will be used by the CI build, usually either main or master.   |
 | app_repo_existing_git_provider | By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'. | 
 | app_repo_existing_git_id   | By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI. |
-|:    Variables for Services    :|
+|    **Variables for Services**    |
 | cluster_name              | IBM Cloud IKS Cluster name where the sample application is to be deployed by the toolchain    |
 | cluster_namespace         | Namespace within the IBM Cloud IKS Cluster where the sample application is to be deployed  |
 | dev_region                | IBM Cloud IKS Cluster region |
@@ -108,6 +199,7 @@ The main module is where all the other modules are instantiated. The current dep
 | sm_secret_group           | The Secrets Manager secret group containing your secrets. |
 | cos_endpoint              | Cloud Object Storage endpoint name |
 | cos_bucket_name           | Cloud Object Storage bucket name |
+|    **Variables for Code Engine**    |
 | deployment_target         | set as 'code-engine' for Code Engine. Defaults to Kubernetes |
 | code_engine_project       | The name of the Code Engine project|
 | code_engine_region        | The region for Code Engine         |
@@ -116,42 +208,3 @@ The main module is where all the other modules are instantiated. The current dep
 | code_engine_build_strategy | 'dockerfile' or 'buildpacks'      |
 | code_engine_source         | path to the code with the repo    |
 
-4. Run the terraform initialization command
-```
-terraform init
-```
-You should see an output similiar to below
-```
-Initializing modules...
-- integrations in integrations
-- pipeline-ci in pipeline-ci
-- pipeline-pr in pipeline-pr
-- repositories in repositories
-- services in services
-
-Initializing the backend...
-
-Initializing provider plugins...
-- Finding ibm-cloud/ibm versions matching "1.48.0"...
-- Installing ibm-cloud/ibm v1.48.0...
-- Installed ibm-cloud/ibm v1.48.0 (self-signed, key ID AAD3B791C49CC253)
-
-Partner and community providers are signed by their developers.
-If you'd like to know more about provider signing, you can read about it here:
-https://www.terraform.io/docs/cli/plugins/signing.html
-
-Terraform has created a lock file .terraform.lock.hcl to record the provider
-selections it made above. Include this file in your version control repository
-so that Terraform can guarantee to make the same selections by default when
-you run "terraform init" in the future.
-
-Terraform has been successfully initialized!
-
-You may now begin working with Terraform. Try running "terraform plan" to see
-any changes that are required for your infrastructure. All Terraform commands
-should now work.
-
-If you ever set or change modules or backend configuration for Terraform,
-rerun this command to reinitialize your working directory. If you forget, other
-commands will detect it and remind you to do so if necessary.
-```
