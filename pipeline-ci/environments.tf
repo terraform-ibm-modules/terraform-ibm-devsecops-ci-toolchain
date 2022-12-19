@@ -317,6 +317,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_source" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_base_image" {
   name           = "compliance-baseimage"
   type           = "text"
-  value          = ""
+  value          = var.compliance_base_image
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
