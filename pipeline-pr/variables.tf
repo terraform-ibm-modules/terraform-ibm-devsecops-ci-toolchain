@@ -34,6 +34,11 @@ variable "pipeline_path" {
   description = "The relative folder path within pipeline definitions repository containing tekton definitions for pipelines."
   default     = "definitions"
 }
+variable "compliance_base_image" {
+  type        = string
+  description = "Pipeline baseimage to run most of the built-in pipeline code"
+  default     = ""
+}
 
 variable "ibm_cloud_api_key" {
 }

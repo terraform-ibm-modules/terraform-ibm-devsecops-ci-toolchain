@@ -5,3 +5,4 @@
 /*.terraformrc
 /*.tfstate.backup
 *.bak
+*.history

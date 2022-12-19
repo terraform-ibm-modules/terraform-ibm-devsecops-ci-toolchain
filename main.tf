@@ -23,6 +23,8 @@ module "repositories" {
   repositories_prefix             = var.repositories_prefix
   app_repo_clone_to_git_provider  = var.app_repo_clone_to_git_provider
   app_repo_clone_to_git_id        = var.app_repo_clone_to_git_id
+  app_group                    = var.app_group
+  services_group               = var.services_group
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
@@ -65,6 +67,7 @@ module "pipeline-ci" {
   code_engine_build_strategy = var.code_engine_build_strategy
   code_engine_source         = var.code_engine_source
   app_repo_provider_webhook_syntax = module.repositories.app_repo_provider_webhook_syntax
+  compliance_base_image      = var.compliance_base_image
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -88,6 +91,7 @@ module "pipeline-pr" {
   pipeline_repo_url        = module.repositories.pipeline_repo_url
   secret_tool              = module.integrations.secret_tool
   app_repo_provider_webhook_syntax = module.repositories.app_repo_provider_webhook_syntax
+  compliance_base_image      = var.compliance_base_image
 }
 
 module "integrations" {

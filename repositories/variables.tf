@@ -32,3 +32,8 @@ variable "app_repo_clone_to_git_provider" {
 }
 variable "app_repo_clone_to_git_id" {
 }
+
+variable "app_group" {
+}
+variable "services_group" {
+}

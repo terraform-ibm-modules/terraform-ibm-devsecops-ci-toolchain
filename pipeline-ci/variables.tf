@@ -108,3 +108,8 @@ variable "code_engine_source" {
 
 variable "app_repo_provider_webhook_syntax" {
 }
+variable "compliance_base_image" {
+  type        = string
+  description = "Pipeline baseimage to run most of the built-in pipeline code"
+  default     = ""
+}

@@ -186,6 +186,9 @@ or
 | app_repo_existing_branch   | Used when app_repo_existing_url is provided, the default branch that will be used by the CI build, usually either main or master.   |
 | app_repo_existing_git_provider | By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'. | 
 | app_repo_existing_git_id   | By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI. |
+| app_group         | GRIT group where application repository will be created    |
+| services_group         | GRIT group where inventory/issues/evidence repositories will be created    |
+
 |    **Variables for Services**    |
 | cluster_name              | IBM Cloud IKS Cluster name where the sample application is to be deployed by the toolchain    |
 | cluster_namespace         | Namespace within the IBM Cloud IKS Cluster where the sample application is to be deployed  |

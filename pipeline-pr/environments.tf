@@ -53,3 +53,9 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_git-token" {
   value          = ""
   pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
+resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_base_image" {
+  name           = "compliance-baseimage"
+  type           = "text"
+  value          = ""
+  pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
+}

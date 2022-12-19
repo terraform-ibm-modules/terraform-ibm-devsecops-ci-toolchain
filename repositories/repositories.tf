@@ -84,7 +84,8 @@ resource "ibm_cd_toolchain_tool_hostedgit" "app_repo_clone_from_hostedgit" {
     source_repo_url = local.app_repo_clone_from
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "app-repo" ])
-    git_id = local.app_repo_git_id
+    git_id = local.app_repo_git_id    
+    owner_id                 = var.app_group
   }
   parameters {
     toolchain_issues_enabled = false
@@ -170,6 +171,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "inventory_repo" {
     source_repo_url = format("%s/open-toolchain/compliance-inventory.git", local.clone_from_git_server)
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "inventory-repo" ])
+    owner_id                 = var.services_group
   }
   parameters {
     toolchain_issues_enabled = false
@@ -185,6 +187,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "evidence_repo" {
     source_repo_url = format("%s/open-toolchain/compliance-evidence-locker.git", local.clone_from_git_server)
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "evidence-repo" ])
+    owner_id                 = var.services_group
   }
   parameters {
     toolchain_issues_enabled = false
@@ -200,6 +203,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "issues_repo" {
     source_repo_url = format("%s/open-toolchain/compliance-incident-issues.git", local.clone_from_git_server)
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "issues-repo" ])
+    owner_id                 = var.services_group
   }
   parameters {
     toolchain_issues_enabled = true

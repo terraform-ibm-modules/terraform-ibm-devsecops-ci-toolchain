@@ -234,3 +234,19 @@ variable "app_repo_clone_to_git_id" {
   description = "By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI."
   default     = ""
 }
+
+variable "compliance_base_image" {
+  type        = string
+  description = "Pipeline baseimage to run most of the built-in pipeline code"
+  default     = ""
+}
+variable "app_group" {
+  type        = string
+  description = "Specify group for application"
+  default     = ""
+}
+variable "services_group" {
+  type        = string
+  description = "Specify group for issues/inventory/evidence"
+  default     = ""
+}
