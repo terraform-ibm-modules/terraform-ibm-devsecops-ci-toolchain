@@ -49,7 +49,7 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibm_cloud_api" {
 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_git-token" {
   name           = "git-token"
-  type           = "text"
+  type           = "secure"
   value          = ""
   pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }

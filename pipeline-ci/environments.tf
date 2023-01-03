@@ -172,7 +172,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_git_token_environment" {
   name           = "git-token"
-  type           = "text"
+  type           = "secure"
   value          = ""
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
