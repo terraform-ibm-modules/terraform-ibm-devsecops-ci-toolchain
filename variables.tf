@@ -242,11 +242,24 @@ variable "compliance_base_image" {
 }
 variable "app_group" {
   type        = string
-  description = "Specify group for application"
+  description = "Specify gitlab group for your application"
   default     = ""
 }
-variable "services_group" {
+
+variable "issues_group" {
   type        = string
-  description = "Specify group for issues/inventory/evidence"
+  description = "Specify gitlab group for issues repository"
+  default     = ""
+}
+
+variable "inventory_group" {
+  type        = string
+  description = "Specify gitlab group for inventory repository"
+  default     = ""
+}
+
+variable "evidence_group" {
+  type        = string
+  description = "Specify gitlab group for evidence repository"
   default     = ""
 }

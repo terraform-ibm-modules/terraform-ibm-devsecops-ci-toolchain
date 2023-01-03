@@ -187,7 +187,9 @@ or
 | app_repo_existing_git_provider | By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'. | 
 | app_repo_existing_git_id   | By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI. |
 | app_group         | GRIT group where application repository will be created    |
-| services_group         | GRIT group where inventory/issues/evidence repositories will be created    |
+| issues_group         | GRIT group where issues repository will be created    |
+| inventory_group         | GRIT group where inventory repository will be created    |
+| evidence_group         | GRIT group where evidence repository will be created    |
 
 |    **Variables for Services**    |
 | cluster_name              | IBM Cloud IKS Cluster name where the sample application is to be deployed by the toolchain    |

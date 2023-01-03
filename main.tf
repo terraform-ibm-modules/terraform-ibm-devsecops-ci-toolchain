@@ -23,8 +23,10 @@ module "repositories" {
   repositories_prefix             = var.repositories_prefix
   app_repo_clone_to_git_provider  = var.app_repo_clone_to_git_provider
   app_repo_clone_to_git_id        = var.app_repo_clone_to_git_id
-  app_group                    = var.app_group
-  services_group               = var.services_group
+  app_group                       = var.app_group
+  issues_group                    = var.issues_group
+  evidence_group                  = var.evidence_group
+  inventory_group                 = var.inventory_group
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
