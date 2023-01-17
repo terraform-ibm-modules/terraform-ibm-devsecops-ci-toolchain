@@ -87,6 +87,12 @@ variable "sm_location" {
   default     = "us-south"
 }
 
+variable "authorization_policy_creation" {
+  type        = string
+  description = "Disable Toolchain Service to Secrets Manager Service auhorization policy creation."
+  default     = ""
+}
+
 variable "app_repo_clone_from_url" {
     type        = string
     description = "(Optional) Override the default sample app by providing your own sample app url, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged."

@@ -41,3 +41,9 @@ variable "slack_user_name" {
   description = "Name of Slack User"
   default     = ""
 }
+
+variable "authorization_policy_creation" {
+  type        = string
+  description = "Disable Toolchain Service to Secrets Manager Service auhorization policy creation"
+  default     = ""
+}

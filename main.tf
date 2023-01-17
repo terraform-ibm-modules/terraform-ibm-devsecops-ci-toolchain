@@ -109,6 +109,7 @@ module "integrations" {
   slack_channel_name        = var.slack_channel_name
   slack_api_token           = var.slack_api_token
   slack_user_name           = var.slack_user_name
+  authorization_policy_creation = var.authorization_policy_creation
 }
 
 module "services" {

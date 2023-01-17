@@ -177,6 +177,7 @@ or
 | repositories_prefix       | Prefix name for the cloned compliance repos. |
 | ibm_cloud_api_key         | IBM Cloud API KEY to fetch/post cloud resources in terraform. Not used in the pipeline, where a secret reference is used instead. |
 | ibm_cloud_api             | IBM Cloud API Endpoint     |
+|authorization_policy_creation| Disable Service to Service Authorization Policy creation for secrets resolution. Set to "disabled" if you do not want this policy auto created|
 |**Variables for Repositories** |
 | app_repo_clone_from_url    | (Optional) Override the default sample app by providing your own sample app url, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged. |
 | app_repo_clone_from_branch | (Optional) Used when app_repo_clone_from_url is provided, the default branch that will be used by the CI build, usually either main or master. | 
