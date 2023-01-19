@@ -191,8 +191,7 @@ or
 | issues_group         | GRIT group where issues repository will be created    |
 | inventory_group         | GRIT group where inventory repository will be created    |
 | evidence_group         | GRIT group where evidence repository will be created    |
-
-|    **Variables for Services**    |
+|**Variables for Services** |
 | cluster_name              | IBM Cloud IKS Cluster name where the sample application is to be deployed by the toolchain    |
 | cluster_namespace         | Namespace within the IBM Cloud IKS Cluster where the sample application is to be deployed  |
 | dev_region                | IBM Cloud IKS Cluster region |
@@ -205,7 +204,9 @@ or
 | sm_secret_group           | The Secrets Manager secret group containing your secrets. |
 | cos_endpoint              | Cloud Object Storage endpoint name |
 | cos_bucket_name           | Cloud Object Storage bucket name |
-|    **Variables for Code Engine**    |
+| link_to_doi_toolchain     | Default 'false'. Use a custom tool integration to link to an existing DevOpsInsights integration using 'doi_toolchain_id' |
+| doi_toolchain_id          | The Id of the toolchain containing the instance of DevOpsInsights
+|**Variables for Code Engine** |
 | deployment_target         | set as 'code-engine' for Code Engine. Defaults to Kubernetes |
 | code_engine_project       | The name of the Code Engine project|
 | code_engine_region        | The region for Code Engine         |
