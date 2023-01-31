@@ -40,36 +40,39 @@ module "pipeline-ci" {
   source     = "./pipeline-ci"
   depends_on = [module.repositories, module.integrations, module.services]
 
-  ibm_cloud_api      = var.ibm_cloud_api
-  ibm_cloud_api_key  = var.ibm_cloud_api_key
-  pipeline_id        = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
-  app_name           = var.app_name
-  cluster_name       = var.cluster_name
-  cluster_namespace  = var.cluster_namespace
-  dev_region         = var.dev_region
-  dev_resource_group = var.dev_resource_group
-  registry_namespace = var.registry_namespace
-  registry_region    = var.registry_region
-  app_repo_url       = module.repositories.app_repo_url
-  app_repo_branch    = module.repositories.app_repo_branch
-  config_repo_branch = module.repositories.config_repo_branch
-  pipeline_repo_url  = module.repositories.pipeline_repo_url
-  evidence_repo_url  = module.repositories.evidence_repo_url
-  inventory_repo_url = module.repositories.inventory_repo_url
-  issues_repo_url    = module.repositories.issues_repo_url
-  secret_tool        = module.integrations.secret_tool
-  cos_bucket_name    = var.cos_bucket_name
-  # cos_api_key              = var.cos_api_key
-  cos_endpoint                     = var.cos_endpoint
-  deployment_target                = var.deployment_target
-  code_engine_project              = var.code_engine_project
-  code_engine_region               = var.code_engine_region
-  code_engine_resource_group       = var.code_engine_resource_group
-  code_engine_entity_type          = var.code_engine_entity_type
-  code_engine_build_strategy       = var.code_engine_build_strategy
-  code_engine_source               = var.code_engine_source
-  app_repo_provider_webhook_syntax = module.repositories.app_repo_provider_webhook_syntax
-  compliance_base_image            = var.compliance_base_image
+  ibm_cloud_api                         = var.ibm_cloud_api
+  ibm_cloud_api_key                     = var.ibm_cloud_api_key
+  pipeline_id                           = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
+  app_name                              = var.app_name
+  cluster_name                          = var.cluster_name
+  cluster_namespace                     = var.cluster_namespace
+  dev_region                            = var.dev_region
+  dev_resource_group                    = var.dev_resource_group
+  registry_namespace                    = var.registry_namespace
+  registry_region                       = var.registry_region
+  signing_key_secret_name               = var.signing_key_secret_name
+  cos_api_key_secret_name               = var.cos_api_key_secret_name
+  pipeline_ibmcloud_api_key_secret_name = var.pipeline_ibmcloud_api_key_secret_name
+  app_repo_url                          = module.repositories.app_repo_url
+  app_repo_branch                       = module.repositories.app_repo_branch
+  config_repo_branch                    = module.repositories.config_repo_branch
+  pipeline_repo_url                     = module.repositories.pipeline_repo_url
+  evidence_repo_url                     = module.repositories.evidence_repo_url
+  inventory_repo_url                    = module.repositories.inventory_repo_url
+  issues_repo_url                       = module.repositories.issues_repo_url
+  secret_tool                           = module.integrations.secret_tool
+  cos_bucket_name                       = var.cos_bucket_name
+  # cos_api_key_secret_name             = var.cos_api_key_secret_name
+  cos_endpoint                          = var.cos_endpoint
+  deployment_target                     = var.deployment_target
+  code_engine_project                   = var.code_engine_project
+  code_engine_region                    = var.code_engine_region
+  code_engine_resource_group            = var.code_engine_resource_group
+  code_engine_entity_type               = var.code_engine_entity_type
+  code_engine_build_strategy            = var.code_engine_build_strategy
+  code_engine_source                    = var.code_engine_source
+  app_repo_provider_webhook_syntax      = module.repositories.app_repo_provider_webhook_syntax
+  compliance_base_image                 = var.compliance_base_image
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -83,17 +86,18 @@ module "pipeline-pr" {
   source     = "./pipeline-pr"
   depends_on = [module.repositories, module.integrations, module.services]
 
-  ibm_cloud_api                    = var.ibm_cloud_api
-  ibm_cloud_api_key                = var.ibm_cloud_api_key
-  pipeline_id                      = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
-  app_name                         = var.app_name
-  app_repo_url                     = module.repositories.app_repo_url
-  app_repo_branch                  = module.repositories.app_repo_branch
-  config_repo_branch               = module.repositories.config_repo_branch
-  pipeline_repo_url                = module.repositories.pipeline_repo_url
-  secret_tool                      = module.integrations.secret_tool
-  app_repo_provider_webhook_syntax = module.repositories.app_repo_provider_webhook_syntax
-  compliance_base_image            = var.compliance_base_image
+  ibm_cloud_api                         = var.ibm_cloud_api
+  ibm_cloud_api_key                     = var.ibm_cloud_api_key
+  pipeline_ibmcloud_api_key_secret_name = var.pipeline_ibmcloud_api_key_secret_name
+  pipeline_id                           = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
+  app_name                              = var.app_name
+  app_repo_url                          = module.repositories.app_repo_url
+  app_repo_branch                       = module.repositories.app_repo_branch
+  config_repo_branch                    = module.repositories.config_repo_branch
+  pipeline_repo_url                     = module.repositories.pipeline_repo_url
+  secret_tool                           = module.integrations.secret_tool
+  app_repo_provider_webhook_syntax      = module.repositories.app_repo_provider_webhook_syntax
+  compliance_base_image                 = var.compliance_base_image
 }
 
 module "integrations" {

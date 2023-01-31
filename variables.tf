@@ -40,6 +40,24 @@ variable "app_name" {
   default     = "hello-compliance-app"
 }
 
+variable "pipeline_ibmcloud_api_key_secret_name" {
+  type        = string
+  description = "Name of the Cloud api key secret in the secret provider."
+  default     = "ibmcloud-api-key"
+}
+
+variable "signing_key_secret_name" {
+  type        = string
+  description = "Name of the signing key secret in the secret provider."
+  default     = "signing-key"
+}
+
+variable "cos_api_key_secret_name" {
+  type        = string
+  description = "Name of the cos api key secret in the secret provider."
+  default     = "cos-api-key"
+}
+
 variable "cluster_name" {
   type        = string
   description = "Name of the kubernetes cluster where the application will be deployed."
@@ -141,7 +159,7 @@ variable "slack_user_name" {
   default     = ""
 }
 
-# variable "cos_api_key" {
+# variable "cos_api_key_secret_name" {
 #   type        = string
 #   description = "cos api key"
 #   default     = ""

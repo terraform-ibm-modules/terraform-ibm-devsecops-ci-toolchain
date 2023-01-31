@@ -43,6 +43,9 @@ variable "compliance_base_image" {
 variable "ibm_cloud_api_key" {
 }
 
+variable "pipeline_ibmcloud_api_key_secret_name" {
+}
+
 variable "ibm_cloud_api" {
 }
 

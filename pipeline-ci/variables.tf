@@ -7,6 +7,15 @@ variable "dev_resource_group" {
 variable "app_name" {
 }
 
+variable "signing_key_secret_name" {
+}
+
+variable "cos_api_key_secret_name" {
+}
+
+variable "pipeline_ibmcloud_api_key_secret_name" {
+}
+
 variable "cluster_name" {
 }
 
@@ -42,7 +51,7 @@ variable "app_repo_branch" {
 variable "config_repo_branch" {
 }
 
-# variable "cos_api_key" {
+# variable "cos_api_key_secret_name" {
 # }
 
 variable "cos_bucket_name" {
