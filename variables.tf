@@ -49,7 +49,7 @@ variable "pipeline_ibmcloud_api_key_secret_name" {
 variable "signing_key_secret_name" {
   type        = string
   description = "Name of the signing key secret in the secret provider."
-  default     = "signing-key"
+  default     = "signing_key"
 }
 
 variable "cos_api_key_secret_name" {

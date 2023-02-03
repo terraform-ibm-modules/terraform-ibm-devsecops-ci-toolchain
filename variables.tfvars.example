@@ -39,9 +39,9 @@ sm_resource_group               = "Default"
 /*****************************************************/
 /* Variables for Module "Integrations"               */
 /*****************************************************/
-#signing_key_secret_name        = "signing-key"
+#signing_key_secret_name        = "signing_key"
 #cos_api_key_secret_name        = "cos-api-key"
-#pipeline_ibmcloud_api_key_secret_name  = "ibmcloud_api_key"
+#pipeline_ibmcloud_api_key_secret_name  = "ibmcloud-api-key"
 #authorization_policy_creation  = "disabled"
 slack_channel_name              = "slack-channel"
 slack_api_token                 = "slack-token"
