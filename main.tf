@@ -60,6 +60,9 @@ module "pipeline-ci" {
   evidence_repo_url                     = module.repositories.evidence_repo_url
   inventory_repo_url                    = module.repositories.inventory_repo_url
   issues_repo_url                       = module.repositories.issues_repo_url
+  evidence_repo                         = module.repositories.evidence_repo
+  inventory_repo                        = module.repositories.inventory_repo
+  issues_repo                           = module.repositories.issues_repo
   secret_tool                           = module.integrations.secret_tool
   cos_bucket_name                       = var.cos_bucket_name
   # cos_api_key_secret_name             = var.cos_api_key_secret_name
@@ -163,6 +166,18 @@ output "evidence_repo_url" {
 output "issues_repo_url" {
   value       = module.repositories.issues_repo_url
   description = "The incident issues repository instance url, where issues are created when vulnerabilities and CVEs are detected"
+}
+
+output "inventory_repo" {
+  value = module.repositories.inventory_repo
+}
+
+output "evidence_repo" {
+  value = module.repositories.evidence_repo
+}
+
+output "issues_repo" {
+  value = module.repositories.issues_repo
 }
 
 output "pipeline_repo_url" {
