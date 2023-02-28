@@ -7,6 +7,15 @@ resource "ibm_iam_authorization_policy" "toolchain_secretsmanager_auth_policy" {
   roles                       = ["Viewer", "SecretsReader"]
 }
 
+resource "ibm_iam_authorization_policy" "toolchain_keyprotect_auth_policy" {
+  count                       = var.authorization_policy_creation == "disabled" ? 0 : 1
+  source_service_name         = "toolchain"
+  source_resource_instance_id = var.toolchain_id
+  target_service_name         = "kms"
+  target_resource_instance_id = var.sm_instance_guid
+  roles                       = ["Viewer", "ReaderPlus"]
+}
+
 # resource "ibm_cd_toolchain_tool_keyprotect" "keyprotect" {
 #   toolchain_id = var.toolchain_id
 #   parameters {
@@ -18,17 +27,29 @@ resource "ibm_iam_authorization_policy" "toolchain_secretsmanager_auth_policy" {
 # }
 
 locals {
-  # sm_integration_name = "SM Integration Instance"
   sm_integration_name = "sm-compliance-secrets"
+  kp_integration_name = "kp-compliance-secrets"
 }
 
  resource "ibm_cd_toolchain_tool_secretsmanager" "secretsmanager" {
    toolchain_id = var.toolchain_id
+   count = var.enable_secrets_manager ? 1 : 0
    parameters {
      name                = local.sm_integration_name
      location            = var.sm_location
      resource_group_name = var.sm_resource_group
      instance_name       = var.sm_name
+   }
+ }
+
+ resource "ibm_cd_toolchain_tool_keyprotect" "keyprotect" {
+  count = var.enable_key_protect ? 1 : 0
+   toolchain_id = var.toolchain_id
+   parameters {
+     name                = local.kp_integration_name
+     location            = var.kp_location
+     resource_group_name = var.kp_resource_group
+     instance_name       = var.kp_name
    }
  }
 
@@ -77,7 +98,7 @@ resource "ibm_cd_toolchain_tool_custom" "cos_integration" {
 #   value = var.key_protect_integration_name
 # }
 output "secret_tool" {
-  value = format("%s.%s", local.sm_integration_name, var.sm_secret_group)
+  value = (var.enable_key_protect) ? local.kp_integration_name : format("%s.%s", local.sm_integration_name, var.sm_secret_group)
   # Before returning this tool integration name
   # used to construct {vault:: secret references,
   # the authorization_policy must have been successfully created,
@@ -86,7 +107,9 @@ output "secret_tool" {
   # other tools using secret references could give errors during tool integration creation
   depends_on = [
     ibm_iam_authorization_policy.toolchain_secretsmanager_auth_policy,
-    ibm_cd_toolchain_tool_secretsmanager.secretsmanager
+    ibm_iam_authorization_policy.toolchain_keyprotect_auth_policy,
+    ibm_cd_toolchain_tool_secretsmanager.secretsmanager,
+    ibm_cd_toolchain_tool_keyprotect.keyprotect
   ]
   description = "Used as part of secret references to point to the secret store tool integration"
 }

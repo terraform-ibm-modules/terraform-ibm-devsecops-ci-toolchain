@@ -60,7 +60,7 @@ locals {
         )
     : "master" # hello-compliance-app has branch master
   )
-  config_repo_branch = local.app_repo_branch # not yet support for separate config repo url/branch
+  pipeline_config_repo_branch = (var.pipeline_config_repo_branch == "") ? local.app_repo_branch : var.pipeline_config_repo_branch# not yet support for separate config repo url/branch
 
   app_repo_provider_webhook_syntax = (
     ((local.app_repo_git_provider == "hostedgit") || (local.app_repo_git_provider == "gitlab")) 
@@ -104,6 +104,21 @@ resource "ibm_cd_toolchain_tool_hostedgit" "app_repo_existing_hostedgit" {
     type = "link"
     repo_url = var.app_repo_existing_url
     git_id = local.app_repo_git_id
+  }
+  parameters {
+    toolchain_issues_enabled = false
+    enable_traceability      = false
+  }
+}
+
+resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_config_repo_existing_hostedgit" {
+  count = (var.pipeline_config_repo_existing_url == "") ? 0 : 1 
+  toolchain_id = var.toolchain_id
+  name         = "pipeline-config-repo"
+  initialization {
+    type = "link"
+    repo_url = var.pipeline_config_repo_existing_url
+    git_id = ""
   }
   parameters {
     toolchain_issues_enabled = false
@@ -229,11 +244,10 @@ output "app_repo_branch" {
   description = "The app repo default branch that will be used by the CI build, usually either main or master."
 }
 
-output "config_repo_branch" {
-  value = local.config_repo_branch
+output "pipeline_config_repo_branch" {
+  value = local.pipeline_config_repo_branch
   description = "The config or app repo branch containing the .pipeline-config.yaml file; usually main or master."
 }
-
 
 output "pipeline_repo_url" {
   value = ibm_cd_toolchain_tool_hostedgit.pipeline_repo.parameters[0].repo_url
@@ -265,6 +279,10 @@ output "evidence_repo" {
 
 output "issues_repo" {
   value = ibm_cd_toolchain_tool_hostedgit.issues_repo
+}
+
+output "pipeline_config_repo" {
+  value = ibm_cd_toolchain_tool_hostedgit.pipeline_config_repo_existing_hostedgit
 }
 
 # output "test_output" {

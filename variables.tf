@@ -94,17 +94,6 @@ variable "registry_region" {
   default     = "ibm:yp:us-south"
 }
 
-variable "sm_name" {
-  type        = string
-  description = "Name of the Secrets Manager instance where the secrets are stored."
-}
-
-variable "sm_location" {
-  type        = string
-  description = "IBM Cloud location/region containing the Secrets Manager instance."
-  default     = "us-south"
-}
-
 variable "authorization_policy_creation" {
   type        = string
   description = "Disable Toolchain Service to Secrets Manager Service auhorization policy creation."
@@ -133,6 +122,48 @@ variable "app_repo_existing_branch" {
     type        = string
     description = "Used when app_repo_existing_url is provided, the default branch that will be used by the CI build, usually either main or master."
     default     = ""
+}
+
+variable "app_repo_existing_git_provider" {
+  type        = string
+  description = "By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'."
+  default     = ""
+}
+
+variable "app_repo_existing_git_id" {
+  type        = string
+  description = "By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI."
+  default     = ""
+}
+
+variable "app_repo_clone_to_git_provider" {
+  type        = string
+  description = "By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'."
+  default     = ""
+}
+
+variable "app_repo_clone_to_git_id" {
+  type        = string
+  description = "By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI."
+  default     = ""
+}
+
+variable "pipeline_config_repo_existing_url" {
+  type        = string
+  description = "(Optional). Specify a repository containing a custom pipeline-config.yaml file"
+  default     = ""
+}
+
+variable "pipeline_config_repo_branch" {
+  type        = string
+  description = "(Optional). Specify the branch containing the custom pipeline-config.yaml file"
+  default     = ""
+}
+
+variable "pipeline_config_path" {
+  type        = string
+  description = "The name and path of the pipeline-config.yaml file within the pipeline-config repo"
+  default     = ".pipeline-config.yaml"
 }
 
 variable "repositories_prefix" { 
@@ -189,6 +220,45 @@ variable "sm_resource_group" {
   default     = "Default"
 }
 
+variable "sm_name" {
+  type        = string
+  description = "Name of the Secrets Manager instance where the secrets are stored."
+  default     = "sm-compliance-secrets"
+}
+
+variable "sm_location" {
+  type        = string
+  description = "IBM Cloud location/region containing the Secrets Manager instance."
+  default     = "us-south"
+}
+
+variable "kp_resource_group" {
+  type        = string
+  description = "The resource group containing the Key Protect instance for your secrets."
+  default     = "Default"
+}
+
+variable "kp_name" {
+  type        = string
+  description = "Name of the Key Protect instance where the secrets are stored."
+  default     = "kp-compliance-secrets"
+}
+
+variable "kp_location" {
+  type        = string
+  description = "IBM Cloud location/region containing the Key Protect instance."
+  default     = "us-south"
+}
+
+variable "enable_key_protect" {
+  type        = bool
+  default     = false
+}
+
+variable "enable_secrets_manager" {
+  type        = bool
+  default     = true
+}
 ######## Deployment Strategy ##################
 
 variable "deployment_target" {
@@ -232,30 +302,6 @@ variable "code_engine_build_strategy" {
 variable "code_engine_source" {
   type        = string
   description = "The path to the location of code to build in the repository"
-  default     = ""
-}
-
-variable "app_repo_existing_git_provider" {
-  type        = string
-  description = "By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'."
-  default     = ""
-}
-
-variable "app_repo_existing_git_id" {
-  type        = string
-  description = "By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI."
-  default     = ""
-}
-
-variable "app_repo_clone_to_git_provider" {
-  type        = string
-  description = "By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'."
-  default     = ""
-}
-
-variable "app_repo_clone_to_git_id" {
-  type        = string
-  description = "By default absent, else custom server GUID, or other options for 'git_id' field in the browser UI."
   default     = ""
 }
 

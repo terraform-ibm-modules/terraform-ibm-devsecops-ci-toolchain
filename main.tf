@@ -11,22 +11,24 @@ resource "ibm_cd_toolchain" "toolchain_instance" {
 module "repositories" {
   source = "./repositories"
 
-  toolchain_id                   = ibm_cd_toolchain.toolchain_instance.id
-  toolchain_region               = var.toolchain_region
-  toolchain_crn                  = ibm_cd_toolchain.toolchain_instance.crn
-  app_repo_existing_url          = var.app_repo_existing_url
-  app_repo_existing_branch       = var.app_repo_existing_branch
-  app_repo_existing_git_provider = var.app_repo_existing_git_provider
-  app_repo_existing_git_id       = var.app_repo_existing_git_id
-  app_repo_clone_from_url        = var.app_repo_clone_from_url
-  app_repo_clone_from_branch     = var.app_repo_clone_from_branch
-  repositories_prefix            = var.repositories_prefix
-  app_repo_clone_to_git_provider = var.app_repo_clone_to_git_provider
-  app_repo_clone_to_git_id       = var.app_repo_clone_to_git_id
-  app_group                      = var.app_group
-  issues_group                   = var.issues_group
-  evidence_group                 = var.evidence_group
-  inventory_group                = var.inventory_group
+  toolchain_id                      = ibm_cd_toolchain.toolchain_instance.id
+  toolchain_region                  = var.toolchain_region
+  toolchain_crn                     = ibm_cd_toolchain.toolchain_instance.crn
+  app_repo_existing_url             = var.app_repo_existing_url
+  app_repo_existing_branch          = var.app_repo_existing_branch
+  app_repo_existing_git_provider    = var.app_repo_existing_git_provider
+  app_repo_existing_git_id          = var.app_repo_existing_git_id
+  app_repo_clone_from_url           = var.app_repo_clone_from_url
+  app_repo_clone_from_branch        = var.app_repo_clone_from_branch
+  pipeline_config_repo_existing_url = var.pipeline_config_repo_existing_url
+  pipeline_config_repo_branch       = var.pipeline_config_repo_branch
+  repositories_prefix               = var.repositories_prefix
+  app_repo_clone_to_git_provider    = var.app_repo_clone_to_git_provider
+  app_repo_clone_to_git_id          = var.app_repo_clone_to_git_id
+  app_group                         = var.app_group
+  issues_group                      = var.issues_group
+  evidence_group                    = var.evidence_group
+  inventory_group                   = var.inventory_group
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
@@ -55,8 +57,11 @@ module "pipeline-ci" {
   pipeline_ibmcloud_api_key_secret_name = var.pipeline_ibmcloud_api_key_secret_name
   app_repo_url                          = module.repositories.app_repo_url
   app_repo_branch                       = module.repositories.app_repo_branch
-  config_repo_branch                    = module.repositories.config_repo_branch
+  pipeline_config_repo_branch           = module.repositories.pipeline_config_repo_branch
+  pipeline_config_repo                  = module.repositories.pipeline_config_repo
+  pipeline_config_repo_existing_url     = var.pipeline_config_repo_existing_url
   pipeline_repo_url                     = module.repositories.pipeline_repo_url
+  pipeline_config_path                  = var.pipeline_config_path
   evidence_repo_url                     = module.repositories.evidence_repo_url
   inventory_repo_url                    = module.repositories.inventory_repo_url
   issues_repo_url                       = module.repositories.issues_repo_url
@@ -96,7 +101,10 @@ module "pipeline-pr" {
   app_name                              = var.app_name
   app_repo_url                          = module.repositories.app_repo_url
   app_repo_branch                       = module.repositories.app_repo_branch
-  config_repo_branch                    = module.repositories.config_repo_branch
+  pipeline_config_repo_existing_url     = var.pipeline_config_repo_existing_url
+  pipeline_config_repo                  = module.repositories.pipeline_config_repo
+  pipeline_config_repo_branch           = module.repositories.pipeline_config_repo_branch
+  pipeline_config_path                  = var.pipeline_config_path
   pipeline_repo_url                     = module.repositories.pipeline_repo_url
   secret_tool                           = module.integrations.secret_tool
   app_repo_provider_webhook_syntax      = module.repositories.app_repo_provider_webhook_syntax
@@ -113,6 +121,12 @@ module "integrations" {
   sm_name                       = var.sm_name
   sm_instance_guid              = module.services.sm_instance_guid
   sm_secret_group               = var.sm_secret_group
+  kp_location                   = var.kp_location
+  kp_resource_group             = var.kp_resource_group
+  kp_name                       = var.kp_name
+  kp_instance_guid              = module.services.kp_instance_guid
+  enable_secrets_manager        = var.enable_secrets_manager
+  enable_key_protect            = var.enable_key_protect
   slack_channel_name            = var.slack_channel_name
   slack_api_token               = var.slack_api_token
   slack_user_name               = var.slack_user_name
@@ -124,13 +138,18 @@ module "integrations" {
 module "services" {
   source = "./services"
 
-  sm_name            = var.sm_name
-  sm_location        = var.sm_location
-  sm_resource_group  = var.sm_resource_group
-  cluster_name       = var.cluster_name
-  cluster_namespace  = var.cluster_namespace
-  registry_namespace = var.registry_namespace
-  registry_region    = var.registry_region
+  sm_name                 = var.sm_name
+  sm_location             = var.sm_location
+  sm_resource_group       = var.sm_resource_group
+  kp_name                 = var.kp_name
+  kp_location             = var.kp_location
+  kp_resource_group       = var.kp_resource_group
+  enable_secrets_manager  = var.enable_secrets_manager
+  enable_key_protect      = var.enable_key_protect
+  cluster_name            = var.cluster_name
+  cluster_namespace       = var.cluster_namespace
+  registry_namespace      = var.registry_namespace
+  registry_region         = var.registry_region
 }
 
 output "toolchain_id" {
@@ -139,6 +158,10 @@ output "toolchain_id" {
 
 output "secrets_manager_instance_id" {
   value = module.services.sm_instance_guid
+}
+
+output "key_protect_instance_id" {
+  value = module.services.kp_instance_guid
 }
 
 output "ci_pipeline_id" {
@@ -169,15 +192,18 @@ output "issues_repo_url" {
 }
 
 output "inventory_repo" {
-  value = module.repositories.inventory_repo
+  value     = module.repositories.inventory_repo
+  sensitive = true
 }
 
 output "evidence_repo" {
-  value = module.repositories.evidence_repo
+  value     = module.repositories.evidence_repo
+  sensitive = true
 }
 
 output "issues_repo" {
-  value = module.repositories.issues_repo
+  value     = module.repositories.issues_repo
+  sensitive = true
 }
 
 output "pipeline_repo_url" {

@@ -15,7 +15,16 @@ variable "app_repo_url" {
 variable "app_repo_branch" {
 }
 
-variable "config_repo_branch" {
+variable "pipeline_config_repo" {
+}
+
+variable "pipeline_config_repo_existing_url" {
+}
+
+variable "pipeline_config_repo_branch" {
+}
+
+variable "pipeline_config_path" {
 }
 
 variable "pipeline_repo_url" {

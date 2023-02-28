@@ -1,21 +1,31 @@
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config" {
   name           = "pipeline-config"
   type           = "text"
-  value          = ".pipeline-config.yaml"
+  value          = var.pipeline_config_path
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_branch" {
   name           = "pipeline-config-branch"
   type           = "text"
-  value          = var.config_repo_branch
+  value          = var.pipeline_config_repo_branch
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo" {
+  count          = (var.pipeline_config_repo_existing_url == "") ? 0 : 1 
+  name           = "pipeline-config-repo"
+  type           = "integration"
+  value          = try(var.pipeline_config_repo[0].tool_id, "")
+  path           = "parameters.repo_url"
+  pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo_default" {
+  count          = (var.pipeline_config_repo_existing_url == "") ? 1 : 0 
   name           = "pipeline-config-repo"
   type           = "text"
-  value          = ""
+  value          = try(var.pipeline_config_repo[0].tool_id, "")
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

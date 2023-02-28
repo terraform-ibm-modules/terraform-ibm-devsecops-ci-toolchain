@@ -35,7 +35,11 @@ sm_name                         = "sm-prod-dal"
 sm_location                     = "us-south"
 sm_secret_group                 = "Default"
 sm_resource_group               = "Default"
-
+enable_secrets_manager          = false
+enable_key_protect              = true
+kp_name                         = "kp-prod-dal"
+kp_location                     = "us-south"
+kp_secret_group                 = "Default"
 /*****************************************************/
 /* Variables for Module "Integrations"               */
 /*****************************************************/
