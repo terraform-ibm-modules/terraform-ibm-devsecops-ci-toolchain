@@ -44,13 +44,14 @@
 # }
 
 data "ibm_resource_group" "kp_resource_group" {
-  name = var.kp_resource_group
+  count             = var.enable_key_protect ? 1 : 0
+  name              = var.kp_resource_group
 }
 data ibm_resource_instance "key_protect_instance" {
   count             = var.enable_key_protect ? 1 : 0
   service           = "kms"
   name              = var.kp_name
-  resource_group_id = data.ibm_resource_group.kp_resource_group.id
+  resource_group_id = data.ibm_resource_group.kp_resource_group[0].id
   location          = var.kp_location
 }
 
@@ -60,13 +61,14 @@ output "kp_instance_guid" {
 }
 
 data "ibm_resource_group" "sm_resource_group" {
-  name = var.sm_resource_group
+  count             = var.enable_secrets_manager ? 1 : 0
+  name              = var.sm_resource_group
 }
 data ibm_resource_instance "secrets_manager_instance" {
   count             = var.enable_secrets_manager ? 1 : 0
   service           = "secrets-manager"
   name              = var.sm_name
-  resource_group_id = data.ibm_resource_group.sm_resource_group.id
+  resource_group_id = data.ibm_resource_group.sm_resource_group[0].id
   location          = var.sm_location
 }
 
