@@ -60,7 +60,12 @@ locals {
         )
     : "master" # hello-compliance-app has branch master
   )
-  pipeline_config_repo_branch = (var.pipeline_config_repo_branch == "") ? local.app_repo_branch : var.pipeline_config_repo_branch# not yet support for separate config repo url/branch
+  
+  pipeline_config_repo_branch = (
+    (var.pipeline_config_repo_existing_branch != "") ? 
+    var.pipeline_config_repo_existing_branch : (var.pipeline_config_repo_clone_from_branch != "") ? 
+    var.pipeline_config_repo_clone_from_branch : local.app_repo_branch
+  )
 
   app_repo_provider_webhook_syntax = (
     ((local.app_repo_git_provider == "hostedgit") || (local.app_repo_git_provider == "gitlab")) 
@@ -125,6 +130,26 @@ resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_config_repo_existing_hosted
     enable_traceability      = false
   }
 }
+
+resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_config_repo_clone_from_hostedgit" {
+  count = (var.pipeline_config_repo_clone_from_url == "") ? 0 : 1 
+
+  toolchain_id = var.toolchain_id
+  name         = "pipeline-config-repo"
+  initialization {
+    type = "clone_if_not_exists"
+    source_repo_url = var.pipeline_config_repo_clone_from_url
+    private_repo = true
+    repo_name = join("-", [ var.repositories_prefix, "pipeline-config-repo" ])
+    git_id = ""    
+    owner_id                 = var.config_group
+  }
+  parameters {
+    toolchain_issues_enabled = false
+    enable_traceability      = false
+  }
+}
+
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo_clone_from_githubconsolidated" {
   count = (local.app_repo_git_provider == "githubconsolidated" 
@@ -282,7 +307,7 @@ output "issues_repo" {
 }
 
 output "pipeline_config_repo" {
-  value = ibm_cd_toolchain_tool_hostedgit.pipeline_config_repo_existing_hostedgit
+  value = (var.pipeline_config_repo_existing_url == "") ? ibm_cd_toolchain_tool_hostedgit.pipeline_config_repo_clone_from_hostedgit : ibm_cd_toolchain_tool_hostedgit.pipeline_config_repo_existing_hostedgit
 }
 
 # output "test_output" {

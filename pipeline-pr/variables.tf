@@ -27,6 +27,9 @@ variable "pipeline_config_repo_branch" {
 variable "pipeline_config_path" {
 }
 
+variable "pipeline_config_repo_clone_from_url" {
+}
+
 variable "pipeline_repo_url" {
     type        = string
     description = "The repository url containing pipeline definitions for Compliance CI Toolchain."

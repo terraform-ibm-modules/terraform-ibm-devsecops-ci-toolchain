@@ -20,7 +20,7 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_branch" 
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo" {
-  count          = (var.pipeline_config_repo_existing_url == "") ? 0 : 1 
+  count          = (var.pipeline_config_repo_existing_url == "") && (var.pipeline_config_repo_clone_from_url == "") ? 0 : 1 
   name           = "pipeline-config-repo"
   type           = "integration"
   value          = try(var.pipeline_config_repo[0].tool_id, "")
@@ -29,7 +29,7 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo_default" {
-  count          = (var.pipeline_config_repo_existing_url == "") ? 1 : 0 
+  count          = (var.pipeline_config_repo_existing_url == "") && (var.pipeline_config_repo_clone_from_url == "") ? 1 : 0 
   name           = "pipeline-config-repo"
   type           = "text"
   value          = try(var.pipeline_config_repo[0].tool_id, "")

@@ -84,6 +84,9 @@ variable "pipeline_config_repo" {
 variable "pipeline_config_repo_existing_url" {
 }
 
+variable "pipeline_config_repo_clone_from_url" {
+}
+
 variable "pipeline_config_repo_branch" {
 }
 

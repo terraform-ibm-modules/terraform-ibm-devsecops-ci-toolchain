@@ -22,7 +22,13 @@ variable "app_repo_clone_to_git_id" {
 variable "pipeline_config_repo_existing_url" {
 }
 
-variable "pipeline_config_repo_branch" {
+variable "pipeline_config_repo_existing_branch" {
+}
+
+variable "pipeline_config_repo_clone_from_url" {
+}
+
+variable "pipeline_config_repo_clone_from_branch" {
 }
 
 variable "repositories_prefix" { 
@@ -41,6 +47,10 @@ variable "toolchain_crn" {
 
 variable "app_group" {
 }
+
+variable "config_group" {
+}
+
 variable "issues_group" {
 }
 

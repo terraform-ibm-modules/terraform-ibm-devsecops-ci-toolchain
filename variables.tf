@@ -154,11 +154,24 @@ variable "pipeline_config_repo_existing_url" {
   default     = ""
 }
 
-variable "pipeline_config_repo_branch" {
+variable "pipeline_config_repo_existing_branch" {
   type        = string
   description = "(Optional). Specify the branch containing the custom pipeline-config.yaml file"
   default     = ""
 }
+
+variable "pipeline_config_repo_clone_from_url" {
+  type        = string
+  description = "(Optional). Specify a repository to clone that contains a custom pipeline-config.yaml file"
+  default     = ""
+}
+
+variable "pipeline_config_repo_clone_from_branch" {
+  type        = string
+  description = "(Optional). Specify a branch of a repository to clone that contains a custom pipeline-config.yaml file"
+  default     = ""
+}
+
 
 variable "pipeline_config_path" {
   type        = string
@@ -314,6 +327,12 @@ variable "app_group" {
   type        = string
   description = "Specify gitlab group for your application"
   default     = ""
+}
+
+variable "config_group" {
+  type        = string
+  description = "Specify GitLab group for your config repo"
+  default     = "" 
 }
 
 variable "issues_group" {
