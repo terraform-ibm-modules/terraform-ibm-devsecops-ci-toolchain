@@ -10,7 +10,7 @@ resource "ibm_cd_toolchain" "toolchain_instance" {
 
 module "repositories" {
   source = "./repositories"
-
+  depends_on = [module.integrations]
   toolchain_id                           = ibm_cd_toolchain.toolchain_instance.id
   toolchain_region                       = var.toolchain_region
   toolchain_crn                          = ibm_cd_toolchain.toolchain_instance.crn
@@ -23,15 +23,28 @@ module "repositories" {
   app_repo_clone_to_git_provider         = var.app_repo_clone_to_git_provider
   app_repo_clone_to_git_id               = var.app_repo_clone_to_git_id
   pipeline_config_repo_existing_url      = var.pipeline_config_repo_existing_url
-  pipeline_config_repo_existing_branch   = var.pipeline_config_repo_existing_branch
+  pipeline_config_repo_branch            = var.pipeline_config_repo_branch
   pipeline_config_repo_clone_from_url    = var.pipeline_config_repo_clone_from_url
-  pipeline_config_repo_clone_from_branch = var.pipeline_config_repo_clone_from_branch
+  pipeline_config_repo_auth_type                 = var.pipeline_config_repo_auth_type
+  pipeline_config_repo_git_token_secret_name     = var.pipeline_config_repo_git_token_secret_name
+  evidence_repo_auth_type                        = var.evidence_repo_auth_type
+  evidence_repo_git_token_secret_name            = var.evidence_repo_git_token_secret_name
+  issues_repo_auth_type                          = var.issues_repo_auth_type
+  issues_repo_git_token_secret_name              = var.issues_repo_git_token_secret_name
+  inventory_repo_auth_type                       = var.inventory_repo_auth_type
+  inventory_repo_git_token_secret_name           = var.inventory_repo_git_token_secret_name
+  app_repo_auth_type                      = var.app_repo_auth_type
+  app_repo_git_token_secret_name          = var.app_repo_git_token_secret_name
+  compliance_pipeline_repo_auth_type             = var.compliance_pipeline_repo_auth_type
+  compliance_pipeline_repo_git_token_secret_name = var.compliance_pipeline_repo_git_token_secret_name
   repositories_prefix                    = var.repositories_prefix
   app_group                              = var.app_group
-  config_group                           = var.config_group
+  pipeline_config_group                  = var.pipeline_config_group
+  compliance_pipeline_group              = var.compliance_pipeline_group
   issues_group                           = var.issues_group
   evidence_group                         = var.evidence_group
   inventory_group                        = var.inventory_group
+  secret_tool                                    = module.integrations.secret_tool
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
@@ -118,7 +131,7 @@ module "pipeline-pr" {
 
 module "integrations" {
   source     = "./integrations"
-  depends_on = [module.repositories, module.services]
+  depends_on = [module.services]
 
   sm_location                   = var.sm_location
   toolchain_id                  = ibm_cd_toolchain.toolchain_instance.id

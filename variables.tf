@@ -154,7 +154,7 @@ variable "pipeline_config_repo_existing_url" {
   default     = ""
 }
 
-variable "pipeline_config_repo_existing_branch" {
+variable "pipeline_config_repo_branch" {
   type        = string
   description = "(Optional). Specify the branch containing the custom pipeline-config.yaml file"
   default     = ""
@@ -166,17 +166,82 @@ variable "pipeline_config_repo_clone_from_url" {
   default     = ""
 }
 
-variable "pipeline_config_repo_clone_from_branch" {
-  type        = string
-  description = "(Optional). Specify a branch of a repository to clone that contains a custom pipeline-config.yaml file"
-  default     = ""
-}
-
-
 variable "pipeline_config_path" {
   type        = string
   description = "The name and path of the pipeline-config.yaml file within the pipeline-config repo"
   default     = ".pipeline-config.yaml"
+}
+
+variable "pipeline_config_repo_auth_type" {
+  type        = string
+  description = "(Optional) Default 'oauth': Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  default     = "oauth"
+}
+
+variable "app_repo_auth_type" {
+  type        = string
+  description = "(Optional) Default 'oauth': Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  default     = "oauth"
+}
+
+variable "compliance_pipeline_repo_auth_type" {
+  type        = string
+  description = "(Optional) Default 'oauth': Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  default     = "oauth"
+}
+
+variable "issues_repo_auth_type" {
+  type        = string
+  description = "(Optional) Default 'oauth': Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  default     = "oauth"
+}
+
+variable "evidence_repo_auth_type" {
+  type        = string
+  description = "(Optional) Default 'oauth': Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  default     = "oauth"
+}
+
+variable "inventory_repo_auth_type" {
+  type        = string
+  description = "(Optional) Default 'oauth': Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  default     = "oauth"
+}
+
+variable "app_repo_git_token_secret_name" {
+  type        = string
+  description = "Name of the Git token secret in the secret provider."
+  default     = "git-token"
+}
+
+variable "pipeline_config_repo_git_token_secret_name" {
+  type        = string
+  description = "Name of the Git token secret in the secret provider."
+  default     = "git-token"
+}
+
+variable "inventory_repo_git_token_secret_name" {
+  type        = string
+  description = "Name of the Git token secret in the secret provider."
+  default     = "git-token"
+}
+
+variable "issues_repo_git_token_secret_name" {
+  type        = string
+  description = "Name of the Git token secret in the secret provider."
+  default     = "git-token"
+}
+
+variable "evidence_repo_git_token_secret_name" {
+  type        = string
+  description = "Name of the Git token secret in the secret provider."
+  default     = "git-token"
+}
+
+variable "compliance_pipeline_repo_git_token_secret_name" {
+  type        = string
+  description = "Name of the Git token secret in the secret provider."
+  default     = "git-token"
 }
 
 variable "repositories_prefix" { 
@@ -329,9 +394,15 @@ variable "app_group" {
   default     = ""
 }
 
-variable "config_group" {
+variable "pipeline_config_group" {
   type        = string
   description = "Specify GitLab group for your config repo"
+  default     = "" 
+}
+
+variable "compliance_pipeline_group" {
+  type        = string
+  description = "Specify GitLab group for your compliance pipeline repo"
   default     = "" 
 }
 
