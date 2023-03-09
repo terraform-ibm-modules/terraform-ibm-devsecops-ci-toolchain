@@ -61,6 +61,9 @@ variable "pipeline_ibmcloud_api_key_secret_name" {
 variable "ibm_cloud_api" {
 }
 
+variable "slack_notifications" {
+}
+
 variable "pr_pipeline_max_concurrent_runs" {
   type        = number
   description = "The number of maximum concurrent runs to be supported by PR Pipeline"
@@ -68,4 +71,7 @@ variable "pr_pipeline_max_concurrent_runs" {
 }
 
 variable "app_repo_provider_webhook_syntax" {
+}
+
+variable "pipeline_debug" {
 }

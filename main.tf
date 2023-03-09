@@ -98,6 +98,19 @@ module "pipeline-ci" {
   code_engine_source                     = var.code_engine_source
   app_repo_provider_webhook_syntax       = module.repositories.app_repo_provider_webhook_syntax
   compliance_base_image                  = var.compliance_base_image
+  pipeline_debug                         = var.pipeline_debug
+  opt_in_dynamic_api_scan                = var.opt_in_dynamic_api_scan
+  opt_in_dynamic_ui_scan                 = var.opt_in_dynamic_ui_scan
+  opt_in_dynamic_scan                    = var.opt_in_dynamic_scan
+  opt_out_v1_evidence                    = var.opt_out_v1_evidence
+  opt_in_sonar                           = var.opt_in_sonar
+  doi_environment                        = var.doi_environment
+  cra_generate_cyclonedx_format          = var.cra_generate_cyclonedx_format
+  custom_image_tag                       = var.custom_image_tag
+  app_version                            = var.app_version
+  slack_notifications                    = var.slack_notifications
+  sonarqube_config                       = var.sonarqube_config
+  doi_toolchain_id_pipeline_property     = var.doi_toolchain_id_pipeline_property
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -127,7 +140,9 @@ module "pipeline-pr" {
   secret_tool                            = module.integrations.secret_tool
   app_repo_provider_webhook_syntax       = module.repositories.app_repo_provider_webhook_syntax
   compliance_base_image                  = var.compliance_base_image
-}
+  pipeline_debug                         = var.pipeline_debug
+  slack_notifications                    = var.slack_notifications
+} 
 
 module "integrations" {
   source     = "./integrations"
@@ -145,12 +160,19 @@ module "integrations" {
   kp_instance_guid              = module.services.kp_instance_guid
   enable_secrets_manager        = var.enable_secrets_manager
   enable_key_protect            = var.enable_key_protect
+  enable_slack                  = var.enable_slack
+  slack_webhook_secret_name     = var.slack_webhook_secret_name
   slack_channel_name            = var.slack_channel_name
-  slack_api_token               = var.slack_api_token
-  slack_user_name               = var.slack_user_name
+  slack_team_name               = var.slack_team_name
+  slack_pipeline_fail           = var.slack_pipeline_fail
+  slack_pipeline_start          = var.slack_pipeline_start
+  slack_pipeline_success        = var.slack_pipeline_success
+  slack_toolchain_bind          = var.slack_toolchain_bind
+  slack_toolchain_unbind        = var.slack_toolchain_unbind
   authorization_policy_creation = var.authorization_policy_creation
   link_to_doi_toolchain         = var.link_to_doi_toolchain
   doi_toolchain_id              = var.doi_toolchain_id
+  secret_tool                   = module.integrations.secret_tool
 }
 
 module "services" {

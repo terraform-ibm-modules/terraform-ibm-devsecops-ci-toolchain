@@ -93,6 +93,45 @@ variable "pipeline_config_repo_branch" {
 variable "pipeline_config_path" {
 }
 
+variable "pipeline_debug" {
+}
+
+variable "opt_in_dynamic_api_scan" {
+}
+
+variable "opt_in_dynamic_ui_scan" {
+}
+
+variable "opt_in_dynamic_scan" {
+}
+
+variable "opt_out_v1_evidence" {
+}
+
+variable "opt_in_sonar" {
+}
+
+variable "doi_environment" {
+}
+
+variable "doi_toolchain_id_pipeline_property" {
+}
+
+variable "cra_generate_cyclonedx_format" {
+}
+
+variable "custom_image_tag" {
+}
+
+variable "app_version" {
+}
+
+variable "sonarqube_config" {
+}
+
+variable "slack_notifications" {
+}
+
 variable "pipeline_branch" {
   type        = string
   description = "The branch within pipeline definitions repository for Compliance CI Toolchain."

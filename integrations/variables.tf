@@ -42,28 +42,42 @@ variable "kp_instance_guid" {
   description = "GUID of the KeyProtect service instance in IBM Cloud"
 }
 
+variable "secret_tool" {
+  type        = string
+  description = "Used as part of secret references to point to the secret store tool integration"
+}
+
 #variable "key_protect_service_auth" {
 #  type        = string
 #  description = "Authorization Permission for the Key Protect Toolchain Service Instance in IBM Cloud"
 #  default     = "[\"Viewer\", \"ReaderPlus\"]"
 #}
 
-variable "slack_api_token" {
-  type        = string
-  description = "API Token for Slack Channel"
-  default     = ""
+variable "enable_slack" {
+}
+
+variable "slack_webhook_secret_name" {
 }
 
 variable "slack_channel_name" {
-  type        = string
-  description = "Name of Slack Channel"
-  default     = ""
 }
 
-variable "slack_user_name" {
-  type        = string
-  description = "Name of Slack User"
-  default     = ""
+variable "slack_team_name" {
+}
+
+variable "slack_pipeline_fail" {
+}
+
+variable "slack_pipeline_start" {
+}
+
+variable "slack_pipeline_success" {
+}
+
+variable "slack_toolchain_bind" {
+}
+
+variable "slack_toolchain_unbind" {
 }
 
 variable "authorization_policy_creation" {

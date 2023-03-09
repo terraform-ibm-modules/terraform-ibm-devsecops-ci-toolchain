@@ -16,19 +16,10 @@ resource "ibm_iam_authorization_policy" "toolchain_keyprotect_auth_policy" {
   roles                       = ["Viewer", "ReaderPlus"]
 }
 
-# resource "ibm_cd_toolchain_tool_keyprotect" "keyprotect" {
-#   toolchain_id = var.toolchain_id
-#   parameters {
-#     name           = var.key_protect_integration_name
-#     location       = var.kp_location
-#     resource_group_name = var.kp_resource_group
-#     instance_name  = var.key_protect_instance_name
-#   }
-# }
-
 locals {
   sm_integration_name = "sm-compliance-secrets"
   kp_integration_name = "kp-compliance-secrets"
+  slack_integration_name = "slack-compliance"
 }
 
  resource "ibm_cd_toolchain_tool_secretsmanager" "secretsmanager" {
@@ -50,6 +41,22 @@ locals {
      location            = var.kp_location
      resource_group_name = var.kp_resource_group
      instance_name       = var.kp_name
+   }
+ }
+
+ resource "ibm_cd_toolchain_tool_slack" "slack_tool" {
+  count = var.enable_slack ? 1 : 0
+   toolchain_id = var.toolchain_id
+   name         = local.slack_integration_name
+   parameters {
+     webhook = format("{vault::%s.${var.slack_webhook_secret_name}}", var.secret_tool)
+     channel_name = var.slack_channel_name
+     team_name = var.slack_team_name
+     pipeline_fail = var.slack_pipeline_fail
+     pipeline_start  = var.slack_pipeline_start
+     pipeline_success = var.slack_pipeline_success
+     toolchain_bind   = var.slack_toolchain_bind
+     toolchain_unbind = var.slack_toolchain_unbind
    }
  }
 

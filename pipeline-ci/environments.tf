@@ -31,8 +31,9 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo_def
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_debug" {
   name           = "pipeline-debug"
-  type           = "text"
-  value          = "0"
+  type           = "single_select"
+  enum           = ["0", "1"]
+  value          = var.pipeline_debug
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -46,7 +47,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_debug" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_slack_notifications" {
   name           = "slack-notifications"
   type           = "text"
-  value          = "0"
+  value          = var.slack_notifications
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -151,35 +152,35 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_endpoint" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_api_environment" {
   name           = "opt-in-dynamic-api-scan"
   type           = "text"
-  value          = "1"
+  value          = var.opt_in_dynamic_api_scan
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_ui_environment" {
   name           = "opt-in-dynamic-ui-scan"
   type           = "text"
-  value          = "1"
+  value          = var.opt_in_dynamic_ui_scan
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_environment" {
   name           = "opt-in-dynamic-scan"
   type           = "text"
-  value          = "1"
+  value          = var.opt_in_dynamic_scan
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_opt_out_v1_evidence" {
   name           = "opt_out_v1_evidence"
   type           = "text"
-  value          = "1"
+  value          = var.opt_out_v1_evidence
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
   name           = "opt-in-sonar"
   type           = "text"
-  value          = "1"
+  value          = var.opt_in_sonar
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -193,35 +194,35 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_git_token_environment" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
   name           = "doi-environment"
   type           = "text"
-  value          = ""
+  value          = var.doi_environment
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
   name           = "doi-toolchain-id"
   type           = "text"
-  value          = ""
+  value          = var.doi_toolchain_id_pipeline_property
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cra_generate_cyclonedx_format" {
   name           = "cra-generate-cyclonedx-format"
   type           = "text"
-  value          = "1"
+  value          = var.cra_generate_cyclonedx_format
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_custom_image_tag" {
   name           = "custom-image-tag"
   type           = "text"
-  value          = ""
+  value          = var.custom_image_tag
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id       
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_version" {
    name           = "version"
    type           = "text"
-   value          = "v1"
+   value          = var.app_version
    pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -256,7 +257,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
   name           = "sonarqube-config"
   type           = "text"
-  value          = "default"
+  value          = var.sonarqube_config
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
