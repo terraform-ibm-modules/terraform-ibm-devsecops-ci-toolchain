@@ -31,10 +31,10 @@ variable "registry_namespace" {
 variable "registry_region" {
 }
 
-variable "ibm_cloud_api" {
+variable "ibmcloud_api" {
 }
 
-variable "ibm_cloud_api_key" {
+variable "ibmcloud_api_key" {
 }
 
 variable "secret_tool" {
@@ -47,9 +47,6 @@ variable "app_repo_url" {
 
 variable "app_repo_branch" {
 }
-
-# variable "cos_api_key_secret_name" {
-# }
 
 variable "cos_bucket_name" {
 }

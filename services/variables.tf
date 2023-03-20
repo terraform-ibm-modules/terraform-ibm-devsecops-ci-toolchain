@@ -9,13 +9,9 @@ variable "sm_resource_group" {
 }
 
 variable "enable_key_protect" {
-  type        = bool
-  default     = false
 }
 
 variable "enable_secrets_manager" {
-  type        = bool
-  default     = true
 }
 
 variable "sm_location" {

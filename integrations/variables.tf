@@ -28,13 +28,9 @@ variable "kp_name" {
 }
 
 variable "enable_key_protect" {
-  type        = bool
-  default     = false
 }
 
 variable "enable_secrets_manager" {
-  type        = bool
-  default     = true
 }
 
 variable "kp_instance_guid" {
@@ -81,9 +77,6 @@ variable "slack_toolchain_unbind" {
 }
 
 variable "authorization_policy_creation" {
-  type        = string
-  description = "Disable Toolchain Service to Secrets Manager Service auhorization policy creation"
-  default     = ""
 }
 
 variable "link_to_doi_toolchain" {

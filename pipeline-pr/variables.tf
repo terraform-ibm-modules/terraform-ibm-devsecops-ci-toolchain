@@ -52,13 +52,13 @@ variable "compliance_base_image" {
   default     = ""
 }
 
-variable "ibm_cloud_api_key" {
+variable "ibmcloud_api_key" {
 }
 
 variable "pipeline_ibmcloud_api_key_secret_name" {
 }
 
-variable "ibm_cloud_api" {
+variable "ibmcloud_api" {
 }
 
 variable "slack_notifications" {

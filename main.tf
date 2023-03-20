@@ -58,8 +58,8 @@ module "pipeline-ci" {
   source     = "./pipeline-ci"
   depends_on = [module.repositories, module.integrations, module.services]
 
-  ibm_cloud_api                          = var.ibm_cloud_api
-  ibm_cloud_api_key                      = var.ibm_cloud_api_key
+  ibmcloud_api                          = var.ibmcloud_api
+  ibmcloud_api_key                      = var.ibmcloud_api_key
   pipeline_id                            = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
   app_name                               = var.app_name
   cluster_name                           = var.cluster_name
@@ -87,7 +87,6 @@ module "pipeline-ci" {
   issues_repo                            = module.repositories.issues_repo
   secret_tool                            = module.integrations.secret_tool
   cos_bucket_name                        = var.cos_bucket_name
-  # cos_api_key_secret_name              = var.cos_api_key_secret_name
   cos_endpoint                           = var.cos_endpoint
   deployment_target                      = var.deployment_target
   code_engine_project                    = var.code_engine_project
@@ -124,8 +123,8 @@ module "pipeline-pr" {
   source     = "./pipeline-pr"
   depends_on = [module.repositories, module.integrations, module.services]
 
-  ibm_cloud_api                          = var.ibm_cloud_api
-  ibm_cloud_api_key                      = var.ibm_cloud_api_key
+  ibmcloud_api                          = var.ibmcloud_api
+  ibmcloud_api_key                      = var.ibmcloud_api_key
   pipeline_ibmcloud_api_key_secret_name  = var.pipeline_ibmcloud_api_key_secret_name
   pipeline_id                            = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
   app_name                               = var.app_name
