@@ -345,3 +345,11 @@ output "pipeline_config_repo" {
 output "app_repo_provider_webhook_syntax" {
   value = local.app_repo_provider_webhook_syntax
 }
+
+output "app_repo_git_provider" {
+  value = local.app_repo_git_provider
+}
+
+output "app_repo_git_id" {
+  value = local.app_repo_git_id
+}

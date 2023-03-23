@@ -75,7 +75,7 @@ resource "ibm_cd_toolchain_tool_custom" "link_to_insights" {
       documentation_url = "https://cloud.ibm.com/devops/insights/overviewNew?toolchainId=${var.doi_toolchain_id}"
       name = "Link existing DOI to Toolchain"
       dashboard_url = "https://cloud.ibm.com/devops/insights/overviewNew?toolchainId=${var.doi_toolchain_id}"
-      description = "The toolchain that contains the Devops Insights instance CC interacts with."
+      description = "The toolchain that contains the DevOps Insights instance CI interacts with."
   }
 }
 
