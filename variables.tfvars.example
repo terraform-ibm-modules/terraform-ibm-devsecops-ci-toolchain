@@ -6,6 +6,7 @@ toolchain_region                = "us-south"
 toolchain_name                  = "DevSecOps CI Toolchain - Terraform"
 toolchain_description           = "CI Toolchain created with Template for DevSecOps Best Practices"
 app_name                        = "hello-compliance-app"
+enable_external_properties      = false
 #repositories_prefix             = "compliance-tf"
 
 /*****************************************************/
@@ -40,6 +41,7 @@ sm_resource_group               = "Default"
 #kp_name                        = "kp-prod-dal"
 #kp_location                    = "us-south"
 #kp_secret_group                = "Default"
+
 /*****************************************************/
 /* Variables for Module "Integrations"               */
 /*****************************************************/
@@ -60,7 +62,6 @@ sm_resource_group               = "Default"
 /*****************************************************/
 /* Variables for "Code Engine"                       */
 /*****************************************************/
-
 #deployment_target              = "code-engine" . #set "code-engine" to enable the code-engine vars
 #code_engine_project            = "DevSecOps_CE"  
 #code_engine_region             = "ibm:yp:us-south"
@@ -68,3 +69,12 @@ sm_resource_group               = "Default"
 #code_engine_entity_type        = "application"   #Default type is 'application'. Set as 'job' for 'job' type"
 #code_engine_build_strategy     = "dockerfile"    #Default strategy is 'dockerfile'. Set as 'buildpacks' for 'buildpacks' build"
 #code_engine_source             = "path in repository to code"
+
+/*****************************************************/
+/* Variables for external-properties mode            */
+/*****************************************************/
+# Only used when var.enable_external_properties=true
+# external_properties_repo_url    = ""
+# external_properties_branch      = "main"
+# external_properties_path        = "tekton"
+# vault_secret_id_secret_name     = "vault_secret_id"

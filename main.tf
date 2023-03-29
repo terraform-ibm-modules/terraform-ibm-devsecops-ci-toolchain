@@ -27,6 +27,7 @@ module "repositories" {
   pipeline_config_repo_clone_from_url    = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo_auth_type                 = var.pipeline_config_repo_auth_type
   pipeline_config_repo_git_token_secret_name     = var.pipeline_config_repo_git_token_secret_name
+  external_properties_repo_url                   = var.external_properties_repo_url
   evidence_repo_auth_type                        = var.evidence_repo_auth_type
   evidence_repo_git_token_secret_name            = var.evidence_repo_git_token_secret_name
   issues_repo_auth_type                          = var.issues_repo_auth_type
@@ -35,6 +36,8 @@ module "repositories" {
   inventory_repo_git_token_secret_name           = var.inventory_repo_git_token_secret_name
   app_repo_auth_type                      = var.app_repo_auth_type
   app_repo_git_token_secret_name          = var.app_repo_git_token_secret_name
+  external_properties_repo_auth_type             = var.external_properties_repo_auth_type
+  external_properties_repo_git_token_secret_name = var.external_properties_repo_git_token_secret_name
   compliance_pipeline_repo_auth_type             = var.compliance_pipeline_repo_auth_type
   compliance_pipeline_repo_git_token_secret_name = var.compliance_pipeline_repo_git_token_secret_name
   repositories_prefix                    = var.repositories_prefix
@@ -45,6 +48,7 @@ module "repositories" {
   evidence_group                         = var.evidence_group
   inventory_group                        = var.inventory_group
   secret_tool                                    = module.integrations.secret_tool
+  enable_external_properties             = var.enable_external_properties
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
@@ -55,12 +59,13 @@ resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
 }
 
 module "pipeline-ci" {
+  count      = var.enable_external_properties ? 0 : 1
   source     = "./pipeline-ci"
   depends_on = [module.repositories, module.integrations, module.services]
 
-  ibmcloud_api                          = var.ibmcloud_api
-  ibmcloud_api_key                      = var.ibmcloud_api_key
-  pipeline_id                            = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
+  ibmcloud_api                           = var.ibmcloud_api
+  ibmcloud_api_key                       = var.ibmcloud_api_key
+  pipeline_id                            = ibm_cd_toolchain_tool_pipeline.ci_pipeline.tool_id
   app_name                               = var.app_name
   cluster_name                           = var.cluster_name
   cluster_namespace                      = var.cluster_namespace
@@ -112,6 +117,23 @@ module "pipeline-ci" {
   doi_toolchain_id_pipeline_property     = var.doi_toolchain_id_pipeline_property
 }
 
+module "pipeline-ci-external" {
+  count      = var.enable_external_properties ? 1 : 0
+  source     = "./external-properties/pipeline-ci-external"
+  depends_on = [module.repositories, module.integrations, module.services]
+
+  pipeline_id                            = ibm_cd_toolchain_tool_pipeline.ci_pipeline.tool_id
+  app_repo_url                           = module.repositories.app_repo_url
+  app_repo_branch                        = module.repositories.app_repo_branch
+  app_repo_provider_webhook_syntax       = module.repositories.app_repo_provider_webhook_syntax
+  pipeline_repo_url                      = module.repositories.pipeline_repo_url
+  secret_tool                            = module.integrations.secret_tool
+  external_properties_repo_url           = module.repositories.external_properties_repo_url
+  external_properties_branch             = var.external_properties_branch
+  external_properties_path               = var.external_properties_path
+  vault_secret_id_secret_name            = var.vault_secret_id_secret_name
+}
+
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
@@ -120,13 +142,14 @@ resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
 }
 
 module "pipeline-pr" {
+  count  = var.enable_external_properties ? 0 : 1
   source     = "./pipeline-pr"
   depends_on = [module.repositories, module.integrations, module.services]
 
-  ibmcloud_api                          = var.ibmcloud_api
-  ibmcloud_api_key                      = var.ibmcloud_api_key
+  ibmcloud_api                           = var.ibmcloud_api
+  ibmcloud_api_key                       = var.ibmcloud_api_key
   pipeline_ibmcloud_api_key_secret_name  = var.pipeline_ibmcloud_api_key_secret_name
-  pipeline_id                            = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
+  pipeline_id                            = ibm_cd_toolchain_tool_pipeline.pr_pipeline.tool_id
   app_name                               = var.app_name
   app_repo_url                           = module.repositories.app_repo_url
   app_repo_branch                        = module.repositories.app_repo_branch
@@ -141,6 +164,23 @@ module "pipeline-pr" {
   compliance_base_image                  = var.compliance_base_image
   pipeline_debug                         = var.pipeline_debug
   slack_notifications                    = var.slack_notifications
+}
+
+module "pipeline-pr-external" {
+  count  = var.enable_external_properties ? 1 : 0
+  source     = "./external-properties/pipeline-pr-external"
+  depends_on = [module.repositories, module.integrations, module.services]
+
+  pipeline_id                            = ibm_cd_toolchain_tool_pipeline.pr_pipeline.tool_id
+  app_repo_url                           = module.repositories.app_repo_url
+  app_repo_branch                        = module.repositories.app_repo_branch
+  pipeline_repo_url                      = module.repositories.pipeline_repo_url
+  secret_tool                            = module.integrations.secret_tool
+  app_repo_provider_webhook_syntax       = module.repositories.app_repo_provider_webhook_syntax
+  external_properties_repo_url           = module.repositories.external_properties_repo_url
+  external_properties_branch             = var.external_properties_branch
+  external_properties_path               = var.external_properties_path
+  vault_secret_id_secret_name            = var.vault_secret_id_secret_name
 } 
 
 module "integrations" {
@@ -204,11 +244,11 @@ output "key_protect_instance_id" {
 }
 
 output "ci_pipeline_id" {
-  value = module.pipeline-ci.pipeline_id
+  value = ibm_cd_toolchain_tool_pipeline.ci_pipeline.tool_id
 }
 
 output "pr_pipeline_id" {
-  value = module.pipeline-pr.pipeline_id
+  value = ibm_cd_toolchain_tool_pipeline.pr_pipeline.tool_id
 }
 
 output "secret_tool" {

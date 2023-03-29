@@ -102,7 +102,7 @@ Create a [Kubernetes cluster](https://cloud.ibm.com/kubernetes/catalog/cluster/c
 
 Create an [IBM Cloud® Container Registry namespace](https://cloud.ibm.com/registry/namespaces). IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to store and share your container images with users in your IBM Cloud account. Select the location for your namespace, and click Create. [Learn more](https://cloud.ibm.com/docs/Registry?topic=Registry-getting-started).
 
-#### Singing Key
+#### Signing Key
 [Create an image signing key](https://cloud.ibm.com/docs/devsecops?topic=devsecops-devsecops-image-signing) with the proper encoding to sign your application docker images.
 
 #### IBM Cloud API key
@@ -144,7 +144,7 @@ You need the following permissions to run this module.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.48.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.51.0 |
 
 ## Modules
 
