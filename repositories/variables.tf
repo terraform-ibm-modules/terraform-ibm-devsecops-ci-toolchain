@@ -31,6 +31,9 @@ variable "pipeline_config_repo_clone_from_url" {
 variable "pipeline_config_repo_auth_type" {
 }
 
+variable "external_properties_repo_auth_type"{
+}
+
 variable "app_repo_auth_type" {
 }
 
@@ -47,6 +50,9 @@ variable "compliance_pipeline_repo_auth_type" {
 }
 
 variable "pipeline_config_repo_git_token_secret_name" {
+}
+
+variable "external_properties_repo_git_token_secret_name" {
 }
 
 variable "app_repo_git_token_secret_name" {
@@ -79,8 +85,8 @@ variable "toolchain_region" {
 }
 
 variable "toolchain_crn" {
-    type        = string
-    description = "The CRN of the created toolchain"
+  type        = string
+  description = "The CRN of the created toolchain"
 }
 
 variable "app_group" {
@@ -99,4 +105,10 @@ variable "inventory_group" {
 }
 
 variable "evidence_group" {
+}
+
+variable "enable_external_properties" {
+}
+
+variable "external_properties_repo_url" {
 }
