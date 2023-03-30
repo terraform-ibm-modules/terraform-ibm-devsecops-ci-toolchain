@@ -43,26 +43,25 @@ Run `terraform -help`
 For additional platforms please see https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 
 ### Terraform Commands (basic)
-1. `terraform init` - this command initialises the working directory containing the Terraform configuration files
+1. `terraform init` - this command initialises the working directory containing the Terraform configuration files.
 2. `terraform plan` - a command that provides a preview of the actions that Terraform will perform on your infrastructure.
 3. `terraform apply` - the command to perform the infrastructure modifications outlined using the plan command.
 4. `terraform destroy` - the command to delete all the resources managed by the Terraform project.
-5. `terraform help` - lists and describes Terraform CLI commands
-
+5. `terraform help` - lists and describes Terraform CLI commands.
 
 ## Usage
 
 Before beginning see the [Prerequisites](#prerequisites) and [Required IAM access policies](#iamaccess) sections
 
 ### Setup
-The following steps create the out of the box setup for the CC Toolchains. Read through the example .tfvars file for a quick set up and see the [inputs](#inputs) for all modifiable settings. 
+The following steps create the out of the box setup for the CC Toolchains. Read through the example .tfvars file for a quick set up and see the [inputs](#inputs) for all modifiable settings.
 
 - Clone this [repo](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm) to a local directory
 - `cd` into the cloned directory
 - Run `terraform init` to download the required modules and plugins
 - Supply a `terraform.tfvars` file with the required variables. See the provided example at the root of the repo
 - Rename the `variables.tfvars.example` to `variables.tfvars.example`
-- The snippet below shows the minumum required details to set up the CI toolchain. Read the notes in [inputs](#inputs) file for more details
+- The snippet below shows the minimum required details to set up the CI toolchain. Read the notes in [inputs](#inputs) file for more details
 - Run `terraform plan -var-files 'path-to-variables.tfvars'` to generate a plan and check to for potential problems
 - Run `terraform apply -var-files 'path-to-variables.tfvars'` to execute the Terraform commands
 
@@ -193,12 +192,16 @@ No resources.
 | <a name="input_doi_environment"></a> [doi\_environment](#input\_doi\_environment) | The DevOps Insights target environment. | `string` | `""` | no |
 | <a name="input_doi_toolchain_id"></a> [doi\_toolchain\_id](#input\_doi\_toolchain\_id) | DevOps Insights Toolchain ID to link to | `string` | `""` | no |
 | <a name="input_doi_toolchain_id_pipeline_property"></a> [doi\_toolchain\_id\_pipeline\_property](#input\_doi\_toolchain\_id\_pipeline\_property) | The DevOps Insights instance toolchain ID. | `string` | `""` | no |
+| <a name="input_enable_external_properties"></a> [enable\_external\_properties](#input\_enable\_external\_properties) | Set to enable the [External Properties](#feature-externalised-properties-support) feature. | `bool` | `false` | no |
 | <a name="input_enable_key_protect"></a> [enable\_key\_protect](#input\_enable\_key\_protect) | Set to enable Key Protect Integration. | `bool` | `false` | no |
 | <a name="input_enable_secrets_manager"></a> [enable\_secrets\_manager](#input\_enable\_secrets\_manager) | Set to enable Secrets Manager Integration. | `bool` | `true` | no |
 | <a name="input_enable_slack"></a> [enable\_slack](#input\_enable\_slack) | Default: false. Set to true to create the integration | `bool` | `false` | no |
 | <a name="input_evidence_group"></a> [evidence\_group](#input\_evidence\_group) | Specify gitlab group for evidence repository | `string` | `""` | no |
 | <a name="input_evidence_repo_auth_type"></a> [evidence\_repo\_auth\_type](#input\_evidence\_repo\_auth\_type) | Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat' | `string` | `"oauth"` | no |
 | <a name="input_evidence_repo_git_token_secret_name"></a> [evidence\_repo\_git\_token\_secret\_name](#input\_evidence\_repo\_git\_token\_secret\_name) | Name of the Git token secret in the secret provider. | `string` | `"git-token"` | no |
+| <a name="input_external_properties_repo_url"></a> [external\_properties\_repo\_url](#input\_external\_properties\_repo\_url) | Override to use your own existing [External Properties](#feature-externalised-properties-support) repository URL, which will be used directly instead of cloning the default sample. Only used when `enable_external_properties` is enabled. | `string` | "https://github.ibm.com/one-pipeline/compliance-pipeline-properties" | no |
+| <a name="input_external_properties_branch "></a> [external\_properties\_branch](#input\_external\_properties\_branch) | The branch that will be used from the [External Properties](#feature-externalised-properties-support) repo. Only used when `enable_external_properties` is enabled. | `string` | "main" | no |
+| <a name="input_external_properties_path"></a> [external\_properties\_path](#input\_external\_properties\_path) | The path to the configuration files that will be used from the [External Properties](#feature-externalised-properties-support) repo. Only used when `enable_external_properties` is enabled. | `string` | "tekton" | no |
 | <a name="input_inventory_group"></a> [inventory\_group](#input\_inventory\_group) | Specify gitlab group for inventory repository | `string` | `""` | no |
 | <a name="input_inventory_repo_auth_type"></a> [inventory\_repo\_auth\_type](#input\_inventory\_repo\_auth\_type) | Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat' | `string` | `"oauth"` | no |
 | <a name="input_inventory_repo_git_token_secret_name"></a> [inventory\_repo\_git\_token\_secret\_name](#input\_inventory\_repo\_git\_token\_secret\_name) | Name of the Git token secret in the secret provider. | `string` | `"git-token"` | no |
@@ -245,6 +248,7 @@ No resources.
 | <a name="input_toolchain_name"></a> [toolchain\_name](#input\_toolchain\_name) | The name of the Toolchain. | `string` | `"DevSecOps CI Toolchain - Terraform"` | no |
 | <a name="input_toolchain_region"></a> [toolchain\_region](#input\_toolchain\_region) | The region containing the CI toolchain. | `string` | `""` | no |
 | <a name="input_toolchain_resource_group"></a> [toolchain\_resource\_group](#input\_toolchain\_resource\_group) | The resource group within which the toolchain will be created. | `string` | `"Default"` | no |
+| <a name="input_vault_secret_id_secret_name"></a> [vault\_secret\_id\_secret\_name](#input\_vault\_secret\_id\_secret\_name) | The name of the vault secret stored in your secret management tool that contains the secret needed to access the vault containing your externalized secrets, as part of the [External Properties](#feature-externalised-properties-support) feature. Only used when `enable_external_properties` is enabled. | `string` | "vault_secret_id" | no |
 ## Outputs
 
 #### DevSecOps CI Outputs
@@ -256,7 +260,7 @@ No resources.
 |key_protect_instance_id | The id if a Key Protect Instance is used|
 |ci_pipeline_id| The id of the CI pipeline|
 |pr_pipeline_id | The id of the PR pipeline|
-|secret_tool| Returns part of the references to point ot the secret tool integration |
+|secret_tool| Returns part of the references to point to the secret tool integration |
 |inventory_repo_url | The URL of the Inventory repository|
 |evidence_repo_url | The URL of the Evidence repository|
 |issues_repo_url | The URL of the Issues repository|
@@ -264,3 +268,46 @@ No resources.
 |app_repo_url | The URL of the App repository |
 |app_repo_git_provider|The Git provider of the App repository|
 |app_repo_git_id|The App repository Git Id|
+
+## Feature: Externalised Properties Support
+
+This template supports the use of [externalised properties](https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-external-properties) in the pipelines that are created. With this approach you can run pipelines using properties that are not stored within the Delivery Pipeline itself. By using externalized properties you can manage the pipeline environment properties in a Git repository (repo) and use version control and tracking. The externalised properties replace the environment properties that are usually included as part of the pipeline configuration, which are ordinarily visible on the "Environment Properties" page of the Delivery Pipeline UI. Plain text properties can be stored directly in the external-properties repo, whilst secret/secure properties should be stored in an external vault.
+
+**Prerequisites**:
+
+- All of the same [Prerequisites](#prerequisites) as listed above.
+- A secret vault to store pipeline secret properties, such as Hashicorp Vault.
+
+**Setup Steps**:
+
+To enable the externalised properties feature, carry out the following steps before running any Terraform commands. For the purposes of this example, we assume that a Hashicorp Vault is being used to store the pipeline secret properties, and that a Secrets Manager instance is being used to store the Hashicorp Vault secret:
+
+- In your `terraform.tfvars` file change the value of `enable_external_properties` to `true`.
+- Add a `vault_secret_id` secret to the Secrets Manager instance, which should store the `secret_id` value for the Hashicorp Vault instance.
+- Optional: In the external properties section of `terraform.tfvars` you can override the default repo and `vault_secret_id_secret_name` values if desired. If customizing the `vault_secret_id_secret_name` variable in your `terraform.tfvars`, ensure the name matches with the one used in the vault. By default the name is `vault_secret_id` unless you override it in `terraform.tfvars`.
+- Add an `ibmcloud_api_key` secret to the Hashicorp Vault instance, using `ibmcloud_api_key` as the secret name and storing your own IBM Cloud API Key as the value.
+- Run the terraform commands as outlined in [Setup](#setup).
+
+After a successful Terraform apply has completed, one of the repositories created in your Toolchain will be the source of your external properties. By default Terraform will clone this repo: https://github.ibm.com/one-pipeline/compliance-pipeline-properties, which provides a template for your external properties repo. This includes files to store your plain text properties, as well as the Tekton configuration files needed to inject those properties into your PipelineRuns, and the Tekton configuration files needed to pull in the secrets from your vault. The `tekton/ci/base` folder, for example, contains the files necessary to add environment properties and secrets to your CI PipelineRuns. The `tekton/ci/triggers` folder contains the files necessary to add trigger-level properties and secrets. Similarly there are `tekton/cd` and `tekton/cc` folders containing the configuration for the CD and CC pipelines. For more information on the configuration files and folders, consult the [IBM Cloud documentation](https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-external-properties).
+
+Before you can run a pipeline that uses external properties, you must update some parts of the `compliance-pipeline-properties` repo that was created in your Toolchain, in order to add your property values and configure your secret vault:
+
+1. Update the contents of each `environment-properties.env` file in the repo to insert the values required for their respective pipelines and triggers. For example, in the `tekton/ci/base`:
+
+- cluster-name: name of the Kubernetes cluster to which the app will be deployed.
+- registry-namespace: namespace to store built images.
+- evidence-repo: URL of the evidence repo created by the template in the toolchain.
+- incident-repo: URL of the incidents repo created by the template in the toolchain.
+- inventory-repo: URL of the inventory repo created by the template in the toolchain.
+
+2. Replace all instances of `[insert-vault-server-address]` in the `secret-store.yaml` files with the address for your vault.
+3. Replace all instances of `[insert-vault-role-id]` in the `secret-store.yaml` files with the roleId for your vault.
+4. Replace all instances of `[insert-secret-name-in-vault]` in the `external-secrets.yaml` files with the appropriate secret names from your vault.
+
+**Note**: The default template is configured to use a Hashicorp Vault that stores the pipeline secrets. However, there are a number of other supported providers for External Secrets, for more information [consult the documentation](https://external-secrets.io/v0.8.1/provider/hashicorp-vault/) on how to use a different external secrets provider.
+
+**Note**: Pipelines with externalized environment properties are supported on pipeline private worker installations at version 0.14.9 or later, or on IBM-provided managed workers. Consult the [documentation](https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-external-properties) for more info. If you are using your own private worker, you must run the following command on the cluster that hosts that worker.
+
+```
+kubectl set env deployment/private-worker-agent -n tekton-pipelines ENABLE_CDPR="true"
+```
