@@ -86,7 +86,7 @@ variable "link_to_doi_toolchain" {
 }
 
 variable "doi_toolchain_id" {
-  type = string
+  type        = string
   description = "DevOps Insights Toolchain ID to link to"
-  default = ""  
+  default     = ""
 }

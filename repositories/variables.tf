@@ -69,7 +69,7 @@ variable "secret_tool" {
   description = "Used as part of secret references to point to the secret store tool integration"
 }
 
-variable "repositories_prefix" { 
+variable "repositories_prefix" {
 }
 
 variable "toolchain_id" {
@@ -79,8 +79,8 @@ variable "toolchain_region" {
 }
 
 variable "toolchain_crn" {
-    type        = string
-    description = "The CRN of the created toolchain"
+  type        = string
+  description = "The CRN of the created toolchain"
 }
 
 variable "app_group" {

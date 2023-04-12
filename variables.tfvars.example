@@ -62,7 +62,7 @@ sm_resource_group               = "Default"
 /*****************************************************/
 
 #deployment_target              = "code-engine" . #set "code-engine" to enable the code-engine vars
-#code_engine_project            = "DevSecOps_CE"  
+#code_engine_project            = "DevSecOps_CE"
 #code_engine_region             = "ibm:yp:us-south"
 #code_engine_resource_group     = "Default"
 #code_engine_entity_type        = "application"   #Default type is 'application'. Set as 'job' for 'job' type"

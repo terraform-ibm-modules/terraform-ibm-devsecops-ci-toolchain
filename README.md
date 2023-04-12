@@ -71,7 +71,7 @@ For additional platforms please see https://developer.hashicorp.com/terraform/tu
 Before beginning see the [Prerequisites](#prerequisites) and [Required IAM access policies](#iamaccess) sections
 
 ### Setup
-The following steps create the out of the box setup for the CC Toolchains. Read through the example .tfvars file for a quick set up and see the [inputs](#inputs) for all modifiable settings. 
+The following steps create the out of the box setup for the CC Toolchains. Read through the example .tfvars file for a quick set up and see the [inputs](#inputs) for all modifiable settings.
 
 - Clone this [repo](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm) to a local directory
 - `cd` into the cloned directory

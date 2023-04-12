@@ -10,20 +10,20 @@ resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {
   source {
     type = "git"
     properties {
-      url     = var.pipeline_repo_url
-      branch  = var.pipeline_branch
-      path    = var.pipeline_path
+      url    = var.pipeline_repo_url
+      branch = var.pipeline_branch
+      path   = var.pipeline_path
     }
   }
 }
 
 resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
-  pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-  type           = "scm"
-  name           = "Git PR Trigger"
-  event_listener = ((var.app_repo_provider_webhook_syntax == "github")? 
-                      "pr-listener" : "pr-listener-gitlab")
-  events         = ["pull_request"]
+  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
+  type        = "scm"
+  name        = "Git PR Trigger"
+  event_listener = ((var.app_repo_provider_webhook_syntax == "github") ?
+  "pr-listener" : "pr-listener-gitlab")
+  events = ["pull_request"]
   source {
     type = "git"
     properties {
@@ -35,11 +35,11 @@ resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "pr_pipeline_scm_trigger_property_app_name" {
-   name           = "app-name"
-   type           = "text"
-   value          = var.app_name
-   pipeline_id    = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-   trigger_id     = ibm_cd_tekton_pipeline_trigger.pr_pipeline_scm_trigger.trigger_id
+  name        = "app-name"
+  type        = "text"
+  value       = var.app_name
+  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
+  trigger_id  = ibm_cd_tekton_pipeline_trigger.pr_pipeline_scm_trigger.trigger_id
 }
 
 output "pipeline_id" {

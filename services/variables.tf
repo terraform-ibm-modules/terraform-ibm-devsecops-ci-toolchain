@@ -37,5 +37,3 @@ variable "registry_namespace" {
 
 variable "registry_region" {
 }
-
-
