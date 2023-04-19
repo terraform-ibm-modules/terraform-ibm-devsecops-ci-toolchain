@@ -110,6 +110,9 @@ module "pipeline_ci" {
   slack_notifications                   = var.slack_notifications
   sonarqube_config                      = var.sonarqube_config
   doi_toolchain_id_pipeline_property    = var.doi_toolchain_id_pipeline_property
+  enable_pipeline_dockerconfigjson      = var.enable_pipeline_dockerconfigjson
+  pipeline_dockerconfigjson_secret_name = var.pipeline_dockerconfigjson_secret_name
+
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -141,6 +144,8 @@ module "pipeline_pr" {
   compliance_base_image                 = var.compliance_base_image
   pipeline_debug                        = var.pipeline_debug
   slack_notifications                   = var.slack_notifications
+  enable_pipeline_dockerconfigjson      = var.enable_pipeline_dockerconfigjson
+  pipeline_dockerconfigjson_secret_name = var.pipeline_dockerconfigjson_secret_name
 }
 
 module "integrations" {

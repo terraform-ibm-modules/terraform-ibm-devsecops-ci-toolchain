@@ -16,6 +16,12 @@ variable "cos_api_key_secret_name" {
 variable "pipeline_ibmcloud_api_key_secret_name" {
 }
 
+variable "pipeline_dockerconfigjson_secret_name" {
+}
+
+variable "enable_pipeline_dockerconfigjson" {
+}
+
 variable "cluster_name" {
 }
 

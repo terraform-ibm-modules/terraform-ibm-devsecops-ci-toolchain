@@ -64,6 +64,18 @@ variable "slack_webhook_secret_name" {
   default     = "slack-webhook"
 }
 
+variable "pipeline_dockerconfigjson_secret_name" {
+  type        = string
+  description = "Name of the dockerconfigjson secret in the secret provider."
+  default     = "pipeline-dockerconfigjson"
+}
+
+variable "enable_pipeline_dockerconfigjson" {
+  type        = bool
+  description = "Enable to add the pipeline-dockerconfigjson to the pipeline properties"
+  default     = false
+}
+
 variable "cluster_name" {
   type        = string
   description = "Name of the Kubernetes cluster where the application will be deployed."
