@@ -171,7 +171,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_environment" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_opt_out_v1_evidence" {
-  name        = "opt_out_v1_evidence"
+  name        = "opt-out-v1-evidence"
   type        = "text"
   value       = var.opt_out_v1_evidence
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
