@@ -1,7 +1,7 @@
 resource "ibm_cd_tekton_pipeline" "ci_pipeline_instance" {
   pipeline_id = var.pipeline_id
   worker {
-    id = "public"
+    id = (var.enable_privateworker) ? var.private_worker : "public"
   }
 }
 

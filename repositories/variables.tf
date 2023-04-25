@@ -100,3 +100,6 @@ variable "inventory_group" {
 
 variable "evidence_group" {
 }
+
+variable "template_flavor" {
+}

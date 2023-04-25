@@ -80,13 +80,26 @@ variable "authorization_policy_creation" {
 }
 
 variable "link_to_doi_toolchain" {
-  description = "Enable a link to a DevOps Insights instance in another toolchain, true or false"
-  type        = bool
-  default     = false
 }
 
 variable "doi_toolchain_id" {
-  type        = string
-  description = "DevOps Insights Toolchain ID to link to"
-  default     = ""
+}
+
+variable "enable_artifactory" {
+}
+variable "artifactory_dashboard_url" {
+}
+variable "artifactory_user" {
+}
+variable "toolchain_artifactory_token" {
+}
+variable "artifactory_repo_name" {
+}
+variable "artifactory_repo_url" {
+}
+
+variable "enable_privateworker" {
+}
+
+variable "toolchain_privateworker_credentials" {
 }

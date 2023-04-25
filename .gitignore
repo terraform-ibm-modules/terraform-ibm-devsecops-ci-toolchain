@@ -6,3 +6,8 @@
 /*.tfstate.backup
 *.bak
 *.history
+.metadata
+workspaces
+*.tfstate.d
+.vscode
+provider.tf

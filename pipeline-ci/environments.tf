@@ -343,3 +343,12 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_base_image" {
   value       = var.compliance_base_image
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
+
+resource "ibm_cd_tekton_pipeline_property" "ci_artifactory-dockerconfigjson" {
+  name        = "artifactory-dockerconfigjson"
+  count       = (var.enable_artifactory) ? 1 : 0
+  type        = "integration"
+  value       = var.tool_artifactory
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  path        = "parameters.docker_config_json"
+}

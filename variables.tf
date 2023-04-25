@@ -557,3 +557,60 @@ variable "slack_notifications" {
   description = "The switch that turns the Slack integration on or off."
   default     = "0"
 }
+
+variable "enable_artifactory" {
+  type        = bool
+  default     = false
+  description = "Set true to enable artifacory for devsecops."
+}
+
+variable "enable_privateworker" {
+  type        = bool
+  default     = false
+  description = "Set true to enable private worker  for devsecops."
+}
+
+variable "toolchain_artifactory_token" {
+  type        = string
+  default     = "artifacotry-token"
+  description = "Name of the artifactory token secret in the secret provider."
+}
+
+variable "artifactory_user" {
+  type        = string
+  description = "Type the User ID or email for your Artifactory repository."
+  default     = ""
+}
+
+variable "artifactory_dashboard_url" {
+  type        = string
+  default     = ""
+  description = "Type the URL that you want to navigate to when you click the Artifactory integration tile."
+}
+variable "artifactory_repo_url" {
+  type        = string
+  default     = ""
+  description = "Type the URL for your Artifactory release repository."
+}
+
+variable "artifactory_repo_name" {
+  type        = string
+  default     = "wcp-compliance-automation-team-docker-local"
+  description = "Type the name of your Artifactory repository where your docker images are located."
+}
+
+variable "toolchain_privateworker_credentials" {
+  type        = string
+  default     = "private-worker-service-api"
+  description = "Name of the privateworker secret in the secret provider."
+}
+
+variable "template_flavor" {
+  type        = string
+  default     = "devsecops"
+  description = "Choose devsecops or onepipeline"
+  validation {
+    condition     = contains(["onepipeline", "devsecops"], var.template_flavor)
+    error_message = "Must be either \"onepipeline\" or \"devsecops\"."
+  }
+}
