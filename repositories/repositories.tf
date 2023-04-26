@@ -22,15 +22,14 @@ locals {
     : (length(var.app_repo_clone_from_url) > 0) ? "byo_sample"
   : "auto-sample")
 
-  default_git_provider = var.template_flavor != "onepipeline" ? "hostedgit" : "githubconsolidated"
   app_repo_git_provider = (
     (local.app_repo_mode == "byo_app") ?
     ((length(var.app_repo_existing_git_provider) > 0) ? var.app_repo_existing_git_provider
-    : local.default_git_provider)
+    : var.default_git_provider)
     : ((local.app_repo_mode == "byo_sample") || (local.app_repo_mode == "auto-sample")) ?
     ((length(var.app_repo_clone_to_git_provider) > 0) ? var.app_repo_clone_to_git_provider
-    : local.default_git_provider)
-    : local.default_git_provider
+    : var.default_git_provider)
+    : var.default_git_provider
   )
 
 
@@ -126,7 +125,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "app_repo_existing_hostedgit" {
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_config_repo_existing_hostedgit" {
-  count        = (var.pipeline_config_repo_existing_url == "") ? 0 : 1
+  count        = var.pipeline_config_repo_git_provider != "githubconsolidated" ? ((var.pipeline_config_repo_existing_url == "") ? 0 : 1) : 0
   toolchain_id = var.toolchain_id
   name         = "pipeline-config-repo"
   initialization {
@@ -145,7 +144,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_config_repo_existing_hosted
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_config_repo_clone_from_hostedgit" {
-  count = (var.pipeline_config_repo_clone_from_url == "") ? 0 : 1
+  count = var.pipeline_config_repo_git_provider != "githubconsolidated" ? ((var.pipeline_config_repo_clone_from_url == "") ? 0 : 1) : 0
 
   toolchain_id = var.toolchain_id
   name         = "pipeline-config-repo"
@@ -186,10 +185,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo_clone_from_githubc
   parameters {
     toolchain_issues_enabled = false
     enable_traceability      = false
-    # auth_type                = var.app_repo_auth_type
-    # api_token                = ((var.app_repo_auth_type == "pat") ?
-    # format("{vault::%s.${var.app_repo_git_token_secret_name}}", var.secret_tool) : "")
-    auth_type = var.app_repo_auth_type
+    auth_type                = var.app_repo_auth_type
     api_token = ((var.app_repo_auth_type == "pat") ?
     format("{vault::%s.${var.app_repo_git_token_secret_name}}", var.secret_tool) : "")
   }
@@ -218,7 +214,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo_existing_githubcon
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_repo" {
-  count        = var.template_flavor != "onepipeline" ? 1 : 0
+  count        = var.compliance_pipeline_repo_git_provider != "githubconsolidated" ? 1 : 0
   toolchain_id = var.toolchain_id
   name         = "pipeline-repo"
   initialization {
@@ -236,7 +232,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "inventory_repo" {
-  count        = var.template_flavor != "onepipeline" ? 1 : 0
+  count        = var.inventory_repo_git_provider != "githubconsolidated" ? 1 : 0
   toolchain_id = var.toolchain_id
   name         = "inventory-repo"
   initialization {
@@ -256,7 +252,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "inventory_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "evidence_repo" {
-  count        = var.template_flavor != "onepipeline" ? 1 : 0
+  count        = var.evidence_repo_git_provider != "githubconsolidated" ? 1 : 0
   toolchain_id = var.toolchain_id
   name         = "evidence-repo"
   initialization {
@@ -276,7 +272,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "evidence_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "issues_repo" {
-  count        = var.template_flavor != "onepipeline" ? 1 : 0
+  count        = var.issues_repo_git_provider != "githubconsolidated" ? 1 : 0
   toolchain_id = var.toolchain_id
   name         = "issues-repo"
   initialization {
@@ -297,7 +293,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "issues_repo" {
 
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_existing_githubconsolidated" {
-  count        = var.template_flavor == "onepipeline" ? ((var.pipeline_config_repo_existing_url == "") ? 0 : 1) : 0
+  count        = var.pipeline_config_repo_git_provider == "githubconsolidated" ? ((var.pipeline_config_repo_existing_url == "") ? 0 : 1) : 0
   toolchain_id = var.toolchain_id
   name         = "pipeline-config-repo"
   initialization {
@@ -318,7 +314,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_existi
 }
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_clone_from_githubconsolidated" {
-  count = var.template_flavor == "onepipeline" ? ((var.pipeline_config_repo_clone_from_url == "") ? 0 : 1) : 0
+  count = var.pipeline_config_repo_git_provider == "githubconsolidated" ? ((var.pipeline_config_repo_clone_from_url == "") ? 0 : 1) : 0
 
   toolchain_id = var.toolchain_id
   name         = "pipeline-config-repo"
@@ -341,7 +337,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_clone_
 
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
-  count = var.template_flavor == "onepipeline" ? 1 : 0
+  count = var.compliance_pipeline_repo_git_provider == "githubconsolidated" ? 1 : 0
   name  = "pipeline-repo"
   initialization {
     type     = "link"
@@ -361,7 +357,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "inventory_repo" {
-  count        = var.template_flavor == "onepipeline" ? 1 : 0
+  count        = var.inventory_repo_git_provider == "githubconsolidated" ? 1 : 0
   toolchain_id = var.toolchain_id
   name         = "inventory-repo"
   initialization {
@@ -381,7 +377,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "inventory_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "evidence_repo" {
-  count        = var.template_flavor == "onepipeline" ? 1 : 0
+  count        = var.evidence_repo_git_provider == "githubconsolidated" ? 1 : 0
   toolchain_id = var.toolchain_id
   name         = "evidence-repo"
   initialization {
@@ -405,7 +401,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "evidence_repo" {
 
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "issues_repo" {
-  count        = var.template_flavor == "onepipeline" ? 1 : 0
+  count        = var.issues_repo_git_provider == "githubconsolidated" ? 1 : 0
   toolchain_id = var.toolchain_id
   name         = "issues-repo"
   initialization {
@@ -421,7 +417,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "issues_repo" {
     auth_type           = var.issues_repo_auth_type
     api_token = ((var.issues_repo_auth_type == "pat") ?
     format("{vault::%s.${var.issues_repo_git_token_secret_name}}", var.secret_tool) : "")
-    toolchain_issues_enabled = false
+    toolchain_issues_enabled = true
   }
 }
 
@@ -449,45 +445,45 @@ output "pipeline_config_repo_branch" {
 }
 
 output "pipeline_repo_url" {
-  value = (var.template_flavor != "onepipeline" ?
+  value = (var.compliance_pipeline_repo_git_provider != "githubconsolidated" ?
     (ibm_cd_toolchain_tool_hostedgit.pipeline_repo[0].parameters[0].repo_url)
   : (ibm_cd_toolchain_tool_githubconsolidated.pipeline_repo[0].parameters[0].repo_url))
   description = "This repository url contains the tekton definitions for compliance pipelines"
 }
 
 output "inventory_repo_url" {
-  value       = var.template_flavor != "onepipeline" ? (ibm_cd_toolchain_tool_hostedgit.inventory_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.inventory_repo[0].parameters[0].repo_url)
+  value       = var.inventory_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.inventory_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.inventory_repo[0].parameters[0].repo_url)
   description = "The inventory repository instance url, with details of which artifact has been built and will be deployed"
 }
 
 output "evidence_repo_url" {
-  value = var.template_flavor != "onepipeline" ? (ibm_cd_toolchain_tool_hostedgit.evidence_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.evidence_repo[0].parameters[0].repo_url)
+  value = var.evidence_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.evidence_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.evidence_repo[0].parameters[0].repo_url)
   # value = ibm_cd_toolchain_tool_githubconsolidated.evidence_repo.parameters.repo.url
   description = "The evidence repository instance url, where evidence of the builds and scans are stored, ready for any compliance audit"
 }
 
 output "issues_repo_url" {
-  value       = var.template_flavor != "onepipeline" ? (ibm_cd_toolchain_tool_hostedgit.issues_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.issues_repo[0].parameters[0].repo_url)
+  value       = var.issues_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.issues_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.issues_repo[0].parameters[0].repo_url)
   description = "The incident issues repository instance url, where issues are created when vulnerabilities and CVEs are detected"
 }
 
 output "inventory_repo" {
-  value       = var.template_flavor != "onepipeline" ? (ibm_cd_toolchain_tool_hostedgit.inventory_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.inventory_repo[0])
+  value       = var.inventory_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.inventory_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.inventory_repo[0])
   description = "The inventory repository instance url, with details of which artifact has been built and will be deployed"
 }
 
 output "evidence_repo" {
-  value       = var.template_flavor != "onepipeline" ? (ibm_cd_toolchain_tool_hostedgit.evidence_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.evidence_repo[0])
+  value       = var.evidence_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.evidence_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.evidence_repo[0])
   description = "The evidence repository instance url, where evidence of the builds and scans are stored, ready for any compliance audit"
 }
 
 output "issues_repo" {
-  value       = var.template_flavor != "onepipeline" ? (ibm_cd_toolchain_tool_hostedgit.issues_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.issues_repo[0])
+  value       = var.issues_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.issues_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.issues_repo[0])
   description = "The incident issues repository instance url, where issues are created when vulnerabilities and CVEs are detected"
 }
 
 output "pipeline_config_repo" {
-  value = (var.template_flavor != "onepipeline" ?
+  value = (var.pipeline_config_repo_git_provider != "githubconsolidated" ?
     ((var.pipeline_config_repo_existing_url == "") ? ibm_cd_toolchain_tool_hostedgit.pipeline_config_repo_clone_from_hostedgit : ibm_cd_toolchain_tool_hostedgit.pipeline_config_repo_existing_hostedgit)
   : ((var.pipeline_config_repo_existing_url == "") ? ibm_cd_toolchain_tool_githubconsolidated.pipeline_config_repo_clone_from_githubconsolidated : ibm_cd_toolchain_tool_githubconsolidated.pipeline_config_repo_existing_githubconsolidated))
 }

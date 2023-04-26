@@ -28,6 +28,22 @@ variable "pipeline_config_repo_branch" {
 variable "pipeline_config_repo_clone_from_url" {
 }
 
+variable "default_git_provider" {
+}
+
+variable "pipeline_config_repo_git_provider" {
+}
+
+variable "compliance_pipeline_repo_git_provider" {
+}
+variable "inventory_repo_git_provider" {
+}
+
+variable "evidence_repo_git_provider" {
+}
+variable "issues_repo_git_provider" {
+}
+
 variable "pipeline_config_repo_auth_type" {
 }
 
@@ -99,7 +115,4 @@ variable "inventory_group" {
 }
 
 variable "evidence_group" {
-}
-
-variable "template_flavor" {
 }

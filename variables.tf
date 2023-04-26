@@ -268,6 +268,68 @@ variable "repositories_prefix" {
   default     = "compliance"
 }
 
+
+variable "default_git_provider" {
+  type        = string
+  default     = "hostedit"
+  description = "Choose the default git provider for app repo"
+  validation {
+    condition     = contains(["hostedit", "githubconsolidated", "gitlab"], var.default_git_provider)
+    error_message = "Must be either \"hostedit\" or \"gitlab\" or \"githubconsolidated\"."
+  }
+}
+
+variable "pipeline_config_repo_git_provider" {
+  type        = string
+  default     = "hostedit"
+  description = "Git provider for pipeline repo config"
+  validation {
+    condition     = contains(["hostedit", "githubconsolidated", "gitlab"], var.pipeline_config_repo_git_provider)
+    error_message = "Must be either \"hostedit\" or \"gitlab\" or \"githubconsolidated\" for pipeline config repo."
+  }
+}
+
+variable "compliance_pipeline_repo_git_provider" {
+  type        = string
+  default     = "hostedit"
+  description = "Git provider for pipeline repo"
+  validation {
+    condition     = contains(["hostedit", "githubconsolidated", "gitlab"], var.compliance_pipeline_repo_git_provider)
+    error_message = "Must be either \"hostedit\" or \"gitlab\" or \"githubconsolidated\" for pipeline repo."
+  }
+}
+
+variable "inventory_repo_git_provider" {
+  type        = string
+  default     = "hostedit"
+  description = "Git provider for inventory repo"
+  validation {
+    condition     = contains(["hostedit", "githubconsolidated", "gitlab"], var.inventory_repo_git_provider)
+    error_message = "Must be either \"hostedit\" or \"gitlab\" or \"githubconsolidated\" for Inventory repo."
+  }
+}
+
+variable "evidence_repo_git_provider" {
+  type        = string
+  default     = "hostedit"
+  description = "Git provider for evidence repo"
+  validation {
+    condition     = contains(["hostedit", "githubconsolidated", "gitlab"], var.evidence_repo_git_provider)
+    error_message = "Must be either \"hostedit\" or \"gitlab\" or \"githubconsolidated\" for evidence repo."
+  }
+}
+
+variable "issues_repo_git_provider" {
+  type        = string
+  default     = "hostedit"
+  description = "Git provider for issue repo "
+  validation {
+    condition     = contains(["hostedit", "githubconsolidated", "gitlab"], var.issues_repo_git_provider)
+    error_message = "Must be either \"hostedit\" or \"gitlab\" or \"githubconsolidated\" for issue repo."
+  }
+}
+
+
 variable "enable_slack" {
   type        = bool
   description = "Set to true to create the integration"
@@ -603,14 +665,4 @@ variable "toolchain_privateworker_credentials" {
   type        = string
   default     = "private-worker-service-api"
   description = "Name of the privateworker secret in the secret provider."
-}
-
-variable "template_flavor" {
-  type        = string
-  default     = "devsecops"
-  description = "Choose devsecops or onepipeline"
-  validation {
-    condition     = contains(["onepipeline", "devsecops"], var.template_flavor)
-    error_message = "Must be either \"onepipeline\" or \"devsecops\"."
-  }
 }
