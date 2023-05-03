@@ -122,6 +122,7 @@ module "pipeline_ci" {
   enable_privateworker                  = var.enable_privateworker
   enable_artifactory                    = var.enable_artifactory
   tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
+  ci_pipeline_branch                    = var.ci_pipeline_branch
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -157,6 +158,8 @@ module "pipeline_pr" {
   pipeline_dockerconfigjson_secret_name = var.pipeline_dockerconfigjson_secret_name
   tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                    = var.enable_artifactory
+  pr_pipeline_branch                    = var.pr_pipeline_branch
+
 }
 
 module "integrations" {

@@ -35,10 +35,7 @@ variable "pipeline_repo_url" {
   description = "The repository url containing pipeline definitions for Compliance CI Toolchain."
 }
 
-variable "pipeline_branch" {
-  type        = string
-  description = "The branch within pipeline definitions repository for Compliance CI Toolchain."
-  default     = "open-v9"
+variable "pr_pipeline_branch" {
 }
 
 variable "pipeline_path" {

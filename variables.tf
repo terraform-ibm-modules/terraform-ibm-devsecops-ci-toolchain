@@ -506,6 +506,17 @@ variable "pipeline_config_group" {
   default     = ""
 }
 
+variable "ci_pipeline_branch" {
+  type        = string
+  description = "The branch within ci pipeline definitions repository for Compliance CI Toolchain."
+  default     = "open-v9"
+}
+
+variable "pr_pipeline_branch" {
+  type        = string
+  description = "The branch within pr pipeline definitions repository for Compliance CI Toolchain."
+  default     = "open-v9"
+}
 variable "compliance_pipeline_group" {
   type        = string
   description = "Specify Git user/group for your compliance pipeline repo."
