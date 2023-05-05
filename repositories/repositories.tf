@@ -179,7 +179,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo_clone_from_githubc
     source_repo_url = local.app_repo_clone_from
     private_repo    = true
     repo_name       = join("-", [var.repositories_prefix, "app-repo"])
-    git_id          = "integrated"
+    git_id          = local.app_repo_git_id
     owner_id        = var.app_group
   }
   parameters {
@@ -201,7 +201,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo_existing_githubcon
   initialization {
     type     = "link"
     repo_url = var.app_repo_existing_url
-    git_id   = "integrated"
+    git_id   = local.app_repo_git_id
     owner_id = var.app_group
   }
   parameters {
