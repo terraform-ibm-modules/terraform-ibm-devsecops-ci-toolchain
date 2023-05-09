@@ -73,7 +73,7 @@ locals {
     (local.app_repo_mode == "byo_app") ? ""
     : (local.app_repo_mode == "byo_sample") ? var.app_repo_clone_from_url
     : local.app_repo_provider_webhook_syntax == "gitlab" ? format("%s/open-toolchain/hello-compliance-app.git", local.clone_from_git_server) :
-    local.app_repo_provider_webhook_syntax == "github" ? "https://github.ibm.com/one-pipeline/hello-compliance-app" : (file("[Error] Unrecognized git provider or app's repo"))
+    local.app_repo_provider_webhook_syntax == "github" ? var.app_repo_template_url : (file("[Error] Unrecognized git provider or app's repo"))
   )
 }
 
@@ -341,7 +341,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
   name  = "pipeline-repo"
   initialization {
     type     = "link"
-    repo_url = "https://github.ibm.com/one-pipeline/compliance-pipelines"
+    repo_url = var.pipeline_repo_url
     git_id   = "integrated"
     owner_id = var.compliance_pipeline_group
   }
@@ -363,7 +363,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "inventory_repo" {
   initialization {
     type            = "clone_if_not_exists"
     private_repo    = true
-    source_repo_url = "https://github.ibm.com/one-pipeline/compliance-inventory"
+    source_repo_url = var.inventory_source_repo_url
     repo_name       = join("-", [var.repositories_prefix, "inventory-repo"])
     git_id          = "integrated"
     owner_id        = var.inventory_group
@@ -382,7 +382,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "evidence_repo" {
   name         = "evidence-repo"
   initialization {
     type            = "clone_if_not_exists"
-    source_repo_url = "https://github.ibm.com/one-pipeline/compliance-evidence-locker"
+    source_repo_url = var.evidence_source_repo_url
     private_repo    = true
     repo_name       = join("-", [var.repositories_prefix, "evidence-repo"])
     git_id          = "integrated"
@@ -407,7 +407,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "issues_repo" {
   initialization {
     type            = "clone_if_not_exists"
     private_repo    = true
-    source_repo_url = "https://github.ibm.com/one-pipeline/compliance-incident-issues"
+    source_repo_url = var.issues_source_repo_url
     repo_name       = join("-", [var.repositories_prefix, "issues-repo"])
     git_id          = "integrated"
     owner_id        = var.issues_group

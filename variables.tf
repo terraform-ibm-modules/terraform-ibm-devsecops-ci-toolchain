@@ -118,6 +118,10 @@ variable "authorization_policy_creation" {
   default     = ""
 }
 
+variable "app_repo_template_url" {
+  type        = string
+  description = "Url of app repo template to be cloned"
+}
 variable "app_repo_clone_from_url" {
   type        = string
   description = "Override the default sample app by providing your own sample app URL, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged."
@@ -329,6 +333,29 @@ variable "issues_repo_git_provider" {
   }
 }
 
+variable "pipeline_repo_url" {
+  type        = string
+  default     = ""
+  description = "Url of pipeline repo template to be cloned"
+}
+
+variable "inventory_source_repo_url" {
+  type        = string
+  default     = ""
+  description = "Url of inventory repo template to be cloned"
+}
+
+variable "evidence_source_repo_url" {
+  type        = string
+  default     = ""
+  description = "Url of evidence repo template to be cloned"
+}
+
+variable "issues_source_repo_url" {
+  type        = string
+  default     = ""
+  description = "Url of issue repo template to be cloned"
+}
 
 variable "enable_slack" {
   type        = bool

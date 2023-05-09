@@ -19,6 +19,9 @@ variable "app_repo_clone_to_git_provider" {
 variable "app_repo_clone_to_git_id" {
 }
 
+variable "app_repo_template_url" {
+}
+
 variable "pipeline_config_repo_existing_url" {
 }
 
@@ -28,6 +31,8 @@ variable "pipeline_config_repo_branch" {
 variable "pipeline_config_repo_clone_from_url" {
 }
 
+variable "pipeline_repo_url" {
+}
 variable "default_git_provider" {
 }
 
@@ -36,12 +41,22 @@ variable "pipeline_config_repo_git_provider" {
 
 variable "compliance_pipeline_repo_git_provider" {
 }
+
+variable "inventory_source_repo_url" {
+}
+
 variable "inventory_repo_git_provider" {
+}
+
+variable "evidence_source_repo_url" {
 }
 
 variable "evidence_repo_git_provider" {
 }
 variable "issues_repo_git_provider" {
+}
+
+variable "issues_source_repo_url" {
 }
 
 variable "pipeline_config_repo_auth_type" {
