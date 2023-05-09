@@ -121,6 +121,7 @@ variable "authorization_policy_creation" {
 variable "app_repo_template_url" {
   type        = string
   description = "Url of app repo template to be cloned"
+  default     = ""
 }
 variable "app_repo_clone_from_url" {
   type        = string
