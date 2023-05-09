@@ -120,3 +120,34 @@ output "secret_tool" {
   ]
   description = "Used as part of secret references to point to the secret store tool integration"
 }
+
+resource "ibm_cd_toolchain_tool_artifactory" "cd_toolchain_tool_artifactory_instance" {
+  count = (var.enable_artifactory) ? 1 : 0
+  parameters {
+    name            = "artifactory-dockerconfigjson"
+    dashboard_url   = var.artifactory_dashboard_url
+    type            = "docker"
+    user_id         = var.artifactory_user
+    token           = format("{vault::%s.${var.artifactory_token_secret_name}}", var.secret_tool)
+    repository_name = var.artifactory_repo_name
+    repository_url  = var.artifactory_repo_url
+  }
+  toolchain_id = var.toolchain_id
+}
+
+resource "ibm_cd_toolchain_tool_privateworker" "cd_toolchain_tool_privateworker_instance" {
+  count = (var.enable_privateworker) ? 1 : 0
+  parameters {
+    name                     = "private-worker-tool-01"
+    worker_queue_credentials = format("{vault::%s.${var.privateworker_credentials_secret_name}}", var.secret_tool)
+  }
+  toolchain_id = var.toolchain_id
+}
+
+output "private_worker" {
+  value = (var.enable_privateworker) ? ibm_cd_toolchain_tool_privateworker.cd_toolchain_tool_privateworker_instance[0].tool_id : "public"
+}
+
+output "ibm_cd_toolchain_tool_artifactory" {
+  value = (var.enable_artifactory) ? ibm_cd_toolchain_tool_artifactory.cd_toolchain_tool_artifactory_instance[0].tool_id : null
+}

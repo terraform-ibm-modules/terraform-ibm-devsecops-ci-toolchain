@@ -22,19 +22,29 @@ module "repositories" {
   app_repo_clone_from_branch                     = var.app_repo_clone_from_branch
   app_repo_clone_to_git_provider                 = var.app_repo_clone_to_git_provider
   app_repo_clone_to_git_id                       = var.app_repo_clone_to_git_id
+  app_repo_template_url                          = var.app_repo_template_url
+  pipeline_config_repo_git_provider              = var.pipeline_config_repo_git_provider
   pipeline_config_repo_existing_url              = var.pipeline_config_repo_existing_url
   pipeline_config_repo_branch                    = var.pipeline_config_repo_branch
   pipeline_config_repo_clone_from_url            = var.pipeline_config_repo_clone_from_url
+  pipeline_repo_url                              = var.pipeline_repo_url
   pipeline_config_repo_auth_type                 = var.pipeline_config_repo_auth_type
   pipeline_config_repo_git_token_secret_name     = var.pipeline_config_repo_git_token_secret_name
+  evidence_repo_git_provider                     = var.evidence_repo_git_provider
+  evidence_source_repo_url                       = var.evidence_source_repo_url
   evidence_repo_auth_type                        = var.evidence_repo_auth_type
   evidence_repo_git_token_secret_name            = var.evidence_repo_git_token_secret_name
+  issues_repo_git_provider                       = var.issues_repo_git_provider
+  issues_source_repo_url                         = var.issues_source_repo_url
   issues_repo_auth_type                          = var.issues_repo_auth_type
   issues_repo_git_token_secret_name              = var.issues_repo_git_token_secret_name
+  inventory_repo_git_provider                    = var.inventory_repo_git_provider
+  inventory_source_repo_url                      = var.inventory_source_repo_url
   inventory_repo_auth_type                       = var.inventory_repo_auth_type
   inventory_repo_git_token_secret_name           = var.inventory_repo_git_token_secret_name
   app_repo_auth_type                             = var.app_repo_auth_type
   app_repo_git_token_secret_name                 = var.app_repo_git_token_secret_name
+  compliance_pipeline_repo_git_provider          = var.compliance_pipeline_repo_git_provider
   compliance_pipeline_repo_auth_type             = var.compliance_pipeline_repo_auth_type
   compliance_pipeline_repo_git_token_secret_name = var.compliance_pipeline_repo_git_token_secret_name
   repositories_prefix                            = var.repositories_prefix
@@ -45,6 +55,7 @@ module "repositories" {
   evidence_group                                 = var.evidence_group
   inventory_group                                = var.inventory_group
   secret_tool                                    = module.integrations.secret_tool
+  default_git_provider                           = var.default_git_provider
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
@@ -112,7 +123,11 @@ module "pipeline_ci" {
   doi_toolchain_id_pipeline_property    = var.doi_toolchain_id_pipeline_property
   enable_pipeline_dockerconfigjson      = var.enable_pipeline_dockerconfigjson
   pipeline_dockerconfigjson_secret_name = var.pipeline_dockerconfigjson_secret_name
-
+  private_worker                        = module.integrations.private_worker
+  enable_privateworker                  = var.enable_privateworker
+  enable_artifactory                    = var.enable_artifactory
+  tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
+  ci_pipeline_branch                    = var.ci_pipeline_branch
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -146,37 +161,50 @@ module "pipeline_pr" {
   slack_notifications                   = var.slack_notifications
   enable_pipeline_dockerconfigjson      = var.enable_pipeline_dockerconfigjson
   pipeline_dockerconfigjson_secret_name = var.pipeline_dockerconfigjson_secret_name
+  tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
+  enable_artifactory                    = var.enable_artifactory
+  pr_pipeline_branch                    = var.pr_pipeline_branch
+
 }
 
 module "integrations" {
   source     = "./integrations"
   depends_on = [module.services]
 
-  sm_location                   = var.sm_location
-  toolchain_id                  = ibm_cd_toolchain.toolchain_instance.id
-  sm_resource_group             = var.sm_resource_group
-  sm_name                       = var.sm_name
-  sm_instance_guid              = module.services.sm_instance_guid
-  sm_secret_group               = var.sm_secret_group
-  kp_location                   = var.kp_location
-  kp_resource_group             = var.kp_resource_group
-  kp_name                       = var.kp_name
-  kp_instance_guid              = module.services.kp_instance_guid
-  enable_secrets_manager        = var.enable_secrets_manager
-  enable_key_protect            = var.enable_key_protect
-  enable_slack                  = var.enable_slack
-  slack_webhook_secret_name     = var.slack_webhook_secret_name
-  slack_channel_name            = var.slack_channel_name
-  slack_team_name               = var.slack_team_name
-  slack_pipeline_fail           = var.slack_pipeline_fail
-  slack_pipeline_start          = var.slack_pipeline_start
-  slack_pipeline_success        = var.slack_pipeline_success
-  slack_toolchain_bind          = var.slack_toolchain_bind
-  slack_toolchain_unbind        = var.slack_toolchain_unbind
-  authorization_policy_creation = var.authorization_policy_creation
-  link_to_doi_toolchain         = var.link_to_doi_toolchain
-  doi_toolchain_id              = var.doi_toolchain_id
-  secret_tool                   = module.integrations.secret_tool
+  sm_location                           = var.sm_location
+  toolchain_id                          = ibm_cd_toolchain.toolchain_instance.id
+  sm_resource_group                     = var.sm_resource_group
+  sm_name                               = var.sm_name
+  sm_instance_guid                      = module.services.sm_instance_guid
+  sm_secret_group                       = var.sm_secret_group
+  kp_location                           = var.kp_location
+  kp_resource_group                     = var.kp_resource_group
+  kp_name                               = var.kp_name
+  kp_instance_guid                      = module.services.kp_instance_guid
+  enable_secrets_manager                = var.enable_secrets_manager
+  enable_key_protect                    = var.enable_key_protect
+  enable_slack                          = var.enable_slack
+  slack_webhook_secret_name             = var.slack_webhook_secret_name
+  slack_channel_name                    = var.slack_channel_name
+  slack_team_name                       = var.slack_team_name
+  slack_pipeline_fail                   = var.slack_pipeline_fail
+  slack_pipeline_start                  = var.slack_pipeline_start
+  slack_pipeline_success                = var.slack_pipeline_success
+  slack_toolchain_bind                  = var.slack_toolchain_bind
+  slack_toolchain_unbind                = var.slack_toolchain_unbind
+  authorization_policy_creation         = var.authorization_policy_creation
+  link_to_doi_toolchain                 = var.link_to_doi_toolchain
+  doi_toolchain_id                      = var.doi_toolchain_id
+  secret_tool                           = module.integrations.secret_tool
+  enable_artifactory                    = var.enable_artifactory
+  artifactory_dashboard_url             = var.artifactory_dashboard_url
+  artifactory_user                      = var.artifactory_user
+  artifactory_repo_name                 = var.artifactory_repo_name
+  artifactory_repo_url                  = var.artifactory_repo_url
+  enable_privateworker                  = var.enable_privateworker
+  privateworker_credentials_secret_name = var.privateworker_credentials_secret_name
+  artifactory_token_secret_name         = var.artifactory_token_secret_name
+
 }
 
 module "services" {

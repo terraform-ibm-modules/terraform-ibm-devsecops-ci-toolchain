@@ -79,3 +79,13 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_dockerjson_config" {
   value       = format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", var.secret_tool)
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
+
+resource "ibm_cd_tekton_pipeline_property" "artifactory-dockerconfigjson" {
+  name        = "artifactory-dockerconfigjson"
+  count       = (var.enable_artifactory) ? 1 : 0
+  type        = "integration"
+  value       = var.tool_artifactory
+  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
+  path        = "parameters.docker_config_json"
+
+}

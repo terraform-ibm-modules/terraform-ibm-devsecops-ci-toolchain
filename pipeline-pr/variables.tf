@@ -35,10 +35,7 @@ variable "pipeline_repo_url" {
   description = "The repository url containing pipeline definitions for Compliance CI Toolchain."
 }
 
-variable "pipeline_branch" {
-  type        = string
-  description = "The branch within pipeline definitions repository for Compliance CI Toolchain."
-  default     = "open-v9"
+variable "pr_pipeline_branch" {
 }
 
 variable "pipeline_path" {
@@ -47,9 +44,6 @@ variable "pipeline_path" {
   default     = "definitions"
 }
 variable "compliance_base_image" {
-  type        = string
-  description = "Pipeline baseimage to run most of the built-in pipeline code"
-  default     = ""
 }
 
 variable "ibmcloud_api_key" {
@@ -80,4 +74,10 @@ variable "app_repo_provider_webhook_syntax" {
 }
 
 variable "pipeline_debug" {
+}
+
+variable "tool_artifactory" {
+}
+
+variable "enable_artifactory" {
 }

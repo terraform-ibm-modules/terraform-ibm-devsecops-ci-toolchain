@@ -7,6 +7,18 @@ variable "dev_resource_group" {
 variable "app_name" {
 }
 
+variable "enable_privateworker" {
+}
+
+variable "enable_artifactory" {
+}
+
+variable "tool_artifactory" {
+}
+
+variable "private_worker" {
+}
+
 variable "signing_key_secret_name" {
 }
 
@@ -135,7 +147,7 @@ variable "sonarqube_config" {
 variable "slack_notifications" {
 }
 
-variable "pipeline_branch" {
+variable "ci_pipeline_branch" {
   type        = string
   description = "The branch within pipeline definitions repository for Compliance CI Toolchain."
   default     = "open-v9"
