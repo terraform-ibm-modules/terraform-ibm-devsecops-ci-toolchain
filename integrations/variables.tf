@@ -91,7 +91,7 @@ variable "artifactory_dashboard_url" {
 }
 variable "artifactory_user" {
 }
-variable "toolchain_artifactory_token" {
+variable "artifactory_token_secret_name" {
 }
 variable "artifactory_repo_name" {
 }
@@ -101,5 +101,5 @@ variable "artifactory_repo_url" {
 variable "enable_privateworker" {
 }
 
-variable "toolchain_privateworker_credentials" {
+variable "privateworker_credentials_secret_name" {
 }

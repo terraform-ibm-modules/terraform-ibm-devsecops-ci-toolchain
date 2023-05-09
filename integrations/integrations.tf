@@ -128,7 +128,7 @@ resource "ibm_cd_toolchain_tool_artifactory" "cd_toolchain_tool_artifactory_inst
     dashboard_url   = var.artifactory_dashboard_url
     type            = "docker"
     user_id         = var.artifactory_user
-    token           = format("{vault::%s.${var.toolchain_artifactory_token}}", var.secret_tool)
+    token           = format("{vault::%s.${var.artifactory_token_secret_name}}", var.secret_tool)
     repository_name = var.artifactory_repo_name
     repository_url  = var.artifactory_repo_url
   }
@@ -139,7 +139,7 @@ resource "ibm_cd_toolchain_tool_privateworker" "cd_toolchain_tool_privateworker_
   count = (var.enable_privateworker) ? 1 : 0
   parameters {
     name                     = "private-worker-tool-01"
-    worker_queue_credentials = format("{vault::%s.${var.toolchain_privateworker_credentials}}", var.secret_tool)
+    worker_queue_credentials = format("{vault::%s.${var.privateworker_credentials_secret_name}}", var.secret_tool)
   }
   toolchain_id = var.toolchain_id
 }

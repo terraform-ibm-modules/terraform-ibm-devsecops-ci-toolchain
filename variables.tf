@@ -643,9 +643,9 @@ variable "enable_privateworker" {
   description = "Set true to enable private worker  for devsecops."
 }
 
-variable "toolchain_artifactory_token" {
+variable "artifactory_token_secret_name" {
   type        = string
-  default     = "artifacotry-token"
+  default     = "artifactory-token"
   description = "Name of the artifactory token secret in the secret provider."
 }
 
@@ -672,7 +672,7 @@ variable "artifactory_repo_name" {
   description = "Type the name of your Artifactory repository where your docker images are located."
 }
 
-variable "toolchain_privateworker_credentials" {
+variable "privateworker_credentials_secret_name" {
   type        = string
   default     = "private-worker-service-api"
   description = "Name of the privateworker secret in the secret provider."
