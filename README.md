@@ -149,7 +149,7 @@ Create an [IBM Cloud Object Storage instance and bucket](https://cloud.ibm.com/d
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.51.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.52.1 |
 
 ## Modules
 
