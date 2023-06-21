@@ -305,6 +305,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_existi
   }
   parameters {
     enable_traceability = false
+    integration_owner   = var.config_repo_integration_owner
     auth_type           = var.pipeline_config_repo_auth_type
     api_token = ((var.pipeline_config_repo_auth_type == "pat") ?
     format("{vault::%s.${var.pipeline_config_repo_git_token_secret_name}}", var.secret_tool) : "")
@@ -328,6 +329,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_clone_
   }
   parameters {
     enable_traceability = false
+    integration_owner   = var.config_repo_integration_owner
     auth_type           = var.pipeline_config_repo_auth_type
     api_token = ((var.pipeline_config_repo_auth_type == "pat") ?
     format("{vault::%s.${var.pipeline_config_repo_git_token_secret_name}}", var.secret_tool) : "")
@@ -347,6 +349,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
   }
   parameters {
     enable_traceability = false
+    integration_owner   = var.pipeline_repo_integration_owner
     auth_type           = var.compliance_pipeline_repo_auth_type
     api_token = ((var.compliance_pipeline_repo_auth_type == "pat") ?
     format("{vault::%s.${var.compliance_pipeline_repo_git_token_secret_name}}", var.secret_tool) : "")
@@ -370,6 +373,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "inventory_repo" {
   }
   parameters {
     enable_traceability      = false
+    integration_owner        = var.inventory_repo_integration_owner
     auth_type                = var.inventory_repo_auth_type
     api_token                = ((var.inventory_repo_auth_type == "pat") ? format("{vault::%s.${var.inventory_repo_git_token_secret_name}}", var.secret_tool) : "")
     toolchain_issues_enabled = false
@@ -390,6 +394,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "evidence_repo" {
   }
   parameters {
     enable_traceability = false
+    integration_owner   = var.evidence_repo_integration_owner
     auth_type           = var.evidence_repo_auth_type
     api_token = ((var.evidence_repo_auth_type == "pat") ?
     format("{vault::%s.${var.evidence_repo_git_token_secret_name}}", var.secret_tool) : "")
@@ -413,6 +418,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "issues_repo" {
   }
   parameters {
     enable_traceability = false
+    integration_owner   = var.issues_repo_integration_owner
     auth_type           = var.issues_repo_auth_type
     api_token = ((var.issues_repo_auth_type == "pat") ?
     format("{vault::%s.${var.issues_repo_git_token_secret_name}}", var.secret_tool) : "")

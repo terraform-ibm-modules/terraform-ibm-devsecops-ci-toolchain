@@ -56,6 +56,11 @@ module "repositories" {
   inventory_group                                = var.inventory_group
   secret_tool                                    = module.integrations.secret_tool
   default_git_provider                           = var.default_git_provider
+  issues_repo_integration_owner                  = var.issues_repo_integration_owner
+  evidence_repo_integration_owner                = var.evidence_repo_integration_owner
+  inventory_repo_integration_owner               = var.inventory_repo_integration_owner
+  pipeline_repo_integration_owner                = var.pipeline_repo_integration_owner
+  config_repo_integration_owner                  = var.config_repo_integration_owner
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {

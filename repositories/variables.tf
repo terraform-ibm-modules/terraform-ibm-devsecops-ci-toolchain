@@ -131,3 +131,18 @@ variable "inventory_group" {
 
 variable "evidence_group" {
 }
+
+variable "issues_repo_integration_owner" {
+}
+
+variable "evidence_repo_integration_owner" {
+}
+
+variable "inventory_repo_integration_owner" {
+}
+
+variable "pipeline_repo_integration_owner" {
+}
+
+variable "config_repo_integration_owner" {
+}

@@ -334,6 +334,36 @@ variable "issues_repo_git_provider" {
   }
 }
 
+variable "issues_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "evidence_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "inventory_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "pipeline_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "config_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
 variable "pipeline_repo_url" {
   type        = string
   default     = ""
