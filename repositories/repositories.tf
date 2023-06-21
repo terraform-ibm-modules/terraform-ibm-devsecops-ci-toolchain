@@ -185,6 +185,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo_clone_from_githubc
   parameters {
     toolchain_issues_enabled = false
     enable_traceability      = false
+    integration_owner        = var.app_repo_integration_owner
     auth_type                = var.app_repo_auth_type
     api_token = ((var.app_repo_auth_type == "pat") ?
     format("{vault::%s.${var.app_repo_git_token_secret_name}}", var.secret_tool) : "")
@@ -207,6 +208,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo_existing_githubcon
   parameters {
     toolchain_issues_enabled = false
     enable_traceability      = false
+    integration_owner        = var.app_repo_integration_owner
     auth_type                = var.app_repo_auth_type
     api_token = ((var.app_repo_auth_type == "pat") ?
     format("{vault::%s.${var.app_repo_git_token_secret_name}}", var.secret_tool) : "")

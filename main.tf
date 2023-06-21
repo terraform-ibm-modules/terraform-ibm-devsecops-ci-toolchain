@@ -61,6 +61,7 @@ module "repositories" {
   inventory_repo_integration_owner               = var.inventory_repo_integration_owner
   pipeline_repo_integration_owner                = var.pipeline_repo_integration_owner
   config_repo_integration_owner                  = var.config_repo_integration_owner
+  app_repo_integration_owner                     = var.app_repo_integration_owner
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {

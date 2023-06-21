@@ -146,3 +146,6 @@ variable "pipeline_repo_integration_owner" {
 
 variable "config_repo_integration_owner" {
 }
+
+variable "app_repo_integration_owner" {
+}

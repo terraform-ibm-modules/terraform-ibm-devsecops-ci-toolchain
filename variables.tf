@@ -364,6 +364,12 @@ variable "config_repo_integration_owner" {
   default     = ""
 }
 
+variable "app_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
 variable "pipeline_repo_url" {
   type        = string
   default     = ""
