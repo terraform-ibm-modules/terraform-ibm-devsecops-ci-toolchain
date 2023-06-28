@@ -14,23 +14,21 @@ locals {
     (local.is_staging) ? local.git_mon01 : local.compliance_pipelines_git_server
   )
 
-  #issues_source_repo_url = (
-  #  (var.issues_source_repo_url != "") ? var.issues_source_repo_url :
-  #  (var.issues_repo_clone_from_url != "") ? var.issues_repo_clone_from_url :
-  #  format("%s/open-toolchain/compliance-incident-issues.git", local.clone_from_git_server))
+  issues_source_repo_url = (
+    (var.issues_source_repo_url != "") ? var.issues_source_repo_url :
+    (var.issues_repo_clone_from_url != "") ? var.issues_repo_clone_from_url :
+    format("%s/open-toolchain/compliance-incident-issues.git", local.clone_from_git_server))
 
-  #evidence_source_repo_url = (
-  #  (var.evidence_source_repo_url != "") ? var.evidence_source_repo_url :
-  #  (var.evidence_repo_clone_from_url != "") ? var.evidence_repo_clone_from_url :
-  #  format("%s/open-toolchain/compliance-evidence-locker.git", local.clone_from_git_server))
+  evidence_source_repo_url = (
+    (var.evidence_source_repo_url != "") ? var.evidence_source_repo_url :
+    (var.evidence_repo_clone_from_url != "") ? var.evidence_repo_clone_from_url :
+    format("%s/open-toolchain/compliance-evidence-locker.git", local.clone_from_git_server))
 
-  #inventory_source_repo_url = (
-  #  (var.inventory_source_repo_url != "") ? var.inventory_source_repo_url :
-  #  (var.inventory_repo_clone_from_url != "") ? var.inventory_repo_clone_from_url :
-  #  format("%s/open-toolchain/compliance-inventory.git", local.clone_from_git_server))
-  issues_source_repo_url = "https://eu-gb.git.cloud.ibm.com/open-toolchain/compliance-incident-issues.git"
-  evidence_source_repo_url = "https://eu-gb.git.cloud.ibm.com/open-toolchain/compliance-evidence-locker.git"
-  inventory_source_repo_url = "https://eu-gb.git.cloud.ibm.com/open-toolchain/compliance-inventory.git"
+  inventory_source_repo_url = (
+    (var.inventory_source_repo_url != "") ? var.inventory_source_repo_url :
+    (var.inventory_repo_clone_from_url != "") ? var.inventory_repo_clone_from_url :
+    format("%s/open-toolchain/compliance-inventory.git", local.clone_from_git_server))
+  
   compliance_repo_url = format("%s/open-toolchain/compliance-pipelines.git", local.compliance_pipelines_git_server)
 
 }
@@ -67,36 +65,13 @@ module "repositories" {
   pipeline_repo_url                              = var.pipeline_repo_url
   pipeline_config_repo_auth_type                 = var.pipeline_config_repo_auth_type
   pipeline_config_repo_git_token_secret_name     = var.pipeline_config_repo_git_token_secret_name
-  evidence_repo_git_provider                     = var.evidence_repo_git_provider
-  evidence_source_repo_url                       = var.evidence_source_repo_url
-  evidence_repo_auth_type                        = var.evidence_repo_auth_type
-  evidence_repo_git_token_secret_name            = var.evidence_repo_git_token_secret_name
-  issues_repo_git_provider                       = var.issues_repo_git_provider
-  issues_source_repo_url                         = var.issues_source_repo_url
-  issues_repo_auth_type                          = var.issues_repo_auth_type
-  issues_repo_git_token_secret_name              = var.issues_repo_git_token_secret_name
-  inventory_repo_git_provider                    = var.inventory_repo_git_provider
-  inventory_source_repo_url                      = var.inventory_source_repo_url
-  inventory_repo_auth_type                       = var.inventory_repo_auth_type
-  inventory_repo_git_token_secret_name           = var.inventory_repo_git_token_secret_name
   app_repo_auth_type                             = var.app_repo_auth_type
   app_repo_git_token_secret_name                 = var.app_repo_git_token_secret_name
-  compliance_pipeline_repo_git_provider          = var.compliance_pipeline_repo_git_provider
-  compliance_pipeline_repo_auth_type             = var.compliance_pipeline_repo_auth_type
-  compliance_pipeline_repo_git_token_secret_name = var.compliance_pipeline_repo_git_token_secret_name
   repositories_prefix                            = var.repositories_prefix
   app_group                                      = var.app_group
   pipeline_config_group                          = var.pipeline_config_group
-  compliance_pipeline_group                      = var.compliance_pipeline_group
-  issues_group                                   = var.issues_group
-  evidence_group                                 = var.evidence_group
-  inventory_group                                = var.inventory_group
   secret_tool                                    = module.integrations.secret_tool
   default_git_provider                           = var.default_git_provider
-  issues_repo_integration_owner                  = var.issues_repo_integration_owner
-  evidence_repo_integration_owner                = var.evidence_repo_integration_owner
-  inventory_repo_integration_owner               = var.inventory_repo_integration_owner
-  pipeline_repo_integration_owner                = var.pipeline_repo_integration_owner
   config_repo_integration_owner                  = var.config_repo_integration_owner
   app_repo_integration_owner                     = var.app_repo_integration_owner
 }
@@ -161,6 +136,26 @@ module "inventory_repo" {
   git_id                                         = var.inventory_repo_git_id
 }
 
+module "compliance_pipelines_repo" {
+  source                                         = "./repos"
+  depends_on                                     = [module.integrations]
+  tool_name                                      = "pipeline-repo"
+  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
+  git_provider                                   = var.compliance_pipeline_repo_git_provider
+  initilization_type                             = "link"
+  repository_url                                 = local.compliance_repo_url
+  source_repository_url                          = ""
+  repository_name                                = ""
+  is_private_repo                                = false
+  owner_id                                       = var.compliance_pipeline_group
+  issues_enabled                                 = var.compliance_pipeline_repo_issues_enabled
+  traceability_enabled                           = false
+  integration_owner                              = var.compliance_pipeline_repo_integration_owner
+  auth_type                                      = var.compliance_pipeline_repo_auth_type
+  git_token                                      = var.compliance_pipeline_repo_git_token_secret_name
+  git_id                                         = var.compliance_pipelines_repo_git_id
+}
+
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
@@ -191,7 +186,7 @@ module "pipeline_ci" {
   pipeline_config_repo_clone_from_url   = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo_branch           = module.repositories.pipeline_config_repo_branch
   pipeline_config_repo                  = module.repositories.pipeline_config_repo
-  pipeline_repo_url                     = module.repositories.pipeline_repo_url
+  pipeline_repo_url                     = module.compliance_pipelines_repo.repository_url
   pipeline_config_path                  = var.pipeline_config_path
   evidence_repo_url                     = module.evidence_repo.repository_url
   inventory_repo_url                    = module.inventory_repo.repository_url
@@ -256,7 +251,7 @@ module "pipeline_pr" {
   pipeline_config_repo_branch           = module.repositories.pipeline_config_repo_branch
   pipeline_config_repo                  = module.repositories.pipeline_config_repo
   pipeline_config_path                  = var.pipeline_config_path
-  pipeline_repo_url                     = module.repositories.pipeline_repo_url
+  pipeline_repo_url                     = module.compliance_pipelines_repo.repository_url
   secret_tool                           = module.integrations.secret_tool
   app_repo_provider_webhook_syntax      = module.repositories.app_repo_provider_webhook_syntax
   compliance_base_image                 = var.compliance_base_image

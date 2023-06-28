@@ -499,10 +499,22 @@ description   = "The repo URL that the intgeration will clone from."
 default       = ""
 }
 
-variable "pipeline_repo_integration_owner" {
+variable "compliance_pipeline_repo_integration_owner" {
   type        = string
   description = "The name of the integration owner."
   default     = ""
+}
+
+variable "compliance_pipelines_repo_git_id" {
+  type        = string
+  description = ""
+  default     = ""
+}
+
+variable "compliance_pipeline_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues." 
+  default     = false
 }
 
 variable "config_repo_integration_owner" {

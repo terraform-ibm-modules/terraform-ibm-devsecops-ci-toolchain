@@ -66,7 +66,7 @@ output "issues_repo" {
 }
 
 output "pipeline_repo_url" {
-  value       = module.repositories.pipeline_repo_url
+  value       = module.compliance_pipelines_repo.repository_url
   description = "This repository URL contains the tekton definitions for compliance pipelines."
 }
 

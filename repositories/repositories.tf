@@ -215,24 +215,6 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo_existing_githubcon
   }
 }
 
-resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_repo" {
-  count        = var.compliance_pipeline_repo_git_provider != "githubconsolidated" ? 1 : 0
-  toolchain_id = var.toolchain_id
-  name         = "pipeline-repo"
-  initialization {
-    type     = "link"
-    repo_url = format("%s/open-toolchain/compliance-pipelines.git", local.compliance_pipelines_git_server)
-    owner_id = var.compliance_pipeline_group
-  }
-  parameters {
-    toolchain_issues_enabled = false
-    enable_traceability      = false
-    auth_type                = var.compliance_pipeline_repo_auth_type
-    api_token = ((var.compliance_pipeline_repo_auth_type == "pat") ?
-    format("{vault::%s.${var.compliance_pipeline_repo_git_token_secret_name}}", var.secret_tool) : "")
-  }
-}
-
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_existing_githubconsolidated" {
   count        = var.pipeline_config_repo_git_provider == "githubconsolidated" ? ((var.pipeline_config_repo_existing_url == "") ? 0 : 1) : 0
@@ -279,30 +261,6 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_clone_
   }
 }
 
-
-resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
-  count = var.compliance_pipeline_repo_git_provider == "githubconsolidated" ? 1 : 0
-  name  = "pipeline-repo"
-  initialization {
-    type     = "link"
-    repo_url = var.pipeline_repo_url
-    git_id   = "integrated"
-    owner_id = var.compliance_pipeline_group
-  }
-  parameters {
-    enable_traceability = false
-    integration_owner   = var.pipeline_repo_integration_owner
-    auth_type           = var.compliance_pipeline_repo_auth_type
-    api_token = ((var.compliance_pipeline_repo_auth_type == "pat") ?
-    format("{vault::%s.${var.compliance_pipeline_repo_git_token_secret_name}}", var.secret_tool) : "")
-    toolchain_issues_enabled = false
-
-  }
-  toolchain_id = var.toolchain_id
-}
-
-
-
 output "app_repo_url" {
   value = (((local.app_repo_git_provider == "hostedgit") && (local.app_repo_mode == "byo_app"))
     ? ibm_cd_toolchain_tool_hostedgit.app_repo_existing_hostedgit[0].parameters[0].repo_url
@@ -324,13 +282,6 @@ output "app_repo_branch" {
 output "pipeline_config_repo_branch" {
   value       = local.pipeline_config_repo_branch
   description = "The config or app repo branch containing the .pipeline-config.yaml file; usually main or master."
-}
-
-output "pipeline_repo_url" {
-  value = (var.compliance_pipeline_repo_git_provider != "githubconsolidated" ?
-    (ibm_cd_toolchain_tool_hostedgit.pipeline_repo[0].parameters[0].repo_url)
-  : (ibm_cd_toolchain_tool_githubconsolidated.pipeline_repo[0].parameters[0].repo_url))
-  description = "This repository url contains the tekton definitions for compliance pipelines"
 }
 
 output "pipeline_config_repo" {

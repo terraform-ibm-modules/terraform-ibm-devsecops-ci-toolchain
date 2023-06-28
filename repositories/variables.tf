@@ -39,25 +39,7 @@ variable "default_git_provider" {
 variable "pipeline_config_repo_git_provider" {
 }
 
-variable "compliance_pipeline_repo_git_provider" {
-}
 
-variable "inventory_source_repo_url" {
-}
-
-variable "inventory_repo_git_provider" {
-}
-
-variable "evidence_source_repo_url" {
-}
-
-variable "evidence_repo_git_provider" {
-}
-variable "issues_repo_git_provider" {
-}
-
-variable "issues_source_repo_url" {
-}
 
 variable "pipeline_config_repo_auth_type" {
 }
@@ -65,34 +47,10 @@ variable "pipeline_config_repo_auth_type" {
 variable "app_repo_auth_type" {
 }
 
-variable "issues_repo_auth_type" {
-}
-
-variable "evidence_repo_auth_type" {
-}
-
-variable "inventory_repo_auth_type" {
-}
-
-variable "compliance_pipeline_repo_auth_type" {
-}
-
 variable "pipeline_config_repo_git_token_secret_name" {
 }
 
 variable "app_repo_git_token_secret_name" {
-}
-
-variable "issues_repo_git_token_secret_name" {
-}
-
-variable "evidence_repo_git_token_secret_name" {
-}
-
-variable "inventory_repo_git_token_secret_name" {
-}
-
-variable "compliance_pipeline_repo_git_token_secret_name" {
 }
 
 variable "secret_tool" {
@@ -118,30 +76,6 @@ variable "app_group" {
 }
 
 variable "pipeline_config_group" {
-}
-
-variable "compliance_pipeline_group" {
-}
-
-variable "issues_group" {
-}
-
-variable "inventory_group" {
-}
-
-variable "evidence_group" {
-}
-
-variable "issues_repo_integration_owner" {
-}
-
-variable "evidence_repo_integration_owner" {
-}
-
-variable "inventory_repo_integration_owner" {
-}
-
-variable "pipeline_repo_integration_owner" {
 }
 
 variable "config_repo_integration_owner" {
