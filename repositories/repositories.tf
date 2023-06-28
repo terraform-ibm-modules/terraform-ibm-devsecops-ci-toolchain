@@ -233,66 +233,6 @@ resource "ibm_cd_toolchain_tool_hostedgit" "pipeline_repo" {
   }
 }
 
-resource "ibm_cd_toolchain_tool_hostedgit" "inventory_repo" {
-  count        = var.inventory_repo_git_provider != "githubconsolidated" ? 1 : 0
-  toolchain_id = var.toolchain_id
-  name         = "inventory-repo"
-  initialization {
-    type            = "clone_if_not_exists"
-    source_repo_url = format("%s/open-toolchain/compliance-inventory.git", local.clone_from_git_server)
-    private_repo    = true
-    repo_name       = join("-", [var.repositories_prefix, "inventory-repo"])
-    owner_id        = var.inventory_group
-  }
-  parameters {
-    toolchain_issues_enabled = false
-    enable_traceability      = false
-    auth_type                = var.inventory_repo_auth_type
-    api_token = ((var.inventory_repo_auth_type == "pat") ?
-    format("{vault::%s.${var.inventory_repo_git_token_secret_name}}", var.secret_tool) : "")
-  }
-}
-
-resource "ibm_cd_toolchain_tool_hostedgit" "evidence_repo" {
-  count        = var.evidence_repo_git_provider != "githubconsolidated" ? 1 : 0
-  toolchain_id = var.toolchain_id
-  name         = "evidence-repo"
-  initialization {
-    type            = "clone_if_not_exists"
-    source_repo_url = format("%s/open-toolchain/compliance-evidence-locker.git", local.clone_from_git_server)
-    private_repo    = true
-    repo_name       = join("-", [var.repositories_prefix, "evidence-repo"])
-    owner_id        = var.evidence_group
-  }
-  parameters {
-    toolchain_issues_enabled = false
-    enable_traceability      = false
-    auth_type                = var.evidence_repo_auth_type
-    api_token = ((var.evidence_repo_auth_type == "pat") ?
-    format("{vault::%s.${var.evidence_repo_git_token_secret_name}}", var.secret_tool) : "")
-  }
-}
-
-resource "ibm_cd_toolchain_tool_hostedgit" "issues_repo" {
-  count        = var.issues_repo_git_provider != "githubconsolidated" ? 1 : 0
-  toolchain_id = var.toolchain_id
-  name         = "issues-repo"
-  initialization {
-    type            = "clone_if_not_exists"
-    source_repo_url = format("%s/open-toolchain/compliance-incident-issues.git", local.clone_from_git_server)
-    private_repo    = true
-    repo_name       = join("-", [var.repositories_prefix, "issues-repo"])
-    owner_id        = var.issues_group
-  }
-  parameters {
-    toolchain_issues_enabled = true
-    enable_traceability      = false
-    auth_type                = var.issues_repo_auth_type
-    api_token = ((var.issues_repo_auth_type == "pat") ?
-    format("{vault::%s.${var.issues_repo_git_token_secret_name}}", var.secret_tool) : "")
-  }
-}
-
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_config_repo_existing_githubconsolidated" {
   count        = var.pipeline_config_repo_git_provider == "githubconsolidated" ? ((var.pipeline_config_repo_existing_url == "") ? 0 : 1) : 0
@@ -361,72 +301,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
   toolchain_id = var.toolchain_id
 }
 
-resource "ibm_cd_toolchain_tool_githubconsolidated" "inventory_repo" {
-  count        = var.inventory_repo_git_provider == "githubconsolidated" ? 1 : 0
-  toolchain_id = var.toolchain_id
-  name         = "inventory-repo"
-  initialization {
-    type            = "clone_if_not_exists"
-    private_repo    = true
-    source_repo_url = var.inventory_source_repo_url
-    repo_name       = join("-", [var.repositories_prefix, "inventory-repo"])
-    git_id          = "integrated"
-    owner_id        = var.inventory_group
-  }
-  parameters {
-    enable_traceability      = false
-    integration_owner        = var.inventory_repo_integration_owner
-    auth_type                = var.inventory_repo_auth_type
-    api_token                = ((var.inventory_repo_auth_type == "pat") ? format("{vault::%s.${var.inventory_repo_git_token_secret_name}}", var.secret_tool) : "")
-    toolchain_issues_enabled = false
-  }
-}
 
-resource "ibm_cd_toolchain_tool_githubconsolidated" "evidence_repo" {
-  count        = var.evidence_repo_git_provider == "githubconsolidated" ? 1 : 0
-  toolchain_id = var.toolchain_id
-  name         = "evidence-repo"
-  initialization {
-    type            = "clone_if_not_exists"
-    source_repo_url = var.evidence_source_repo_url
-    private_repo    = true
-    repo_name       = join("-", [var.repositories_prefix, "evidence-repo"])
-    git_id          = "integrated"
-    owner_id        = var.evidence_group
-  }
-  parameters {
-    enable_traceability = false
-    integration_owner   = var.evidence_repo_integration_owner
-    auth_type           = var.evidence_repo_auth_type
-    api_token = ((var.evidence_repo_auth_type == "pat") ?
-    format("{vault::%s.${var.evidence_repo_git_token_secret_name}}", var.secret_tool) : "")
-
-    toolchain_issues_enabled = false
-  }
-}
-
-
-resource "ibm_cd_toolchain_tool_githubconsolidated" "issues_repo" {
-  count        = var.issues_repo_git_provider == "githubconsolidated" ? 1 : 0
-  toolchain_id = var.toolchain_id
-  name         = "issues-repo"
-  initialization {
-    type            = "clone_if_not_exists"
-    private_repo    = true
-    source_repo_url = var.issues_source_repo_url
-    repo_name       = join("-", [var.repositories_prefix, "issues-repo"])
-    git_id          = "integrated"
-    owner_id        = var.issues_group
-  }
-  parameters {
-    enable_traceability = false
-    integration_owner   = var.issues_repo_integration_owner
-    auth_type           = var.issues_repo_auth_type
-    api_token = ((var.issues_repo_auth_type == "pat") ?
-    format("{vault::%s.${var.issues_repo_git_token_secret_name}}", var.secret_tool) : "")
-    toolchain_issues_enabled = true
-  }
-}
 
 output "app_repo_url" {
   value = (((local.app_repo_git_provider == "hostedgit") && (local.app_repo_mode == "byo_app"))
@@ -456,37 +331,6 @@ output "pipeline_repo_url" {
     (ibm_cd_toolchain_tool_hostedgit.pipeline_repo[0].parameters[0].repo_url)
   : (ibm_cd_toolchain_tool_githubconsolidated.pipeline_repo[0].parameters[0].repo_url))
   description = "This repository url contains the tekton definitions for compliance pipelines"
-}
-
-output "inventory_repo_url" {
-  value       = var.inventory_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.inventory_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.inventory_repo[0].parameters[0].repo_url)
-  description = "The inventory repository instance url, with details of which artifact has been built and will be deployed"
-}
-
-output "evidence_repo_url" {
-  value = var.evidence_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.evidence_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.evidence_repo[0].parameters[0].repo_url)
-  # value = ibm_cd_toolchain_tool_githubconsolidated.evidence_repo.parameters.repo.url
-  description = "The evidence repository instance url, where evidence of the builds and scans are stored, ready for any compliance audit"
-}
-
-output "issues_repo_url" {
-  value       = var.issues_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.issues_repo[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.issues_repo[0].parameters[0].repo_url)
-  description = "The incident issues repository instance url, where issues are created when vulnerabilities and CVEs are detected"
-}
-
-output "inventory_repo" {
-  value       = var.inventory_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.inventory_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.inventory_repo[0])
-  description = "The inventory repository instance url, with details of which artifact has been built and will be deployed"
-}
-
-output "evidence_repo" {
-  value       = var.evidence_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.evidence_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.evidence_repo[0])
-  description = "The evidence repository instance url, where evidence of the builds and scans are stored, ready for any compliance audit"
-}
-
-output "issues_repo" {
-  value       = var.issues_repo_git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.issues_repo[0]) : (ibm_cd_toolchain_tool_githubconsolidated.issues_repo[0])
-  description = "The incident issues repository instance url, where issues are created when vulnerabilities and CVEs are detected"
 }
 
 output "pipeline_config_repo" {

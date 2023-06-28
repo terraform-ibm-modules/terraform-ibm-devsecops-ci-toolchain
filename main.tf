@@ -1,3 +1,40 @@
+locals {
+
+  is_staging = length(regexall("^crn:v1:staging:.*$", ibm_cd_toolchain.toolchain_instance.crn)) > 0
+  git_dev   = "https://dev.us-south.git.test.cloud.ibm.com"
+  git_mon01 = "https://mon01.git.cloud.ibm.com"
+  git_fr2   = "https://private.eu-fr2.git.cloud.ibm.com"
+  compliance_pipelines_git_server = (
+    (local.is_staging) ? local.git_dev
+    : (var.toolchain_region == "eu-fr2") ? local.git_fr2
+    : format("https://%s.git.cloud.ibm.com", var.toolchain_region)
+  )
+  # in dev/staging, compliance_pipelines_git_server is dev and clone_from_git_server is mon01
+  clone_from_git_server = (
+    (local.is_staging) ? local.git_mon01 : local.compliance_pipelines_git_server
+  )
+
+  #issues_source_repo_url = (
+  #  (var.issues_source_repo_url != "") ? var.issues_source_repo_url :
+  #  (var.issues_repo_clone_from_url != "") ? var.issues_repo_clone_from_url :
+  #  format("%s/open-toolchain/compliance-incident-issues.git", local.clone_from_git_server))
+
+  #evidence_source_repo_url = (
+  #  (var.evidence_source_repo_url != "") ? var.evidence_source_repo_url :
+  #  (var.evidence_repo_clone_from_url != "") ? var.evidence_repo_clone_from_url :
+  #  format("%s/open-toolchain/compliance-evidence-locker.git", local.clone_from_git_server))
+
+  #inventory_source_repo_url = (
+  #  (var.inventory_source_repo_url != "") ? var.inventory_source_repo_url :
+  #  (var.inventory_repo_clone_from_url != "") ? var.inventory_repo_clone_from_url :
+  #  format("%s/open-toolchain/compliance-inventory.git", local.clone_from_git_server))
+  issues_source_repo_url = "https://eu-gb.git.cloud.ibm.com/open-toolchain/compliance-incident-issues.git"
+  evidence_source_repo_url = "https://eu-gb.git.cloud.ibm.com/open-toolchain/compliance-evidence-locker.git"
+  inventory_source_repo_url = "https://eu-gb.git.cloud.ibm.com/open-toolchain/compliance-inventory.git"
+  compliance_repo_url = format("%s/open-toolchain/compliance-pipelines.git", local.compliance_pipelines_git_server)
+
+}
+
 data "ibm_resource_group" "resource_group" {
   name = var.toolchain_resource_group
 }
@@ -64,6 +101,66 @@ module "repositories" {
   app_repo_integration_owner                     = var.app_repo_integration_owner
 }
 
+module "issues_repo" {
+  source                                         = "./repos"
+  depends_on                                     = [module.integrations]
+  tool_name                                      = "issues-repo"
+  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
+  git_provider                                   = var.issues_repo_git_provider
+  initilization_type                             = var.issues_repo_initilization_type
+  repository_url                                 = var.issues_repo_existing_url
+  source_repository_url                          = local.issues_source_repo_url
+  repository_name                                = (var.issues_repo_name != "") ? var.issues_repo_name : join("-", [var.repositories_prefix, "issues-repo"])
+  is_private_repo                                = var.issues_repo_is_private_repo
+  owner_id                                       = var.issues_group
+  issues_enabled                                 = var.issues_repo_issues_enabled
+  traceability_enabled                           = var.issues_repo_traceability_enabled
+  integration_owner                              = var.issues_repo_integration_owner
+  auth_type                                      = var.issues_repo_auth_type
+  git_token                                      = var.issues_repo_git_token_secret_name
+  git_id                                         = var.issues_repo_git_id
+}
+
+module "evidence_repo" {
+  source                                         = "./repos"
+  depends_on                                     = [module.integrations]
+  tool_name                                      = "evidence-repo"
+  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
+  git_provider                                   = var.evidence_repo_git_provider
+  initilization_type                             = var.evidence_repo_initilization_type
+  repository_url                                 = var.evidence_repo_existing_url
+  source_repository_url                          = local.evidence_source_repo_url
+  repository_name                                = (var.evidence_repo_name != "") ? var.evidence_repo_name : join("-", [var.repositories_prefix, "evidence-repo"])
+  is_private_repo                                = var.evidence_repo_is_private_repo
+  owner_id                                       = var.evidence_group
+  issues_enabled                                 = var.evidence_repo_issues_enabled
+  traceability_enabled                           = var.evidence_repo_traceability_enabled
+  integration_owner                              = var.evidence_repo_integration_owner
+  auth_type                                      = var.evidence_repo_auth_type
+  git_token                                      = var.evidence_repo_git_token_secret_name
+  git_id                                         = var.evidence_repo_git_id
+}
+
+module "inventory_repo" {
+  source                                         = "./repos"
+  depends_on                                     = [module.integrations]
+  tool_name                                      = "inventory-repo"
+  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
+  git_provider                                   = var.inventory_repo_git_provider
+  initilization_type                             = var.inventory_repo_initilization_type
+  repository_url                                 = var.inventory_repo_existing_url
+  source_repository_url                          = local.inventory_source_repo_url
+  repository_name                                = (var.inventory_repo_name != "") ? var.inventory_repo_name : join("-", [var.repositories_prefix, "inventory-repo"])
+  is_private_repo                                = var.inventory_repo_is_private_repo
+  owner_id                                       = var.inventory_group
+  issues_enabled                                 = var.inventory_repo_issues_enabled
+  traceability_enabled                           = var.inventory_repo_traceability_enabled
+  integration_owner                              = var.inventory_repo_integration_owner
+  auth_type                                      = var.inventory_repo_auth_type
+  git_token                                      = var.inventory_repo_git_token_secret_name
+  git_id                                         = var.inventory_repo_git_id
+}
+
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
@@ -96,12 +193,12 @@ module "pipeline_ci" {
   pipeline_config_repo                  = module.repositories.pipeline_config_repo
   pipeline_repo_url                     = module.repositories.pipeline_repo_url
   pipeline_config_path                  = var.pipeline_config_path
-  evidence_repo_url                     = module.repositories.evidence_repo_url
-  inventory_repo_url                    = module.repositories.inventory_repo_url
-  issues_repo_url                       = module.repositories.issues_repo_url
-  evidence_repo                         = module.repositories.evidence_repo
-  inventory_repo                        = module.repositories.inventory_repo
-  issues_repo                           = module.repositories.issues_repo
+  evidence_repo_url                     = module.evidence_repo.repository_url
+  inventory_repo_url                    = module.inventory_repo.repository_url
+  issues_repo_url                       = module.issues_repo.repository_url
+  evidence_repo                         = module.evidence_repo.repository
+  inventory_repo                        = module.inventory_repo.repository
+  issues_repo                           = module.issues_repo.repository
   secret_tool                           = module.integrations.secret_tool
   cos_bucket_name                       = var.cos_bucket_name
   cos_endpoint                          = var.cos_endpoint

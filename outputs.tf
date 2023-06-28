@@ -33,34 +33,34 @@ output "secret_tool" {
 }
 
 output "inventory_repo_url" {
-  value       = module.repositories.inventory_repo_url
+  value       = module.inventory_repo.repository_url
   description = "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
 }
 
 output "evidence_repo_url" {
-  value       = module.repositories.evidence_repo_url
+  value       = module.evidence_repo.repository_url
   description = "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
 }
 
 output "issues_repo_url" {
-  value       = module.repositories.issues_repo_url
+  value       = module.issues_repo.repository_url
   description = "The incident issues repository instance URL, where issues are created when vulnerabilities and CVEs are detected."
 }
 
 output "inventory_repo" {
-  value       = module.repositories.inventory_repo
+  value       = module.inventory_repo.repository
   description = "The Inventory repo."
   sensitive   = true
 }
 
 output "evidence_repo" {
-  value       = module.repositories.evidence_repo
+  value       = module.evidence_repo.repository
   description = "The Evidence repo."
   sensitive   = true
 }
 
 output "issues_repo" {
-  value       = module.repositories.issues_repo
+  value       = module.issues_repo.repository
   description = "The Issues repo."
   sensitive   = true
 }
