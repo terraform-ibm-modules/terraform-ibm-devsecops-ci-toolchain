@@ -12,7 +12,7 @@ locals {
     is_private_repo = (var.is_private_repo) ? true : var.is_private_repo
     git_provider = (var.git_provider == "githubconsolidated") ? "githubconsolidated" : "hostedgit"
     issues_enabled = (var.issues_enabled) ? true : var.issues_enabled
-    traceability_enabled = (var.traceability_enabled) ? false : var.traceability_enabled 
+    traceability_enabled = (var.traceability_enabled) ? false : var.traceability_enabled
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "repository" {
@@ -60,10 +60,6 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "repository" {
   }
 }
 
-output "repo_branch" {
-  value = "placeholder"
-}
-
 output "repository_url" {
   value = local.git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.repository[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.repository[0].parameters[0].repo_url)
   # value = ibm_cd_toolchain_tool_githubconsolidated.evidence_repo.parameters.repo.url
@@ -77,9 +73,10 @@ output "repository" {
 }
 
 output "repo_provider" {
-  value = "placeholder"
+  value       = local.git_provider
+  description = "The Git provider."
 }
 
 output "repo_git_id" {
-  value = "placeholder"
+  value       = var.git_id
 }

@@ -31,6 +31,8 @@ locals {
   
   compliance_repo_url = format("%s/open-toolchain/compliance-pipelines.git", local.compliance_pipelines_git_server)
 
+
+
 }
 
 data "ibm_resource_group" "resource_group" {
@@ -58,21 +60,12 @@ module "repositories" {
   app_repo_clone_to_git_provider                 = var.app_repo_clone_to_git_provider
   app_repo_clone_to_git_id                       = var.app_repo_clone_to_git_id
   app_repo_template_url                          = var.app_repo_template_url
-  pipeline_config_repo_git_provider              = var.pipeline_config_repo_git_provider
-  pipeline_config_repo_existing_url              = var.pipeline_config_repo_existing_url
-  pipeline_config_repo_branch                    = var.pipeline_config_repo_branch
-  pipeline_config_repo_clone_from_url            = var.pipeline_config_repo_clone_from_url
-  pipeline_repo_url                              = var.pipeline_repo_url
-  pipeline_config_repo_auth_type                 = var.pipeline_config_repo_auth_type
-  pipeline_config_repo_git_token_secret_name     = var.pipeline_config_repo_git_token_secret_name
   app_repo_auth_type                             = var.app_repo_auth_type
   app_repo_git_token_secret_name                 = var.app_repo_git_token_secret_name
   repositories_prefix                            = var.repositories_prefix
   app_group                                      = var.app_group
-  pipeline_config_group                          = var.pipeline_config_group
   secret_tool                                    = module.integrations.secret_tool
   default_git_provider                           = var.default_git_provider
-  config_repo_integration_owner                  = var.config_repo_integration_owner
   app_repo_integration_owner                     = var.app_repo_integration_owner
 }
 
@@ -156,6 +149,26 @@ module "compliance_pipelines_repo" {
   git_id                                         = var.compliance_pipelines_repo_git_id
 }
 
+module "pipeline_config_repo" {
+  source                                         = "./repos"
+  depends_on                                     = [module.integrations]
+  tool_name                                      = "pipeline-config-repo"
+  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
+  git_provider                                   = var.pipeline_config_repo_git_provider
+  initilization_type                             = var.pipeline_config_initilization_type
+  repository_url                                 = var.pipeline_config_repo_existing_url
+  source_repository_url                          = var.pipeline_config_repo_clone_from_url
+  repository_name                                = (var.pipeline_config_repo_name != "") ? var.pipeline_config_repo_name : join("-", [var.repositories_prefix, "pipeline-config-repo"])
+  is_private_repo                                = var.pipeline_config_repo_is_private_repo
+  owner_id                                       = var.pipeline_config_group
+  issues_enabled                                 = var.pipeline_config_repo_issues_enabled
+  traceability_enabled                           = var.pipeline_config_repo_traceability_enabled
+  integration_owner                              = var.pipeline_config_repo_integration_owner
+  auth_type                                      = var.pipeline_config_repo_auth_type
+  git_token                                      = var.pipeline_config_repo_git_token_secret_name
+  git_id                                         = var.pipeline_config_repo_git_id
+}
+
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
@@ -184,9 +197,9 @@ module "pipeline_ci" {
   app_repo_branch                       = module.repositories.app_repo_branch
   pipeline_config_repo_existing_url     = var.pipeline_config_repo_existing_url
   pipeline_config_repo_clone_from_url   = var.pipeline_config_repo_clone_from_url
-  pipeline_config_repo_branch           = module.repositories.pipeline_config_repo_branch
-  pipeline_config_repo                  = module.repositories.pipeline_config_repo
-  pipeline_repo_url                     = module.compliance_pipelines_repo.repository_url
+  pipeline_config_repo_branch           = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : "fix"
+  pipeline_config_repo                  = module.pipeline_config_repo.repository
+  pipeline_repo_url                     = module.pipeline_config_repo.repository_url
   pipeline_config_path                  = var.pipeline_config_path
   evidence_repo_url                     = module.evidence_repo.repository_url
   inventory_repo_url                    = module.inventory_repo.repository_url
@@ -248,8 +261,8 @@ module "pipeline_pr" {
   app_repo_branch                       = module.repositories.app_repo_branch
   pipeline_config_repo_existing_url     = var.pipeline_config_repo_existing_url
   pipeline_config_repo_clone_from_url   = var.pipeline_config_repo_clone_from_url
-  pipeline_config_repo_branch           = module.repositories.pipeline_config_repo_branch
-  pipeline_config_repo                  = module.repositories.pipeline_config_repo
+  pipeline_config_repo_branch           = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : "fix"
+  pipeline_config_repo                  = module.pipeline_config_repo.repository
   pipeline_config_path                  = var.pipeline_config_path
   pipeline_repo_url                     = module.compliance_pipelines_repo.repository_url
   secret_tool                           = module.integrations.secret_tool

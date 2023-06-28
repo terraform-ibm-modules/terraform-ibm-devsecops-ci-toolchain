@@ -201,6 +201,12 @@ variable "pipeline_config_repo_auth_type" {
   default     = "oauth"
 }
 
+variable "pipeline_config_initilization_type" {
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
+}
+
 variable "app_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
@@ -517,11 +523,42 @@ variable "compliance_pipeline_repo_issues_enabled" {
   default     = false
 }
 
-variable "config_repo_integration_owner" {
+variable "pipeline_config_repo_integration_owner" {
   type        = string
   description = "The name of the integration owner."
   default     = ""
 }
+
+variable "pipeline_config_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues." 
+  default     = false
+}
+
+variable "pipeline_config_repo_is_private_repo" {
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
+  }
+
+variable "pipeline_config_repo_traceability_enabled" {
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
+  }
+
+
+  variable "pipeline_config_repo_name" {
+    type        = string
+    description = "The repository name."
+    default     = ""
+  }
+
+  variable "pipeline_config_repo_git_id" {
+    type        = string
+    description = ""
+    default     = ""
+    }
 
 variable "app_repo_integration_owner" {
   type        = string

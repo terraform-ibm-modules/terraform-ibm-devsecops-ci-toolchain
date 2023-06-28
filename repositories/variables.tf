@@ -22,32 +22,10 @@ variable "app_repo_clone_to_git_id" {
 variable "app_repo_template_url" {
 }
 
-variable "pipeline_config_repo_existing_url" {
-}
-
-variable "pipeline_config_repo_branch" {
-}
-
-variable "pipeline_config_repo_clone_from_url" {
-}
-
-variable "pipeline_repo_url" {
-}
 variable "default_git_provider" {
 }
 
-variable "pipeline_config_repo_git_provider" {
-}
-
-
-
-variable "pipeline_config_repo_auth_type" {
-}
-
 variable "app_repo_auth_type" {
-}
-
-variable "pipeline_config_repo_git_token_secret_name" {
 }
 
 variable "app_repo_git_token_secret_name" {
@@ -73,12 +51,6 @@ variable "toolchain_crn" {
 }
 
 variable "app_group" {
-}
-
-variable "pipeline_config_group" {
-}
-
-variable "config_repo_integration_owner" {
 }
 
 variable "app_repo_integration_owner" {
