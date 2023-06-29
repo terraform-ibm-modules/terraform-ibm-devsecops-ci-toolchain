@@ -4,7 +4,7 @@ variable "initilization_type" {
 variable "auth_type" {
 }
 
-variable "git_token" {
+variable "secret_name" {
 }
 
 variable "repository_url" {
@@ -41,4 +41,10 @@ variable "toolchain_id" {
 }
 
 variable "git_id" {
+}
+
+variable "default_git_provider" {
+}
+
+variable "secret_tool" {
 }

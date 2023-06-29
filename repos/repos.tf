@@ -6,13 +6,24 @@ locals {
     )
 
     auth_type = (var.auth_type == "pat") ? var.auth_type : "oauth"
-    api_token = (var.auth_type == "pat") ? var.git_token : ""
+    api_token = (var.auth_type == "pat") ? format("{vault::%s.${var.secret_name}}", var.secret_tool) : ""
     repo_url = (local.initilization_type == "link") ? var.repository_url : ""
     source_repo_url = (local.initilization_type == "link") ? "" : var.source_repository_url
     is_private_repo = (var.is_private_repo) ? true : var.is_private_repo
-    git_provider = (var.git_provider == "githubconsolidated") ? "githubconsolidated" : "hostedgit"
+    git_provider = (
+      (var.git_provider != "") ? var.git_provider  : 
+      (var.default_git_provider != "") ? var.default_git_provider : "hostedgit"
+    )
     issues_enabled = (var.issues_enabled) ? true : var.issues_enabled
     traceability_enabled = (var.traceability_enabled) ? false : var.traceability_enabled
+
+    git_provider_name = (
+    ((local.git_provider == "hostedgit") || (local.git_provider == "gitlab"))
+    ? "gitlab"
+    : (local.git_provider == "githubconsolidated")
+    ? "github"
+    : (file("[Error] Unrecognized git provider"))
+  )
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "repository" {
@@ -62,13 +73,11 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "repository" {
 
 output "repository_url" {
   value = local.git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.repository[0].parameters[0].repo_url) : (ibm_cd_toolchain_tool_githubconsolidated.repository[0].parameters[0].repo_url)
-  # value = ibm_cd_toolchain_tool_githubconsolidated.evidence_repo.parameters.repo.url
   description = "The URL of the this repository."
 }
 
 output "repository" {
   value = local.git_provider != "githubconsolidated" ? (ibm_cd_toolchain_tool_hostedgit.repository[0]) : (ibm_cd_toolchain_tool_githubconsolidated.repository[0])
-  # value = ibm_cd_toolchain_tool_githubconsolidated.evidence_repo.parameters.repo.url
   description = "The URL of the this repository."
 }
 
@@ -79,4 +88,9 @@ output "repo_provider" {
 
 output "repo_git_id" {
   value       = var.git_id
+}
+
+output "repo_provider_name" {
+  value       = local.git_provider_name
+  description = "Common name for the provider."
 }
