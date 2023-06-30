@@ -1,9 +1,9 @@
 locals {
 
   is_staging = length(regexall("^crn:v1:staging:.*$", ibm_cd_toolchain.toolchain_instance.crn)) > 0
-  git_dev   = "https://dev.us-south.git.test.cloud.ibm.com"
-  git_mon01 = "https://mon01.git.cloud.ibm.com"
-  git_fr2   = "https://private.eu-fr2.git.cloud.ibm.com"
+  git_dev    = "https://dev.us-south.git.test.cloud.ibm.com"
+  git_mon01  = "https://mon01.git.cloud.ibm.com"
+  git_fr2    = "https://private.eu-fr2.git.cloud.ibm.com"
   compliance_pipelines_git_server = (
     (local.is_staging) ? local.git_dev
     : (var.toolchain_region == "eu-fr2") ? local.git_fr2
@@ -33,16 +33,16 @@ locals {
   )
 
   app_source_repo_url = (
-    (var.app_repo_clone_from_url != "") ? var.app_repo_clone_from_url : 
+    (var.app_repo_clone_from_url != "") ? var.app_repo_clone_from_url :
     (var.app_repo_template_url != "") ? var.app_repo_template_url :
     format("%s/open-toolchain/hello-compliance-app.git", local.clone_from_git_server)
   )
-  
-    app_repo_mode = ((length(var.app_repo_existing_url) > 0) ? "byo_app"
+
+  app_repo_mode = ((length(var.app_repo_existing_url) > 0) ? "byo_app"
     : (length(var.app_repo_clone_from_url) > 0) ? "byo_sample"
   : "auto-sample")
 
-   app_repo_branch = (
+  app_repo_branch = (
     (local.app_repo_mode == "byo_app") ?
     ((length(var.app_repo_existing_branch) > 0) ? var.app_repo_existing_branch
       : file("[Error] var app_repo_existing_branch must be provided when using var app_repo_existing_url.")
@@ -68,135 +68,135 @@ resource "ibm_cd_toolchain" "toolchain_instance" {
 }
 
 module "issues_repo" {
-  source                                         = "./repos"
-  depends_on                                     = [module.integrations]
-  tool_name                                      = "issues-repo"
-  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
-  git_provider                                   = var.issues_repo_git_provider
-  initilization_type                             = var.issues_repo_initilization_type
-  repository_url                                 = var.issues_repo_existing_url
-  source_repository_url                          = local.issues_source_repo_url
-  repository_name                                = (var.issues_repo_name != "") ? var.issues_repo_name : join("-", [var.repositories_prefix, "issues-repo"])
-  is_private_repo                                = var.issues_repo_is_private_repo
-  owner_id                                       = var.issues_group
-  issues_enabled                                 = var.issues_repo_issues_enabled
-  traceability_enabled                           = var.issues_repo_traceability_enabled
-  integration_owner                              = var.issues_repo_integration_owner
-  auth_type                                      = var.issues_repo_auth_type
-  secret_name                                    = var.issues_repo_git_token_secret_name
-  git_id                                         = var.issues_repo_git_id
-  default_git_provider                           = var.default_git_provider
-  secret_tool                                    = module.integrations.secret_tool
+  source                = "./repos"
+  depends_on            = [module.integrations]
+  tool_name             = "issues-repo"
+  toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
+  git_provider          = var.issues_repo_git_provider
+  initilization_type    = var.issues_repo_initilization_type
+  repository_url        = var.issues_repo_existing_url
+  source_repository_url = local.issues_source_repo_url
+  repository_name       = (var.issues_repo_name != "") ? var.issues_repo_name : join("-", [var.repositories_prefix, "issues-repo"])
+  is_private_repo       = var.issues_repo_is_private_repo
+  owner_id              = var.issues_group
+  issues_enabled        = var.issues_repo_issues_enabled
+  traceability_enabled  = var.issues_repo_traceability_enabled
+  integration_owner     = var.issues_repo_integration_owner
+  auth_type             = var.issues_repo_auth_type
+  secret_name           = var.issues_repo_git_token_secret_name
+  git_id                = var.issues_repo_git_id
+  default_git_provider  = var.default_git_provider
+  secret_tool           = module.integrations.secret_tool
 }
 
 module "evidence_repo" {
-  source                                         = "./repos"
-  depends_on                                     = [module.integrations]
-  tool_name                                      = "evidence-repo"
-  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
-  git_provider                                   = var.evidence_repo_git_provider
-  initilization_type                             = var.evidence_repo_initilization_type
-  repository_url                                 = var.evidence_repo_existing_url
-  source_repository_url                          = local.evidence_source_repo_url
-  repository_name                                = (var.evidence_repo_name != "") ? var.evidence_repo_name : join("-", [var.repositories_prefix, "evidence-repo"])
-  is_private_repo                                = var.evidence_repo_is_private_repo
-  owner_id                                       = var.evidence_group
-  issues_enabled                                 = var.evidence_repo_issues_enabled
-  traceability_enabled                           = var.evidence_repo_traceability_enabled
-  integration_owner                              = var.evidence_repo_integration_owner
-  auth_type                                      = var.evidence_repo_auth_type
-  secret_name                                    = var.evidence_repo_git_token_secret_name
-  git_id                                         = var.evidence_repo_git_id
-  default_git_provider                           = var.default_git_provider
-  secret_tool                                    = module.integrations.secret_tool
+  source                = "./repos"
+  depends_on            = [module.integrations]
+  tool_name             = "evidence-repo"
+  toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
+  git_provider          = var.evidence_repo_git_provider
+  initilization_type    = var.evidence_repo_initilization_type
+  repository_url        = var.evidence_repo_existing_url
+  source_repository_url = local.evidence_source_repo_url
+  repository_name       = (var.evidence_repo_name != "") ? var.evidence_repo_name : join("-", [var.repositories_prefix, "evidence-repo"])
+  is_private_repo       = var.evidence_repo_is_private_repo
+  owner_id              = var.evidence_group
+  issues_enabled        = var.evidence_repo_issues_enabled
+  traceability_enabled  = var.evidence_repo_traceability_enabled
+  integration_owner     = var.evidence_repo_integration_owner
+  auth_type             = var.evidence_repo_auth_type
+  secret_name           = var.evidence_repo_git_token_secret_name
+  git_id                = var.evidence_repo_git_id
+  default_git_provider  = var.default_git_provider
+  secret_tool           = module.integrations.secret_tool
 }
 
 module "inventory_repo" {
-  source                                         = "./repos"
-  depends_on                                     = [module.integrations]
-  tool_name                                      = "inventory-repo"
-  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
-  git_provider                                   = var.inventory_repo_git_provider
-  initilization_type                             = var.inventory_repo_initilization_type
-  repository_url                                 = var.inventory_repo_existing_url
-  source_repository_url                          = local.inventory_source_repo_url
-  repository_name                                = (var.inventory_repo_name != "") ? var.inventory_repo_name : join("-", [var.repositories_prefix, "inventory-repo"])
-  is_private_repo                                = var.inventory_repo_is_private_repo
-  owner_id                                       = var.inventory_group
-  issues_enabled                                 = var.inventory_repo_issues_enabled
-  traceability_enabled                           = var.inventory_repo_traceability_enabled
-  integration_owner                              = var.inventory_repo_integration_owner
-  auth_type                                      = var.inventory_repo_auth_type
-  secret_name                                    = var.inventory_repo_git_token_secret_name
-  git_id                                         = var.inventory_repo_git_id
-  default_git_provider                           = var.default_git_provider
-  secret_tool                                    = module.integrations.secret_tool
+  source                = "./repos"
+  depends_on            = [module.integrations]
+  tool_name             = "inventory-repo"
+  toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
+  git_provider          = var.inventory_repo_git_provider
+  initilization_type    = var.inventory_repo_initilization_type
+  repository_url        = var.inventory_repo_existing_url
+  source_repository_url = local.inventory_source_repo_url
+  repository_name       = (var.inventory_repo_name != "") ? var.inventory_repo_name : join("-", [var.repositories_prefix, "inventory-repo"])
+  is_private_repo       = var.inventory_repo_is_private_repo
+  owner_id              = var.inventory_group
+  issues_enabled        = var.inventory_repo_issues_enabled
+  traceability_enabled  = var.inventory_repo_traceability_enabled
+  integration_owner     = var.inventory_repo_integration_owner
+  auth_type             = var.inventory_repo_auth_type
+  secret_name           = var.inventory_repo_git_token_secret_name
+  git_id                = var.inventory_repo_git_id
+  default_git_provider  = var.default_git_provider
+  secret_tool           = module.integrations.secret_tool
 }
 
 module "compliance_pipelines_repo" {
-  source                                         = "./repos"
-  depends_on                                     = [module.integrations]
-  tool_name                                      = "pipeline-repo"
-  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
-  git_provider                                   = var.compliance_pipeline_repo_git_provider
-  initilization_type                             = "link"
-  repository_url                                 = local.compliance_repo_url
-  source_repository_url                          = ""
-  repository_name                                = ""
-  is_private_repo                                = false
-  owner_id                                       = var.compliance_pipeline_group
-  issues_enabled                                 = var.compliance_pipeline_repo_issues_enabled
-  traceability_enabled                           = false
-  integration_owner                              = var.compliance_pipeline_repo_integration_owner
-  auth_type                                      = var.compliance_pipeline_repo_auth_type
-  secret_name                                    = var.compliance_pipeline_repo_git_token_secret_name
-  git_id                                         = var.compliance_pipelines_repo_git_id
-  default_git_provider                           = var.default_git_provider
-  secret_tool                                    = module.integrations.secret_tool
+  source                = "./repos"
+  depends_on            = [module.integrations]
+  tool_name             = "pipeline-repo"
+  toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
+  git_provider          = var.compliance_pipeline_repo_git_provider
+  initilization_type    = "link"
+  repository_url        = local.compliance_repo_url
+  source_repository_url = ""
+  repository_name       = ""
+  is_private_repo       = false
+  owner_id              = var.compliance_pipeline_group
+  issues_enabled        = var.compliance_pipeline_repo_issues_enabled
+  traceability_enabled  = false
+  integration_owner     = var.compliance_pipeline_repo_integration_owner
+  auth_type             = var.compliance_pipeline_repo_auth_type
+  secret_name           = var.compliance_pipeline_repo_git_token_secret_name
+  git_id                = var.compliance_pipelines_repo_git_id
+  default_git_provider  = var.default_git_provider
+  secret_tool           = module.integrations.secret_tool
 }
 
 module "pipeline_config_repo" {
-  source                                         = "./repos"
-  depends_on                                     = [module.integrations]
-  tool_name                                      = "pipeline-config-repo"
-  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
-  git_provider                                   = var.pipeline_config_repo_git_provider
-  initilization_type                             = var.pipeline_config_initilization_type
-  repository_url                                 = var.pipeline_config_repo_existing_url
-  source_repository_url                          = var.pipeline_config_repo_clone_from_url
-  repository_name                                = (var.pipeline_config_repo_name != "") ? var.pipeline_config_repo_name : join("-", [var.repositories_prefix, "pipeline-config-repo"])
-  is_private_repo                                = var.pipeline_config_repo_is_private_repo
-  owner_id                                       = var.pipeline_config_group
-  issues_enabled                                 = var.pipeline_config_repo_issues_enabled
-  traceability_enabled                           = var.pipeline_config_repo_traceability_enabled
-  integration_owner                              = var.pipeline_config_repo_integration_owner
-  auth_type                                      = var.pipeline_config_repo_auth_type
-  secret_name                                    = var.pipeline_config_repo_git_token_secret_name
-  git_id                                         = var.pipeline_config_repo_git_id
-  default_git_provider                           = var.default_git_provider
-  secret_tool                                    = module.integrations.secret_tool
+  source                = "./repos"
+  depends_on            = [module.integrations]
+  tool_name             = "pipeline-config-repo"
+  toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
+  git_provider          = var.pipeline_config_repo_git_provider
+  initilization_type    = var.pipeline_config_initilization_type
+  repository_url        = var.pipeline_config_repo_existing_url
+  source_repository_url = var.pipeline_config_repo_clone_from_url
+  repository_name       = (var.pipeline_config_repo_name != "") ? var.pipeline_config_repo_name : join("-", [var.repositories_prefix, "pipeline-config-repo"])
+  is_private_repo       = var.pipeline_config_repo_is_private_repo
+  owner_id              = var.pipeline_config_group
+  issues_enabled        = var.pipeline_config_repo_issues_enabled
+  traceability_enabled  = var.pipeline_config_repo_traceability_enabled
+  integration_owner     = var.pipeline_config_repo_integration_owner
+  auth_type             = var.pipeline_config_repo_auth_type
+  secret_name           = var.pipeline_config_repo_git_token_secret_name
+  git_id                = var.pipeline_config_repo_git_id
+  default_git_provider  = var.default_git_provider
+  secret_tool           = module.integrations.secret_tool
 }
 
 module "app_repo" {
-  source                                         = "./repos"
-  depends_on                                     = [module.integrations]
-  tool_name                                      = "pipeline-config-repo"
-  toolchain_id                                   = ibm_cd_toolchain.toolchain_instance.id
-  git_provider                                   = (var.app_repo_existing_git_provider != "") ? var.app_repo_existing_git_provider : var.app_repo_clone_to_git_provider
-  initilization_type                             = var.app_repo_initilization_type
-  repository_url                                 = var.app_repo_existing_url
-  source_repository_url                          = local.app_source_repo_url
-  repository_name                                = (var.app_repo_name != "") ? var.app_repo_name : join("-", [var.repositories_prefix, "app-repo"])
-  is_private_repo                                = var.app_repo_is_private_repo
-  owner_id                                       = var.app_group
-  issues_enabled                                 = var.app_repo_issues_enabled
-  traceability_enabled                           = var.app_repo_traceability_enabled
-  integration_owner                              = var.app_repo_integration_owner
-  auth_type                                      = var.app_repo_auth_type
-  secret_name                                    = var.app_repo_git_token_secret_name
-  git_id                                         = (var.app_repo_existing_git_id != "") ? var.app_repo_existing_git_id : var.app_repo_clone_to_git_id
-  default_git_provider                           = var.default_git_provider
-  secret_tool                                    = module.integrations.secret_tool
+  source                = "./repos"
+  depends_on            = [module.integrations]
+  tool_name             = "pipeline-config-repo"
+  toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
+  git_provider          = (var.app_repo_existing_git_provider != "") ? var.app_repo_existing_git_provider : var.app_repo_clone_to_git_provider
+  initilization_type    = var.app_repo_initilization_type
+  repository_url        = var.app_repo_existing_url
+  source_repository_url = local.app_source_repo_url
+  repository_name       = (var.app_repo_name != "") ? var.app_repo_name : join("-", [var.repositories_prefix, "app-repo"])
+  is_private_repo       = var.app_repo_is_private_repo
+  owner_id              = var.app_group
+  issues_enabled        = var.app_repo_issues_enabled
+  traceability_enabled  = var.app_repo_traceability_enabled
+  integration_owner     = var.app_repo_integration_owner
+  auth_type             = var.app_repo_auth_type
+  secret_name           = var.app_repo_git_token_secret_name
+  git_id                = (var.app_repo_existing_git_id != "") ? var.app_repo_existing_git_id : var.app_repo_clone_to_git_id
+  default_git_provider  = var.default_git_provider
+  secret_tool           = module.integrations.secret_tool
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {

@@ -171,36 +171,36 @@ variable "app_repo_clone_to_git_id" {
   default     = ""
 }
 
- variable "app_repo_name" {
-      type        = string
-      description = "The repository name."
-      default     = ""
-    }
+variable "app_repo_name" {
+  type        = string
+  description = "The repository name."
+  default     = ""
+}
 
-    variable "app_repo_is_private_repo" {
-      type        = bool
-      description = "Set to `true` to make repository private."
-      default     = true
-    }
-    
-    variable "app_repo_issues_enabled" {
-      type        = bool
-      description = "Set to `true` to enable issues." 
-      default     = false
-    }
+variable "app_repo_is_private_repo" {
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
+}
 
-    variable "app_repo_traceability_enabled" {
-      type        = bool
-      description = "Set to `true` to enable traceability."
-      default     = false
-      }
+variable "app_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues."
+  default     = false
+}
 
-      variable "app_repo_initilization_type" {
-        type        = string
-        description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
-        default     = ""
-      }
-      
+variable "app_repo_traceability_enabled" {
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
+}
+
+variable "app_repo_initilization_type" {
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
+}
+
 variable "pipeline_config_repo_existing_url" {
   type        = string
   description = "Specify a repository containing a custom pipeline-config.yaml file"
@@ -389,9 +389,9 @@ variable "inventory_repo_integration_owner" {
 }
 
 variable "issues_repo_issues_enabled" {
-    type        = bool
-    description = "Set to `true` to enable issues." 
-    default     = false
+  type        = bool
+  description = "Set to `true` to enable issues."
+  default     = true
 }
 
 variable "issues_repo_git_id" {
@@ -413,52 +413,52 @@ variable "issues_repo_is_private_repo" {
 }
 
 variable "issues_repo_initilization_type" {
-    type        = string
-    description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
-    default     = ""
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
 }
 
 variable "issues_repo_name" {
-    type        = string
-    description = "The repository name."
-    default     = ""
+  type        = string
+  description = "The repository name."
+  default     = ""
 }
 
 variable "issues_repo_existing_url" {
-  type          = string
-  description   = "The repo URL that integration will link with."
-  default       = ""
+  type        = string
+  description = "The repo URL that integration will link with."
+  default     = ""
 
 }
 
 variable "issues_repo_clone_from_url" {
-  type          = string
-  description   = "The repo URL that the intgeration will clone from."
-  default       = ""
+  type        = string
+  description = "The repo URL that the intgeration will clone from."
+  default     = ""
 }
 
 variable "inventory_repo_issues_enabled" {
   type        = bool
-  description = "Set to `true` to enable issues." 
+  description = "Set to `true` to enable issues."
   default     = false
 }
 
 variable "inventory_repo_git_id" {
-type        = string
-description = ""
-default     = ""
+  type        = string
+  description = ""
+  default     = ""
 }
 
 variable "inventory_repo_traceability_enabled" {
-type        = bool
-description = "Set to `true` to enable traceability."
-default     = false
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
 }
 
 variable "inventory_repo_is_private_repo" {
-type        = bool
-description = "Set to `true` to make repository private."
-default     = true
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
 }
 
 variable "inventory_repo_initilization_type" {
@@ -474,40 +474,40 @@ variable "inventory_repo_name" {
 }
 
 variable "inventory_repo_existing_url" {
-type          = string
-description   = "The repo URL that integration will link with."
-default       = ""
+  type        = string
+  description = "The repo URL that integration will link with."
+  default     = ""
 
 }
 
 variable "inventory_repo_clone_from_url" {
-type          = string
-description   = "The repo URL that the intgeration will clone from."
-default       = ""
+  type        = string
+  description = "The repo URL that the intgeration will clone from."
+  default     = ""
 }
 
 variable "evidence_repo_issues_enabled" {
   type        = bool
-  description = "Set to `true` to enable issues." 
+  description = "Set to `true` to enable issues."
   default     = false
 }
 
 variable "evidence_repo_git_id" {
-type        = string
-description = ""
-default     = ""
+  type        = string
+  description = ""
+  default     = ""
 }
 
 variable "evidence_repo_traceability_enabled" {
-type        = bool
-description = "Set to `true` to enable traceability."
-default     = false
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
 }
 
 variable "evidence_repo_is_private_repo" {
-type        = bool
-description = "Set to `true` to make repository private."
-default     = true
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
 }
 
 variable "evidence_repo_initilization_type" {
@@ -523,16 +523,16 @@ variable "evidence_repo_name" {
 }
 
 variable "evidence_repo_existing_url" {
-type          = string
-description   = "The repo URL that integration will link with."
-default       = ""
+  type        = string
+  description = "The repo URL that integration will link with."
+  default     = ""
 
 }
 
 variable "evidence_repo_clone_from_url" {
-type          = string
-description   = "The repo URL that the intgeration will clone from."
-default       = ""
+  type        = string
+  description = "The repo URL that the intgeration will clone from."
+  default     = ""
 }
 
 variable "compliance_pipeline_repo_integration_owner" {
@@ -549,7 +549,7 @@ variable "compliance_pipelines_repo_git_id" {
 
 variable "compliance_pipeline_repo_issues_enabled" {
   type        = bool
-  description = "Set to `true` to enable issues." 
+  description = "Set to `true` to enable issues."
   default     = false
 }
 
@@ -561,7 +561,7 @@ variable "pipeline_config_repo_integration_owner" {
 
 variable "pipeline_config_repo_issues_enabled" {
   type        = bool
-  description = "Set to `true` to enable issues." 
+  description = "Set to `true` to enable issues."
   default     = false
 }
 
@@ -569,26 +569,26 @@ variable "pipeline_config_repo_is_private_repo" {
   type        = bool
   description = "Set to `true` to make repository private."
   default     = true
-  }
+}
 
 variable "pipeline_config_repo_traceability_enabled" {
   type        = bool
   description = "Set to `true` to enable traceability."
   default     = false
-  }
+}
 
 
-  variable "pipeline_config_repo_name" {
-    type        = string
-    description = "The repository name."
-    default     = ""
-  }
+variable "pipeline_config_repo_name" {
+  type        = string
+  description = "The repository name."
+  default     = ""
+}
 
-  variable "pipeline_config_repo_git_id" {
-    type        = string
-    description = ""
-    default     = ""
-    }
+variable "pipeline_config_repo_git_id" {
+  type        = string
+  description = ""
+  default     = ""
+}
 
 variable "app_repo_integration_owner" {
   type        = string
