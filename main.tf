@@ -345,6 +345,7 @@ module "integrations" {
   enable_privateworker                  = var.enable_privateworker
   privateworker_credentials_secret_name = var.privateworker_credentials_secret_name
   artifactory_token_secret_name         = var.artifactory_token_secret_name
+  privateworker_name                    = var.privateworker_name
 
 }
 

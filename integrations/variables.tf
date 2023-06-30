@@ -103,3 +103,6 @@ variable "enable_privateworker" {
 
 variable "privateworker_credentials_secret_name" {
 }
+
+variable "privateworker_name" {
+}

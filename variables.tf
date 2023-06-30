@@ -967,3 +967,9 @@ variable "privateworker_credentials_secret_name" {
   default     = "private-worker-service-api"
   description = "Name of the privateworker secret in the secret provider."
 }
+
+variable "privateworker_name" {
+  type        = string
+  description = "The name of the private worker integration."
+  default     = "private-worker-tool-01"
+}

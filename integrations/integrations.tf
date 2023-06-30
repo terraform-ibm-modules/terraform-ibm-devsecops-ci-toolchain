@@ -138,7 +138,7 @@ resource "ibm_cd_toolchain_tool_artifactory" "cd_toolchain_tool_artifactory_inst
 resource "ibm_cd_toolchain_tool_privateworker" "cd_toolchain_tool_privateworker_instance" {
   count = (var.enable_privateworker) ? 1 : 0
   parameters {
-    name                     = "private-worker-tool-01"
+    name                     = var.privateworker_name
     worker_queue_credentials = format("{vault::%s.${var.privateworker_credentials_secret_name}}", var.secret_tool)
   }
   toolchain_id = var.toolchain_id
