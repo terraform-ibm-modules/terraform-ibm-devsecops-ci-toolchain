@@ -596,7 +596,7 @@ variable "app_repo_integration_owner" {
   default     = ""
 }
 
-variable "pipeline_repo_url" {
+variable "compliance_pipeline_repo_url" {
   type        = string
   default     = ""
   description = "Url of pipeline repo template to be cloned"
@@ -732,6 +732,24 @@ variable "enable_secrets_manager" {
   type        = bool
   description = "Set to enable Secrets Manager Integration."
   default     = true
+}
+
+variable "sm_integration_name" {
+  type        = string
+  description = "The name of the Secrets Manager integration."
+  default     = "sm-compliance-secrets"
+}
+
+variable "kp_integration_name" {
+  type        = string
+  description = "The name of the Key Protect integration."
+  default     = "kp-compliance-secrets"
+}
+
+variable "slack_integration_name" {
+  type        = string
+  description = "The name of the Slack integration."
+  default     = "slack-compliance"
 }
 ######## Deployment Strategy ##################
 

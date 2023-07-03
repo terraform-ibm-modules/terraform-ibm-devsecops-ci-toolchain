@@ -17,9 +17,9 @@ resource "ibm_iam_authorization_policy" "toolchain_keyprotect_auth_policy" {
 }
 
 locals {
-  sm_integration_name    = "sm-compliance-secrets"
-  kp_integration_name    = "kp-compliance-secrets"
-  slack_integration_name = "slack-compliance"
+  sm_integration_name    = var.sm_integration_name
+  kp_integration_name    = var.kp_integration_name
+  slack_integration_name = var.slack_integration_name
 }
 
 resource "ibm_cd_toolchain_tool_secretsmanager" "secretsmanager" {

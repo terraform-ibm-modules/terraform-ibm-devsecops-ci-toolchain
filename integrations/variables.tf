@@ -106,3 +106,12 @@ variable "privateworker_credentials_secret_name" {
 
 variable "privateworker_name" {
 }
+
+variable "sm_integration_name" {
+}
+
+variable "kp_integration_name" {
+}
+
+variable "slack_integration_name" {
+}

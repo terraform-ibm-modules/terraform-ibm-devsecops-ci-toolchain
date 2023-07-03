@@ -54,7 +54,7 @@ locals {
     : "master" # hello-compliance-app has branch master
   )
 
-  compliance_repo_url = format("%s/open-toolchain/compliance-pipelines.git", local.compliance_pipelines_git_server)
+  compliance_repo_url = (var.compliance_pipeline_repo_url != "") ? var.compliance_pipeline_repo_url : format("%s/open-toolchain/compliance-pipelines.git", local.compliance_pipelines_git_server)
 }
 
 data "ibm_resource_group" "resource_group" {
@@ -156,6 +156,7 @@ module "compliance_pipelines_repo" {
 }
 
 module "pipeline_config_repo" {
+  count                 = ((var.pipeline_config_repo_existing_url == "") && (var.pipeline_config_repo_clone_from_url == "")) ? 0 : 1
   source                = "./repos"
   depends_on            = [module.integrations]
   tool_name             = "pipeline-config-repo"
@@ -228,7 +229,7 @@ module "pipeline_ci" {
   pipeline_config_repo_existing_url     = var.pipeline_config_repo_existing_url
   pipeline_config_repo_clone_from_url   = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo_branch           = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
-  pipeline_config_repo                  = module.pipeline_config_repo.repository
+  pipeline_config_repo                  = try(module.pipeline_config_repo[0].repository, "")
   pipeline_repo_url                     = module.compliance_pipelines_repo.repository_url
   pipeline_config_path                  = var.pipeline_config_path
   evidence_repo_url                     = module.evidence_repo.repository_url
@@ -292,7 +293,7 @@ module "pipeline_pr" {
   pipeline_config_repo_existing_url     = var.pipeline_config_repo_existing_url
   pipeline_config_repo_clone_from_url   = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo_branch           = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
-  pipeline_config_repo                  = module.pipeline_config_repo.repository
+  pipeline_config_repo                  = try(module.pipeline_config_repo[0].repository, "")
   pipeline_config_path                  = var.pipeline_config_path
   pipeline_repo_url                     = module.compliance_pipelines_repo.repository_url
   secret_tool                           = module.integrations.secret_tool
@@ -346,6 +347,10 @@ module "integrations" {
   privateworker_credentials_secret_name = var.privateworker_credentials_secret_name
   artifactory_token_secret_name         = var.artifactory_token_secret_name
   privateworker_name                    = var.privateworker_name
+  sm_integration_name                   = var.sm_integration_name
+  kp_integration_name                   = var.kp_integration_name
+  slack_integration_name                = var.slack_integration_name
+
 
 }
 
