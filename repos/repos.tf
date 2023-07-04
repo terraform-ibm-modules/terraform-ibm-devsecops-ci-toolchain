@@ -24,11 +24,6 @@ locals {
     ? "github"
     : (file("[Error] Unrecognized git provider"))
   )
-
-  default_git_id = (
-    (var.git_id != "") ? var.git_id :
-    (local.git_provider == "githubconsolidated") ? "integrated" : ""
-  )
 }
 
 resource "ibm_cd_toolchain_tool_hostedgit" "repository" {
@@ -41,7 +36,7 @@ resource "ibm_cd_toolchain_tool_hostedgit" "repository" {
     repo_url        = local.repo_url
     private_repo    = local.is_private_repo
     repo_name       = var.repository_name
-    git_id          = (var.git_id == "") ? local.default_git_id : var.git_id
+    git_id          = var.git_id
     owner_id        = var.owner_id
   }
   parameters {
@@ -63,7 +58,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "repository" {
     repo_url        = local.repo_url
     private_repo    = local.is_private_repo
     repo_name       = var.repository_name
-    git_id          = (var.git_id == "") ? local.default_git_id : var.git_id
+    git_id          = var.git_id
     owner_id        = var.owner_id
 
   }
