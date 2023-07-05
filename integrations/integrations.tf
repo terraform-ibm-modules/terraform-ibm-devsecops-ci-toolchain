@@ -124,7 +124,7 @@ output "secret_tool" {
 resource "ibm_cd_toolchain_tool_artifactory" "cd_toolchain_tool_artifactory_instance" {
   count = (var.enable_artifactory) ? 1 : 0
   parameters {
-    name            = "artifactory-dockerconfigjson"
+    name            = var.artifactory_integration_name
     dashboard_url   = var.artifactory_dashboard_url
     type            = "docker"
     user_id         = var.artifactory_user

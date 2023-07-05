@@ -980,6 +980,12 @@ variable "artifactory_repo_name" {
   description = "Type the name of your Artifactory repository where your docker images are located."
 }
 
+variable "artifactory_integration_name" {
+  type        = string
+  default     = "artifactory-dockerconfigjson"
+  description = "The name of the Artifactory tool integration"
+}
+
 variable "privateworker_credentials_secret_name" {
   type        = string
   default     = "private-worker-service-api"

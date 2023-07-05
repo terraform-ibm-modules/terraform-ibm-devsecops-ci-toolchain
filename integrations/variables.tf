@@ -97,7 +97,8 @@ variable "artifactory_repo_name" {
 }
 variable "artifactory_repo_url" {
 }
-
+variable "artifactory_integration_name" {
+}
 variable "enable_privateworker" {
 }
 

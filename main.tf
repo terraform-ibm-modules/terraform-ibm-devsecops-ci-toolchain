@@ -351,7 +351,7 @@ module "integrations" {
   sm_integration_name                   = var.sm_integration_name
   kp_integration_name                   = var.kp_integration_name
   slack_integration_name                = var.slack_integration_name
-
+  artifactory_integration_name          = var.artifactory_integration_name
 
 }
 
