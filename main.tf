@@ -270,6 +270,7 @@ module "pipeline_ci" {
   enable_artifactory                    = var.enable_artifactory
   tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
   ci_pipeline_branch                    = var.ci_pipeline_branch
+  enable_devops_signing_var             = var.enable_devops_signing_var
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {

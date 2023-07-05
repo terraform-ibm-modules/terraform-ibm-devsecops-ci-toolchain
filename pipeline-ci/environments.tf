@@ -227,6 +227,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_version" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key_secret_name" {
+  count       = (var.enable_devops_signing_var) ? 1 : 0
   name        = "signing-key"
   type        = "secure"
   value       = format("{vault::%s.${var.signing_key_secret_name}}", var.secret_tool)

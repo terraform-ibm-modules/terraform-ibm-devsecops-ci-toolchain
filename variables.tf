@@ -991,3 +991,9 @@ variable "privateworker_name" {
   description = "The name of the private worker integration."
   default     = "private-worker-tool-01"
 }
+
+variable "enable_devops_signing_var" {
+  type        = string
+  description = "Set to `true` to show the `signing-key` pipeline variable"
+  default     = true
+}
