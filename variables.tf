@@ -396,7 +396,7 @@ variable "issues_repo_issues_enabled" {
 
 variable "issues_repo_git_id" {
   type        = string
-  description = ""
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
   default     = ""
 }
 
@@ -445,7 +445,7 @@ variable "inventory_repo_issues_enabled" {
 
 variable "inventory_repo_git_id" {
   type        = string
-  description = ""
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
   default     = ""
 }
 
@@ -494,7 +494,7 @@ variable "evidence_repo_issues_enabled" {
 
 variable "evidence_repo_git_id" {
   type        = string
-  description = ""
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
   default     = ""
 }
 
@@ -543,7 +543,7 @@ variable "compliance_pipeline_repo_integration_owner" {
 
 variable "compliance_pipelines_repo_git_id" {
   type        = string
-  description = ""
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
   default     = ""
 }
 
@@ -586,7 +586,7 @@ variable "pipeline_config_repo_name" {
 
 variable "pipeline_config_repo_git_id" {
   type        = string
-  description = ""
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
   default     = ""
 }
 
@@ -1017,7 +1017,7 @@ variable "trigger_git_enable" {
   default     = true
 }
 
-variable  "trigger_timed_name" {
+variable "trigger_timed_name" {
   type        = string
   description = "The name of the CI pipeline Timed trigger."
   default     = "Git CI Timed Trigger"
@@ -1033,7 +1033,7 @@ variable "trigger_timed_cron_schedule" {
   default     = "0 4 * * *"
 }
 
-variable  "trigger_manual_name" {
+variable "trigger_manual_name" {
   type        = string
   description = "The name of the CI pipeline Manual trigger."
   default     = "Manual Trigger"

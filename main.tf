@@ -314,7 +314,7 @@ module "pipeline_pr" {
   tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                    = var.enable_artifactory
   pr_pipeline_branch                    = var.pr_pipeline_branch
-   trigger_pr_git_name                   = var.trigger_pr_git_name
+  trigger_pr_git_name                   = var.trigger_pr_git_name
   trigger_pr_git_enable                 = var.trigger_pr_git_enable
 }
 
