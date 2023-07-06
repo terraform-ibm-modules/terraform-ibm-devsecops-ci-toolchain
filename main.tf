@@ -271,6 +271,13 @@ module "pipeline_ci" {
   tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
   ci_pipeline_branch                    = var.ci_pipeline_branch
   enable_devops_signing_var             = var.enable_devops_signing_var
+  trigger_git_name                      = var.trigger_git_name
+  trigger_git_enable                    = var.trigger_git_enable
+  trigger_timed_name                    = var.trigger_timed_name
+  trigger_timed_enable                  = var.trigger_timed_enable
+  trigger_timed_cron_schedule           = var.trigger_timed_cron_schedule
+  trigger_manual_name                   = var.trigger_manual_name
+  trigger_manual_enable                 = var.trigger_manual_enable
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -307,7 +314,8 @@ module "pipeline_pr" {
   tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                    = var.enable_artifactory
   pr_pipeline_branch                    = var.pr_pipeline_branch
-
+   trigger_pr_git_name                   = var.trigger_pr_git_name
+  trigger_pr_git_enable                 = var.trigger_pr_git_enable
 }
 
 module "integrations" {

@@ -17,14 +17,16 @@ resource "ibm_cd_tekton_pipeline_definition" "ci_pipeline_definition" {
   }
 }
 
+############ GIT Trigger #############################################
+
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "scm"
-  name        = "Git CI Trigger"
+  name        = var.trigger_git_name
   event_listener = ((var.app_repo_provider_webhook_syntax == "github") ?
   "ci-listener" : "ci-listener-gitlab")
   events  = ["push"]
-  enabled = true
+  enabled = var.trigger_git_enable
   source {
     type = "git"
     properties {
@@ -43,15 +45,17 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_scm_trigger_prop
   trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_scm_trigger.trigger_id
 }
 
+########### Timed Trigger ###################################################
+
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "timer"
-  name        = "Git CI Timed Trigger"
+  name        = var.trigger_timed_name
   event_listener = ((var.app_repo_provider_webhook_syntax == "github") ?
   "ci-listener" : "ci-listener-gitlab")
-  cron                = "0 4 * * *"
+  cron                = var.trigger_timed_cron_schedule
   timezone            = "UTC"
-  enabled             = false
+  enabled             = var.trigger_timed_enable
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
 }
 
@@ -63,13 +67,15 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_trigger_pr
   trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_timed_trigger.trigger_id
 }
 
+############ Manual Trigger ################################################
+
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "manual"
-  name        = "Manual Trigger"
+  name        = var.trigger_manual_name
   event_listener = ((var.app_repo_provider_webhook_syntax == "github") ?
   "ci-listener" : "ci-listener-gitlab")
-  enabled             = true
+  enabled             = var.trigger_manual_enable
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
 }
 

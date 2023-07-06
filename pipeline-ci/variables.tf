@@ -196,6 +196,23 @@ variable "app_repo_provider_webhook_syntax" {
 variable "enable_devops_signing_var" {
 }
 
+variable "trigger_git_name" {
+}
+variable "trigger_git_enable" {
+}
+
+variable  "trigger_timed_name" {
+}
+variable "trigger_timed_enable" {
+}
+variable "trigger_timed_cron_schedule" {
+}
+
+variable  "trigger_manual_name" {
+}
+variable "trigger_manual_enable" {
+}
+
 variable "compliance_base_image" {
   type        = string
   description = "Pipeline baseimage to run most of the built-in pipeline code"

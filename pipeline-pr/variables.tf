@@ -81,3 +81,8 @@ variable "tool_artifactory" {
 
 variable "enable_artifactory" {
 }
+
+variable "trigger_pr_git_name" {
+}
+variable "trigger_pr_git_enable" {
+}

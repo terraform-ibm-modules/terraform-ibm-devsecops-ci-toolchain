@@ -1003,3 +1003,54 @@ variable "enable_devops_signing_var" {
   description = "Set to `true` to show the `signing-key` pipeline variable"
   default     = true
 }
+
+
+####### Trigger properties ###################
+variable "trigger_git_name" {
+  type        = string
+  description = "The name of the CI pipeline GIT trigger."
+  default     = "Git CI Trigger"
+}
+variable "trigger_git_enable" {
+  type        = bool
+  description = "Set to `true` to enable the CI pipeline Git trigger."
+  default     = true
+}
+
+variable  "trigger_timed_name" {
+  type        = string
+  description = "The name of the CI pipeline Timed trigger."
+  default     = "Git CI Timed Trigger"
+}
+variable "trigger_timed_enable" {
+  type        = bool
+  description = "Set to `true` to enable the CI pipeline Timed trigger."
+  default     = false
+}
+variable "trigger_timed_cron_schedule" {
+  type        = string
+  description = "Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours."
+  default     = "0 4 * * *"
+}
+
+variable  "trigger_manual_name" {
+  type        = string
+  description = "The name of the CI pipeline Manual trigger."
+  default     = "Manual Trigger"
+}
+variable "trigger_manual_enable" {
+  type        = bool
+  description = "Set to `true` to enable the CI pipeline Manual trigger."
+  default     = true
+}
+
+variable "trigger_pr_git_name" {
+  type        = string
+  description = "The name of the PR pipeline GIT trigger."
+  default     = "Git PR Trigger"
+}
+variable "trigger_pr_git_enable" {
+  type        = bool
+  description = "Set to `true` to enable the PR pipeline Git trigger."
+  default     = true
+}
