@@ -181,7 +181,7 @@ module "pipeline_config_repo" {
 module "app_repo" {
   source                = "./repos"
   depends_on            = [module.integrations]
-  tool_name             = "pipeline-config-repo"
+  tool_name             = "app-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
   git_provider          = (var.app_repo_existing_git_provider != "") ? var.app_repo_existing_git_provider : var.app_repo_clone_to_git_provider
   initilization_type    = var.app_repo_initilization_type
