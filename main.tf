@@ -278,6 +278,10 @@ module "pipeline_ci" {
   trigger_timed_cron_schedule           = var.trigger_timed_cron_schedule
   trigger_manual_name                   = var.trigger_manual_name
   trigger_manual_enable                 = var.trigger_manual_enable
+  trigger_manual_pruner_name            = var.trigger_manual_pruner_name
+  trigger_manual_pruner_enable          = var.trigger_manual_pruner_enable
+  trigger_timed_pruner_name             = var.trigger_timed_pruner_name
+  trigger_timed_pruner_enable           = var.trigger_timed_pruner_enable
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
