@@ -1005,6 +1005,19 @@ variable "enable_devops_signing_var" {
 }
 
 
+####### Event Notifications #################
+variable "event_notifications_tool_name" {
+  type        = string
+  description = "The name of the Event Notifications integration."
+  default     = "Event Notifications"
+}
+
+variable "event_notifications_crn" {
+  type        = string
+  description = "The CRN for the Event Notifications instance."
+  default     = ""
+}
+
 ####### Trigger properties ###################
 variable "trigger_git_name" {
   type        = string

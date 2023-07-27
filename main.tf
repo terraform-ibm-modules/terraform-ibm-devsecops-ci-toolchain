@@ -282,6 +282,7 @@ module "pipeline_ci" {
   trigger_manual_pruner_enable          = var.trigger_manual_pruner_enable
   trigger_timed_pruner_name             = var.trigger_timed_pruner_name
   trigger_timed_pruner_enable           = var.trigger_timed_pruner_enable
+  enable_pipeline_notifications         = (var.event_notifications_crn != ""  || var.enable_slack) ? true : false
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -320,6 +321,7 @@ module "pipeline_pr" {
   pr_pipeline_branch                    = var.pr_pipeline_branch
   trigger_pr_git_name                   = var.trigger_pr_git_name
   trigger_pr_git_enable                 = var.trigger_pr_git_enable
+  enable_pipeline_notifications         = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
 }
 
 module "integrations" {
@@ -364,7 +366,8 @@ module "integrations" {
   kp_integration_name                   = var.kp_integration_name
   slack_integration_name                = var.slack_integration_name
   artifactory_integration_name          = var.artifactory_integration_name
-
+  event_notifications_tool_name         = var.event_notifications_tool_name
+  event_notifications_crn               = var.event_notifications_crn
 }
 
 module "services" {

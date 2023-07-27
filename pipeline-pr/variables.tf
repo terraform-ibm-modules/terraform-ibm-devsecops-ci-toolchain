@@ -86,3 +86,6 @@ variable "trigger_pr_git_name" {
 }
 variable "trigger_pr_git_enable" {
 }
+
+variable "enable_pipeline_notifications" {
+}

@@ -3,6 +3,7 @@ resource "ibm_cd_tekton_pipeline" "pr_pipeline_instance" {
   worker {
     id = "public"
   }
+  enable_notifications = var.enable_pipeline_notifications
 }
 
 resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {

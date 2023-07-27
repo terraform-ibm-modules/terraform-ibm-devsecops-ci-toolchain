@@ -3,6 +3,7 @@ resource "ibm_cd_tekton_pipeline" "ci_pipeline_instance" {
   worker {
     id = var.private_worker
   }
+  enable_notifications = var.enable_pipeline_notifications
 }
 
 resource "ibm_cd_tekton_pipeline_definition" "ci_pipeline_definition" {

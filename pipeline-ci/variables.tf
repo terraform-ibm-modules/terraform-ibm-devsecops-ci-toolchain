@@ -223,6 +223,9 @@ variable "trigger_timed_pruner_name" {
 variable "trigger_timed_pruner_enable" {
 }
 
+variable "enable_pipeline_notifications" {
+}
+
 variable "compliance_base_image" {
   type        = string
   description = "Pipeline baseimage to run most of the built-in pipeline code"
