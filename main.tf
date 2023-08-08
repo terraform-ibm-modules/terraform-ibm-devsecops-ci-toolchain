@@ -254,7 +254,6 @@ module "pipeline_ci" {
   opt_in_dynamic_api_scan               = var.opt_in_dynamic_api_scan
   opt_in_dynamic_ui_scan                = var.opt_in_dynamic_ui_scan
   opt_in_dynamic_scan                   = var.opt_in_dynamic_scan
-  opt_out_v1_evidence                   = var.opt_out_v1_evidence
   opt_in_sonar                          = var.opt_in_sonar
   doi_environment                       = var.doi_environment
   cra_generate_cyclonedx_format         = var.cra_generate_cyclonedx_format
@@ -282,7 +281,7 @@ module "pipeline_ci" {
   trigger_manual_pruner_enable          = var.trigger_manual_pruner_enable
   trigger_timed_pruner_name             = var.trigger_timed_pruner_name
   trigger_timed_pruner_enable           = var.trigger_timed_pruner_enable
-  enable_pipeline_notifications         = (var.event_notifications_crn != ""  || var.enable_slack) ? true : false
+  enable_pipeline_notifications         = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {

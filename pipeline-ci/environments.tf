@@ -129,6 +129,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key_secret_name" {
+  count       = (var.cos_bucket_name != "") ? 1 : 0
   name        = "cos-api-key"
   type        = "secure"
   value       = format("{vault::%s.${var.cos_api_key_secret_name}}", var.secret_tool)
@@ -167,13 +168,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_environment" {
   name        = "opt-in-dynamic-scan"
   type        = "text"
   value       = var.opt_in_dynamic_scan
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_opt_out_v1_evidence" {
-  name        = "opt-out-v1-evidence"
-  type        = "text"
-  value       = var.opt_out_v1_evidence
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

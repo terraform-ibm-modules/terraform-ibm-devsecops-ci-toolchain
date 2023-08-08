@@ -120,9 +120,6 @@ variable "opt_in_dynamic_ui_scan" {
 variable "opt_in_dynamic_scan" {
 }
 
-variable "opt_out_v1_evidence" {
-}
-
 variable "opt_in_sonar" {
 }
 

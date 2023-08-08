@@ -885,12 +885,6 @@ variable "opt_in_dynamic_scan" {
   default     = "1"
 }
 
-variable "opt_out_v1_evidence" {
-  type        = string
-  description = "Opt out of evidence v1."
-  default     = "1"
-}
-
 variable "opt_in_sonar" {
   type        = string
   description = "Opt in for Sonarqube."
