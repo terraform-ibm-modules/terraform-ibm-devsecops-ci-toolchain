@@ -16,7 +16,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo" {
   count       = (var.pipeline_config_repo_existing_url == "") && (var.pipeline_config_repo_clone_from_url == "") ? 0 : 1
   name        = "pipeline-config-repo"
   type        = "integration"
-  value       = try(var.pipeline_config_repo[0].tool_id, "")
+  value       = try(var.pipeline_config_repo.tool_id, "")
   path        = "parameters.repo_url"
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
@@ -25,7 +25,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo_def
   count       = (var.pipeline_config_repo_existing_url == "") && (var.pipeline_config_repo_clone_from_url == "") ? 1 : 0
   name        = "pipeline-config-repo"
   type        = "text"
-  value       = try(var.pipeline_config_repo[0].tool_id, "")
+  value       = try(var.pipeline_config_repo.tool_id, "")
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -129,6 +129,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key_secret_name" {
+  count       = (var.cos_bucket_name != "") ? 1 : 0
   name        = "cos-api-key"
   type        = "secure"
   value       = format("{vault::%s.${var.cos_api_key_secret_name}}", var.secret_tool)
@@ -167,13 +168,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_environment" {
   name        = "opt-in-dynamic-scan"
   type        = "text"
   value       = var.opt_in_dynamic_scan
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_opt_out_v1_evidence" {
-  name        = "opt-out-v1-evidence"
-  type        = "text"
-  value       = var.opt_out_v1_evidence
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -227,6 +221,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_version" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key_secret_name" {
+  count       = (var.enable_devops_signing_var) ? 1 : 0
   name        = "signing-key"
   type        = "secure"
   value       = format("{vault::%s.${var.signing_key_secret_name}}", var.secret_tool)

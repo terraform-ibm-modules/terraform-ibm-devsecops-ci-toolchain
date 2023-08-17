@@ -120,9 +120,6 @@ variable "opt_in_dynamic_ui_scan" {
 variable "opt_in_dynamic_scan" {
 }
 
-variable "opt_out_v1_evidence" {
-}
-
 variable "opt_in_sonar" {
 }
 
@@ -192,6 +189,40 @@ variable "code_engine_source" {
 
 variable "app_repo_provider_webhook_syntax" {
 }
+
+variable "enable_devops_signing_var" {
+}
+
+variable "trigger_git_name" {
+}
+variable "trigger_git_enable" {
+}
+
+variable "trigger_timed_name" {
+}
+variable "trigger_timed_enable" {
+}
+variable "trigger_timed_cron_schedule" {
+}
+
+variable "trigger_manual_name" {
+}
+variable "trigger_manual_enable" {
+}
+
+variable "trigger_manual_pruner_name" {
+}
+variable "trigger_manual_pruner_enable" {
+}
+
+variable "trigger_timed_pruner_name" {
+}
+variable "trigger_timed_pruner_enable" {
+}
+
+variable "enable_pipeline_notifications" {
+}
+
 variable "compliance_base_image" {
   type        = string
   description = "Pipeline baseimage to run most of the built-in pipeline code"

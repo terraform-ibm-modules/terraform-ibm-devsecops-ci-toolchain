@@ -171,6 +171,36 @@ variable "app_repo_clone_to_git_id" {
   default     = ""
 }
 
+variable "app_repo_name" {
+  type        = string
+  description = "The repository name."
+  default     = ""
+}
+
+variable "app_repo_is_private_repo" {
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
+}
+
+variable "app_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues."
+  default     = false
+}
+
+variable "app_repo_traceability_enabled" {
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
+}
+
+variable "app_repo_initilization_type" {
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
+}
+
 variable "pipeline_config_repo_existing_url" {
   type        = string
   description = "Specify a repository containing a custom pipeline-config.yaml file"
@@ -199,6 +229,12 @@ variable "pipeline_config_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
   default     = "oauth"
+}
+
+variable "pipeline_config_initilization_type" {
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
 }
 
 variable "app_repo_auth_type" {
@@ -334,7 +370,233 @@ variable "issues_repo_git_provider" {
   }
 }
 
-variable "pipeline_repo_url" {
+variable "issues_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "evidence_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "inventory_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "issues_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues."
+  default     = true
+}
+
+variable "issues_repo_git_id" {
+  type        = string
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
+  default     = ""
+}
+
+variable "issues_repo_traceability_enabled" {
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
+}
+
+variable "issues_repo_is_private_repo" {
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
+}
+
+variable "issues_repo_initilization_type" {
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
+}
+
+variable "issues_repo_name" {
+  type        = string
+  description = "The repository name."
+  default     = ""
+}
+
+variable "issues_repo_existing_url" {
+  type        = string
+  description = "The repo URL that integration will link with."
+  default     = ""
+
+}
+
+variable "issues_repo_clone_from_url" {
+  type        = string
+  description = "The repo URL that the intgeration will clone from."
+  default     = ""
+}
+
+variable "inventory_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues."
+  default     = false
+}
+
+variable "inventory_repo_git_id" {
+  type        = string
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
+  default     = ""
+}
+
+variable "inventory_repo_traceability_enabled" {
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
+}
+
+variable "inventory_repo_is_private_repo" {
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
+}
+
+variable "inventory_repo_initilization_type" {
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
+}
+
+variable "inventory_repo_name" {
+  type        = string
+  description = "The repository name."
+  default     = ""
+}
+
+variable "inventory_repo_existing_url" {
+  type        = string
+  description = "The repo URL that integration will link with."
+  default     = ""
+
+}
+
+variable "inventory_repo_clone_from_url" {
+  type        = string
+  description = "The repo URL that the intgeration will clone from."
+  default     = ""
+}
+
+variable "evidence_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues."
+  default     = false
+}
+
+variable "evidence_repo_git_id" {
+  type        = string
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
+  default     = ""
+}
+
+variable "evidence_repo_traceability_enabled" {
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
+}
+
+variable "evidence_repo_is_private_repo" {
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
+}
+
+variable "evidence_repo_initilization_type" {
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
+}
+
+variable "evidence_repo_name" {
+  type        = string
+  description = "The repository name."
+  default     = ""
+}
+
+variable "evidence_repo_existing_url" {
+  type        = string
+  description = "The repo URL that integration will link with."
+  default     = ""
+
+}
+
+variable "evidence_repo_clone_from_url" {
+  type        = string
+  description = "The repo URL that the intgeration will clone from."
+  default     = ""
+}
+
+variable "compliance_pipeline_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "compliance_pipelines_repo_git_id" {
+  type        = string
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
+  default     = ""
+}
+
+variable "compliance_pipeline_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues."
+  default     = false
+}
+
+variable "pipeline_config_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "pipeline_config_repo_issues_enabled" {
+  type        = bool
+  description = "Set to `true` to enable issues."
+  default     = false
+}
+
+variable "pipeline_config_repo_is_private_repo" {
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = true
+}
+
+variable "pipeline_config_repo_traceability_enabled" {
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
+}
+
+
+variable "pipeline_config_repo_name" {
+  type        = string
+  description = "The repository name."
+  default     = ""
+}
+
+variable "pipeline_config_repo_git_id" {
+  type        = string
+  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
+  default     = ""
+}
+
+variable "app_repo_integration_owner" {
+  type        = string
+  description = "The name of the integration owner."
+  default     = ""
+}
+
+variable "compliance_pipeline_repo_url" {
   type        = string
   default     = ""
   description = "Url of pipeline repo template to be cloned"
@@ -471,6 +733,24 @@ variable "enable_secrets_manager" {
   description = "Set to enable Secrets Manager Integration."
   default     = true
 }
+
+variable "sm_integration_name" {
+  type        = string
+  description = "The name of the Secrets Manager integration."
+  default     = "sm-compliance-secrets"
+}
+
+variable "kp_integration_name" {
+  type        = string
+  description = "The name of the Key Protect integration."
+  default     = "kp-compliance-secrets"
+}
+
+variable "slack_integration_name" {
+  type        = string
+  description = "The name of the Slack integration."
+  default     = "slack-compliance"
+}
 ######## Deployment Strategy ##################
 
 variable "deployment_target" {
@@ -605,12 +885,6 @@ variable "opt_in_dynamic_scan" {
   default     = "1"
 }
 
-variable "opt_out_v1_evidence" {
-  type        = string
-  description = "Opt out of evidence v1."
-  default     = "1"
-}
-
 variable "opt_in_sonar" {
   type        = string
   description = "Opt in for Sonarqube."
@@ -700,8 +974,112 @@ variable "artifactory_repo_name" {
   description = "Type the name of your Artifactory repository where your docker images are located."
 }
 
+variable "artifactory_integration_name" {
+  type        = string
+  default     = "artifactory-dockerconfigjson"
+  description = "The name of the Artifactory tool integration"
+}
+
 variable "privateworker_credentials_secret_name" {
   type        = string
   default     = "private-worker-service-api"
   description = "Name of the privateworker secret in the secret provider."
+}
+
+variable "privateworker_name" {
+  type        = string
+  description = "The name of the private worker integration."
+  default     = "private-worker-tool-01"
+}
+
+variable "enable_devops_signing_var" {
+  type        = string
+  description = "Set to `true` to show the `signing-key` pipeline variable"
+  default     = true
+}
+
+
+####### Event Notifications #################
+variable "event_notifications_tool_name" {
+  type        = string
+  description = "The name of the Event Notifications integration."
+  default     = "Event Notifications"
+}
+
+variable "event_notifications_crn" {
+  type        = string
+  description = "The CRN for the Event Notifications instance."
+  default     = ""
+}
+
+####### Trigger properties ###################
+variable "trigger_git_name" {
+  type        = string
+  description = "The name of the CI pipeline GIT trigger."
+  default     = "Git CI Trigger"
+}
+variable "trigger_git_enable" {
+  type        = bool
+  description = "Set to `true` to enable the CI pipeline Git trigger."
+  default     = true
+}
+
+variable "trigger_timed_name" {
+  type        = string
+  description = "The name of the CI pipeline Timed trigger."
+  default     = "Git CI Timed Trigger"
+}
+variable "trigger_timed_enable" {
+  type        = bool
+  description = "Set to `true` to enable the CI pipeline Timed trigger."
+  default     = false
+}
+variable "trigger_timed_cron_schedule" {
+  type        = string
+  description = "Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours."
+  default     = "0 4 * * *"
+}
+
+variable "trigger_manual_name" {
+  type        = string
+  description = "The name of the CI pipeline Manual trigger."
+  default     = "Manual Trigger"
+}
+variable "trigger_manual_enable" {
+  type        = bool
+  description = "Set to `true` to enable the CI pipeline Manual trigger."
+  default     = true
+}
+
+variable "trigger_pr_git_name" {
+  type        = string
+  description = "The name of the PR pipeline GIT trigger."
+  default     = "Git PR Trigger"
+}
+variable "trigger_pr_git_enable" {
+  type        = bool
+  description = "Set to `true` to enable the PR pipeline Git trigger."
+  default     = true
+}
+
+variable "trigger_manual_pruner_name" {
+  type        = string
+  description = "The name of the manual Pruner trigger."
+  default     = "Evidence Pruner Manual Trigger"
+}
+variable "trigger_manual_pruner_enable" {
+  type        = bool
+  description = "Set to `true` to enable the manual Pruner trigger."
+  default     = true
+}
+
+variable "trigger_timed_pruner_name" {
+  type        = string
+  description = "The name of the timed Pruner trigger."
+  default     = "Evidence Pruner Timed Trigger"
+}
+variable "trigger_timed_pruner_enable" {
+  type        = bool
+  description = "Set to `true` to enable the timed Pruner trigger."
+  default     = false
 }

@@ -3,6 +3,7 @@ resource "ibm_cd_tekton_pipeline" "pr_pipeline_instance" {
   worker {
     id = "public"
   }
+  enable_notifications = var.enable_pipeline_notifications
 }
 
 resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {
@@ -20,10 +21,11 @@ resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {
 resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   type        = "scm"
-  name        = "Git PR Trigger"
+  name        = var.trigger_pr_git_name
   event_listener = ((var.app_repo_provider_webhook_syntax == "github") ?
   "pr-listener" : "pr-listener-gitlab")
-  events = ["pull_request"]
+  enabled = var.trigger_pr_git_enable
+  events  = ["pull_request"]
   source {
     type = "git"
     properties {
