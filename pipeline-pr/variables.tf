@@ -4,11 +4,6 @@ variable "pipeline_id" {
 variable "app_name" {
 }
 
-variable "secret_tool" {
-  type        = string
-  description = "Used as part of secret references to point to the secret store tool integration"
-}
-
 variable "app_repo_url" {
 }
 
@@ -49,10 +44,10 @@ variable "compliance_base_image" {
 variable "ibmcloud_api_key" {
 }
 
-variable "pipeline_ibmcloud_api_key_secret_name" {
+variable "pipeline_ibmcloud_api_key_secret_ref" {
 }
 
-variable "pipeline_dockerconfigjson_secret_name" {
+variable "pipeline_dockerconfigjson_secret_ref" {
 }
 
 variable "enable_pipeline_dockerconfigjson" {

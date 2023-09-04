@@ -19,16 +19,16 @@ variable "tool_artifactory" {
 variable "private_worker" {
 }
 
-variable "signing_key_secret_name" {
+variable "signing_key_secret_ref" {
 }
 
-variable "cos_api_key_secret_name" {
+variable "cos_api_key_secret_ref" {
 }
 
-variable "pipeline_ibmcloud_api_key_secret_name" {
+variable "pipeline_ibmcloud_api_key_secret_ref" {
 }
 
-variable "pipeline_dockerconfigjson_secret_name" {
+variable "pipeline_dockerconfigjson_secret_ref" {
 }
 
 variable "enable_pipeline_dockerconfigjson" {
@@ -53,11 +53,6 @@ variable "ibmcloud_api" {
 }
 
 variable "ibmcloud_api_key" {
-}
-
-variable "secret_tool" {
-  type        = string
-  description = "Used as part of secret references to point to the secret store tool integration"
 }
 
 variable "app_repo_url" {
@@ -139,6 +134,9 @@ variable "app_version" {
 }
 
 variable "sonarqube_config" {
+}
+
+variable "sonarqube_tool" {
 }
 
 variable "slack_notifications" {

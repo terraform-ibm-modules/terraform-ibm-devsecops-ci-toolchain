@@ -55,6 +55,79 @@ locals {
   )
 
   compliance_repo_url = (var.compliance_pipeline_repo_url != "") ? var.compliance_pipeline_repo_url : format("%s/open-toolchain/compliance-pipelines.git", local.compliance_pipelines_git_server)
+
+  #Secrets
+  app_repo_secret_ref = ((var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.app_repo_secret_group == "") ? format("{vault::%s.${var.app_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.app_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.app_repo_secret_group))
+  )
+
+  issues_repo_secret_ref = ((var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.issues_repo_secret_group == "") ? format("{vault::%s.${var.issues_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.issues_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.issues_repo_secret_group))
+  )
+
+  evidence_repo_secret_ref = ((var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.evidence_repo_secret_group == "") ? format("{vault::%s.${var.evidence_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.evidence_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.evidence_repo_secret_group))
+  )
+
+  inventory_repo_secret_ref = ((var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.inventory_repo_secret_group == "") ? format("{vault::%s.${var.inventory_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.inventory_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.inventory_repo_secret_group))
+  )
+
+  compliance_pipeline_repo_secret_ref = ((var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.compliance_pipeline_repo_secret_group == "") ? format("{vault::%s.${var.compliance_pipeline_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.compliance_pipeline_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.compliance_pipeline_repo_secret_group))
+  )
+
+  pipeline_config_repo_secret_ref = ((var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.pipeline_config_repo_secret_group == "") ? format("{vault::%s.${var.pipeline_config_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.pipeline_config_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_config_repo_secret_group))
+  )
+
+  cos_secret_ref = (
+    (var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.cos_api_key_secret_group == "") ? format("{vault::%s.${var.cos_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.cos_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.cos_api_key_secret_group))
+  )
+
+  pipeline_apikey_secret_ref = (
+    (var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.pipeline_ibmcloud_api_key_secret_group == "") ? format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_ibmcloud_api_key_secret_group))
+  )
+
+  signing_key_secret_ref = (
+    (var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.signing_key_secret_group == "") ? format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.signing_key_secret_group))
+  )
+
+  dockerconfigjson_secret_ref = (
+    (var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.pipeline_dockerconfigjson_secret_group == "") ? format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_dockerconfigjson_secret_group))
+  )
+
+  slack_webhook_secret_ref = (
+    (var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.slack_webhook_secret_group == "") ? format("{vault::%s.${var.slack_webhook_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.slack_webhook_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.slack_webhook_secret_group))
+  )
+
+  privateworker_secret_ref = (
+    (var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.privateworker_credentials_secret_group == "") ? format("{vault::%s.${var.privateworker_credentials_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.privateworker_credentials_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.privateworker_credentials_secret_group))
+  )
+
+  artifactory_secret_ref = (
+    (var.enable_key_protect) ? module.integrations.secret_tool :
+    (var.artifactory_token_secret_group == "") ? format("{vault::%s.${var.artifactory_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.artifactory_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.artifactory_token_secret_group))
+  )
 }
 
 data "ibm_resource_group" "resource_group" {
@@ -83,10 +156,9 @@ module "issues_repo" {
   traceability_enabled  = var.issues_repo_traceability_enabled
   integration_owner     = var.issues_repo_integration_owner
   auth_type             = var.issues_repo_auth_type
-  secret_name           = var.issues_repo_git_token_secret_name
+  secret_ref            = local.issues_repo_secret_ref
   git_id                = var.issues_repo_git_id
   default_git_provider  = var.default_git_provider
-  secret_tool           = module.integrations.secret_tool
 }
 
 module "evidence_repo" {
@@ -105,10 +177,9 @@ module "evidence_repo" {
   traceability_enabled  = var.evidence_repo_traceability_enabled
   integration_owner     = var.evidence_repo_integration_owner
   auth_type             = var.evidence_repo_auth_type
-  secret_name           = var.evidence_repo_git_token_secret_name
+  secret_ref            = local.evidence_repo_secret_ref
   git_id                = var.evidence_repo_git_id
   default_git_provider  = var.default_git_provider
-  secret_tool           = module.integrations.secret_tool
 }
 
 module "inventory_repo" {
@@ -127,10 +198,9 @@ module "inventory_repo" {
   traceability_enabled  = var.inventory_repo_traceability_enabled
   integration_owner     = var.inventory_repo_integration_owner
   auth_type             = var.inventory_repo_auth_type
-  secret_name           = var.inventory_repo_git_token_secret_name
+  secret_ref            = local.inventory_repo_secret_ref
   git_id                = var.inventory_repo_git_id
   default_git_provider  = var.default_git_provider
-  secret_tool           = module.integrations.secret_tool
 }
 
 module "compliance_pipelines_repo" {
@@ -149,10 +219,9 @@ module "compliance_pipelines_repo" {
   traceability_enabled  = false
   integration_owner     = var.compliance_pipeline_repo_integration_owner
   auth_type             = var.compliance_pipeline_repo_auth_type
-  secret_name           = var.compliance_pipeline_repo_git_token_secret_name
+  secret_ref            = local.compliance_pipeline_repo_secret_ref
   git_id                = var.compliance_pipelines_repo_git_id
   default_git_provider  = var.default_git_provider
-  secret_tool           = module.integrations.secret_tool
 }
 
 module "pipeline_config_repo" {
@@ -172,10 +241,9 @@ module "pipeline_config_repo" {
   traceability_enabled  = var.pipeline_config_repo_traceability_enabled
   integration_owner     = var.pipeline_config_repo_integration_owner
   auth_type             = var.pipeline_config_repo_auth_type
-  secret_name           = var.pipeline_config_repo_git_token_secret_name
+  secret_ref            = local.pipeline_config_repo_secret_ref
   git_id                = var.pipeline_config_repo_git_id
   default_git_provider  = var.default_git_provider
-  secret_tool           = module.integrations.secret_tool
 }
 
 module "app_repo" {
@@ -194,10 +262,9 @@ module "app_repo" {
   traceability_enabled  = var.app_repo_traceability_enabled
   integration_owner     = var.app_repo_integration_owner
   auth_type             = var.app_repo_auth_type
-  secret_name           = var.app_repo_git_token_secret_name
+  secret_ref            = local.app_repo_secret_ref
   git_id                = (var.app_repo_existing_git_id != "") ? var.app_repo_existing_git_id : var.app_repo_clone_to_git_id
   default_git_provider  = var.default_git_provider
-  secret_tool           = module.integrations.secret_tool
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
@@ -211,77 +278,77 @@ module "pipeline_ci" {
   source     = "./pipeline-ci"
   depends_on = [module.integrations, module.services]
 
-  ibmcloud_api                          = var.ibmcloud_api
-  ibmcloud_api_key                      = var.ibmcloud_api_key
-  pipeline_id                           = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
-  app_name                              = var.app_name
-  cluster_name                          = var.cluster_name
-  cluster_namespace                     = var.cluster_namespace
-  dev_region                            = var.dev_region
-  dev_resource_group                    = var.dev_resource_group
-  registry_namespace                    = var.registry_namespace
-  registry_region                       = var.registry_region
-  signing_key_secret_name               = var.signing_key_secret_name
-  cos_api_key_secret_name               = var.cos_api_key_secret_name
-  pipeline_ibmcloud_api_key_secret_name = var.pipeline_ibmcloud_api_key_secret_name
-  app_repo_url                          = module.app_repo.repository_url
-  app_repo_branch                       = local.app_repo_branch
-  pipeline_config_repo_existing_url     = var.pipeline_config_repo_existing_url
-  pipeline_config_repo_clone_from_url   = var.pipeline_config_repo_clone_from_url
-  pipeline_config_repo_branch           = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
-  pipeline_config_repo                  = try(module.pipeline_config_repo[0].repository, "")
-  pipeline_repo_url                     = module.compliance_pipelines_repo.repository_url
-  pipeline_config_path                  = var.pipeline_config_path
-  evidence_repo_url                     = module.evidence_repo.repository_url
-  inventory_repo_url                    = module.inventory_repo.repository_url
-  issues_repo_url                       = module.issues_repo.repository_url
-  evidence_repo                         = module.evidence_repo.repository
-  inventory_repo                        = module.inventory_repo.repository
-  issues_repo                           = module.issues_repo.repository
-  secret_tool                           = module.integrations.secret_tool
-  cos_bucket_name                       = var.cos_bucket_name
-  cos_endpoint                          = var.cos_endpoint
-  deployment_target                     = var.deployment_target
-  code_engine_project                   = var.code_engine_project
-  code_engine_region                    = var.code_engine_region
-  code_engine_resource_group            = var.code_engine_resource_group
-  code_engine_entity_type               = var.code_engine_entity_type
-  code_engine_build_strategy            = var.code_engine_build_strategy
-  code_engine_source                    = var.code_engine_source
-  app_repo_provider_webhook_syntax      = module.app_repo.repo_provider_name
-  compliance_base_image                 = var.compliance_base_image
-  pipeline_debug                        = var.pipeline_debug
-  opt_in_dynamic_api_scan               = var.opt_in_dynamic_api_scan
-  opt_in_dynamic_ui_scan                = var.opt_in_dynamic_ui_scan
-  opt_in_dynamic_scan                   = var.opt_in_dynamic_scan
-  opt_in_sonar                          = var.opt_in_sonar
-  doi_environment                       = var.doi_environment
-  cra_generate_cyclonedx_format         = var.cra_generate_cyclonedx_format
-  custom_image_tag                      = var.custom_image_tag
-  app_version                           = var.app_version
-  slack_notifications                   = var.slack_notifications
-  sonarqube_config                      = var.sonarqube_config
-  doi_toolchain_id_pipeline_property    = var.doi_toolchain_id_pipeline_property
-  enable_pipeline_dockerconfigjson      = var.enable_pipeline_dockerconfigjson
-  pipeline_dockerconfigjson_secret_name = var.pipeline_dockerconfigjson_secret_name
-  private_worker                        = module.integrations.private_worker
-  enable_privateworker                  = var.enable_privateworker
-  enable_artifactory                    = var.enable_artifactory
-  tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
-  ci_pipeline_branch                    = var.ci_pipeline_branch
-  enable_devops_signing_var             = var.enable_devops_signing_var
-  trigger_git_name                      = var.trigger_git_name
-  trigger_git_enable                    = var.trigger_git_enable
-  trigger_timed_name                    = var.trigger_timed_name
-  trigger_timed_enable                  = var.trigger_timed_enable
-  trigger_timed_cron_schedule           = var.trigger_timed_cron_schedule
-  trigger_manual_name                   = var.trigger_manual_name
-  trigger_manual_enable                 = var.trigger_manual_enable
-  trigger_manual_pruner_name            = var.trigger_manual_pruner_name
-  trigger_manual_pruner_enable          = var.trigger_manual_pruner_enable
-  trigger_timed_pruner_name             = var.trigger_timed_pruner_name
-  trigger_timed_pruner_enable           = var.trigger_timed_pruner_enable
-  enable_pipeline_notifications         = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
+  ibmcloud_api                         = var.ibmcloud_api
+  ibmcloud_api_key                     = var.ibmcloud_api_key
+  pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
+  app_name                             = var.app_name
+  cluster_name                         = var.cluster_name
+  cluster_namespace                    = var.cluster_namespace
+  dev_region                           = var.dev_region
+  dev_resource_group                   = var.dev_resource_group
+  registry_namespace                   = var.registry_namespace
+  registry_region                      = var.registry_region
+  signing_key_secret_ref               = local.signing_key_secret_ref
+  cos_api_key_secret_ref               = local.cos_secret_ref
+  pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
+  app_repo_url                         = module.app_repo.repository_url
+  app_repo_branch                      = local.app_repo_branch
+  pipeline_config_repo_existing_url    = var.pipeline_config_repo_existing_url
+  pipeline_config_repo_clone_from_url  = var.pipeline_config_repo_clone_from_url
+  pipeline_config_repo_branch          = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
+  pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
+  pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
+  pipeline_config_path                 = var.pipeline_config_path
+  evidence_repo_url                    = module.evidence_repo.repository_url
+  inventory_repo_url                   = module.inventory_repo.repository_url
+  issues_repo_url                      = module.issues_repo.repository_url
+  evidence_repo                        = module.evidence_repo.repository
+  inventory_repo                       = module.inventory_repo.repository
+  issues_repo                          = module.issues_repo.repository
+  cos_bucket_name                      = var.cos_bucket_name
+  cos_endpoint                         = var.cos_endpoint
+  deployment_target                    = var.deployment_target
+  code_engine_project                  = var.code_engine_project
+  code_engine_region                   = var.code_engine_region
+  code_engine_resource_group           = var.code_engine_resource_group
+  code_engine_entity_type              = var.code_engine_entity_type
+  code_engine_build_strategy           = var.code_engine_build_strategy
+  code_engine_source                   = var.code_engine_source
+  app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
+  compliance_base_image                = var.compliance_base_image
+  pipeline_debug                       = var.pipeline_debug
+  opt_in_dynamic_api_scan              = var.opt_in_dynamic_api_scan
+  opt_in_dynamic_ui_scan               = var.opt_in_dynamic_ui_scan
+  opt_in_dynamic_scan                  = var.opt_in_dynamic_scan
+  opt_in_sonar                         = var.opt_in_sonar
+  doi_environment                      = var.doi_environment
+  cra_generate_cyclonedx_format        = var.cra_generate_cyclonedx_format
+  custom_image_tag                     = var.custom_image_tag
+  app_version                          = var.app_version
+  slack_notifications                  = var.slack_notifications
+  sonarqube_config                     = var.sonarqube_config
+  doi_toolchain_id_pipeline_property   = var.doi_toolchain_id_pipeline_property
+  enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
+  pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref
+  private_worker                       = module.integrations.private_worker
+  enable_privateworker                 = var.enable_privateworker
+  enable_artifactory                   = var.enable_artifactory
+  tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
+  ci_pipeline_branch                   = var.ci_pipeline_branch
+  enable_devops_signing_var            = var.enable_devops_signing_var
+  trigger_git_name                     = var.trigger_git_name
+  trigger_git_enable                   = var.trigger_git_enable
+  trigger_timed_name                   = var.trigger_timed_name
+  trigger_timed_enable                 = var.trigger_timed_enable
+  trigger_timed_cron_schedule          = var.trigger_timed_cron_schedule
+  trigger_manual_name                  = var.trigger_manual_name
+  trigger_manual_enable                = var.trigger_manual_enable
+  trigger_manual_pruner_name           = var.trigger_manual_pruner_name
+  trigger_manual_pruner_enable         = var.trigger_manual_pruner_enable
+  trigger_timed_pruner_name            = var.trigger_timed_pruner_name
+  trigger_timed_pruner_enable          = var.trigger_timed_pruner_enable
+  enable_pipeline_notifications        = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
+  sonarqube_tool                       = (module.integrations.sonarqube_tool)
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -295,78 +362,83 @@ module "pipeline_pr" {
   source     = "./pipeline-pr"
   depends_on = [module.integrations, module.services]
 
-  ibmcloud_api                          = var.ibmcloud_api
-  ibmcloud_api_key                      = var.ibmcloud_api_key
-  pipeline_ibmcloud_api_key_secret_name = var.pipeline_ibmcloud_api_key_secret_name
-  pipeline_id                           = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
-  app_name                              = var.app_name
-  app_repo_url                          = module.app_repo.repository_url
-  app_repo_branch                       = local.app_repo_branch
-  pipeline_config_repo_existing_url     = var.pipeline_config_repo_existing_url
-  pipeline_config_repo_clone_from_url   = var.pipeline_config_repo_clone_from_url
-  pipeline_config_repo_branch           = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
-  pipeline_config_repo                  = try(module.pipeline_config_repo[0].repository, "")
-  pipeline_config_path                  = var.pipeline_config_path
-  pipeline_repo_url                     = module.compliance_pipelines_repo.repository_url
-  secret_tool                           = module.integrations.secret_tool
-  app_repo_provider_webhook_syntax      = module.app_repo.repo_provider_name
-  compliance_base_image                 = var.compliance_base_image
-  pipeline_debug                        = var.pipeline_debug
-  slack_notifications                   = var.slack_notifications
-  enable_pipeline_dockerconfigjson      = var.enable_pipeline_dockerconfigjson
-  pipeline_dockerconfigjson_secret_name = var.pipeline_dockerconfigjson_secret_name
-  tool_artifactory                      = module.integrations.ibm_cd_toolchain_tool_artifactory
-  enable_artifactory                    = var.enable_artifactory
-  pr_pipeline_branch                    = var.pr_pipeline_branch
-  trigger_pr_git_name                   = var.trigger_pr_git_name
-  trigger_pr_git_enable                 = var.trigger_pr_git_enable
-  enable_pipeline_notifications         = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
+  ibmcloud_api                         = var.ibmcloud_api
+  ibmcloud_api_key                     = var.ibmcloud_api_key
+  pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
+  pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
+  app_name                             = var.app_name
+  app_repo_url                         = module.app_repo.repository_url
+  app_repo_branch                      = local.app_repo_branch
+  pipeline_config_repo_existing_url    = var.pipeline_config_repo_existing_url
+  pipeline_config_repo_clone_from_url  = var.pipeline_config_repo_clone_from_url
+  pipeline_config_repo_branch          = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
+  pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
+  pipeline_config_path                 = var.pipeline_config_path
+  pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
+  app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
+  compliance_base_image                = var.compliance_base_image
+  pipeline_debug                       = var.pipeline_debug
+  slack_notifications                  = var.slack_notifications
+  enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
+  pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref
+  tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
+  enable_artifactory                   = var.enable_artifactory
+  pr_pipeline_branch                   = var.pr_pipeline_branch
+  trigger_pr_git_name                  = var.trigger_pr_git_name
+  trigger_pr_git_enable                = var.trigger_pr_git_enable
+  enable_pipeline_notifications        = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
 }
 
 module "integrations" {
   source     = "./integrations"
   depends_on = [module.services]
 
-  sm_location                           = var.sm_location
-  toolchain_id                          = ibm_cd_toolchain.toolchain_instance.id
-  sm_resource_group                     = var.sm_resource_group
-  sm_name                               = var.sm_name
-  sm_instance_guid                      = module.services.sm_instance_guid
-  sm_secret_group                       = var.sm_secret_group
-  kp_location                           = var.kp_location
-  kp_resource_group                     = var.kp_resource_group
-  kp_name                               = var.kp_name
-  kp_instance_guid                      = module.services.kp_instance_guid
-  enable_secrets_manager                = var.enable_secrets_manager
-  enable_key_protect                    = var.enable_key_protect
-  enable_slack                          = var.enable_slack
-  slack_webhook_secret_name             = var.slack_webhook_secret_name
-  slack_channel_name                    = var.slack_channel_name
-  slack_team_name                       = var.slack_team_name
-  slack_pipeline_fail                   = var.slack_pipeline_fail
-  slack_pipeline_start                  = var.slack_pipeline_start
-  slack_pipeline_success                = var.slack_pipeline_success
-  slack_toolchain_bind                  = var.slack_toolchain_bind
-  slack_toolchain_unbind                = var.slack_toolchain_unbind
-  authorization_policy_creation         = var.authorization_policy_creation
-  link_to_doi_toolchain                 = var.link_to_doi_toolchain
-  doi_toolchain_id                      = var.doi_toolchain_id
-  secret_tool                           = module.integrations.secret_tool
-  enable_artifactory                    = var.enable_artifactory
-  artifactory_dashboard_url             = var.artifactory_dashboard_url
-  artifactory_user                      = var.artifactory_user
-  artifactory_repo_name                 = var.artifactory_repo_name
-  artifactory_repo_url                  = var.artifactory_repo_url
-  enable_privateworker                  = var.enable_privateworker
-  privateworker_credentials_secret_name = var.privateworker_credentials_secret_name
-  artifactory_token_secret_name         = var.artifactory_token_secret_name
-  privateworker_name                    = var.privateworker_name
-  sm_integration_name                   = var.sm_integration_name
-  kp_integration_name                   = var.kp_integration_name
-  slack_integration_name                = var.slack_integration_name
-  artifactory_integration_name          = var.artifactory_integration_name
-  event_notifications_tool_name         = var.event_notifications_tool_name
-  event_notifications_crn               = var.event_notifications_crn
+  sm_location                          = var.sm_location
+  toolchain_id                         = ibm_cd_toolchain.toolchain_instance.id
+  sm_resource_group                    = var.sm_resource_group
+  sm_name                              = var.sm_name
+  sm_instance_guid                     = module.services.sm_instance_guid
+  sm_secret_group                      = var.sm_secret_group
+  kp_location                          = var.kp_location
+  kp_resource_group                    = var.kp_resource_group
+  kp_name                              = var.kp_name
+  kp_instance_guid                     = module.services.kp_instance_guid
+  enable_secrets_manager               = var.enable_secrets_manager
+  enable_key_protect                   = var.enable_key_protect
+  enable_slack                         = var.enable_slack
+  slack_webhook_secret_ref             = local.slack_webhook_secret_ref
+  slack_channel_name                   = var.slack_channel_name
+  slack_team_name                      = var.slack_team_name
+  slack_pipeline_fail                  = var.slack_pipeline_fail
+  slack_pipeline_start                 = var.slack_pipeline_start
+  slack_pipeline_success               = var.slack_pipeline_success
+  slack_toolchain_bind                 = var.slack_toolchain_bind
+  slack_toolchain_unbind               = var.slack_toolchain_unbind
+  authorization_policy_creation        = var.authorization_policy_creation
+  link_to_doi_toolchain                = var.link_to_doi_toolchain
+  doi_toolchain_id                     = var.doi_toolchain_id
+  secret_tool                          = module.integrations.secret_tool
+  enable_artifactory                   = var.enable_artifactory
+  artifactory_dashboard_url            = var.artifactory_dashboard_url
+  artifactory_user                     = var.artifactory_user
+  artifactory_repo_name                = var.artifactory_repo_name
+  artifactory_repo_url                 = var.artifactory_repo_url
+  enable_privateworker                 = var.enable_privateworker
+  privateworker_credentials_secret_ref = local.privateworker_secret_ref
+  artifactory_token_secret_ref         = local.artifactory_secret_ref
+  privateworker_name                   = var.privateworker_name
+  sm_integration_name                  = var.sm_integration_name
+  kp_integration_name                  = var.kp_integration_name
+  slack_integration_name               = var.slack_integration_name
+  artifactory_integration_name         = var.artifactory_integration_name
+  event_notifications_tool_name        = var.event_notifications_tool_name
+  event_notifications_crn              = var.event_notifications_crn
+  sonarqube_config                     = var.sonarqube_config
+  sonarqube_integration_name            = var.sonarqube_integration_name
+  sonarqube_user                       = var.sonarqube_user
+  sonarqube_secret_name                = var.sonarqube_secret_name
+  sonarqube_is_blind_connection        = var.sonarqube_is_blind_connection
+  sonarqube_server_url                 = var.sonarqube_server_url
 }
 
 module "services" {
