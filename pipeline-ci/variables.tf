@@ -139,6 +139,9 @@ variable "sonarqube_config" {
 variable "sonarqube_tool" {
 }
 
+variable "peer_review_compliance" {
+}
+
 variable "slack_notifications" {
 }
 

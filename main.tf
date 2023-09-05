@@ -434,7 +434,7 @@ module "integrations" {
   event_notifications_tool_name        = var.event_notifications_tool_name
   event_notifications_crn              = var.event_notifications_crn
   sonarqube_config                     = var.sonarqube_config
-  sonarqube_integration_name            = var.sonarqube_integration_name
+  sonarqube_integration_name           = var.sonarqube_integration_name
   sonarqube_user                       = var.sonarqube_user
   sonarqube_secret_name                = var.sonarqube_secret_name
   sonarqube_is_blind_connection        = var.sonarqube_is_blind_connection

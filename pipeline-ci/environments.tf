@@ -257,6 +257,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_peer_review_compliance" {
+  count       = (var.peer_review_compliance == "") ? 0 : 1
+  name        = "peer-review-compliance"
+  type        = "text"
+  value       = var.peer_review_compliance
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dockerjson_config" {
   count       = (var.enable_pipeline_dockerconfigjson) ? 1 : 0
   name        = "pipeline-dockerconfigjson"

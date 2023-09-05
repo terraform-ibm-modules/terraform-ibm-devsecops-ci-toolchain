@@ -1076,6 +1076,11 @@ variable "enable_devops_signing_var" {
   default     = true
 }
 
+variable "peer_review_compliance" {
+  type        = string
+  description = "Set to `1` to enable peer review."
+  default     = ""
+}
 
 ######SonarQube ############################
 variable "sonarqube_integration_name" {
