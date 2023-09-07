@@ -225,7 +225,7 @@ variable "app_repo_traceability_enabled" {
   default     = false
 }
 
-variable "app_repo_initilization_type" {
+variable "app_repo_initialization_type" {
   type        = string
   description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
   default     = ""
@@ -261,7 +261,7 @@ variable "pipeline_config_repo_auth_type" {
   default     = "oauth"
 }
 
-variable "pipeline_config_initilization_type" {
+variable "pipeline_config_initialization_type" {
   type        = string
   description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
   default     = ""
@@ -490,7 +490,7 @@ variable "issues_repo_is_private_repo" {
   default     = true
 }
 
-variable "issues_repo_initilization_type" {
+variable "issues_repo_initialization_type" {
   type        = string
   description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
   default     = ""
@@ -539,7 +539,7 @@ variable "inventory_repo_is_private_repo" {
   default     = true
 }
 
-variable "inventory_repo_initilization_type" {
+variable "inventory_repo_initialization_type" {
   type        = string
   description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
   default     = ""
@@ -588,7 +588,7 @@ variable "evidence_repo_is_private_repo" {
   default     = true
 }
 
-variable "evidence_repo_initilization_type" {
+variable "evidence_repo_initialization_type" {
   type        = string
   description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
   default     = ""
