@@ -334,6 +334,7 @@ module "pipeline_ci" {
   enable_privateworker                 = var.enable_privateworker
   enable_artifactory                   = var.enable_artifactory
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
+  peer_review_compliance               = var.peer_review_compliance
   ci_pipeline_branch                   = var.ci_pipeline_branch
   enable_devops_signing_var            = var.enable_devops_signing_var
   trigger_git_name                     = var.trigger_git_name
