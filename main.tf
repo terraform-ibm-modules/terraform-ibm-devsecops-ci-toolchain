@@ -2,40 +2,35 @@ locals {
 
   is_staging = length(regexall("^crn:v1:staging:.*$", ibm_cd_toolchain.toolchain_instance.crn)) > 0
   git_dev    = "https://dev.us-south.git.test.cloud.ibm.com"
-  git_mon01  = "https://mon01.git.cloud.ibm.com"
   git_fr2    = "https://private.eu-fr2.git.cloud.ibm.com"
   compliance_pipelines_git_server = (
     (local.is_staging) ? local.git_dev
     : (var.toolchain_region == "eu-fr2") ? local.git_fr2
     : format("https://%s.git.cloud.ibm.com", var.toolchain_region)
   )
-  # in dev/staging, compliance_pipelines_git_server is dev and clone_from_git_server is mon01
-  clone_from_git_server = (
-    (local.is_staging) ? local.git_mon01 : local.compliance_pipelines_git_server
-  )
 
   issues_source_repo_url = (
     (var.issues_source_repo_url != "") ? var.issues_source_repo_url :
     (var.issues_repo_clone_from_url != "") ? var.issues_repo_clone_from_url :
-    format("%s/open-toolchain/compliance-incident-issues.git", local.clone_from_git_server)
+    format("%s/open-toolchain/compliance-incident-issues.git", local.compliance_pipelines_git_server)
   )
 
   evidence_source_repo_url = (
     (var.evidence_source_repo_url != "") ? var.evidence_source_repo_url :
     (var.evidence_repo_clone_from_url != "") ? var.evidence_repo_clone_from_url :
-    format("%s/open-toolchain/compliance-evidence-locker.git", local.clone_from_git_server)
+    format("%s/open-toolchain/compliance-evidence-locker.git", local.compliance_pipelines_git_server)
   )
 
   inventory_source_repo_url = (
     (var.inventory_source_repo_url != "") ? var.inventory_source_repo_url :
     (var.inventory_repo_clone_from_url != "") ? var.inventory_repo_clone_from_url :
-    format("%s/open-toolchain/compliance-inventory.git", local.clone_from_git_server)
+    format("%s/open-toolchain/compliance-inventory.git", local.compliance_pipelines_git_server)
   )
 
   app_source_repo_url = (
     (var.app_repo_clone_from_url != "") ? var.app_repo_clone_from_url :
     (var.app_repo_template_url != "") ? var.app_repo_template_url :
-    format("%s/open-toolchain/hello-compliance-app.git", local.clone_from_git_server)
+    format("%s/open-toolchain/hello-compliance-app.git", local.compliance_pipelines_git_server)
   )
 
   app_repo_mode = ((length(var.app_repo_existing_url) > 0) ? "byo_app"
