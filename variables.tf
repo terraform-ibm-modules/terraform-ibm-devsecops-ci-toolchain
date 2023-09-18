@@ -64,6 +64,12 @@ variable "slack_webhook_secret_name" {
   default     = "slack-webhook"
 }
 
+variable "pipeline_git_token_secret_name" {
+  type        = string
+  description = "Name of the pipeline Git token secret in the secret provider."
+  default     = "pipeline-git-token"
+}
+
 variable "pipeline_dockerconfigjson_secret_name" {
   type        = string
   description = "Name of the dockerconfigjson secret in the secret provider."
@@ -72,37 +78,49 @@ variable "pipeline_dockerconfigjson_secret_name" {
 
 variable "pipeline_ibmcloud_api_key_secret_group" {
   type        = string
-  description = "Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "signing_key_secret_group" {
   type        = string
-  description = "Secret group prefix for the signing key secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the signing key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "cos_api_key_secret_group" {
   type        = string
-  description = "Secret group prefix for the COS API key secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the COS API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "slack_webhook_secret_group" {
   type        = string
-  description = "Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "pipeline_dockerconfigjson_secret_group" {
   type        = string
-  description = "Secret group prefix for the pipeline DockerConfigJson secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the pipeline DockerConfigJson secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
+  default     = ""
+}
+
+variable "pipeline_git_token_secret_group" {
+  type        = string
+  description = "Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "enable_pipeline_dockerconfigjson" {
   type        = bool
-  description = "Enable to add the pipeline-dockerconfigjson to the pipeline properties"
+  description = "Enable to add the pipeline-dockerconfigjson to the pipeline properties."
+  default     = false
+}
+
+variable "enable_pipeline_git_token" {
+  type        = bool
+  description = "Enable to add `git-token` to the pipeline properties."
   default     = false
 }
 
@@ -335,49 +353,49 @@ variable "compliance_pipeline_repo_git_token_secret_name" {
 
 variable "app_repo_secret_group" {
   type        = string
-  description = "Secret group prefix for the App repo secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the App repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "issues_repo_secret_group" {
   type        = string
-  description = "Secret group prefix for the Issues repo secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the Issues repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "inventory_repo_secret_group" {
   type        = string
-  description = "Secret group prefix for the Inventory repo secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the Inventory repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "evidence_repo_secret_group" {
   type        = string
-  description = "Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "compliance_pipeline_repo_secret_group" {
   type        = string
-  description = "Secret group prefix for the Compliance Pipeline repo secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the Compliance Pipeline repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "pipeline_config_repo_secret_group" {
   type        = string
-  description = "Secret group prefix for the Pipeline Config repo secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the Pipeline Config repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "privateworker_credentials_secret_group" {
   type        = string
-  description = "Secret group prefix for the Private Worker secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the Private Worker secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
 variable "artifactory_token_secret_group" {
   type        = string
-  description = "Secret group prefix for the Artifactory token secret. Defaults to `sm_secret_group` if not set. Only used for `Secrets Manager`."
+  description = "Secret group prefix for the Artifactory token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 

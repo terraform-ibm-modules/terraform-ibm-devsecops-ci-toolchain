@@ -13,6 +13,9 @@ variable "enable_privateworker" {
 variable "enable_artifactory" {
 }
 
+variable "enable_pipeline_git_token" {
+}
+
 variable "tool_artifactory" {
 }
 
@@ -29,6 +32,9 @@ variable "pipeline_ibmcloud_api_key_secret_ref" {
 }
 
 variable "pipeline_dockerconfigjson_secret_ref" {
+}
+
+variable "pipeline_git_token_secret_ref" {
 }
 
 variable "enable_pipeline_dockerconfigjson" {
