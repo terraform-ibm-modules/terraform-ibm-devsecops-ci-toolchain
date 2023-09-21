@@ -281,6 +281,8 @@ module "pipeline_ci" {
   trigger_manual_pruner_enable          = var.trigger_manual_pruner_enable
   trigger_timed_pruner_name             = var.trigger_timed_pruner_name
   trigger_timed_pruner_enable           = var.trigger_timed_pruner_enable
+  link_to_doi_toolchain                 = var.link_to_doi_toolchain
+  pipeline_doi_api_key_secret_name      = var.pipeline_doi_api_key_secret_name
   enable_pipeline_notifications         = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
 }
 

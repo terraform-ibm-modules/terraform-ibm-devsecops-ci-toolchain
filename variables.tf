@@ -861,6 +861,12 @@ variable "doi_toolchain_id" {
   default     = ""
 }
 
+variable "pipeline_doi_api_key_secret_name" {
+  type        = string
+  description = "Name of the Cloud API key secret in the secret provider to access the toolchain containing the Devops Insights instance."
+  default     = "ibmcloud-api-key"
+}
+
 variable "pipeline_debug" {
   type        = string
   description = "Set to '1' to enable debug logging"

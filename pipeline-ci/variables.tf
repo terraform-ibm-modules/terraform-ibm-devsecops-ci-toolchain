@@ -129,6 +129,12 @@ variable "doi_environment" {
 variable "doi_toolchain_id_pipeline_property" {
 }
 
+variable "pipeline_doi_api_key_secret_name" {
+}
+
+variable "link_to_doi_toolchain" {
+}
+
 variable "cra_generate_cyclonedx_format" {
 }
 
