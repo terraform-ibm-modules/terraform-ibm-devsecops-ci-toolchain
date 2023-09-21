@@ -54,7 +54,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_slack_notifications" {
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_ibmcloud_api_key" {
   name        = "ibmcloud-api-key"
   type        = "secure"
-  value       = format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", var.secret_tool)
+  value       = var.pipeline_ibmcloud_api_key_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -132,7 +132,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key_secret_name"
   count       = (var.cos_bucket_name != "") ? 1 : 0
   name        = "cos-api-key"
   type        = "secure"
-  value       = format("{vault::%s.${var.cos_api_key_secret_name}}", var.secret_tool)
+  value       = var.cos_api_key_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -179,9 +179,10 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_git_token_environment" {
+  count       = (var.enable_pipeline_git_token) ? 1 : 0
   name        = "git-token"
   type        = "secure"
-  value       = ""
+  value       = var.pipeline_git_token_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -224,7 +225,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key_secret_name"
   count       = (var.enable_devops_signing_var) ? 1 : 0
   name        = "signing-key"
   type        = "secure"
-  value       = format("{vault::%s.${var.signing_key_secret_name}}", var.secret_tool)
+  value       = var.signing_key_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -242,6 +243,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_ibm_cloud_api" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
+  count       = (var.sonarqube_config == "custom") ? 1 : 0
+  name        = "sonarqube"
+  type        = "integration"
+  value       = try(var.sonarqube_tool, "")
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
   name        = "sonarqube-config"
   type        = "text"
@@ -249,18 +258,19 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-# resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
-#   name           = "sonarqube"
-#   type           = "INTEGRATION"
-#   integration_id = ""
-#   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-# }
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_peer_review_compliance" {
+  count       = (var.peer_review_compliance == "") ? 0 : 1
+  name        = "peer-review-compliance"
+  type        = "text"
+  value       = var.peer_review_compliance
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dockerjson_config" {
   count       = (var.enable_pipeline_dockerconfigjson) ? 1 : 0
   name        = "pipeline-dockerconfigjson"
   type        = "secure"
-  value       = format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", var.secret_tool)
+  value       = var.pipeline_dockerconfigjson_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
