@@ -43,7 +43,3 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "pr_pipeline_scm_trigger_prop
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   trigger_id  = ibm_cd_tekton_pipeline_trigger.pr_pipeline_scm_trigger.trigger_id
 }
-
-output "pipeline_id" {
-  value = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-}

@@ -90,4 +90,8 @@ output "app_repo_git_id" {
   description = "The app repo Git ID."
 }
 
+output "toolchain_url" {
+  value       = ibm_cd_toolchain.toolchain_instance.ui_href
+  description = "The CI toolchain URL."
+}
 ##############################################################################

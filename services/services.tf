@@ -71,8 +71,3 @@ data "ibm_resource_instance" "secrets_manager_instance" {
   resource_group_id = data.ibm_resource_group.sm_resource_group[0].id
   location          = var.sm_location
 }
-
-output "sm_instance_guid" {
-  value       = try(data.ibm_resource_instance.secrets_manager_instance[0].guid, "")
-  description = "GUID of the Secrets Manager service instance in IBM Cloud"
-}

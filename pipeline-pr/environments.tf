@@ -1,7 +1,7 @@
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibmcloud_api_key" {
   name        = "ibmcloud-api-key"
   type        = "secure"
-  value       = format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", var.secret_tool)
+  value       = var.pipeline_ibmcloud_api_key_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
@@ -59,11 +59,13 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibm_cloud_api" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_git-token" {
+  count       = (var.enable_pipeline_git_token) ? 1 : 0
   name        = "git-token"
   type        = "secure"
-  value       = ""
+  value       = var.pipeline_git_token_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
+
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_base_image" {
   count       = (var.compliance_base_image == "") ? 0 : 1
   name        = "compliance-baseimage"
@@ -76,7 +78,7 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_dockerjson_config" {
   count       = (var.enable_pipeline_dockerconfigjson) ? 1 : 0
   name        = "pipeline-dockerconfigjson"
   type        = "secure"
-  value       = format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", var.secret_tool)
+  value       = var.pipeline_dockerconfigjson_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
