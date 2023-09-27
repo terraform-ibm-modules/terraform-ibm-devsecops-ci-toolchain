@@ -112,6 +112,12 @@ variable "pipeline_git_token_secret_group" {
   default     = ""
 }
 
+variable "pipeline_doi_api_key_secret_group" {
+  type        = string
+  description = "Secret group prefix for the pipeline DOI api key. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
+  default     = ""
+}
+
 variable "enable_pipeline_dockerconfigjson" {
   type        = bool
   description = "Enable to add the pipeline-dockerconfigjson to the pipeline properties."
