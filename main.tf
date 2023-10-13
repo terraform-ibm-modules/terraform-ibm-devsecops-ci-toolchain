@@ -130,6 +130,12 @@ locals {
     format("{vault::%s.${var.pipeline_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_git_token_secret_group))
   )
 
+  pipeline_doi_api_key_secret_ref = (
+    (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", module.integrations.secret_tool) :
+    (var.pipeline_doi_api_key_secret_group == "") ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_doi_api_key_secret_group))
+  )
+
   sonarqube_secret_ref = (
     (var.enable_key_protect) ? format("{vault::%s.${var.sonarqube_secret_name}}", module.integrations.secret_tool) :
     (var.sonarqube_secret_group == "") ? format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
@@ -358,7 +364,10 @@ module "pipeline_ci" {
   trigger_timed_pruner_name            = var.trigger_timed_pruner_name
   trigger_timed_pruner_enable          = var.trigger_timed_pruner_enable
   enable_pipeline_notifications        = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
+  pipeline_doi_api_key_secret_ref      = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref
+  link_to_doi_toolchain                = var.link_to_doi_toolchain
   sonarqube_tool                       = (module.integrations.sonarqube_tool)
+
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {

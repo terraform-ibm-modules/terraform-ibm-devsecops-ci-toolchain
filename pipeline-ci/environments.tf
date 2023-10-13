@@ -200,6 +200,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_api_key" {
+  count       = var.link_to_doi_toolchain ? 1 : 0
+  name        = "doi-ibmcloud-api-key"
+  type        = "secure"
+  value       = var.pipeline_doi_api_key_secret_ref
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cra_generate_cyclonedx_format" {
   name        = "cra-generate-cyclonedx-format"
   type        = "text"
