@@ -321,12 +321,6 @@ module "pipeline_ci" {
   issues_repo                          = module.issues_repo.repository
   cos_bucket_name                      = var.cos_bucket_name
   cos_endpoint                         = var.cos_endpoint
-  code_engine_project                  = var.code_engine_project
-  code_engine_region                   = var.code_engine_region
-  code_engine_resource_group           = var.code_engine_resource_group
-  code_engine_entity_type              = var.code_engine_entity_type
-  code_engine_build_strategy           = var.code_engine_build_strategy
-  code_engine_source                   = var.code_engine_source
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image
   pipeline_debug                       = var.pipeline_debug
