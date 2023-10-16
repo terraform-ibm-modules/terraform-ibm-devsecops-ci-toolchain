@@ -321,7 +321,6 @@ module "pipeline_ci" {
   issues_repo                          = module.issues_repo.repository
   cos_bucket_name                      = var.cos_bucket_name
   cos_endpoint                         = var.cos_endpoint
-  deployment_target                    = var.deployment_target
   code_engine_project                  = var.code_engine_project
   code_engine_region                   = var.code_engine_region
   code_engine_resource_group           = var.code_engine_resource_group

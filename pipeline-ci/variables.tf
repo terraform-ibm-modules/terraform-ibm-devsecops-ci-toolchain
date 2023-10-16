@@ -175,31 +175,6 @@ variable "ci_pipeline_max_concurrent_runs" {
   default     = 1
 }
 
-######## Deployment Strategy ##################
-
-variable "deployment_target" {
-}
-
-######## Code Engine Vars #####################
-
-variable "code_engine_project" {
-}
-
-variable "code_engine_region" {
-}
-
-variable "code_engine_resource_group" {
-}
-
-variable "code_engine_entity_type" {
-}
-
-variable "code_engine_build_strategy" {
-}
-
-variable "code_engine_source" {
-}
-
 variable "app_repo_provider_webhook_syntax" {
 }
 
