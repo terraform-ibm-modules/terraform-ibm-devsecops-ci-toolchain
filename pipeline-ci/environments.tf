@@ -282,16 +282,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dockerjson_config" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-######## Deployment Strategy ##################
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_deployment_target" {
-  count       = (var.deployment_target == "code-engine") ? 1 : 0
-  name        = "deployment-target"
-  type        = "text"
-  value       = var.deployment_target
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 ######## Code Engine Vars #####################
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_project" {
