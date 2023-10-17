@@ -318,19 +318,75 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_resource_gro
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_entity_type" {
-  count       = (var.deployment_target == "code-engine") ? 1 : 0
-  name        = "code-engine-entity-type"
-  type        = "text"
-  value       = var.code_engine_entity_type
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_build_strategy" {
   count       = (var.deployment_target == "code-engine") ? 1 : 0
   name        = "code-engine-build-strategy"
   type        = "text"
   value       = var.code_engine_build_strategy
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_use_native" {
+  count       = (var.deployment_target == "code-engine") ? 1 : 0
+  name        = "code-engine-build-use-native-docker"
+  type        = "text"
+  value       = var.code_engine_build_use_native_docker
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_build_size" {
+  count       = (var.deployment_target == "code-engine") ? 1 : 0
+  name        = "code-engine-build-size"
+  type        = "text"
+  value       = var.code_engine_build_size
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_build_timeout" {
+  count       = (var.deployment_target == "code-engine") ? 1 : 0
+  name        = "code-engine-build-timeout"
+  type        = "text"
+  value       = var.code_engine_build_timeout
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_wait_timeout" {
+  count       = (var.deployment_target == "code-engine") ? 1 : 0
+  name        = "code-engine-wait-timeout"
+  type        = "text"
+  value       = var.code_engine_wait_timeout
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_context_dir" {
+  count       = (var.deployment_target == "code-engine") ? 1 : 0
+  name        = "context-dir"
+  type        = "text"
+  value       = var.code_engine_context_dir
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_dockerfile" {
+  count       = (var.deployment_target == "code-engine") ? 1 : 0
+  name        = "dockerfile"
+  type        = "text"
+  value       = var.code_engine_dockerfile
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_image_name" {
+  count       = (var.deployment_target == "code-engine") ? 1 : 0
+  name        = "image-name"
+  type        = "text"
+  value       = var.code_engine_image_name
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_registry_domain" {
+  count       = (var.deployment_target == "code-engine") ? 1 : 0
+  name        = "registry-domain"
+  type        = "text"
+  value       = var.code_engine_registry_domain
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

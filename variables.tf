@@ -872,14 +872,14 @@ variable "deployment_target" {
 
 variable "code_engine_project" {
   type        = string
-  description = "The name of the Code Engine project to use (or create)."
+  description = "The name of the Code Engine project to use. Created if it does not exist."
   default     = "DevSecOps_CE"
 }
 
 variable "code_engine_region" {
   type        = string
   description = "The region to create/lookup for the Code Engine project."
-  default     = "ibm:yp:us-south"
+  default     = "us-south"
 }
 
 variable "code_engine_resource_group" {
@@ -888,24 +888,66 @@ variable "code_engine_resource_group" {
   default     = "Default"
 }
 
-variable "code_engine_entity_type" {
+variable "code_engine_build_strategy" {
   type        = string
-  description = "Type of Code Engine entity to create/update as part of deployment. Default type is 'application'. Set as 'job' for 'job' type."
+  description = "The build strategy for the Code Engine component. It can be `dockerfile` or `buildpacks`."
+  default     = "dockerfile"
+}
+
+variable "code_engine_build_use_native_docker" {
+  type        = string
+  description = "Property to opt-in for using native docker build capabilities as opposed to use Code Engine build to containerize the source. Note this setting only takes effect if the build-strategy is set to `dockerfile`. Valid values are `true` and `false`."
+  default     = "false"
+}
+
+variable "code_engine_build_size" {
+  type        = string
+  description = "The size to use for the build, which determines the amount of resources used. Valid values include `small`, `medium`, `large`, `xlarge`."
+  default     = "large"
+}
+
+variable "code_engine_build_timeout" {
+  type        = string
+  description = "The amount of time, in seconds, that can pass before the build run must succeed or fail."
+  default     = "1200"
+}
+
+variable "code_engine_wait_timeout" {
+  type        = string
+  description = "The maximum timeout for the CLI operation to wait."
+  default     = "1300"
+}
+
+variable "code_engine_context_dir" {
+  type        = string
+  description = "The directory in the repository that contains the buildpacks file or the Dockerfile."
+  default     = "."
+}
+
+variable "code_engine_dockerfile" {
+  type        = string
+  description = "The path to the `Dockerfile`. Specify this option only if the name is other than `Dockerfile`"
+  default     = "Dockerfile"
+}
+
+variable "code_engine_image_name" {
+  type        = string
+  description = "Name of the image that is built."
   default     = ""
 }
 
-variable "code_engine_build_strategy" {
+variable "code_engine_registry_domain" {
   type        = string
-  description = "The build strategy for the Code Engine entity. Default strategy is 'dockerfile'. Set as 'buildpacks' for 'buildpacks' build."
+  description = "The container registry URL domain that is used to build and tag the image. Useful when using private-endpoint container registry."
   default     = ""
 }
 
 variable "code_engine_source" {
   type        = string
-  description = "The path to the location of code to build in the repository."
+  description = "The path to the location of code to build in the repository. Defaults to the root of source code repository."
   default     = ""
 }
-
+############# End Code Engine ########################
 variable "compliance_base_image" {
   type        = string
   description = "Pipeline baseimage to run most of the built-in pipeline code."

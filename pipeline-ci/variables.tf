@@ -191,10 +191,31 @@ variable "code_engine_region" {
 variable "code_engine_resource_group" {
 }
 
-variable "code_engine_entity_type" {
+variable "code_engine_build_strategy" {
 }
 
-variable "code_engine_build_strategy" {
+variable "code_engine_build_use_native_docker" {
+}
+
+variable "code_engine_build_size" {
+}
+
+variable "code_engine_build_timeout" {
+}
+
+variable "code_engine_wait_timeout" {
+}
+
+variable "code_engine_context_dir" {
+}
+
+variable "code_engine_dockerfile" {
+}
+
+variable "code_engine_image_name" {
+}
+
+variable "code_engine_registry_domain" {
 }
 
 variable "code_engine_source" {

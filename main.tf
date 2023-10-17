@@ -325,8 +325,15 @@ module "pipeline_ci" {
   code_engine_project                  = var.code_engine_project
   code_engine_region                   = var.code_engine_region
   code_engine_resource_group           = var.code_engine_resource_group
-  code_engine_entity_type              = var.code_engine_entity_type
   code_engine_build_strategy           = var.code_engine_build_strategy
+  code_engine_build_use_native_docker  = var.code_engine_build_use_native_docker
+  code_engine_build_size               = var.code_engine_build_size
+  code_engine_build_timeout            = var.code_engine_build_timeout
+  code_engine_wait_timeout             = var.code_engine_wait_timeout
+  code_engine_context_dir              = var.code_engine_context_dir
+  code_engine_dockerfile               = var.code_engine_dockerfile
+  code_engine_image_name               = var.code_engine_image_name
+  code_engine_registry_domain          = var.code_engine_registry_domain
   code_engine_source                   = var.code_engine_source
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image
