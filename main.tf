@@ -484,6 +484,8 @@ module "integrations" {
   sonarqube_secret_ref                 = local.sonarqube_secret_ref
   sonarqube_is_blind_connection        = var.sonarqube_is_blind_connection
   sonarqube_server_url                 = var.sonarqube_server_url
+  enable_insights                      = var.enable_insights
+  enable_cos                           = var.enable_cos
 }
 
 module "services" {

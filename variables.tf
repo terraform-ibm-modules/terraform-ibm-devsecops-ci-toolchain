@@ -860,6 +860,19 @@ variable "slack_integration_name" {
   description = "The name of the Slack integration."
   default     = "slack-compliance"
 }
+
+variable "enable_cos" {
+  type        = bool
+  description = "Set to `true` to enable the COS integration."
+  default     = true
+}
+
+variable "enable_insights" {
+  type        = bool
+  description = "Set to `true` to enable the DevOps Insights integration."
+  default     = true
+}
+
 ######## Deployment Strategy ##################
 
 variable "deployment_target" {
