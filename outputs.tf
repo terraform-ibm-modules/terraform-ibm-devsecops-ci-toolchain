@@ -23,7 +23,7 @@ output "ci_pipeline_id" {
 }
 
 output "pr_pipeline_id" {
-  value       = module.pipeline_pr.pipeline_id
+  value       = try(module.pipeline_pr[0].pipeline_id, "")
   description = "The PR pipeline ID."
 }
 
