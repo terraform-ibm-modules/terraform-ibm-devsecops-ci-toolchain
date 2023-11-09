@@ -873,10 +873,10 @@ variable "enable_insights" {
   default     = true
 }
 
-variable "ci_pipeline_name" {
-  type        = string
-  description = "Set the name of the CI pipeline."
-  default     = "ci-pipeline"
+variable "enable_ci_pipeline" {
+  type        = bool
+  description = "Set to `true` to enable the CI pipeline."
+  default     = true
 }
 
 variable "enable_pr_pipeline" {
