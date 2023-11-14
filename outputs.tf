@@ -37,6 +37,11 @@ output "secret_tool_v1" {
   description = "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
 }
 
+output "private_worker_id" {
+  value       = module.integrations.private_worker
+  description = "The ID of the pipeline worker."
+}
+
 output "inventory_repo_url" {
   value       = module.inventory_repo.repository_url
   description = "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
