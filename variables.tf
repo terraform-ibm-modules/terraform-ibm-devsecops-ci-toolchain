@@ -1107,13 +1107,13 @@ variable "pipeline_config_group" {
 variable "ci_pipeline_branch" {
   type        = string
   description = "The branch within ci pipeline definitions repository for Compliance CI Toolchain."
-  default     = "open-v9"
+  default     = "open-v10"
 }
 
 variable "pr_pipeline_branch" {
   type        = string
   description = "The branch within pr pipeline definitions repository for Compliance CI Toolchain."
-  default     = "open-v9"
+  default     = "open-v10"
 }
 variable "compliance_pipeline_group" {
   type        = string
@@ -1297,7 +1297,7 @@ variable "enable_devops_signing_var" {
 variable "peer_review_compliance" {
   type        = string
   description = "Set to `1` to enable peer review."
-  default     = ""
+  default     = "1"
 }
 
 ######SonarQube ############################
