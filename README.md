@@ -32,8 +32,7 @@ module "terraform_devsecops_ci" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.57.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.59.0 |
 
 ### Modules
 
@@ -54,10 +53,10 @@ module "terraform_devsecops_ci" {
 
 | Name | Type |
 |------|------|
-| [ibm_cd_toolchain.toolchain_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain) | resource |
-| [ibm_cd_toolchain_tool_pipeline.ci_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain_tool_pipeline) | resource |
-| [ibm_cd_toolchain_tool_pipeline.pr_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain_tool_pipeline) | resource |
-| [ibm_resource_group.resource_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
+| [ibm_cd_toolchain.toolchain_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/resources/cd_toolchain) | resource |
+| [ibm_cd_toolchain_tool_pipeline.ci_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/resources/cd_toolchain_tool_pipeline) | resource |
+| [ibm_cd_toolchain_tool_pipeline.pr_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/resources/cd_toolchain_tool_pipeline) | resource |
+| [ibm_resource_group.resource_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/data-sources/resource_group) | data source |
 
 ### Inputs
 
@@ -95,12 +94,37 @@ module "terraform_devsecops_ci" {
 | <a name="input_ci_pipeline_branch"></a> [ci\_pipeline\_branch](#input\_ci\_pipeline\_branch) | The branch within ci pipeline definitions repository for Compliance CI Toolchain. | `string` | `"open-v9"` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the Kubernetes cluster where the application will be deployed. | `string` | `"mycluster-free"` | no |
 | <a name="input_cluster_namespace"></a> [cluster\_namespace](#input\_cluster\_namespace) | Namespace of the Kubernetes cluster where the application will be deployed. | `string` | `"default"` | no |
-| <a name="input_code_engine_build_strategy"></a> [code\_engine\_build\_strategy](#input\_code\_engine\_build\_strategy) | The build strategy for the Code Engine entity. Default strategy is 'dockerfile'. Set as 'buildpacks' for 'buildpacks' build. | `string` | `""` | no |
-| <a name="input_code_engine_entity_type"></a> [code\_engine\_entity\_type](#input\_code\_engine\_entity\_type) | Type of Code Engine entity to create/update as part of deployment. Default type is 'application'. Set as 'job' for 'job' type. | `string` | `""` | no |
-| <a name="input_code_engine_project"></a> [code\_engine\_project](#input\_code\_engine\_project) | The name of the Code Engine project to use (or create). | `string` | `"DevSecOps_CE"` | no |
-| <a name="input_code_engine_region"></a> [code\_engine\_region](#input\_code\_engine\_region) | The region to create/lookup for the Code Engine project. | `string` | `"ibm:yp:us-south"` | no |
+| <a name="input_code_engine_app_concurrency"></a> [code\_engine\_app\_concurrency](#input\_code\_engine\_app\_concurrency) | The maximum number of requests that can be processed concurrently per instance. | `string` | `"100"` | no |
+| <a name="input_code_engine_app_deployment_timeout"></a> [code\_engine\_app\_deployment\_timeout](#input\_code\_engine\_app\_deployment\_timeout) | The maximum timeout for the application deployment. | `string` | `"300"` | no |
+| <a name="input_code_engine_app_max_scale"></a> [code\_engine\_app\_max\_scale](#input\_code\_engine\_app\_max\_scale) | The maximum number of instances that can be used for this application. If you set this value to 0, the application scales as needed. The application scaling is limited only by the instances per the resource quota for the project of your application. | `string` | `"1"` | no |
+| <a name="input_code_engine_app_min_scale"></a> [code\_engine\_app\_min\_scale](#input\_code\_engine\_app\_min\_scale) | The minimum number of instances that can be used for this application. This option is useful to ensure that no instances are running when not needed. | `string` | `"0"` | no |
+| <a name="input_code_engine_app_port"></a> [code\_engine\_app\_port](#input\_code\_engine\_app\_port) | The port where the application listens. The format is `[NAME:]PORT`, where `[NAME:]` is optional. If `[NAME:]` is specified, valid values are `h2c`, or `http1`. When `[NAME:]` is not specified or is `http1`, the port uses `HTTP/1.1`. When `[NAME:]` is `h2c`, the port uses unencrypted `HTTP/2`. | `string` | `"8080"` | no |
+| <a name="input_code_engine_app_visibility"></a> [code\_engine\_app\_visibility](#input\_code\_engine\_app\_visibility) | The visibility for the application. Valid values are public, private and project. Setting a visibility of public means that your app can receive requests from the public internet or from components within the Code Engine project. Setting a visibility of private means that your app is not accessible from the public internet and network access is only possible from other IBM Cloud using Virtual Private Endpoints (VPE) or Code Engine components that are running in the same project. Visibility can only be private if the project supports application private visibility. Setting a visibility of project means that your app is not accessible from the public internet and network access is only possible from other Code Engine components that are running in the same project. | `string` | `"public"` | no |
+| <a name="input_code_engine_binding_resource_group"></a> [code\_engine\_binding\_resource\_group](#input\_code\_engine\_binding\_resource\_group) | The name of a resource group to use for authentication for the service bindings of the Code Engine project. A service ID is created with Operator and Manager roles for all services in this resource group. Use '*' to specify all resource groups in this account. | `string` | `""` | no |
+| <a name="input_code_engine_build_size"></a> [code\_engine\_build\_size](#input\_code\_engine\_build\_size) | The size to use for the build, which determines the amount of resources used. Valid values include `small`, `medium`, `large`, `xlarge`. | `string` | `"large"` | no |
+| <a name="input_code_engine_build_strategy"></a> [code\_engine\_build\_strategy](#input\_code\_engine\_build\_strategy) | The build strategy for the Code Engine component. It can be `dockerfile` or `buildpacks`. | `string` | `"dockerfile"` | no |
+| <a name="input_code_engine_build_timeout"></a> [code\_engine\_build\_timeout](#input\_code\_engine\_build\_timeout) | The amount of time, in seconds, that can pass before the build run must succeed or fail. | `string` | `"1200"` | no |
+| <a name="input_code_engine_build_use_native_docker"></a> [code\_engine\_build\_use\_native\_docker](#input\_code\_engine\_build\_use\_native\_docker) | Property to opt-in for using native docker build capabilities as opposed to use Code Engine build to containerize the source. Note this setting only takes effect if the build-strategy is set to `dockerfile`. Valid values are `true` and `false`. | `string` | `"false"` | no |
+| <a name="input_code_engine_context_dir"></a> [code\_engine\_context\_dir](#input\_code\_engine\_context\_dir) | The directory in the repository that contains the buildpacks file or the Dockerfile. | `string` | `"."` | no |
+| <a name="input_code_engine_cpu"></a> [code\_engine\_cpu](#input\_code\_engine\_cpu) | The amount of CPU set for the instance of the application or job. | `string` | `"0.25"` | no |
+| <a name="input_code_engine_deployment_type"></a> [code\_engine\_deployment\_type](#input\_code\_engine\_deployment\_type) | type of Code Engine component to create/update as part of deployment. It can be either `application` or `job`. | `string` | `"application"` | no |
+| <a name="input_code_engine_dockerfile"></a> [code\_engine\_dockerfile](#input\_code\_engine\_dockerfile) | The path to the `Dockerfile`. Specify this option only if the name is other than `Dockerfile` | `string` | `"Dockerfile"` | no |
+| <a name="input_code_engine_env_from_configmaps"></a> [code\_engine\_env\_from\_configmaps](#input\_code\_engine\_env\_from\_configmaps) | Semi-colon separated list of configmaps to set environment variables. | `string` | `""` | no |
+| <a name="input_code_engine_env_from_secrets"></a> [code\_engine\_env\_from\_secrets](#input\_code\_engine\_env\_from\_secrets) | Semi-colon separated list of secrets to set environment variables. | `string` | `""` | no |
+| <a name="input_code_engine_ephemeral_storage"></a> [code\_engine\_ephemeral\_storage](#input\_code\_engine\_ephemeral\_storage) | The amount of ephemeral storage to set for the instance of the application or for the runs of the job. Use M for megabytes or G for gigabytes. | `string` | `"0.4G"` | no |
+| <a name="input_code_engine_image_name"></a> [code\_engine\_image\_name](#input\_code\_engine\_image\_name) | Name of the image that is built. | `string` | `""` | no |
+| <a name="input_code_engine_job_instances"></a> [code\_engine\_job\_instances](#input\_code\_engine\_job\_instances) | Specifies the number of instances that are used for runs of the job. When you use this option, the system converts to array indices. For example, if you specify instances of 5, the system converts to array-indices of 0 - 4. This option can only be specified if the --array-indices option is not specified. The default value is 1. | `string` | `"1"` | no |
+| <a name="input_code_engine_job_maxexecutiontime"></a> [code\_engine\_job\_maxexecutiontime](#input\_code\_engine\_job\_maxexecutiontime) | The maximum execution time in seconds for runs of the job. | `string` | `"7200"` | no |
+| <a name="input_code_engine_job_retrylimit"></a> [code\_engine\_job\_retrylimit](#input\_code\_engine\_job\_retrylimit) | The number of times to rerun an instance of the job before the job is marked as failed. | `string` | `"3"` | no |
+| <a name="input_code_engine_memory"></a> [code\_engine\_memory](#input\_code\_engine\_memory) | The amount of memory set for the instance of the application or job. Use M for megabytes or G for gigabytes. | `string` | `"0.5G"` | no |
+| <a name="input_code_engine_project"></a> [code\_engine\_project](#input\_code\_engine\_project) | The name of the Code Engine project to use. Created if it does not exist. | `string` | `"DevSecOps_CE"` | no |
+| <a name="input_code_engine_region"></a> [code\_engine\_region](#input\_code\_engine\_region) | The region to create/lookup for the Code Engine project. | `string` | `"us-south"` | no |
+| <a name="input_code_engine_registry_domain"></a> [code\_engine\_registry\_domain](#input\_code\_engine\_registry\_domain) | The container registry URL domain that is used to build and tag the image. Useful when using private-endpoint container registry. | `string` | `""` | no |
+| <a name="input_code_engine_remove_refs"></a> [code\_engine\_remove\_refs](#input\_code\_engine\_remove\_refs) | Remove references to unspecified configuration resources (configmap/secret) references (pulled from env-from-configmaps, env-from-secrets along with auto-managed by CD). | `string` | `"false"` | no |
 | <a name="input_code_engine_resource_group"></a> [code\_engine\_resource\_group](#input\_code\_engine\_resource\_group) | The resource group of the Code Engine project. | `string` | `"Default"` | no |
-| <a name="input_code_engine_source"></a> [code\_engine\_source](#input\_code\_engine\_source) | The path to the location of code to build in the repository. | `string` | `""` | no |
+| <a name="input_code_engine_service_bindings"></a> [code\_engine\_service\_bindings](#input\_code\_engine\_service\_bindings) | JSON array including service name(s) (as a simple JSON string. | `string` | `""` | no |
+| <a name="input_code_engine_source"></a> [code\_engine\_source](#input\_code\_engine\_source) | The path to the location of code to build in the repository. Defaults to the root of source code repository. | `string` | `""` | no |
+| <a name="input_code_engine_wait_timeout"></a> [code\_engine\_wait\_timeout](#input\_code\_engine\_wait\_timeout) | The maximum timeout for the CLI operation to wait. | `string` | `"1300"` | no |
 | <a name="input_compliance_base_image"></a> [compliance\_base\_image](#input\_compliance\_base\_image) | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` | no |
 | <a name="input_compliance_pipeline_group"></a> [compliance\_pipeline\_group](#input\_compliance\_pipeline\_group) | Specify Git user/group for your compliance pipeline repo. | `string` | `""` | no |
 | <a name="input_compliance_pipeline_repo_auth_type"></a> [compliance\_pipeline\_repo\_auth\_type](#input\_compliance\_pipeline\_repo\_auth\_type) | Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat' | `string` | `"oauth"` | no |
@@ -125,7 +149,9 @@ module "terraform_devsecops_ci" {
 | <a name="input_doi_toolchain_id"></a> [doi\_toolchain\_id](#input\_doi\_toolchain\_id) | DevOps Insights Toolchain ID to link to. | `string` | `""` | no |
 | <a name="input_doi_toolchain_id_pipeline_property"></a> [doi\_toolchain\_id\_pipeline\_property](#input\_doi\_toolchain\_id\_pipeline\_property) | The DevOps Insights instance toolchain ID. | `string` | `""` | no |
 | <a name="input_enable_artifactory"></a> [enable\_artifactory](#input\_enable\_artifactory) | Set true to enable artifacory for devsecops. | `bool` | `false` | no |
+| <a name="input_enable_cos"></a> [enable\_cos](#input\_enable\_cos) | Set to `true` to enable the COS integration. | `bool` | `true` | no |
 | <a name="input_enable_devops_signing_var"></a> [enable\_devops\_signing\_var](#input\_enable\_devops\_signing\_var) | Set to `true` to show the `signing-key` pipeline variable | `string` | `true` | no |
+| <a name="input_enable_insights"></a> [enable\_insights](#input\_enable\_insights) | Set to `true` to enable the DevOps Insights integration. | `bool` | `true` | no |
 | <a name="input_enable_key_protect"></a> [enable\_key\_protect](#input\_enable\_key\_protect) | Set to enable Key Protect Integration. | `bool` | `false` | no |
 | <a name="input_enable_pipeline_dockerconfigjson"></a> [enable\_pipeline\_dockerconfigjson](#input\_enable\_pipeline\_dockerconfigjson) | Enable to add the pipeline-dockerconfigjson to the pipeline properties. | `bool` | `false` | no |
 | <a name="input_enable_pipeline_git_token"></a> [enable\_pipeline\_git\_token](#input\_enable\_pipeline\_git\_token) | Enable to add `git-token` to the pipeline properties. | `bool` | `false` | no |
@@ -211,7 +237,7 @@ module "terraform_devsecops_ci" {
 | <a name="input_pipeline_dockerconfigjson_secret_group"></a> [pipeline\_dockerconfigjson\_secret\_group](#input\_pipeline\_dockerconfigjson\_secret\_group) | Secret group prefix for the pipeline DockerConfigJson secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` | no |
 | <a name="input_pipeline_dockerconfigjson_secret_name"></a> [pipeline\_dockerconfigjson\_secret\_name](#input\_pipeline\_dockerconfigjson\_secret\_name) | Name of the dockerconfigjson secret in the secret provider. | `string` | `"pipeline-dockerconfigjson"` | no |
 | <a name="input_pipeline_doi_api_key_secret_group"></a> [pipeline\_doi\_api\_key\_secret\_group](#input\_pipeline\_doi\_api\_key\_secret\_group) | Secret group prefix for the pipeline DOI api key. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` | no |
-| <a name="input_pipeline_doi_api_key_secret_name"></a> [pipeline\_doi\_api\_key\_secret\_name](#input\_pipeline\_doi\_api\_key\_secret\_name) | Name of the Cloud API key secret in the secret provider to access the toolchain containing the Devops Insights instance. | `string` | `"ibmcloud-api-key"` | no |
+| <a name="input_pipeline_doi_api_key_secret_name"></a> [pipeline\_doi\_api\_key\_secret\_name](#input\_pipeline\_doi\_api\_key\_secret\_name) | Name of the Cloud API key secret in the secret provider to access the toolchain containing the Devops Insights instance. | `string` | `""` | no |
 | <a name="input_pipeline_git_token_secret_group"></a> [pipeline\_git\_token\_secret\_group](#input\_pipeline\_git\_token\_secret\_group) | Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` | no |
 | <a name="input_pipeline_git_token_secret_name"></a> [pipeline\_git\_token\_secret\_name](#input\_pipeline\_git\_token\_secret\_name) | Name of the pipeline Git token secret in the secret provider. | `string` | `"pipeline-git-token"` | no |
 | <a name="input_pipeline_ibmcloud_api_key_secret_group"></a> [pipeline\_ibmcloud\_api\_key\_secret\_group](#input\_pipeline\_ibmcloud\_api\_key\_secret\_group) | Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` | no |
@@ -244,6 +270,7 @@ module "terraform_devsecops_ci" {
 | <a name="input_sonarqube_config"></a> [sonarqube\_config](#input\_sonarqube\_config) | Runs a SonarQube scan in an isolated Docker-in-Docker container (default configuration) or in an existing Kubernetes cluster (custom configuration). Options: default or custom. | `string` | `"default"` | no |
 | <a name="input_sonarqube_integration_name"></a> [sonarqube\_integration\_name](#input\_sonarqube\_integration\_name) | The name of the SonarQube integration. | `string` | `"SonarQube"` | no |
 | <a name="input_sonarqube_is_blind_connection"></a> [sonarqube\_is\_blind\_connection](#input\_sonarqube\_is\_blind\_connection) | When set to `true`, instructs IBM Cloud Continuous Delivery to not validate the configuration of this integration. Set this to true if the SonarQube server is not addressable on the public internet. | `string` | `true` | no |
+| <a name="input_sonarqube_secret_group"></a> [sonarqube\_secret\_group](#input\_sonarqube\_secret\_group) | Secret group prefix for the SonarQube secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` | no |
 | <a name="input_sonarqube_secret_name"></a> [sonarqube\_secret\_name](#input\_sonarqube\_secret\_name) | The name of the SonarQube secret. | `string` | `"sonarqube-secret"` | no |
 | <a name="input_sonarqube_server_url"></a> [sonarqube\_server\_url](#input\_sonarqube\_server\_url) | The URL to the SonarQube server. | `string` | `""` | no |
 | <a name="input_sonarqube_user"></a> [sonarqube\_user](#input\_sonarqube\_user) | The name of the SonarQube user. | `string` | `""` | no |
@@ -284,6 +311,7 @@ module "terraform_devsecops_ci" {
 | <a name="output_pipeline_repo_url"></a> [pipeline\_repo\_url](#output\_pipeline\_repo\_url) | This repository URL contains the tekton definitions for compliance pipelines. |
 | <a name="output_pr_pipeline_id"></a> [pr\_pipeline\_id](#output\_pr\_pipeline\_id) | The PR pipeline ID. |
 | <a name="output_secret_tool"></a> [secret\_tool](#output\_secret\_tool) | The secret tool. |
+| <a name="output_secret_tool_v1"></a> [secret\_tool\_v1](#output\_secret\_tool\_v1) | The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name. |
 | <a name="output_secrets_manager_instance_id"></a> [secrets\_manager\_instance\_id](#output\_secrets\_manager\_instance\_id) | The Secrets Manager instance ID. |
 | <a name="output_toolchain_id"></a> [toolchain\_id](#output\_toolchain\_id) | The CI toolchain ID. |
 | <a name="output_toolchain_url"></a> [toolchain\_url](#output\_toolchain\_url) | The CI toolchain URL. |

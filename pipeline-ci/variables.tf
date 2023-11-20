@@ -191,13 +191,88 @@ variable "code_engine_region" {
 variable "code_engine_resource_group" {
 }
 
-variable "code_engine_entity_type" {
-}
-
 variable "code_engine_build_strategy" {
 }
 
+variable "code_engine_build_use_native_docker" {
+}
+
+variable "code_engine_build_size" {
+}
+
+variable "code_engine_build_timeout" {
+}
+
+variable "code_engine_wait_timeout" {
+}
+
+variable "code_engine_context_dir" {
+}
+
+variable "code_engine_dockerfile" {
+}
+
+variable "code_engine_image_name" {
+}
+
+variable "code_engine_registry_domain" {
+}
+
 variable "code_engine_source" {
+}
+
+variable "code_engine_binding_resource_group" {
+}
+
+variable "code_engine_deployment_type" {
+}
+
+variable "code_engine_cpu" {
+}
+
+variable "code_engine_memory" {
+}
+
+variable "code_engine_ephemeral_storage" {
+}
+
+variable "code_engine_job_maxexecutiontime" {
+}
+
+variable "code_engine_job_retrylimit" {
+}
+
+variable "code_engine_job_instances" {
+}
+
+variable "code_engine_app_port" {
+}
+
+variable "code_engine_app_min_scale" {
+}
+
+variable "code_engine_app_max_scale" {
+}
+
+variable "code_engine_app_deployment_timeout" {
+}
+
+variable "code_engine_app_concurrency" {
+}
+
+variable "code_engine_app_visibility" {
+}
+
+variable "code_engine_env_from_configmaps" {
+}
+
+variable "code_engine_env_from_secrets" {
+}
+
+variable "code_engine_remove_refs" {
+}
+
+variable "code_engine_service_bindings" {
 }
 
 variable "app_repo_provider_webhook_syntax" {

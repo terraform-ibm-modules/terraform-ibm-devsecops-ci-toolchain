@@ -18,18 +18,28 @@ output "key_protect_instance_id" {
 }
 
 output "ci_pipeline_id" {
-  value       = module.pipeline_ci.pipeline_id
+  value       = try(module.pipeline_ci[0].pipeline_id, "")
   description = "The CI pipeline ID."
 }
 
 output "pr_pipeline_id" {
-  value       = module.pipeline_pr.pipeline_id
+  value       = try(module.pipeline_pr[0].pipeline_id, "")
   description = "The PR pipeline ID."
 }
 
 output "secret_tool" {
   value       = module.integrations.secret_tool
   description = "The secret tool."
+}
+
+output "secret_tool_v1" {
+  value       = module.integrations.secret_tool_v1
+  description = "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
+}
+
+output "private_worker_id" {
+  value       = module.integrations.private_worker
+  description = "The ID of the pipeline worker."
 }
 
 output "inventory_repo_url" {

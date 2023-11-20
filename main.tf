@@ -281,6 +281,7 @@ module "app_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
+  count        = (var.enable_ci_pipeline) ? 1 : 0
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "ci-pipeline"
@@ -288,12 +289,13 @@ resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
 }
 
 module "pipeline_ci" {
+  count      = (var.enable_ci_pipeline) ? 1 : 0
   source     = "./pipeline-ci"
   depends_on = [module.integrations, module.services]
 
   ibmcloud_api                         = var.ibmcloud_api
   ibmcloud_api_key                     = var.ibmcloud_api_key
-  pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
+  pipeline_id                          = try(split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline[0].id)[1], "")
   app_name                             = var.app_name
   cluster_name                         = var.cluster_name
   cluster_namespace                    = var.cluster_namespace
@@ -325,9 +327,34 @@ module "pipeline_ci" {
   code_engine_project                  = var.code_engine_project
   code_engine_region                   = var.code_engine_region
   code_engine_resource_group           = var.code_engine_resource_group
-  code_engine_entity_type              = var.code_engine_entity_type
   code_engine_build_strategy           = var.code_engine_build_strategy
+  code_engine_build_use_native_docker  = var.code_engine_build_use_native_docker
+  code_engine_build_size               = var.code_engine_build_size
+  code_engine_build_timeout            = var.code_engine_build_timeout
+  code_engine_wait_timeout             = var.code_engine_wait_timeout
+  code_engine_context_dir              = var.code_engine_context_dir
+  code_engine_dockerfile               = var.code_engine_dockerfile
+  code_engine_image_name               = var.code_engine_image_name
+  code_engine_registry_domain          = var.code_engine_registry_domain
   code_engine_source                   = var.code_engine_source
+  code_engine_binding_resource_group   = var.code_engine_binding_resource_group
+  code_engine_deployment_type          = var.code_engine_deployment_type
+  code_engine_cpu                      = var.code_engine_cpu
+  code_engine_memory                   = var.code_engine_memory
+  code_engine_ephemeral_storage        = var.code_engine_ephemeral_storage
+  code_engine_job_maxexecutiontime     = var.code_engine_job_maxexecutiontime
+  code_engine_job_retrylimit           = var.code_engine_job_retrylimit
+  code_engine_job_instances            = var.code_engine_job_instances
+  code_engine_app_port                 = var.code_engine_app_port
+  code_engine_app_min_scale            = var.code_engine_app_min_scale
+  code_engine_app_max_scale            = var.code_engine_app_max_scale
+  code_engine_app_deployment_timeout   = var.code_engine_app_deployment_timeout
+  code_engine_app_concurrency          = var.code_engine_app_concurrency
+  code_engine_app_visibility           = var.code_engine_app_visibility
+  code_engine_env_from_configmaps      = var.code_engine_env_from_configmaps
+  code_engine_env_from_secrets         = var.code_engine_env_from_secrets
+  code_engine_remove_refs              = var.code_engine_remove_refs
+  code_engine_service_bindings         = var.code_engine_service_bindings
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image
   pipeline_debug                       = var.pipeline_debug
@@ -371,6 +398,7 @@ module "pipeline_ci" {
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
+  count        = (var.enable_pr_pipeline) ? 1 : 0
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "pr-pipeline"
@@ -378,13 +406,14 @@ resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
 }
 
 module "pipeline_pr" {
+  count      = (var.enable_pr_pipeline) ? 1 : 0
   source     = "./pipeline-pr"
   depends_on = [module.integrations, module.services]
 
   ibmcloud_api                         = var.ibmcloud_api
   ibmcloud_api_key                     = var.ibmcloud_api_key
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
-  pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
+  pipeline_id                          = try(split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline[0].id)[1], "")
   app_name                             = var.app_name
   app_repo_url                         = module.app_repo.repository_url
   app_repo_branch                      = local.app_repo_branch
@@ -459,6 +488,8 @@ module "integrations" {
   sonarqube_secret_ref                 = local.sonarqube_secret_ref
   sonarqube_is_blind_connection        = var.sonarqube_is_blind_connection
   sonarqube_server_url                 = var.sonarqube_server_url
+  enable_insights                      = var.enable_insights
+  enable_cos                           = var.enable_cos
 }
 
 module "services" {

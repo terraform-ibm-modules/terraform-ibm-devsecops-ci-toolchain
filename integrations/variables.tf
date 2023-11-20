@@ -135,3 +135,9 @@ variable "sonarqube_is_blind_connection" {
 
 variable "sonarqube_server_url" {
 }
+
+variable "enable_insights" {
+}
+
+variable "enable_cos" {
+}
