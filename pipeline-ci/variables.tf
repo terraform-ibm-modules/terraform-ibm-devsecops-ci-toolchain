@@ -160,7 +160,7 @@ variable "slack_notifications" {
 variable "ci_pipeline_branch" {
   type        = string
   description = "The branch within pipeline definitions repository for Compliance CI Toolchain."
-  default     = "open-v9"
+  default     = "open-v10"
 }
 
 variable "pipeline_path" {

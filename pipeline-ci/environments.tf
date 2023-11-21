@@ -267,7 +267,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_peer_review_compliance" {
-  count       = (var.peer_review_compliance == "") ? 0 : 1
   name        = "peer-review-compliance"
   type        = "text"
   value       = var.peer_review_compliance
