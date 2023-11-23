@@ -262,6 +262,12 @@ variable "app_repo_initialization_type" {
   default     = ""
 }
 
+variable "enable_app_repo" {
+  type        = bool
+  description = "Option to diable the default application repository."
+  default     = true
+}
+
 variable "pipeline_config_repo_existing_url" {
   type        = string
   description = "Specify a repository containing a custom pipeline-config.yaml file"

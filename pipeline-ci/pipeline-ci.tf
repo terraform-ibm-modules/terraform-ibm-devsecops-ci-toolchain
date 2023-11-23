@@ -21,6 +21,7 @@ resource "ibm_cd_tekton_pipeline_definition" "ci_pipeline_definition" {
 ############ GIT Trigger #############################################
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
+  count       = (var.enable_app_repo) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "scm"
   name        = var.trigger_git_name
@@ -39,16 +40,18 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_scm_trigger_property_app_name" {
+  count       = (var.enable_app_repo) ? 1 : 0
   name        = "app-name"
   type        = "text"
   value       = var.app_name
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_scm_trigger.trigger_id
+  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_scm_trigger[0].trigger_id
 }
 
 ########### Timed Trigger ###################################################
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
+  count       = (var.enable_app_repo) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "timer"
   name        = var.trigger_timed_name
@@ -61,16 +64,18 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_trigger_property_app_name" {
+  count       = (var.enable_app_repo) ? 1 : 0
   name        = "app-name"
   type        = "text"
   value       = var.app_name
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_timed_trigger.trigger_id
+  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_timed_trigger[0].trigger_id
 }
 
 ############ Manual Trigger ################################################
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
+  count       = (var.enable_app_repo) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "manual"
   name        = var.trigger_manual_name
@@ -81,27 +86,30 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_app_name" {
+  count       = (var.enable_app_repo) ? 1 : 0
   name        = "app-name"
   type        = "text"
   value       = var.app_name
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
+  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger[0].trigger_id
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_repository" {
+  count       = (var.enable_app_repo) ? 1 : 0
   name        = "repository"
   type        = "text"
   value       = var.app_repo_url
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
+  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger[0].trigger_id
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_branch" {
+  count       = (var.enable_app_repo) ? 1 : 0
   name        = "branch"
   type        = "text"
   value       = var.app_repo_branch
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger.trigger_id
+  trigger_id  = ibm_cd_tekton_pipeline_trigger.ci_pipeline_manual_trigger[0].trigger_id
 }
 
 

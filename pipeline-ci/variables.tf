@@ -67,6 +67,9 @@ variable "app_repo_url" {
 variable "app_repo_branch" {
 }
 
+variable "enable_app_repo" {
+}
+
 variable "cos_bucket_name" {
 }
 

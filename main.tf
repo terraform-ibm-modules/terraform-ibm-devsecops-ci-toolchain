@@ -261,6 +261,7 @@ module "pipeline_config_repo" {
 
 module "app_repo" {
   source                = "./repos"
+  count                 = (var.enable_app_repo) ? 1 : 0
   depends_on            = [module.integrations]
   tool_name             = "app-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
@@ -307,8 +308,9 @@ module "pipeline_ci" {
   cos_api_key_secret_ref               = local.cos_secret_ref
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
   pipeline_git_token_secret_ref        = local.pipeline_git_token_secret_ref
-  app_repo_url                         = module.app_repo.repository_url
+  app_repo_url                         = try(module.app_repo[0].repository_url, "")
   app_repo_branch                      = local.app_repo_branch
+  enable_app_repo                      = var.enable_app_repo
   pipeline_config_repo_existing_url    = var.pipeline_config_repo_existing_url
   pipeline_config_repo_clone_from_url  = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo_branch          = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
@@ -355,7 +357,7 @@ module "pipeline_ci" {
   code_engine_env_from_secrets         = var.code_engine_env_from_secrets
   code_engine_remove_refs              = var.code_engine_remove_refs
   code_engine_service_bindings         = var.code_engine_service_bindings
-  app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
+  app_repo_provider_webhook_syntax     = try(module.app_repo[0].repo_provider_name, "")
   compliance_base_image                = var.compliance_base_image
   pipeline_debug                       = var.pipeline_debug
   opt_in_dynamic_api_scan              = var.opt_in_dynamic_api_scan
@@ -415,15 +417,16 @@ module "pipeline_pr" {
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
   pipeline_id                          = try(split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline[0].id)[1], "")
   app_name                             = var.app_name
-  app_repo_url                         = module.app_repo.repository_url
+  app_repo_url                         = try(module.app_repo[0].repository_url, "")
   app_repo_branch                      = local.app_repo_branch
+  enable_app_repo                      = var.enable_app_repo
   pipeline_config_repo_existing_url    = var.pipeline_config_repo_existing_url
   pipeline_config_repo_clone_from_url  = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo_branch          = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
   pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
   pipeline_config_path                 = var.pipeline_config_path
   pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
-  app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
+  app_repo_provider_webhook_syntax     = try(module.app_repo[0].repo_provider_name, "")
   compliance_base_image                = var.compliance_base_image
   pipeline_debug                       = var.pipeline_debug
   slack_notifications                  = var.slack_notifications

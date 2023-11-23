@@ -10,6 +10,9 @@ variable "app_repo_url" {
 variable "app_repo_branch" {
 }
 
+variable "enable_app_repo" {
+}
+
 variable "pipeline_config_repo" {
 }
 
