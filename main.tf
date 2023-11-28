@@ -281,7 +281,6 @@ module "app_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
-  count        = (var.enable_ci_pipeline) ? 1 : 0
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "ci-pipeline"
@@ -289,13 +288,12 @@ resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
 }
 
 module "pipeline_ci" {
-  count      = (var.enable_ci_pipeline) ? 1 : 0
   source     = "./pipeline-ci"
   depends_on = [module.integrations, module.services]
 
   ibmcloud_api                         = var.ibmcloud_api
   ibmcloud_api_key                     = var.ibmcloud_api_key
-  pipeline_id                          = try(split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline[0].id)[1], "")
+  pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
   app_name                             = var.app_name
   cluster_name                         = var.cluster_name
   cluster_namespace                    = var.cluster_namespace
@@ -398,7 +396,6 @@ module "pipeline_ci" {
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
-  count        = (var.enable_pr_pipeline) ? 1 : 0
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "pr-pipeline"
@@ -406,14 +403,13 @@ resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
 }
 
 module "pipeline_pr" {
-  count      = (var.enable_pr_pipeline) ? 1 : 0
   source     = "./pipeline-pr"
   depends_on = [module.integrations, module.services]
 
   ibmcloud_api                         = var.ibmcloud_api
   ibmcloud_api_key                     = var.ibmcloud_api_key
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
-  pipeline_id                          = try(split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline[0].id)[1], "")
+  pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
   app_name                             = var.app_name
   app_repo_url                         = module.app_repo.repository_url
   app_repo_branch                      = local.app_repo_branch
