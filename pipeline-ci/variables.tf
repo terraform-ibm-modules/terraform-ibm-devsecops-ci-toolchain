@@ -316,3 +316,13 @@ variable "compliance_base_image" {
   description = "Pipeline baseimage to run most of the built-in pipeline code"
   default     = ""
 }
+
+variable "opt_in_gosec" {
+}
+
+variable "gosec_private_repository_host" {
+}
+
+variable "gosec_repository_ssh_secret_ref" {
+}
+
