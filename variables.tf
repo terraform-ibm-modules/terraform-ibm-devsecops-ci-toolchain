@@ -789,6 +789,12 @@ variable "cos_bucket_name" {
   default     = ""
 }
 
+variable "cos_dashboard_url" {
+  type        = string
+  description = "The dashboard URL for the COS toolcard."
+  default     = "https://cloud.ibm.com/catalog/services/cloud-object-storage"
+}
+
 variable "sm_secret_group" {
   type        = string
   description = "Group in Secrets Manager for organizing/grouping secrets."
@@ -1095,15 +1101,28 @@ variable "pipeline_config_group" {
 
 variable "ci_pipeline_branch" {
   type        = string
-  description = "The branch within ci pipeline definitions repository for Compliance CI Toolchain."
+  description = "The branch within CI pipeline definitions repository for Compliance CI Toolchain."
   default     = "open-v10"
+}
+
+variable "ci_pipeline_git_tag" {
+  type        = string
+  description = "The GIT tag within the CI pipeline definitions repository for Compliance CI Toolchain."
+  default     = ""
 }
 
 variable "pr_pipeline_branch" {
   type        = string
-  description = "The branch within pr pipeline definitions repository for Compliance CI Toolchain."
+  description = "The branch within PR pipeline definitions repository for Compliance CI Toolchain."
   default     = "open-v10"
 }
+
+variable "pr_pipeline_git_tag" {
+  type        = string
+  description = "The GIT tag within the PR pipeline definitions repository for Compliance CI Toolchain."
+  default     = ""
+}
+
 variable "compliance_pipeline_group" {
   type        = string
   description = "Specify Git user/group for your compliance pipeline repo."

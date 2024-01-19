@@ -570,4 +570,3 @@ resource "ibm_cd_tekton_pipeline_property" "ci_gosec_private_repository_ssh_key"
   value       = var.gosec_repository_ssh_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
-

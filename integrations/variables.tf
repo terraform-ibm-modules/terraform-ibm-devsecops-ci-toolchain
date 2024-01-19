@@ -103,6 +103,9 @@ variable "privateworker_credentials_secret_ref" {
 variable "privateworker_name" {
 }
 
+variable "cos_dashboard_url" {
+}
+
 variable "sm_integration_name" {
 }
 

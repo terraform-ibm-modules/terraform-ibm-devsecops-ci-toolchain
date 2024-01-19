@@ -381,6 +381,7 @@ module "pipeline_ci" {
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
   peer_review_compliance               = var.peer_review_compliance
   ci_pipeline_branch                   = var.ci_pipeline_branch
+  pipeline_git_tag                     = var.ci_pipeline_git_tag
   enable_devops_signing_var            = var.enable_devops_signing_var
   trigger_git_name                     = var.trigger_git_name
   trigger_git_enable                   = var.trigger_git_enable
@@ -438,6 +439,7 @@ module "pipeline_pr" {
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                   = var.enable_artifactory
   pr_pipeline_branch                   = var.pr_pipeline_branch
+  pipeline_git_tag                     = var.pr_pipeline_git_tag
   trigger_pr_git_name                  = var.trigger_pr_git_name
   trigger_pr_git_enable                = var.trigger_pr_git_enable
   enable_pipeline_notifications        = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
@@ -494,6 +496,7 @@ module "integrations" {
   sonarqube_server_url                 = var.sonarqube_server_url
   enable_insights                      = var.enable_insights
   enable_cos                           = var.enable_cos
+  cos_dashboard_url                    = var.cos_dashboard_url
 }
 
 module "services" {

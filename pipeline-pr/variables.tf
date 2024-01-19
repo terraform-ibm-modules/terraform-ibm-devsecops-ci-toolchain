@@ -33,6 +33,9 @@ variable "pipeline_repo_url" {
 variable "pr_pipeline_branch" {
 }
 
+variable "pipeline_git_tag" {
+}
+
 variable "pipeline_path" {
   type        = string
   description = "The relative folder path within pipeline definitions repository containing tekton definitions for pipelines."

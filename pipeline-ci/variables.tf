@@ -158,9 +158,9 @@ variable "slack_notifications" {
 }
 
 variable "ci_pipeline_branch" {
-  type        = string
-  description = "The branch within pipeline definitions repository for Compliance CI Toolchain."
-  default     = "open-v10"
+}
+
+variable "pipeline_git_tag" {
 }
 
 variable "pipeline_path" {
@@ -325,4 +325,3 @@ variable "gosec_private_repository_host" {
 
 variable "gosec_repository_ssh_secret_ref" {
 }
-
