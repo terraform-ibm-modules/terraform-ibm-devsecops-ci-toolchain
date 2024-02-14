@@ -17,6 +17,9 @@ variable "enable_secrets_manager" {
 variable "sm_location" {
 }
 
+variable "sm_instance_crn" {
+}
+
 variable "kp_name" {
 }
 

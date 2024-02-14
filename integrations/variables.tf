@@ -109,6 +109,9 @@ variable "cos_dashboard_url" {
 variable "sm_integration_name" {
 }
 
+variable "sm_instance_crn" {
+}
+
 variable "kp_integration_name" {
 }
 

@@ -328,6 +328,7 @@ variable "inventory_repo_auth_type" {
   default     = "oauth"
 }
 
+# SECRET REF NAMES
 variable "app_repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider."
@@ -364,6 +365,195 @@ variable "compliance_pipeline_repo_git_token_secret_name" {
   default     = "git-token"
 }
 
+# SECRET CRNs
+
+variable "app_repo_git_token_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the app repository Git Token."
+  default     = ""
+  validation {
+    condition     = startswith(var.app_repo_git_token_secret_crn, "crn:") || var.app_repo_git_token_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "issues_repo_git_token_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Issues repository Git Token."
+  default     = ""
+  validation {
+    condition     = startswith(var.issues_repo_git_token_secret_crn, "crn:") || var.issues_repo_git_token_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "evidence_repo_git_token_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Evidence repository Git Token."
+  default     = ""
+  validation {
+    condition     = startswith(var.evidence_repo_git_token_secret_crn, "crn:") || var.evidence_repo_git_token_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "inventory_repo_git_token_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Inventory repository Git Token."
+  default     = ""
+  validation {
+    condition     = startswith(var.inventory_repo_git_token_secret_crn, "crn:") || var.inventory_repo_git_token_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "compliance_pipeline_repo_git_token_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Compliance Pipeline repository Git Token."
+  default     = ""
+  validation {
+    condition     = startswith(var.compliance_pipeline_repo_git_token_secret_crn, "crn:") || var.compliance_pipeline_repo_git_token_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "pipeline_config_repo_git_token_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Pipeline Config repository Git Token."
+  default     = ""
+  validation {
+    condition     = startswith(var.pipeline_config_repo_git_token_secret_crn, "crn:") || var.pipeline_config_repo_git_token_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "cos_api_key_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Cloud Object Storage apikey."
+  default     = ""
+  validation {
+    condition     = startswith(var.cos_api_key_secret_crn, "crn:") || var.cos_api_key_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "pipeline_ibmcloud_api_key_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the IBMCloud apikey."
+  default     = ""
+  validation {
+    condition     = startswith(var.pipeline_ibmcloud_api_key_secret_crn, "crn:") || var.pipeline_ibmcloud_api_key_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "signing_key_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for Signing Key secret."
+  default     = ""
+  validation {
+    condition     = startswith(var.signing_key_secret_crn, "crn:") || var.signing_key_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "pipeline_dockerconfigjson_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for Dockerconfig json secret."
+  default     = ""
+  validation {
+    condition     = startswith(var.pipeline_dockerconfigjson_secret_crn, "crn:") || var.pipeline_dockerconfigjson_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "slack_webhook_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Slack Webhook secret."
+  default     = ""
+  validation {
+    condition     = startswith(var.slack_webhook_secret_crn, "crn:") || var.slack_webhook_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "privateworker_credentials_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Private Worker secret secret."
+  default     = ""
+  validation {
+    condition     = startswith(var.privateworker_credentials_secret_crn, "crn:") || var.privateworker_credentials_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "artifactory_token_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Artifactory secret."
+  default     = ""
+  validation {
+    condition     = startswith(var.artifactory_token_secret_crn, "crn:") || var.artifactory_token_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "pipeline_git_token_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the Git Token pipeline property."
+  default     = ""
+  validation {
+    condition     = startswith(var.pipeline_git_token_secret_crn, "crn:") || var.pipeline_git_token_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "pipeline_doi_api_key_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the pipeline DOI apikey."
+  default     = ""
+  validation {
+    condition     = startswith(var.pipeline_doi_api_key_secret_crn, "crn:") || var.pipeline_doi_api_key_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "sonarqube_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the SonarQube secret."
+  default     = ""
+  validation {
+    condition     = startswith(var.sonarqube_secret_crn, "crn:") || var.sonarqube_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "gosec_private_repository_ssh_key_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the GoSec repository secret."
+  default     = ""
+  validation {
+    condition     = startswith(var.gosec_private_repository_ssh_key_secret_crn, "crn:") || var.gosec_private_repository_ssh_key_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+###########################
 variable "app_repo_secret_group" {
   type        = string
   description = "Secret group prefix for the App repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
@@ -803,19 +993,19 @@ variable "sm_secret_group" {
 
 variable "sm_resource_group" {
   type        = string
-  description = "The resource group containing the Secrets Manager instance."
+  description = "The resource group containing the Secrets Manager instance. Not required if using a Secrets Manager CRN instance."
   default     = "Default"
 }
 
 variable "sm_name" {
   type        = string
-  description = "Name of the Secrets Manager instance where the secrets are stored."
+  description = "Name of the Secrets Manager instance where the secrets are stored. Not required if using a Secrets Manager CRN instance."
   default     = "sm-compliance-secrets"
 }
 
 variable "sm_location" {
   type        = string
-  description = "IBM Cloud location/region containing the Secrets Manager instance."
+  description = "IBM Cloud location/region containing the Secrets Manager instance. Not required if using a Secrets Manager CRN instance."
   default     = "us-south"
 }
 
@@ -853,6 +1043,12 @@ variable "sm_integration_name" {
   type        = string
   description = "The name of the Secrets Manager integration."
   default     = "sm-compliance-secrets"
+}
+
+variable "sm_instance_crn" {
+  type        = string
+  description = "The CRN of the Secrets Manager instance."
+  default     = ""
 }
 
 variable "kp_integration_name" {
