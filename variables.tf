@@ -1075,6 +1075,17 @@ variable "enable_insights" {
   default     = true
 }
 
+variable "enable_ci_pipeline" {
+  type        = bool
+  description = "Set to `true` to enable the CI pipeline."
+  default     = true
+}
+
+variable "enable_pr_pipeline" {
+  type        = bool
+  description = "Set to `true` to enable the PR pipeline."
+  default     = true
+}
 ######## Deployment Strategy ##################
 
 variable "deployment_target" {

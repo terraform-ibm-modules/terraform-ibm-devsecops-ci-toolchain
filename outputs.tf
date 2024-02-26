@@ -18,12 +18,12 @@ output "key_protect_instance_id" {
 }
 
 output "ci_pipeline_id" {
-  value       = module.pipeline_ci.pipeline_id
+  value       = try(module.pipeline_ci[0].pipeline_id, "")
   description = "The CI pipeline ID."
 }
 
 output "pr_pipeline_id" {
-  value       = module.pipeline_pr.pipeline_id
+  value       = try(module.pipeline_pr[0].pipeline_id, "")
   description = "The PR pipeline ID."
 }
 
