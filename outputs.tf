@@ -81,12 +81,12 @@ output "pipeline_repo_url" {
 }
 
 output "app_repo_url" {
-  value       = module.app_repo.repository_url
+  value       = try(module.app_repo[0].repository_url, "")
   description = "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
 }
 
 output "app_repo_git_provider" {
-  value       = module.app_repo.repo_provider
+  value       = try(module.app_repo[0].repo_provider, "")
   description = "The app repo provider 'hostedgit', 'githubconsolidated' etc."
 }
 
@@ -96,7 +96,7 @@ output "app_repo_branch" {
 }
 
 output "app_repo_git_id" {
-  value       = module.app_repo.repo_git_id
+  value       = try(module.app_repo[0].repo_git_id, "")
   description = "The app repo Git ID."
 }
 

@@ -1086,6 +1086,12 @@ variable "enable_pr_pipeline" {
   description = "Set to `true` to enable the PR pipeline."
   default     = true
 }
+
+variable "enable_app_repo" {
+  type        = bool
+  description = "Set to `true` to enable the sample application repository"
+  default     = true
+}
 ######## Deployment Strategy ##################
 
 variable "deployment_target" {
