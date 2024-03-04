@@ -401,7 +401,7 @@ module "pipeline_ci" {
   enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
   enable_pipeline_git_token            = var.enable_pipeline_git_token
   pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref
-  private_worker                       = module.integrations.private_worker
+  private_worker                       = (var.worker_id == "") ? module.integrations.private_worker : var.worker_id
   enable_privateworker                 = var.enable_privateworker
   enable_artifactory                   = var.enable_artifactory
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory

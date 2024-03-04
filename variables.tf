@@ -1521,6 +1521,12 @@ variable "peer_review_compliance" {
   default     = "1"
 }
 
+variable "worker_id" {
+  type        = string
+  description = "Set the worker ID for CI pipline. This will override any worker integrations."
+  default     = ""
+}
+
 ######SonarQube ############################
 variable "sonarqube_integration_name" {
   type        = string
