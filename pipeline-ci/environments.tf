@@ -37,6 +37,14 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_debug" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_print_signing_cert" {
+  count       = (var.print_code_signing_certificate != "") ? 1 : 0
+  name        = "print-code-signing-certificate"
+  type        = "text"
+  value       = var.print_code_signing_certificate
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
 # resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_dockerconfigjson" {
 #   name           = "pipeline-dockerconfigjson"
 #   type           = "secure"

@@ -1445,6 +1445,12 @@ variable "enable_privateworker" {
   description = "Set true to enable private worker  for devsecops."
 }
 
+variable "worker_id" {
+  type        = string
+  default     = "public"
+  description = "The identifier for the Managed Pipeline worker."
+}
+
 variable "artifactory_token_secret_name" {
   type        = string
   default     = "artifactory-token"
@@ -1496,6 +1502,12 @@ variable "enable_devops_signing_var" {
   type        = string
   description = "Set to `true` to show the `signing-key` pipeline variable"
   default     = true
+}
+
+variable "print_code_signing_certificate" {
+  type        = string
+  description = "Set to `1` to enable printing of the public signing certificate in the logs."
+  default     = ""
 }
 
 variable "peer_review_compliance" {

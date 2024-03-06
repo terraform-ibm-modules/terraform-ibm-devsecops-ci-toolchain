@@ -97,6 +97,9 @@ variable "artifactory_integration_name" {
 variable "enable_privateworker" {
 }
 
+variable "worker_id" {
+}
+
 variable "privateworker_credentials_secret_ref" {
 }
 

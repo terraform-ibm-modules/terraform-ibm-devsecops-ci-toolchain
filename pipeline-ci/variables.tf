@@ -281,6 +281,9 @@ variable "app_repo_provider_webhook_syntax" {
 variable "enable_devops_signing_var" {
 }
 
+variable "print_code_signing_certificate" {
+}
+
 variable "trigger_git_name" {
 }
 variable "trigger_git_enable" {

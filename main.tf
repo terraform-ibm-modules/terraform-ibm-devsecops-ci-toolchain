@@ -381,6 +381,7 @@ module "pipeline_ci" {
   code_engine_env_from_secrets         = var.code_engine_env_from_secrets
   code_engine_remove_refs              = var.code_engine_remove_refs
   code_engine_service_bindings         = var.code_engine_service_bindings
+  print_code_signing_certificate       = var.print_code_signing_certificate
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image
   pipeline_debug                       = var.pipeline_debug
@@ -506,6 +507,7 @@ module "integrations" {
   privateworker_credentials_secret_ref = local.privateworker_secret_ref
   artifactory_token_secret_ref         = local.artifactory_secret_ref
   privateworker_name                   = var.privateworker_name
+  worker_id                            = var.worker_id
   sm_integration_name                  = var.sm_integration_name
   kp_integration_name                  = var.kp_integration_name
   slack_integration_name               = var.slack_integration_name

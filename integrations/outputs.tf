@@ -3,7 +3,7 @@
 ##############################################################################
 
 output "private_worker" {
-  value = (var.enable_privateworker) ? ibm_cd_toolchain_tool_privateworker.cd_toolchain_tool_privateworker_instance[0].tool_id : "public"
+  value = (var.enable_privateworker) ? ibm_cd_toolchain_tool_privateworker.cd_toolchain_tool_privateworker_instance[0].tool_id : var.worker_id
 }
 
 output "ibm_cd_toolchain_tool_artifactory" {
