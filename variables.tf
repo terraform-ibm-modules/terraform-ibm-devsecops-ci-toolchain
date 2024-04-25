@@ -1673,3 +1673,6 @@ variable "gosec_private_repository_ssh_key_secret_group" {
   description = "Secret group prefix for the gosec private repository ssh key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
+
+variable "properties" {
+}

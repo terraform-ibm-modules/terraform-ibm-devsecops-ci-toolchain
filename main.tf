@@ -169,6 +169,9 @@ locals {
     (var.gosec_private_repository_ssh_key_secret_group == "") ? format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.gosec_private_repository_ssh_key_secret_group))
   )
+
+  property_json = jsondecode(var.properties)
+  #properties_ci = [for property in local.property_json : property]
 }
 
 data "ibm_resource_group" "resource_group" {
@@ -544,4 +547,24 @@ module "services" {
   cluster_namespace      = var.cluster_namespace
   registry_namespace     = var.registry_namespace
   registry_region        = var.registry_region
+}
+
+#resource "ibm_cd_tekton_pipeline_property" "ci_dynamic_propetry" {
+#  depends_on  = [module.pipeline_ci]
+##  #for_each    = local.property_json.properties #toset(local.properties_ci)
+ # for_each = { for t in local.property_json.ci_properties : t.name => t }
+ # name        = each.value.name
+ # type        = try(each.value.type, "integration") # "integration" #"single_select" #each.value.type
+ # value       = module.evidence_repo.repository.tool_id # "0" #each.value.value
+ # path        = "parameters.blah.repo_url"
+ # enum        = null #["0", "1", "2"]
+ # pipeline_id = module.pipeline_ci.pipeline_id
+#}
+
+module "pipeline_propeties" {
+  source     = "./pipeline-properties"
+  for_each = { for t in local.property_json.ci_properties : t.name => t }
+  payload  = try(each.value, {})
+  ci_pipeline_id = module.pipeline_ci.pipeline_id
+  pr_pipeline_id = module.pipeline_pr.pipeline_id
 }
