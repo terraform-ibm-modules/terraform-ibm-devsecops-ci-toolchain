@@ -10,5 +10,5 @@ variable "pr_pipeline_id" {
   description = "The ID of the pipeline to which properties are attached."
 }
 
-variable "payload" {
+variable "data" {
 }

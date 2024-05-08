@@ -7,19 +7,33 @@ locals {
   # path -> min length =0, max length = 4096, allowed characters = /^[-0-9a-zA-Z_.]*$/
   # pipeline_id -> max length = 36, allowed characters = /^[-0-9a-z]+$/
   # type -> allowed options = secure, text, single_select, integration, appconfig
+  # locked -> true or false (default false)
 
+  # Preprocess input json to ensure all required fields are present
+  #pre_process_prop_data = flatten([for prop in jsondecode(var.data) :{
+  #    properties = try(prop.properties, {})
+  #  }
+  #])
 
   trigger_id = null
   #property_json = jsondecode(var.properties)
   #properties_ci = [for property in local.property_json : property]
-  data = var.payload
-  input_name = try(var.payload.name, "")
-  input_type = try(var.payload.type, "")
-  input_value = try(var.payload.value, "")
-  input_path = try(var.payload.path, null)
-  input_enum = try(var.payload.enum, null)
+
+  input_name = try(var.data.pipeline_id, "")
+  input_type = try(var.data.type, "text")
+  input_value = try(var.data.value, "hello")
+  input_path = try(var.data.path, null)
+  input_enum = try(var.data.enum, null)
+  input_locked = try(var.data.locked, false)
+
+  #input_name = try(var.name, "")
+  #input_type = try(var.type, "")
+  #input_value = try(var.value, "")
+  #input_path = try(var.path, null)
+  #input_enum = try(var.enum, null)
+  #input_locked = try(var.locked, false)
   
-  input_pipeline_id = try(var.payload.pipeline, "") 
+  input_pipeline_id = try(var.data.pipeline_id, "") 
 
   pipeline_id = (
     (local.input_pipeline_id == "ci") ? var.ci_pipeline_id :
@@ -37,29 +51,16 @@ locals {
   add_property = ((local.is_valid_type == true) && (local.is_name_valid == true) && (local.is_enum == true))
 }
 
-
-
 resource "ibm_cd_tekton_pipeline_property" "dynamic_propetry" {
-  count       = (local.add_property == true) ? 1 : 0
-  name        = local.input_name
-  type        = local.input_type #"text" #local.type
-  value       = local.input_value
+  #count       = (local.add_property == true) ? 1 : 0
+  for_each        = tomap({
+    for t in var.data.properties: "${t.name}" => t
+  })
+  pipeline_id = local.pipeline_id
+  name        = each.value.name
+  type        = each.value.type
+  value       = var.data.pipeline_id
   path        = local.input_path
   enum        = local.input_enum
-  pipeline_id = local.pipeline_id
-  #trigger_id  = null
+  #locked      = local.input_locked
 }
-
-
-#resource "ibm_cd_tekton_pipeline_property" "ci_dynamic_propetry" {
-#  depends_on  = [module.pipeline_ci]
-  #for_each    = local.property_json.properties #toset(local.properties_ci)
-#  for_each = { for t in local.property_json.ci_properties : t.name => t }
-#  name        = each.value.name
-#  type        = try(each.value.type, "integration") # "integration" #"single_select" #each.value.type
-#  value       = module.evidence_repo.repository.tool_id # "0" #each.value.value
-#  path        = "parameters.blah.repo_url"
-#  enum        = null #["0", "1", "2"]
-#  pipeline_id = module.pipeline_ci.pipeline_id
-#}
-

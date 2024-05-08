@@ -170,8 +170,11 @@ locals {
     format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.gosec_private_repository_ssh_key_secret_group))
   )
 
-  property_json = jsondecode(var.properties)
-  #properties_ci = [for property in local.property_json : property]
+  pre_process_prop_data = flatten([for pipeline in jsondecode(var.properties) :{
+      pipeline_id = pipeline.pipeline_id
+      properties = try(pipeline.properties, {})
+    }
+  ])
 }
 
 data "ibm_resource_group" "resource_group" {
@@ -549,22 +552,19 @@ module "services" {
   registry_region        = var.registry_region
 }
 
-#resource "ibm_cd_tekton_pipeline_property" "ci_dynamic_propetry" {
-#  depends_on  = [module.pipeline_ci]
-##  #for_each    = local.property_json.properties #toset(local.properties_ci)
- # for_each = { for t in local.property_json.ci_properties : t.name => t }
- # name        = each.value.name
- # type        = try(each.value.type, "integration") # "integration" #"single_select" #each.value.type
- # value       = module.evidence_repo.repository.tool_id # "0" #each.value.value
- # path        = "parameters.blah.repo_url"
- # enum        = null #["0", "1", "2"]
- # pipeline_id = module.pipeline_ci.pipeline_id
-#}
+output "testmap" {
+  value = local.pre_process_prop_data
+  #value = tomap(jsondecode(var.properties))
+}
 
 module "pipeline_propeties" {
-  source     = "./pipeline-properties"
-  for_each = { for t in local.property_json.ci_properties : t.name => t }
-  payload  = try(each.value, {})
+  source         = "./pipeline-properties"
+  #for_each      = {for index, item in local.json_property_data : index => item}
+  #for_each      = local.pre_process_prop_data
+  for_each       = tomap({
+    for t in local.pre_process_prop_data : "${t.pipeline_id}" => t
+  })
+  data           = each.value
   ci_pipeline_id = module.pipeline_ci.pipeline_id
   pr_pipeline_id = module.pipeline_pr.pipeline_id
 }
