@@ -170,7 +170,8 @@ locals {
     format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.gosec_private_repository_ssh_key_secret_group))
   )
 
-  pre_process_prop_data = flatten([for pipeline in jsondecode(var.properties) :{
+  properties_input = (var.pipeline_properties == "") ? "{}" : var.pipeline_properties
+  pre_process_prop_data = flatten([for pipeline in jsondecode(local.properties_input) :{
       pipeline_id = pipeline.pipeline_id
       properties = try(pipeline.properties, {})
     }
@@ -554,7 +555,6 @@ module "services" {
 
 output "testmap" {
   value = local.pre_process_prop_data
-  #value = tomap(jsondecode(var.properties))
 }
 
 module "pipeline_propeties" {

@@ -1674,5 +1674,5 @@ variable "gosec_private_repository_ssh_key_secret_group" {
   default     = ""
 }
 
-variable "properties" {
+variable "pipeline_properties" {
 }

@@ -10,10 +10,14 @@ locals {
   # locked -> true or false (default false)
 
   # Preprocess input json to ensure all required fields are present
-  #pre_process_prop_data = flatten([for prop in jsondecode(var.data) :{
-  #    properties = try(prop.properties, {})
-  #  }
-  #])
+  pre_process_prop_data = flatten([for property in var.data.properties :{
+      name  = try(property.name, "")
+      type  = try(property.type, "")
+      value = try(property.value, "")
+      path  = try(property.path, null)
+      enum  = try(property.enum, null)
+    }
+  ])
 
   trigger_id = null
   #property_json = jsondecode(var.properties)
@@ -25,13 +29,6 @@ locals {
   input_path = try(var.data.path, null)
   input_enum = try(var.data.enum, null)
   input_locked = try(var.data.locked, false)
-
-  #input_name = try(var.name, "")
-  #input_type = try(var.type, "")
-  #input_value = try(var.value, "")
-  #input_path = try(var.path, null)
-  #input_enum = try(var.enum, null)
-  #input_locked = try(var.locked, false)
   
   input_pipeline_id = try(var.data.pipeline_id, "") 
 
@@ -52,15 +49,14 @@ locals {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "dynamic_propetry" {
-  #count       = (local.add_property == true) ? 1 : 0
   for_each        = tomap({
-    for t in var.data.properties: "${t.name}" => t
+    for t in local.pre_process_prop_data: "${t.name}" => t
   })
   pipeline_id = local.pipeline_id
   name        = each.value.name
   type        = each.value.type
-  value       = var.data.pipeline_id
-  path        = local.input_path
-  enum        = local.input_enum
+  value       = each.value.value
+  path        = each.value.path
+  enum        = each.value.enum
   #locked      = local.input_locked
 }
