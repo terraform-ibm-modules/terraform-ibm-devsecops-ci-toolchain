@@ -559,8 +559,6 @@ output "testmap" {
 
 module "pipeline_propeties" {
   source         = "./pipeline-properties"
-  #for_each      = {for index, item in local.json_property_data : index => item}
-  #for_each      = local.pre_process_prop_data
   for_each       = tomap({
     for t in local.pre_process_prop_data : "${t.pipeline_id}" => t
   })
