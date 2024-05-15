@@ -157,6 +157,9 @@ variable "peer_review_compliance" {
 variable "slack_notifications" {
 }
 
+variable "event_notifications" {
+}
+
 variable "ci_pipeline_branch" {
 }
 

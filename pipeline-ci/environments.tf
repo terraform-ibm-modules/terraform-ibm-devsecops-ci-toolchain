@@ -52,6 +52,13 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_print_signing_cert" {
 #   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 # }
 
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_event_notifications" {
+  type        = "text"
+  name        = "event-notifications"
+  value       = var.event_notifications
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_slack_notifications" {
   name        = "slack-notifications"
   type        = "text"
