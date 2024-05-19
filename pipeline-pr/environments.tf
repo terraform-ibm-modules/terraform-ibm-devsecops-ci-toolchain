@@ -91,3 +91,107 @@ resource "ibm_cd_tekton_pipeline_property" "artifactory-dockerconfigjson" {
   path        = "parameters.docker_config_json"
 
 }
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_hostip" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "zos-hostip"
+  type        = "text"
+  value       = var.zos_hostip
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_host_name" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "zos-hostname"
+  type        = "text"
+  value       = var.zos_host_name
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_ssh_port" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "zos-ssh-port"
+  type        = "text"
+  value       = var.zos_ssh_port
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_user" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "zos-user"
+  type        = "text"
+  value       = var.zos_user
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_bastion_host_name" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "bastion-hostname"
+  type        = "text"
+  value       = var.zos_bastion_host_name
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_bastion_host_name" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "bastion-ssh-port"
+  type        = "text"
+  value       = var.zos_bastion_ssh_port
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_bastion_user" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "bastion-user"
+  type        = "text"
+  value       = var.zos_bastion_user
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_dbb_url" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "dbb-url"
+  type        = "text"
+  value       = var.zos_dbb_url
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_dbb_hlq" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "dbb-hlq"
+  type        = "text"
+  value       = var.zos_dbb_hlq
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_dbb_user" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "dbb-user"
+  type        = "text"
+  value       = var.zos_dbb_user
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_dbb_secret_name" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "dbb-secret-name"
+  type        = "text"
+  value       = var.zos_secret_key_name
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_secret_info" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "secret-info"
+  type        = "secure"
+  value       = var.zos_secret_info
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_secret_key_name" {
+  count       = (var.deployment_target == "zos") ? 1 : 0
+  name        = "zos-secret-key-name"
+  type        = "secure"
+  value       = var.zos_secret_key_name
+  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+}
