@@ -426,7 +426,7 @@ module "pipeline_ci" {
   gosec_private_repository_host        = var.gosec_private_repository_host
   gosec_repository_ssh_secret_ref      = local.gosec_repository_ssh_secret_ref
   zos_hostip                           = var.zos_hostip
-  zos_secret_key_name                  = var.zos_secret_key_name     
+  zos_secret_key_name                  = var.zos_secret_key_name
   zos_dbb_secret_name                  = var.zos_dbb_secret_name
   zos_secret_info                      = var.zos_secret_info
   zos_dbb_user                         = var.zos_dbb_hlq
@@ -481,7 +481,7 @@ module "pipeline_pr" {
   enable_pipeline_notifications        = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
   deployment_target                    = var.deployment_target
   zos_hostip                           = var.zos_hostip
-  zos_secret_key_name                  = var.zos_secret_key_name     
+  zos_secret_key_name                  = var.zos_secret_key_name
   zos_dbb_secret_name                  = var.zos_dbb_secret_name
   zos_secret_info                      = var.zos_secret_info
   zos_dbb_user                         = var.zos_dbb_hlq
