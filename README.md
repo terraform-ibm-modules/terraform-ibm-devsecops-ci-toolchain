@@ -128,6 +128,22 @@ module "terraform_devsecops_ci" {
 | <a name="input_code_engine_service_bindings"></a> [code\_engine\_service\_bindings](#input\_code\_engine\_service\_bindings) | JSON array including service name(s) (as a simple JSON string. | `string` | `""` | no |
 | <a name="input_code_engine_source"></a> [code\_engine\_source](#input\_code\_engine\_source) | The path to the location of code to build in the repository. Defaults to the root of source code repository. | `string` | `""` | no |
 | <a name="input_code_engine_wait_timeout"></a> [code\_engine\_wait\_timeout](#input\_code\_engine\_wait\_timeout) | The maximum timeout for the CLI operation to wait. | `string` | `"1300"` | no |
+
+| <a name="input_zos_hostip"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_host_name"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_ssh_port"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_user"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_bastion_host_name"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_bastion_ssh_port"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_bastion_user"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_dbb_url"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_dbb_hlq"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_dbb_user"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_dbb_secret_name"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_secret_info"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+| <a name="input_zos_secret_key_name"></a> [zos](#input\_zos) |  | `string` | `""` | no |
+
+
 | <a name="input_compliance_base_image"></a> [compliance\_base\_image](#input\_compliance\_base\_image) | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` | no |
 | <a name="input_compliance_pipeline_group"></a> [compliance\_pipeline\_group](#input\_compliance\_pipeline\_group) | Specify Git user/group for your compliance pipeline repo. | `string` | `""` | no |
 | <a name="input_compliance_pipeline_repo_auth_type"></a> [compliance\_pipeline\_repo\_auth\_type](#input\_compliance\_pipeline\_repo\_auth\_type) | Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat' | `string` | `"oauth"` | no |
