@@ -34,7 +34,7 @@ locals {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pipeline_propetry" {
-  count       = (local.input_trigger_id == "trigger") ? 1 : 0
+  count       = (var.is_trigger_property == false) ? 1 : 0
   pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
@@ -45,7 +45,7 @@ resource "ibm_cd_tekton_pipeline_property" "pipeline_propetry" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_propetry" {
-  count       = (local.input_trigger_id != "") ? 1 : 0
+  count       = (var.is_trigger_property == true) ? 1 : 0
   pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
