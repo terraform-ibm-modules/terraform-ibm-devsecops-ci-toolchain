@@ -4,56 +4,71 @@
 # - Git
 
 locals {
-  #trigger_type  = (var.trigger_type == "") ? "manual" : var.trigger_type
-  #cron_schedule = (var.cron_schedule == "") ? "0 4 * * *" : var.cron_schedule
-  #time_zone     = (var.time_zone == "") ? "UTC" : var.time_zone
+  cron_schedule = (try(var.trigger_data.cron_schedule, "") == "") ? "0 4 * * *" : var.trigger_data.cron_schedule
+  time_zone     = (try(var.trigger_data.time_zone, "") == "") ? "UTC" : var.trigger_data.time_zone
   trigger_type   = (var.trigger_data.type == "") ? "manual" : var.trigger_data.type
-  #pipeline_id    = 
+  pipeline_id    = (var.trigger_data.pipeline_id == "") ? "" : var.trigger_data.pipeline_id
+  trigger_name   = (var.trigger_data.name == "") ? "" : var.trigger_data.name 
+  event_listener   = "ci-listener-gitlab"
+  max_concurrent_runs = 1
+  trigger_enable  = true
+  trigger_events = [""]
+  repo_url  = ""
+  repo_branch = "master"
+
+  # Adding pipeline_id and property_name to generate a unique map key 
+  pre_process_property_data = flatten([for prop in var.trigger_data.properties :{
+        pipeline_id = var.trigger_data.pipeline_id 
+        property = prop
+        type     = prop.type
+        name = prop.name
+      }
+  ])
 }
 
 
 # Manual Trigger
 resource "ibm_cd_tekton_pipeline_trigger" "pipeline_manual_trigger" {
   count               = (local.trigger_type == "manual") ? 1 : 0
-  pipeline_id         = var.trigger_data.pipeline_id
+  pipeline_id         = local.pipeline_id
   type                = "manual"
-  name                = var.trigger_data.name
-  event_listener      = "ci-listener-gitlab"
-  enabled             = true #var.trigger_enable
-  max_concurrent_runs = 1 #var.max_concurrent_runs
+  name                = local.trigger_name
+  event_listener      = local.event_listener
+  enabled             = local.trigger_enable
+  max_concurrent_runs = local.max_concurrent_runs
 }
 
 # Timed Trigger
-#resource "ibm_cd_tekton_pipeline_trigger" "pipeline_timed_trigger" {
-#  count               = (local.trigger_type == "timer") ? 1 : 0
-#  pipeline_id         = var.pipeline_id
-#  type                = "timer"
-#  name                = var.trigger_name
-#  event_listener      = var.event_listener
-#  cron                = local.cron_schedule
-#  timezone            = local.time_zone
-#  enabled             = var.trigger_enable
-#  max_concurrent_runs = var.max_concurrent_runs
-#}
+resource "ibm_cd_tekton_pipeline_trigger" "pipeline_timed_trigger" {
+  count               = (local.trigger_type == "timer") ? 1 : 0
+  pipeline_id         = local.pipeline_id
+  type                = "timer"
+  name                = local.trigger_name
+  event_listener      = local.event_listener
+  cron                = local.cron_schedule
+  timezone            = local.time_zone
+  enabled             = local.trigger_enable
+  max_concurrent_runs = local.max_concurrent_runs
+}
 
 # Git Trigger
-#resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
-#  count          = (local.trigger_type == "git" || local.trigger_type == "scm") ? 1 : 0
-#  pipeline_id    = var.pipeline_id
-#  type           = "scm"
-#  name           = var.trigger_name
-#  event_listener = var.event_listener
-#  events         = var.trigger_events
-#  enabled        = var.trigger_enable
-#  source {
-#    type = "git"
-#    properties {
-#      url    = var.repo_url
-#      branch = var.repo_branch
-#    }
-#  }
-#  max_concurrent_runs = var.max_concurrent_runs
-#}
+resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
+  count          = (local.trigger_type == "git" || local.trigger_type == "scm") ? 1 : 0
+  pipeline_id    = local.pipeline_id
+  type           = "scm"
+  name           = local.trigger_name
+  event_listener = local.event_listener
+  events         = local.trigger_events
+  enabled        = local.trigger_enable
+  source {
+    type = "git"
+    properties {
+      url    = local.repo_url
+      branch = local.repo_branch
+    }
+  }
+  max_concurrent_runs = local.max_concurrent_runs
+}
 
 #This is the structure being passed with each loop
 # into `trigger_property_data`
@@ -62,3 +77,17 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_manual_trigger" {
 #    "type" = "text"
 #    "value" = "example1"
 #  }
+
+module "trigger_properties" {
+  source   = "../properties"
+  for_each = tomap({
+    for t in local.pre_process_property_data : "${t.type}-${t.name}" => t
+  })
+  pipeline_id       = local.pipeline_id
+  trigger_id         = (
+    (local.trigger_type == "scm") ? ibm_cd_tekton_pipeline_trigger.pipeline_scm_trigger[0].trigger_id :
+    (local.trigger_type == "manual") ? ibm_cd_tekton_pipeline_trigger.pipeline_manual_trigger[0].trigger_id :
+    (local.trigger_type == "timer") ? ibm_cd_tekton_pipeline_trigger.pipeline_timed_trigger[0].trigger_id : ""
+  )
+  property_data = each.value
+}

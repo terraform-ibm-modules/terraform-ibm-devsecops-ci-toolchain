@@ -12,15 +12,21 @@ variable "pipeline_id" {
 
 variable "git_token_secret_ref" {
   type        = string
-  description = "The secret ref to the Secrets Manager secret for the Git Token."
+  description = "The secret ref to the Secrets Manager secret for the Git Token. This is the top level setting can be overriden with a local setting from `repository_data`."
   default     = ""
 }
 
-variable "owner" {
+variable "repository_owner" {
   type        = string
-  description = "The name of the repository owner."
+  description = "The name of the repository owner. This is the top level setting can be overriden with a local setting from `repository_data`."
   default     = ""
 }
 
-variable "repo_data" {
+variable "default_branch" {
+  type        = string
+  description = "The default branch for the repositories. This is the top level setting can be overriden with a local setting from `repository_data`."
+  default     = ""
+}
+
+variable "repository_data" {
 }

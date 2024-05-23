@@ -1,13 +1,13 @@
 locals {
   repositories = try(var.pipeline_repo_data.repositories, "{}")
   git_token_secret_ref = try(var.pipeline_repo_data.git_token, "")
-  owner              = try(var.pipeline_repo_data.owner, "")
-
+  repository_owner              = try(var.pipeline_repo_data.owner, "")
+  default_branch     = try(var.pipeline_repo_data.default_branch, "master")
 }
 
 
-#This is the structure being passed with each loop
-# into `repo_data`
+# This is the structure being passed with each loop
+# into `repository_data`
 #   {
 #      "default_branch" = "main"
 #      "git_token_secret_ref" = "ref-to-secret-in-secrets-manager"
@@ -26,9 +26,9 @@ module "repos_and_triggers" {
   for_each = tomap({
     for t in local.repositories : "${t.repository_url}" => t
   })
-  owner                = local.owner
+  repository_owner     = local.repository_owner
   toolchain_id         = var.toolchain_id
   git_token_secret_ref = local.git_token_secret_ref
-  repo_data            = each.value
+  repository_data      = each.value # each repository payload
   pipeline_id          = var.pipeline_id
 }

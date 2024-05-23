@@ -1,8 +1,8 @@
 variable "pipeline_id" {
   type        = string
   default     = ""
-  description = "The ID of the pipeline to which properties are attached."
+  description = "The ID of the pipeline for adding new properties."
 }
 
-variable "data" {
+variable "property_data" {
 }

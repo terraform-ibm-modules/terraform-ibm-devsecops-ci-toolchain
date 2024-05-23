@@ -1,3 +1,9 @@
+
+# NOTE: handles both pipeline properties and trigger properties. The specification is very similar.
+# The difference being:
+# 1) `ibm_cd_tekton_pipeline_property` vs `ibm_cd_tekton_pipeline_trigger_property`
+# 2) Trigger properties additionally require `trigger_id` to be set
+
 # TYPES
   # enum -> only used when type is set to single_select
   # name -> max length = 253 chars, allowed characters = /^[-0-9a-zA-Z_.]{1,253}$/
@@ -8,14 +14,15 @@
 
 locals {
 
-  input_target = try(var.data.property.target, "")
-  input_name = try(var.data.property.name, "")
-  input_type = try(var.data.property.type, "text")
-  input_value = try(var.data.property.value, "hello")
-  input_path = try(var.data.property.path, null)
-  input_enum = try(jsondecode(var.data.property.enum), null)
-  input_locked = try(var.data.property.locked, false)
-
+  #TODO Validate all the values before attempting to create the property. Raise an alert if there is a problem
+  input_target = try(var.property_data.property.target, "")
+  input_name = try(var.property_data.property.name, "")
+  input_type = try(var.property_data.property.type, "text")
+  input_value = try(var.property_data.property.value, "hello")
+  input_path = try(var.property_data.property.path, null)
+  input_enum = try(jsondecode(var.property_data.property.enum), null)
+  input_locked = try(var.property_data.property.locked, false)
+  input_trigger_id = try(var.trigger_id, "")
   #is_valid_type = (local.input_type == "secure" || local.input_type == "text" || local.input_type == "single_select" || local.input_type == "integration" || local.input_type == "appconfig") ? true : false
   #is_name_valid = ((length(local.input_name) > 0) && (length(local.input_name) < 254)) ? true : false
   #is_enum = (
@@ -27,7 +34,7 @@ locals {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pipeline_propetry" {
-  count       = (local.input_target != "trigger") ? 1 : 0
+  count       = (local.input_trigger_id == "trigger") ? 1 : 0
   pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
@@ -38,13 +45,13 @@ resource "ibm_cd_tekton_pipeline_property" "pipeline_propetry" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_propetry" {
-  count       = (local.input_target == "trigger") ? 1 : 0
+  count       = (local.input_trigger_id != "") ? 1 : 0
   pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
   value       = local.input_value
   path        = local.input_path
   enum        = local.input_enum
-  trigger_id  = var.pipeline_id
+  trigger_id  = local.input_trigger_id
   #locked     = local.input_locked
 }

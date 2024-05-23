@@ -1,8 +1,8 @@
 locals {
 
-  repo_url_raw = try(trimsuffix(var.repo_data.repository_url, ".git"), "")
-  repo_branch = try(var.repo_data.default_branch, "master")
-   
+  repo_url_raw = try(trimsuffix(var.repository_data.repository_url, ".git"), "")
+  repo_branch = try(var.repository_data.default_branch, "master")
+  repo_owner = try(var.repository_data.repository_owner, "")
 
   git_provider = (
     (strcontains(local.repo_url_raw, "git.cloud.ibm.com")) ? "hostedgit" : "githubconsolidated"
@@ -12,11 +12,11 @@ locals {
     (strcontains(local.repo_url_raw, "github.ibm.com")) ? "integrated" : ""
   )
 
-  secret_ref = try(var.repo_data.git_token_secret_ref, "")
+  secret_ref = try(var.repository_data.git_token_secret_ref, "")
   repo_name = basename(local.repo_url_raw)
 
 
-  triggers = try(var.repo_data.triggers, "{}") 
+  triggers = try(var.repository_data.triggers, "{}") 
   pre_process_trigger_data = flatten([for trigger in local.triggers : {
       type         = try(trigger.type, "")
       name         = try(trigger.name, "")
@@ -39,13 +39,13 @@ module "app_repo" {
   initialization_type   = "link"
   repository_url        = local.repo_url_raw
   source_repository_url = ""
-  repository_name       = local.repo_name
+  repository_name       = local.repo_name 
   is_private_repo       = true
-  owner_id              = var.repo_data.owner
+  owner_id              = local.repo_owner #(local.repo_owner == "") ? var.repository_owner : local.repo_owner #repository_data takes precedence
   issues_enabled        = true
   traceability_enabled  = false
-  integration_owner     = var.repo_data.owner
-  auth_type             = (local.secret_ref == "") ? "oauth" : "pat"
+  integration_owner     = local.repo_owner #(local.repo_owner == "") ? var.repository_owner : local.repo_owner #repository_data takes precedence
+  auth_type             = "oauth" #(local.secret_ref == "") ? "oauth" : "pat"
   secret_ref            = local.secret_ref
   git_id                = local.git_id
   default_git_provider  = ""
