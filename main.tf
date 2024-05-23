@@ -574,12 +574,10 @@ module "pipeline_propeties" {
     for t in local.pre_process_prop_data : "${t.pipeline_id}" => t
   })
   data           = each.value
-  ci_pipeline_id = module.pipeline_ci.pipeline_id
-  pr_pipeline_id = module.pipeline_pr.pipeline_id
-  #pipeline_id        = (
-  #  (each.value.pipeline_id == "ci") ? module.pipeline_ci.pipeline_id : 
-  #  (each.value.pipeline_id == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
-  #)
+  pipeline_id        = (
+    (each.value.pipeline_id == "ci") ? module.pipeline_ci.pipeline_id : 
+    (each.value.pipeline_id == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
+  )
 }
 
 

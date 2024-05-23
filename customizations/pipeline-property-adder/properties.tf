@@ -14,6 +14,5 @@ module "property" {
     for t in local.pre_process_prop_data: "${t.pipeline_id}-${t.prop_name}" => t
   })
   data = each.value
-  ci_pipeline_id = var.ci_pipeline_id
-  pr_pipeline_id = var.pr_pipeline_id
+  pipeline_id = var.pipeline_id
 }

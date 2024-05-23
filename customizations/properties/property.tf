@@ -7,13 +7,6 @@
   # locked -> true or false (default false)
 
 locals {
-  input_pipeline_id = try(var.data.pipeline_id, "") 
-
-   pipeline_id = (
-    (local.input_pipeline_id == "ci") ? var.ci_pipeline_id :
-    (local.input_pipeline_id == "pr") ? var.pr_pipeline_id :
-    (local.input_pipeline_id != "") ? local.input_pipeline_id : var.ci_pipeline_id
-  )
 
   input_target = try(var.data.property.target, "")
   input_name = try(var.data.property.name, "")
@@ -22,13 +15,6 @@ locals {
   input_path = try(var.data.property.path, null)
   input_enum = try(jsondecode(var.data.property.enum), null)
   input_locked = try(var.data.property.locked, false)
-
-  #input_pipeline_id = try(var.data.pipeline_id, "") 
- # pipeline_id = (
- #   (local.input_pipeline_id == "ci") ? var.ci_pipeline_id :
- #   (local.input_pipeline_id == "pr") ? var.pr_pipeline_id :
- #   (local.input_pipeline_id != "") ? local.input_pipeline_id : var.ci_pipeline_id
- # )
 
   #is_valid_type = (local.input_type == "secure" || local.input_type == "text" || local.input_type == "single_select" || local.input_type == "integration" || local.input_type == "appconfig") ? true : false
   #is_name_valid = ((length(local.input_name) > 0) && (length(local.input_name) < 254)) ? true : false
@@ -42,7 +28,7 @@ locals {
 
 resource "ibm_cd_tekton_pipeline_property" "pipeline_propetry" {
   count       = (local.input_target != "trigger") ? 1 : 0
-  pipeline_id = local.pipeline_id
+  pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
   value       = local.input_value
@@ -53,12 +39,12 @@ resource "ibm_cd_tekton_pipeline_property" "pipeline_propetry" {
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_propetry" {
   count       = (local.input_target == "trigger") ? 1 : 0
-  pipeline_id = local.pipeline_id
+  pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
   value       = local.input_value
   path        = local.input_path
   enum        = local.input_enum
-  trigger_id  = local.pipeline_id
+  trigger_id  = var.pipeline_id
   #locked     = local.input_locked
 }
