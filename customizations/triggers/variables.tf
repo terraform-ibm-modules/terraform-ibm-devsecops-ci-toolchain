@@ -1,0 +1,2 @@
+variable "trigger_data" {
+}

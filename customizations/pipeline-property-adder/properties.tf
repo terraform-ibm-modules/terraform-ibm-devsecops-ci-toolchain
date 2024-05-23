@@ -9,7 +9,7 @@ locals {
 }
 
 module "property" {
-  source         = "./property"
+  source         = "../properties"
   for_each        = tomap({
     for t in local.pre_process_prop_data: "${t.pipeline_id}-${t.prop_name}" => t
   })

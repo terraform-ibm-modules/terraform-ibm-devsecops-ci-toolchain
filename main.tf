@@ -171,9 +171,18 @@ locals {
   )
 
   properties_input = (var.pipeline_properties == "") ? "{}" : var.pipeline_properties
-  pre_process_prop_data = flatten([for pipeline in jsondecode(local.properties_input) :{
-      pipeline_id = pipeline.pipeline_id
-      properties = try(pipeline.properties, {})
+  pre_process_prop_data = flatten([for pipeline in jsondecode(local.properties_input) : {
+    pipeline_id = pipeline.pipeline_id
+    properties  = try(pipeline.properties, {})
+    }
+  ])
+
+  repos_input = (var.repository_properties == "") ? "{}" : var.repository_properties
+  pre_process_repo_data = flatten([for pipeline in jsondecode(local.repos_input) : {
+    pipeline_id             = pipeline.pipeline_id
+    git_token_secret_ref    = try(pipeline.git_token_secret_ref, "")
+    repository_owner        = try(pipeline.repository_owner, "")
+    repositories            = try(pipeline.repositories, {})
     }
   ])
 }
@@ -554,15 +563,44 @@ module "services" {
 }
 
 output "testmap" {
-  value = local.pre_process_prop_data
+  #value = local.pre_process_prop_data
+  value  = local.pre_process_repo_data
 }
 
+
 module "pipeline_propeties" {
-  source         = "./pipeline-properties"
-  for_each       = tomap({
+  source = "./customizations/pipeline-property-adder"
+  for_each = tomap({
     for t in local.pre_process_prop_data : "${t.pipeline_id}" => t
   })
   data           = each.value
   ci_pipeline_id = module.pipeline_ci.pipeline_id
   pr_pipeline_id = module.pipeline_pr.pipeline_id
+  #pipeline_id        = (
+  #  (each.value.pipeline_id == "ci") ? module.pipeline_ci.pipeline_id : 
+  #  (each.value.pipeline_id == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
+  #)
+}
+
+
+#This is the structure being passed with each loop
+# into `pipeline_repo_data`
+#  {
+#    "git_token_secret_ref" = ""
+#    "pipeline_id" = "ci"
+#    "repository_owner" = "test"
+#    "repositories" = []
+#  } 
+
+module "repository_properties" {
+  source   = "./customizations/repository-adder"
+  for_each = tomap({
+    for t in local.pre_process_repo_data : "${t.pipeline_id}" => t
+  })
+  toolchain_id      = ibm_cd_toolchain.toolchain_instance.id
+  pipeline_repo_data = each.value
+  pipeline_id        = (
+    (each.value.pipeline_id == "ci") ? module.pipeline_ci.pipeline_id : 
+    (each.value.pipeline_id == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
+  )
 }

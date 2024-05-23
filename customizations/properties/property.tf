@@ -15,6 +15,7 @@ locals {
     (local.input_pipeline_id != "") ? local.input_pipeline_id : var.ci_pipeline_id
   )
 
+  input_target = try(var.data.property.target, "")
   input_name = try(var.data.property.name, "")
   input_type = try(var.data.property.type, "text")
   input_value = try(var.data.property.value, "hello")
@@ -39,12 +40,25 @@ locals {
   #add_property = ((local.is_valid_type == true) && (local.is_name_valid == true) && (local.is_enum == true))
 }
 
-resource "ibm_cd_tekton_pipeline_property" "dynamic_propetry" {
+resource "ibm_cd_tekton_pipeline_property" "pipeline_propetry" {
+  count       = (local.input_target != "trigger") ? 1 : 0
   pipeline_id = local.pipeline_id
   name        = local.input_name
   type        = local.input_type
   value       = local.input_value
   path        = local.input_path
   enum        = local.input_enum
+  #locked     = local.input_locked
+}
+
+resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_propetry" {
+  count       = (local.input_target == "trigger") ? 1 : 0
+  pipeline_id = local.pipeline_id
+  name        = local.input_name
+  type        = local.input_type
+  value       = local.input_value
+  path        = local.input_path
+  enum        = local.input_enum
+  trigger_id  = local.pipeline_id
   #locked     = local.input_locked
 }
