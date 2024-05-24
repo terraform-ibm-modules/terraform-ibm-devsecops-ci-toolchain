@@ -23,24 +23,33 @@ locals {
     (strcontains(local.repo_url_raw, "github.ibm.com")) ? "integrated" : ""
   )
 
-  repo_name = basename(local.repo_url_raw)
+  event_listener = (strcontains(local.repo_url_raw, "git.cloud.ibm.com")) ? "ci-listener-gitlab" : "ci-listener"
+  # Ensure there is a name for the repository integration. If not use the name of the taken from the `repository_url`
+  input_repo_name = try(var.repository_data.name, "")
+  repo_name = (local.input_repo_name == "") ? basename(local.repo_url_raw) : local.input_repo_name
 
-  triggers = try(var.repository_data.triggers, "{}") 
+  # Ensure there is at least an empty element for triggers
+  triggers = try(var.repository_data.triggers, []) 
+  #pre-process to ensure the element key is present
   pre_process_trigger_data = flatten([for trigger in local.triggers : {
-      type         = try(trigger.type, "")
-      name         = try(trigger.name, "")
-      worker_id    = try(trigger.worker_id, "")
-      properties   = try(trigger.properties, "{}")
-      pipeline_id  = var.pipeline_id
+      type                = try(trigger.type, "")
+      name                = try(trigger.name, "")
+      worker_id           = try(trigger.worker_id, "")
+      properties          = try(trigger.properties, [])
+      event_listener      = local.event_listener
+      time_zone           = try(trigger.time_zone, "")
+      cron_schedule       = try(trigger.cron_schedule, "")
+      trigger_enable      = try(trigger.trigger_enable, true)
+      max_concurrent_runs = try(trigger.max_concurrent_runs, 1)
+      pipeline_id         = var.pipeline_id
+      default_branch      = local.default_branch
+      trigger_events      = try(trigger.trigger_events, [])
     }
   ])
 }
 
-
-
 # Create a repository integration
 module "app_repo" {
-  #count                 = (var.create_repo_integration) ? 1 : 0
   source                = "../../repositories"
   tool_name             = local.repo_name
   toolchain_id          = var.toolchain_id
@@ -64,10 +73,16 @@ module "app_repo" {
 #This is the structure being passed with each loop
 # into `trigger_data`
 #    {
-#      "name" = "trigger1"
-#      "properties" = []
-#      "type" = "manual"
-#      "worker_id" = "example1"
+#     type                = 
+#     name                =
+#     worker_id           = 
+#     properties          =
+#     event_listener      =
+#     time_zone           =
+#     cron_schedule       =
+#     trigger_enable      =
+#     max_concurrent_runs =
+#     pipeline_id         =
 #    }
 
 # Create a Trigger

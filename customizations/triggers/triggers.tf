@@ -6,15 +6,15 @@
 locals {
   cron_schedule = (try(var.trigger_data.cron_schedule, "") == "") ? "0 4 * * *" : var.trigger_data.cron_schedule
   time_zone     = (try(var.trigger_data.time_zone, "") == "") ? "UTC" : var.trigger_data.time_zone
-  trigger_type   = (var.trigger_data.type == "") ? "manual" : var.trigger_data.type
-  pipeline_id    = (var.trigger_data.pipeline_id == "") ? "" : var.trigger_data.pipeline_id
-  trigger_name   = (var.trigger_data.name == "") ? "" : var.trigger_data.name 
-  event_listener   = "ci-listener-gitlab"
-  max_concurrent_runs = 1
-  trigger_enable  = true
-  trigger_events = [""]
+  trigger_type   = (try(var.trigger_data.type, "") == "") ? "" : var.trigger_data.type
+  pipeline_id    = (try(var.trigger_data.pipeline_id, "") == "") ? "" : var.trigger_data.pipeline_id
+  trigger_name   = (try(var.trigger_data.name, "") == "") ? "" : var.trigger_data.name 
+  event_listener   = var.trigger_data.event_listener
+  max_concurrent_runs = var.trigger_data.max_concurrent_runs
+  trigger_enable  = var.trigger_data.trigger_enable
+  trigger_events = var.trigger_data.trigger_events
   repo_url  = ""
-  repo_branch = "master"
+  repo_branch = var.trigger_data.default_branch
 
   # Adding pipeline_id and property_name to generate a unique map key 
   pre_process_property_data = flatten([for prop in var.trigger_data.properties :{

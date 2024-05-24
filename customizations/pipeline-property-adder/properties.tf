@@ -10,8 +10,8 @@ locals {
 }
 
 
-# This is the structure being passed with each loop
-# into `pipeline_repo_data`. It is expected for `repositories` to contain repo data
+# This is the property structure being passed with each loop
+# into `property_data`. It is expected for `repositories` to contain repo data
 #  {
 #    "name": "param1",
 #    "type": "text",

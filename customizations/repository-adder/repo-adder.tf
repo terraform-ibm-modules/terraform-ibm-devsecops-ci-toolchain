@@ -5,7 +5,7 @@ locals {
   git_token_secret_ref = try(var.pipeline_repo_data.git_token_secret_ref, "")
   # Ensure there is a `repository_owner` entry
   repository_owner     = try(var.pipeline_repo_data.repository_owner, "")
-  # Ensure there is a `default_branch`. Set to `master` as a default
+  # Ensure there is a `default_branch`. Set to `master` as a default if entry is not present
   default_branch       = try(var.pipeline_repo_data.default_branch, "master")
   # Ensure there is a `mode` entry. The default behaviour is `link`to specified  repository.
   mode                 = try(var.pipeline_repo_data.mode, "link")
