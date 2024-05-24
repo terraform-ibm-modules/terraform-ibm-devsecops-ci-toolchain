@@ -41,7 +41,7 @@ locals {
 # Create a repository integration
 module "app_repo" {
   #count                 = (var.create_repo_integration) ? 1 : 0
-  source                = "../repositories"
+  source                = "../../repositories"
   tool_name             = local.repo_name
   toolchain_id          = var.toolchain_id
   git_provider          = local.git_provider
@@ -72,7 +72,7 @@ module "app_repo" {
 
 # Create a Trigger
 module "triggers" {
-  source               = "../triggers"
+  source               = "../../triggers"
   for_each = tomap({
     for t in local.pre_process_trigger_data : "${t.name}" => t
   })

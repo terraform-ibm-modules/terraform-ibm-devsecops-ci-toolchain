@@ -29,7 +29,7 @@ locals {
 #    }
 
 module "repos_and_triggers" {
-  source               = "../repo-trigger-groups"
+  source               = "./repo-trigger-groups"
   #for_each             = { for t in local.repositories : t.repository_url => t }
   for_each = tomap({
     for t in local.repositories : "${t.repository_url}" => t
