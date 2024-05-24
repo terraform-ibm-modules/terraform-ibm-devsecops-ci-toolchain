@@ -28,5 +28,17 @@ variable "default_branch" {
   default     = ""
 }
 
+variable "mode" {
+  type        = string
+  description = "The default operation for creating a repository integration. `clone` will clone the specifed repository. `link` will link to it."
+  default     = ""
+}
+
+variable "worker_id" {
+  type        = string
+  description = "The ID of the worker used by the specified trigger. Defaults to `public` for the Managed Worker."
+  default     = ""
+}
+
 variable "repository_data" {
 }

@@ -1,8 +1,16 @@
 locals {
-  repositories = try(var.pipeline_repo_data.repositories, "{}")
-  git_token_secret_ref = try(var.pipeline_repo_data.git_token, "")
-  repository_owner              = try(var.pipeline_repo_data.owner, "")
-  default_branch     = try(var.pipeline_repo_data.default_branch, "master")
+  # Ensure there is at least an empty list set for repositories 
+  repositories         = try(var.pipeline_repo_data.repositories, [])
+  # Ensure there is a `git_token_secret_ref` entry
+  git_token_secret_ref = try(var.pipeline_repo_data.git_token_secret_ref, "")
+  # Ensure there is a `repository_owner` entry
+  repository_owner     = try(var.pipeline_repo_data.repository_owner, "")
+  # Ensure there is a `default_branch`. Set to `master` as a default
+  default_branch       = try(var.pipeline_repo_data.default_branch, "master")
+  # Ensure there is a `mode` entry. The default behaviour is `link`to specified  repository.
+  mode                 = try(var.pipeline_repo_data.mode, "link")
+  # Ensure there is a `worker_id` entry. The default is is `public` -> managed worker
+  worker_id            = try(var.pipeline_repo_data.worker_id, "public")
 }
 
 
@@ -31,4 +39,7 @@ module "repos_and_triggers" {
   git_token_secret_ref = local.git_token_secret_ref
   repository_data      = each.value # each repository payload
   pipeline_id          = var.pipeline_id
+  default_branch       = local.default_branch
+  mode                 = local.mode
+  worker_id            = local.worker_id
 }

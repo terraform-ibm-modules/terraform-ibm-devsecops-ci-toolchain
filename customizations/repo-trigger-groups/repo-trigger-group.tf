@@ -1,8 +1,19 @@
 locals {
 
+  # Compare top level variables with equivalent variables in `repository_data`. Values in `repository_data` take precedence.
+  # `git_token_secret_ref`
+  # `repository_owner`
+  # `mode`
+  # `default_branch`
+  # `worker_id`
+
+  git_token_secret_ref  = try(var.repository_data.git_token_secret_ref, var.git_token_secret_ref)
+  default_branch        = try(var.repository_data.default_branch, var.default_branch)
+  repository_owner      = try(var.repository_data.repository_owner, var.repository_owner)
+  mode                  = try(var.repository_data.mode, var.mode)
+  worker_id             = try(var.repository_data.worker_id, var.worker_id)
+
   repo_url_raw = try(trimsuffix(var.repository_data.repository_url, ".git"), "")
-  repo_branch = try(var.repository_data.default_branch, "master")
-  repo_owner = try(var.repository_data.repository_owner, "")
 
   git_provider = (
     (strcontains(local.repo_url_raw, "git.cloud.ibm.com")) ? "hostedgit" : "githubconsolidated"
@@ -12,9 +23,7 @@ locals {
     (strcontains(local.repo_url_raw, "github.ibm.com")) ? "integrated" : ""
   )
 
-  secret_ref = try(var.repository_data.git_token_secret_ref, "")
   repo_name = basename(local.repo_url_raw)
-
 
   triggers = try(var.repository_data.triggers, "{}") 
   pre_process_trigger_data = flatten([for trigger in local.triggers : {
@@ -36,17 +45,17 @@ module "app_repo" {
   tool_name             = local.repo_name
   toolchain_id          = var.toolchain_id
   git_provider          = local.git_provider
-  initialization_type   = "link"
+  initialization_type   = local.mode
   repository_url        = local.repo_url_raw
-  source_repository_url = ""
+  source_repository_url = local.repo_url_raw
   repository_name       = local.repo_name 
   is_private_repo       = true
-  owner_id              = local.repo_owner #(local.repo_owner == "") ? var.repository_owner : local.repo_owner #repository_data takes precedence
+  owner_id              = local.repository_owner
   issues_enabled        = true
   traceability_enabled  = false
-  integration_owner     = local.repo_owner #(local.repo_owner == "") ? var.repository_owner : local.repo_owner #repository_data takes precedence
-  auth_type             = "oauth" #(local.secret_ref == "") ? "oauth" : "pat"
-  secret_ref            = local.secret_ref
+  integration_owner     = local.repository_owner
+  auth_type             = (local.git_token_secret_ref == "") ? "oauth" : "pat"
+  secret_ref            = local.git_token_secret_ref
   git_id                = local.git_id
   default_git_provider  = ""
 }
