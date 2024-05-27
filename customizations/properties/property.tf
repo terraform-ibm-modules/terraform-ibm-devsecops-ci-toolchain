@@ -18,11 +18,18 @@ locals {
   input_target = try(var.property_data.property.target, "")
   input_name = try(var.property_data.property.name, "")
   input_type = try(var.property_data.property.type, "text")
-  input_value = try(var.property_data.property.value, "hello")
-  input_path = try(var.property_data.property.path, null)
+  input_value = try(var.property_data.property.value, "")
+  input_path = (local.input_type == "integration") ? try(var.property_data.property.path, null) : null
   input_enum = try(jsondecode(var.property_data.property.enum), null)
   input_locked = try(var.property_data.property.locked, false)
   input_trigger_id = try(var.trigger_id, "")
+
+  input_repository_integration_id = (local.input_value == "") ? try(var.property_data.repository_integration_id, "") : local.input_value
+  
+
+  resolved_value = ((local.input_type == "integration") && (local.input_value == "")) ? local.input_repository_integration_id : local.input_value 
+  resolved_path = ((local.input_type == "integration") && (local.input_value == "") && (local.input_path == null)) ? "parameters.repo_url" : null
+
   #is_valid_type = (local.input_type == "secure" || local.input_type == "text" || local.input_type == "single_select" || local.input_type == "integration" || local.input_type == "appconfig") ? true : false
   #is_name_valid = ((length(local.input_name) > 0) && (length(local.input_name) < 254)) ? true : false
   #is_enum = (
@@ -38,8 +45,8 @@ resource "ibm_cd_tekton_pipeline_property" "pipeline_propetry" {
   pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
-  value       = local.input_value
-  path        = local.input_path
+  value       = local.resolved_value
+  path        = local.resolved_path
   enum        = local.input_enum
   #locked     = local.input_locked
 }
@@ -49,8 +56,8 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_propetry" {
   pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
-  value       = local.input_value
-  path        = local.input_path
+  value       = local.resolved_value
+  path        = local.resolved_path
   enum        = local.input_enum
   trigger_id  = local.input_trigger_id
   #locked     = local.input_locked

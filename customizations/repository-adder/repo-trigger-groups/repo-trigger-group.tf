@@ -44,6 +44,7 @@ locals {
       pipeline_id         = var.pipeline_id
       default_branch      = local.default_branch
       trigger_events      = try(trigger.trigger_events, [])
+      repo_url            = try(trigger.trigger_events, local.repo_url_raw)
     }
   ])
 }
@@ -87,9 +88,11 @@ module "app_repo" {
 
 # Create a Trigger
 module "triggers" {
+  depends_on           = [module.app_repo.repository]
   source               = "../../triggers"
   for_each = tomap({
     for t in local.pre_process_trigger_data : "${t.name}" => t
   })
   trigger_data = each.value
+  repository_integration_id  = module.app_repo.repository.tool_id
 }

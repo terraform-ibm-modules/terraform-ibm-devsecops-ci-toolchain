@@ -13,19 +13,21 @@ locals {
   max_concurrent_runs = var.trigger_data.max_concurrent_runs
   trigger_enable  = var.trigger_data.trigger_enable
   trigger_events = var.trigger_data.trigger_events
-  repo_url  = ""
+  
+  repo_url_raw = try(trimsuffix(var.trigger_data.repo_url, ".git"), "")
+  repo_url = format("%s%s",var.trigger_data.repo_url, ".git")
   repo_branch = var.trigger_data.default_branch
 
   # Adding pipeline_id and property_name to generate a unique map key 
   pre_process_property_data = flatten([for prop in var.trigger_data.properties :{
         pipeline_id = var.trigger_data.pipeline_id 
-        property = prop
-        type     = prop.type
-        name = prop.name
+        property                  = prop
+        type                      = prop.type
+        name                      = prop.name
+        repository_integration_id = var.repository_integration_id
       }
   ])
 }
-
 
 # Manual Trigger
 resource "ibm_cd_tekton_pipeline_trigger" "pipeline_manual_trigger" {
@@ -58,13 +60,13 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   type           = "scm"
   name           = local.trigger_name
   event_listener = local.event_listener
-  events         = local.trigger_events
+  events         = ["push"] #local.trigger_events
   enabled        = local.trigger_enable
   source {
     type = "git"
     properties {
-      url    = local.repo_url
-      branch = local.repo_branch
+      url    = local.repo_url #"https://eu-es.git.cloud.ibm.com/huayuenh/hyh-da-es-compliance-evidence-repo.git" #"https://eu-es.git.cloud.ibm.com/huayuenh/106-scc-sept-app-repo.git" #local.repo_url
+      branch = "master" #local.repo_branch
     }
   }
   max_concurrent_runs = local.max_concurrent_runs
@@ -85,7 +87,7 @@ module "trigger_properties" {
   })
   pipeline_id       = local.pipeline_id
   trigger_id         = (
-    (local.trigger_type == "scm") ? ibm_cd_tekton_pipeline_trigger.pipeline_scm_trigger[0].trigger_id :
+    ((local.trigger_type == "scm") || (local.trigger_type == "git")) ? ibm_cd_tekton_pipeline_trigger.pipeline_scm_trigger[0].trigger_id :
     (local.trigger_type == "manual") ? ibm_cd_tekton_pipeline_trigger.pipeline_manual_trigger[0].trigger_id :
     (local.trigger_type == "timer") ? ibm_cd_tekton_pipeline_trigger.pipeline_timed_trigger[0].trigger_id : ""
   )
