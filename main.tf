@@ -426,6 +426,9 @@ module "pipeline_ci" {
   opt_in_gosec                         = var.opt_in_gosec
   gosec_private_repository_host        = var.gosec_private_repository_host
   gosec_repository_ssh_secret_ref      = local.gosec_repository_ssh_secret_ref
+  cra_bom_generate                     = var.ci_cra_bom_generate
+  cra_vulnerability_scan               = var.ci_cra_vulnerability_scan
+  cra_deploy_analysis                  = var.ci_cra_deploy_analysis
 
 }
 
@@ -468,6 +471,9 @@ module "pipeline_pr" {
   trigger_pr_git_name                  = var.trigger_pr_git_name
   trigger_pr_git_enable                = var.trigger_pr_git_enable
   enable_pipeline_notifications        = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
+  cra_bom_generate                     = var.pr_cra_bom_generate
+  cra_vulnerability_scan               = var.pr_cra_vulnerability_scan
+  cra_deploy_analysis                  = var.pr_cra_deploy_analysis
 }
 
 module "integrations" {

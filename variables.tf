@@ -1688,3 +1688,65 @@ variable "gosec_private_repository_ssh_key_secret_group" {
   description = "Secret group prefix for the gosec private repository ssh key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
+
+variable "pr_cra_bom_generate" {
+  type        = string
+  description = "Set this flag to `1` to generate cra bom in PR pipeline"
+  default     = "1"
+  validation {
+    condition     = contains(["0", "1"], var.pr_cra_bom_generate)
+    error_message = "Must be either \"0\" or \"1\" ."
+  }
+}
+
+variable "pr_cra_vulnerability_scan" {
+  type        = string
+  description = "Set this flag to `1` for cra vulnerability scan in PR pipeline .If cra-bom-generate is set to `0`, the scan will be marked as `failure`"
+  default     = "1"
+  validation {
+    condition     = contains(["0", "1"], var.pr_cra_vulnerability_scan)
+    error_message = "Must be either \"0\" or \"1\" ."
+  }
+
+}
+
+variable "pr_cra_deploy_analysis" {
+  type        = string
+  description = "Set this flag to `1` for cra deployment analysis to be done in PR pipeline."
+  default     = "1"
+  validation {
+    condition     = contains(["0", "1"], var.pr_cra_deploy_analysis)
+    error_message = "Must be either \"0\" or \"1\" ."
+  }
+}
+
+variable "ci_cra_bom_generate" {
+  type        = string
+  description = "Set this flag to `1` to generate cra bom in CI pipeline."
+  default     = "1"
+  validation {
+    condition     = contains(["0", "1"], var.ci_cra_bom_generate)
+    error_message = "Must be either \"0\" or \"1\" ."
+  }
+}
+
+variable "ci_cra_vulnerability_scan" {
+  type        = string
+  description = "Set this flag to `1` for cra vulnerability scan in CI pipeline.If cra-bom-generate is set to `0`, the scan will be marked as `failure`"
+  default     = "1"
+  validation {
+    condition     = contains(["0", "1"], var.ci_cra_vulnerability_scan)
+    error_message = "Must be either \"0\" or \"1\" ."
+  }
+
+}
+
+variable "ci_cra_deploy_analysis" {
+  type        = string
+  description = "Set this flag to `1` for cra deployment analysis to be done in CI pipeline."
+  default     = "1"
+  validation {
+    condition     = contains(["0", "1"], var.ci_cra_deploy_analysis)
+    error_message = "Must be either \"0\" or \"1\" ."
+  }
+}
