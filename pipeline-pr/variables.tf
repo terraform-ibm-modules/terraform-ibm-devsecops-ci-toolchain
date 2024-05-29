@@ -88,8 +88,18 @@ variable "enable_artifactory" {
 
 variable "trigger_pr_git_name" {
 }
+
 variable "trigger_pr_git_enable" {
 }
 
 variable "enable_pipeline_notifications" {
+}
+
+variable "cra_bom_generate" {
+}
+
+variable "cra_vulnerability_scan" {
+}
+
+variable "cra_deploy_analysis" {
 }

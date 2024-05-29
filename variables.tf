@@ -1701,7 +1701,7 @@ variable "pr_cra_bom_generate" {
 
 variable "pr_cra_vulnerability_scan" {
   type        = string
-  description = "Set this flag to `1` for cra vulnerability scan in PR pipeline .If cra-bom-generate is set to `0`, the scan will be marked as `failure`"
+  description = "Set this flag to `1` and `pr-cra-bom-generate` to `1` for cra vulnerability scan in PR pipeline. If this value is set to `1` and `pr-cra-bom-generate` is set to `0`, the scan will be marked as `failure`"
   default     = "1"
   validation {
     condition     = contains(["0", "1"], var.pr_cra_vulnerability_scan)
@@ -1732,7 +1732,7 @@ variable "ci_cra_bom_generate" {
 
 variable "ci_cra_vulnerability_scan" {
   type        = string
-  description = "Set this flag to `1` for cra vulnerability scan in CI pipeline.If cra-bom-generate is set to `0`, the scan will be marked as `failure`"
+  description ="Set this flag to `1` and `ci-cra-bom-generate` to `1` for cra vulnerability scan in CI pipeline. If this value is set to 1 and `ci-cra-bom-generate` is set to `0`, the scan will be marked as `failure`"
   default     = "1"
   validation {
     condition     = contains(["0", "1"], var.ci_cra_vulnerability_scan)

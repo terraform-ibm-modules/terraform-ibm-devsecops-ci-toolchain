@@ -89,5 +89,28 @@ resource "ibm_cd_tekton_pipeline_property" "artifactory-dockerconfigjson" {
   value       = var.tool_artifactory
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   path        = "parameters.docker_config_json"
+}
 
+resource "ibm_cd_tekton_pipeline_property" "pr_cra_bom_generate" {
+  name        = "cra-bom-generate"
+  type        = "single_select"
+  enum        = ["0", "1"]
+  value       = var.cra_bom_generate
+  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "pr_cra_vulnerability_scan" {
+  name        = "cra-vulnerability-scan"
+  type        = "single_select"
+  enum        = ["0", "1"]
+  value       = var.cra_vulnerability_scan
+  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
+}
+
+resource "ibm_cd_tekton_pipeline_property" "pr_cra_deployment_analysis" {
+  name        = "cra-deploy-analysis"
+  type        = "single_select"
+  enum        = ["0", "1"]
+  value       = var.cra_deploy_analysis
+  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
