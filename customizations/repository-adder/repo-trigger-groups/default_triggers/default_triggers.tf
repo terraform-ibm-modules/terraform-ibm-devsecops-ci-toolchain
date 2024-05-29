@@ -1,11 +1,11 @@
 locals {
-  repo_name       = basename(var.repository_url)
+  repo_name = basename(var.repository_url)
   listener = (
     (strcontains(var.repository_url, "git.cloud.ibm.com")) ? "ci-listener-gitlab" : "ci-listener"
   )
-  manual = true
-  git    = true
-  pr     = false
+  manual       = true
+  git          = true
+  pr           = false
   repo_url_raw = try(trimsuffix(var.repository_url, ".git"), "")
   repo_url     = format("%s%s", local.repo_url_raw, ".git")
 }
@@ -58,7 +58,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   count          = (local.git) ? 1 : 0
   pipeline_id    = var.pipeline_id
   type           = "scm"
-  name           = join(" - ", [ "Git", local.repo_name])
+  name           = join(" - ", ["Git", local.repo_name])
   event_listener = local.listener
   events         = ["push"]
   enabled        = true
@@ -87,7 +87,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_pr_trigger" {
   count          = (local.git) ? 1 : 0
   pipeline_id    = var.pipeline_id
   type           = "scm"
-  name           = join(" - ", [ "Git2", local.repo_name])
+  name           = join(" - ", ["Git2", local.repo_name])
   event_listener = local.listener
   events         = ["pull_request"]
   enabled        = true
