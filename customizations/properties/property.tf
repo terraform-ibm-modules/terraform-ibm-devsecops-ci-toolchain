@@ -5,30 +5,30 @@
 # 2) Trigger properties additionally require `trigger_id` to be set
 
 # TYPES
-  # enum -> only used when type is set to single_select
-  # name -> max length = 253 chars, allowed characters = /^[-0-9a-zA-Z_.]{1,253}$/
-  # path -> min length =0, max length = 4096, allowed characters = /^[-0-9a-zA-Z_.]*$/
-  # pipeline_id -> max length = 36, allowed characters = /^[-0-9a-z]+$/
-  # type -> allowed options = secure, text, single_select, integration, appconfig
-  # locked -> true or false (default false)
+# enum -> only used when type is set to single_select
+# name -> max length = 253 chars, allowed characters = /^[-0-9a-zA-Z_.]{1,253}$/
+# path -> min length =0, max length = 4096, allowed characters = /^[-0-9a-zA-Z_.]*$/
+# pipeline_id -> max length = 36, allowed characters = /^[-0-9a-z]+$/
+# type -> allowed options = secure, text, single_select, integration, appconfig
+# locked -> true or false (default false)
 
 locals {
 
   #TODO Validate all the values before attempting to create the property. Raise an alert if there is a problem
-  input_target = try(var.property_data.property.target, "")
-  input_name = try(var.property_data.property.name, "")
-  input_type = try(var.property_data.property.type, "text")
-  input_value = try(var.property_data.property.value, "")
-  input_path = (local.input_type == "integration") ? try(var.property_data.property.path, null) : null
-  input_enum = try(jsondecode(var.property_data.property.enum), null)
-  input_locked = try(var.property_data.property.locked, false)
+  input_target     = try(var.property_data.property.target, "")
+  input_name       = try(var.property_data.property.name, "")
+  input_type       = try(var.property_data.property.type, "text")
+  input_value      = try(var.property_data.property.value, "")
+  input_path       = (local.input_type == "integration") ? try(var.property_data.property.path, null) : null
+  input_enum       = try(jsondecode(var.property_data.property.enum), null)
+  input_locked     = try(var.property_data.property.locked, false)
   input_trigger_id = try(var.trigger_id, "")
 
   input_repository_integration_id = (local.input_value == "") ? try(var.property_data.repository_integration_id, "") : local.input_value
-  
 
-  resolved_value = ((local.input_type == "integration") && (local.input_value == "")) ? local.input_repository_integration_id : local.input_value 
-  resolved_path = ((local.input_type == "integration") && (local.input_value == "") && (local.input_path == null)) ? "parameters.repo_url" : null
+
+  resolved_value = ((local.input_type == "integration") && (local.input_value == "")) ? local.input_repository_integration_id : local.input_value
+  resolved_path  = ((local.input_type == "integration") && (local.input_value == "") && (local.input_path == null)) ? "parameters.repo_url" : null
 
   #is_valid_type = (local.input_type == "secure" || local.input_type == "text" || local.input_type == "single_select" || local.input_type == "integration" || local.input_type == "appconfig") ? true : false
   #is_name_valid = ((length(local.input_name) > 0) && (length(local.input_name) < 254)) ? true : false

@@ -40,5 +40,11 @@ variable "worker_id" {
   default     = ""
 }
 
+variable "create_default" {
+  type        = bool
+  description = "Set to `true` to allow creation of default triggers."
+  default     = true
+}
+
 variable "repository_data" {
 }

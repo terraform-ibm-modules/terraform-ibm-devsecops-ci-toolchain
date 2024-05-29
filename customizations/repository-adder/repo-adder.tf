@@ -1,16 +1,16 @@
 locals {
-  # Ensure there is at least an empty list set for repositories 
-  repositories         = try(var.pipeline_repo_data.repositories, [])
+  # Ensure there is at least an empty list set for repositories
+  repositories = try(var.pipeline_repo_data.repositories, [])
   # Ensure there is a `git_token_secret_ref` entry
   git_token_secret_ref = try(var.pipeline_repo_data.git_token_secret_ref, "")
   # Ensure there is a `repository_owner` entry
-  repository_owner     = try(var.pipeline_repo_data.repository_owner, "")
+  repository_owner = try(var.pipeline_repo_data.repository_owner, "")
   # Ensure there is a `default_branch`. Set to `master` as a default if entry is not present
-  default_branch       = try(var.pipeline_repo_data.default_branch, "master")
+  default_branch = try(var.pipeline_repo_data.default_branch, "master")
   # Ensure there is a `mode` entry. The default behaviour is `link`to specified  repository.
-  mode                 = try(var.pipeline_repo_data.mode, "link")
+  mode = try(var.pipeline_repo_data.mode, "link")
   # Ensure there is a `worker_id` entry. The default is is `public` -> managed worker
-  worker_id            = try(var.pipeline_repo_data.worker_id, "public")
+  worker_id = try(var.pipeline_repo_data.worker_id, "public")
 }
 
 
@@ -29,7 +29,7 @@ locals {
 #    }
 
 module "repos_and_triggers" {
-  source               = "./repo-trigger-groups"
+  source = "./repo-trigger-groups"
   #for_each             = { for t in local.repositories : t.repository_url => t }
   for_each = tomap({
     for t in local.repositories : "${t.repository_url}" => t

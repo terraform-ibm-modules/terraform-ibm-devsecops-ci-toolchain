@@ -179,10 +179,10 @@ locals {
 
   repos_input = (var.repository_properties == "") ? "{}" : var.repository_properties
   pre_process_repo_data = flatten([for pipeline in jsondecode(local.repos_input) : {
-    pipeline_id             = pipeline.pipeline_id # could be `ci`, `pr` or actual pipeline ID
-    git_token_secret_ref    = try(pipeline.git_token_secret_ref, "")
-    repository_owner        = try(pipeline.repository_owner, "")
-    repositories            = try(pipeline.repositories, {})
+    pipeline_id          = pipeline.pipeline_id # could be `ci`, `pr` or actual pipeline ID
+    git_token_secret_ref = try(pipeline.git_token_secret_ref, "")
+    repository_owner     = try(pipeline.repository_owner, "")
+    repositories         = try(pipeline.repositories, {})
     }
   ])
 }
@@ -564,7 +564,7 @@ module "services" {
 
 output "testmap" {
   #value = local.pre_process_prop_data
-  value  = local.pre_process_repo_data
+  value = local.pre_process_repo_data
 }
 
 # This is the structure being passed with each loop
@@ -580,10 +580,10 @@ module "pipeline_propeties" {
   for_each = tomap({
     for t in local.pre_process_prop_data : "${t.pipeline_id}" => t
   })
-  property_data      = each.value
+  property_data = each.value
   # resolve the shorthand to an actual pipeline id
-  pipeline_id        = (
-    (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id : 
+  pipeline_id = (
+    (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id :
     (lower(each.value.pipeline_id) == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
   )
 }
@@ -596,19 +596,19 @@ module "pipeline_propeties" {
 #    "pipeline_id" = "ci"
 #    "repository_owner" = "test"
 #    "repositories" = []
-#  } 
+#  }
 
 module "repository_properties" {
-  source   = "./customizations/repository-adder"
+  source = "./customizations/repository-adder"
   #preprossing the data ensures that a pipeline_id is variable is present
   for_each = tomap({
     for t in local.pre_process_repo_data : "${t.pipeline_id}" => t
   })
-  toolchain_id      = ibm_cd_toolchain.toolchain_instance.id
+  toolchain_id       = ibm_cd_toolchain.toolchain_instance.id
   pipeline_repo_data = each.value
   # resolve the shorthand to an actual pipeline id
-  pipeline_id        = (
-    (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id : 
+  pipeline_id = (
+    (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id :
     (lower(each.value.pipeline_id) == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
   )
 }

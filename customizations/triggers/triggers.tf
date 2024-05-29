@@ -4,28 +4,28 @@
 # - Git
 
 locals {
-  cron_schedule = (try(var.trigger_data.cron_schedule, "") == "") ? "0 4 * * *" : var.trigger_data.cron_schedule
-  time_zone     = (try(var.trigger_data.time_zone, "") == "") ? "UTC" : var.trigger_data.time_zone
-  trigger_type   = (try(var.trigger_data.type, "") == "") ? "" : var.trigger_data.type
-  pipeline_id    = (try(var.trigger_data.pipeline_id, "") == "") ? "" : var.trigger_data.pipeline_id
-  trigger_name   = (try(var.trigger_data.name, "") == "") ? "" : var.trigger_data.name 
-  event_listener   = var.trigger_data.event_listener
+  cron_schedule       = (try(var.trigger_data.cron_schedule, "") == "") ? "0 4 * * *" : var.trigger_data.cron_schedule
+  time_zone           = (try(var.trigger_data.time_zone, "") == "") ? "UTC" : var.trigger_data.time_zone
+  trigger_type        = (try(var.trigger_data.type, "") == "") ? "" : var.trigger_data.type
+  pipeline_id         = (try(var.trigger_data.pipeline_id, "") == "") ? "" : var.trigger_data.pipeline_id
+  trigger_name        = (try(var.trigger_data.name, "") == "") ? "" : var.trigger_data.name
+  event_listener      = var.trigger_data.event_listener
   max_concurrent_runs = var.trigger_data.max_concurrent_runs
-  trigger_enable  = var.trigger_data.trigger_enable
-  trigger_events = var.trigger_data.trigger_events
-  
-  repo_url_raw = try(trimsuffix(var.trigger_data.repo_url, ".git"), "")
-  repo_url = format("%s%s",var.trigger_data.repo_url, ".git")
-  repo_branch = var.trigger_data.default_branch
+  trigger_enable      = var.trigger_data.trigger_enable
+  trigger_events      = var.trigger_data.trigger_events
 
-  # Adding pipeline_id and property_name to generate a unique map key 
-  pre_process_property_data = flatten([for prop in var.trigger_data.properties :{
-        pipeline_id = var.trigger_data.pipeline_id 
-        property                  = prop
-        type                      = prop.type
-        name                      = prop.name
-        repository_integration_id = var.repository_integration_id
-      }
+  repo_url_raw = try(trimsuffix(var.trigger_data.repo_url, ".git"), "")
+  repo_url     = format("%s%s", local.repo_url_raw, ".git")
+  repo_branch  = var.trigger_data.default_branch
+
+  # Adding pipeline_id and property_name to generate a unique map key
+  pre_process_property_data = flatten([for prop in var.trigger_data.properties : {
+    pipeline_id               = var.trigger_data.pipeline_id
+    property                  = prop
+    type                      = prop.type
+    name                      = prop.name
+    repository_integration_id = var.repository_integration_id
+    }
   ])
 }
 
@@ -66,7 +66,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
     type = "git"
     properties {
       url    = local.repo_url #"https://eu-es.git.cloud.ibm.com/huayuenh/hyh-da-es-compliance-evidence-repo.git" #"https://eu-es.git.cloud.ibm.com/huayuenh/106-scc-sept-app-repo.git" #local.repo_url
-      branch = "master" #local.repo_branch
+      branch = "master"       #local.repo_branch
     }
   }
   max_concurrent_runs = local.max_concurrent_runs
@@ -81,16 +81,16 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
 #  }
 
 module "trigger_properties" {
-  source   = "../properties"
+  source = "../properties"
   for_each = tomap({
     for t in local.pre_process_property_data : "${t.type}-${t.name}" => t
   })
-  pipeline_id       = local.pipeline_id
-  trigger_id         = (
+  pipeline_id = local.pipeline_id
+  trigger_id = (
     ((local.trigger_type == "scm") || (local.trigger_type == "git")) ? ibm_cd_tekton_pipeline_trigger.pipeline_scm_trigger[0].trigger_id :
     (local.trigger_type == "manual") ? ibm_cd_tekton_pipeline_trigger.pipeline_manual_trigger[0].trigger_id :
     (local.trigger_type == "timer") ? ibm_cd_tekton_pipeline_trigger.pipeline_timed_trigger[0].trigger_id : ""
   )
-  is_trigger_property    = true
-  property_data = each.value
+  is_trigger_property = true
+  property_data       = each.value
 }
