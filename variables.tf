@@ -1678,4 +1678,5 @@ variable "pipeline_properties" {
 }
 
 variable "repository_properties" {
+  default = ""
 }

@@ -87,7 +87,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_pr_trigger" {
   count          = (local.git) ? 1 : 0
   pipeline_id    = var.pr_pipeline_id
   type           = "scm"
-  name           = join(" - ", ["Git2", local.repo_name])
+  name           = join(" - ", ["Git PR", local.repo_name])
   event_listener = local.listener
   events         = ["pull_request"]
   enabled        = true

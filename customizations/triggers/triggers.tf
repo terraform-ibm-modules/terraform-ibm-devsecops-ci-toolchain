@@ -16,7 +16,7 @@ locals {
 
   repo_url_raw = try(trimsuffix(var.trigger_data.repo_url, ".git"), "")
   repo_url     = format("%s%s", local.repo_url_raw, ".git")
-  repo_branch  = var.trigger_data.default_branch
+  repo_branch  = try(var.trigger_data.default_branch, "master")
 
   # Adding pipeline_id and property_name to generate a unique map key
   pre_process_property_data = flatten([for prop in var.trigger_data.properties : {
@@ -65,8 +65,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   source {
     type = "git"
     properties {
-      url    = local.repo_url #"https://eu-es.git.cloud.ibm.com/huayuenh/hyh-da-es-compliance-evidence-repo.git" #"https://eu-es.git.cloud.ibm.com/huayuenh/106-scc-sept-app-repo.git" #local.repo_url
-      branch = "master"       #local.repo_branch
+      url    = local.repo_url
+      branch = local.repo_branch
     }
   }
   max_concurrent_runs = local.max_concurrent_runs
