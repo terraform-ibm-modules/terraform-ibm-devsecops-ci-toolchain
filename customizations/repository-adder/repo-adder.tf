@@ -11,6 +11,20 @@ locals {
   mode = try(var.pipeline_repo_data.mode, "link")
   # Ensure there is a `worker_id` entry. The default is is `public` -> managed worker
   worker_id = try(var.pipeline_repo_data.worker_id, "public")
+
+  # Ensure repositories have the same structure 
+  pre_process_repo_data = flatten([for repository in local.repositories : {
+    repository_url       = try(repository.repository_url, "")
+    default_branch       = try(repository.default_branch, "master")
+    mode                 = try(repository.mode, "link")
+    provider             = try(repository.provider, "")
+    git_token_secret_ref = try(repository.git_token_secret_ref, "")
+    repository_owner     = try(repository.repository_owner, "")
+    name                 = try(repository.name, "")
+    worker_id            = try(repository.worker_id, "public")
+    triggers             = try(repository.triggers, [])
+    }
+  ])
 }
 
 
@@ -31,7 +45,8 @@ locals {
 module "repos_and_triggers" {
   source = "./repo-trigger-groups"
   for_each = tomap({
-    for t in local.repositories : "${t.repository_url}" => t
+    #for t in local.repositories : "${t.repository_url}" => t
+    for t in local.pre_process_repo_data : "${t.repository_url}" => t
   })
   repository_owner     = local.repository_owner
   toolchain_id         = var.toolchain_id
