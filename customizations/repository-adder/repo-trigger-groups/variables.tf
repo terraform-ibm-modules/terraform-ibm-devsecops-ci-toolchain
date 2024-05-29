@@ -10,6 +10,12 @@ variable "pipeline_id" {
   default     = ""
 }
 
+variable "pr_pipeline_id" {
+  type        = string
+  description = "The PR pipeline ID."
+  default     = ""
+}
+
 variable "git_token_secret_ref" {
   type        = string
   description = "The secret ref to the Secrets Manager secret for the Git Token. This is the top level setting can be overriden with a local setting from `repository_data`."

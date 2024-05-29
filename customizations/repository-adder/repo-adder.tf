@@ -30,7 +30,6 @@ locals {
 
 module "repos_and_triggers" {
   source = "./repo-trigger-groups"
-  #for_each             = { for t in local.repositories : t.repository_url => t }
   for_each = tomap({
     for t in local.repositories : "${t.repository_url}" => t
   })
@@ -39,6 +38,7 @@ module "repos_and_triggers" {
   git_token_secret_ref = local.git_token_secret_ref
   repository_data      = each.value # each repository payload
   pipeline_id          = var.pipeline_id
+  pr_pipeline_id       = var.pr_pipeline_id
   default_branch       = local.default_branch
   mode                 = local.mode
   worker_id            = local.worker_id

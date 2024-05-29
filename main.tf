@@ -611,4 +611,5 @@ module "repository_properties" {
     (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id :
     (lower(each.value.pipeline_id) == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
   )
+  pr_pipeline_id = try(module.pipeline_pr.pipeline_id, "")
 }

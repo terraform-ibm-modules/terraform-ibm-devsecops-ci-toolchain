@@ -99,11 +99,11 @@ module "triggers" {
 }
 
 module "default_triggers" {
-  count       = ((var.create_default == true) && (length(local.triggers) == 0)) ? 1 : 0
-  depends_on  = [module.app_repo.repository]
-  source      = "./default_triggers"
-  pipeline_id = var.pipeline_id
-  #pr_pipeline_id            =
+  count                     = ((var.create_default == true) && (length(local.triggers) == 0)) ? 1 : 0
+  depends_on                = [module.app_repo.repository]
+  source                    = "./default_triggers"
+  pipeline_id               = var.pipeline_id
+  pr_pipeline_id            = var.pr_pipeline_id
   repository_url            = local.repo_url_raw
   branch                    = local.default_branch
   repository_integration_id = module.app_repo.repository.tool_id

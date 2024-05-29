@@ -10,5 +10,11 @@ variable "pipeline_id" {
   default     = ""
 }
 
+variable "pr_pipeline_id" {
+  type        = string
+  description = "The ID of the PR pipeline."
+  default     = ""
+}
+
 variable "pipeline_repo_data" {
 }

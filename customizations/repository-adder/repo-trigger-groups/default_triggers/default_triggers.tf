@@ -85,7 +85,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_git_app_nam
 # GIT TRIGGER FOR PR PIPELINE
 resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_pr_trigger" {
   count          = (local.git) ? 1 : 0
-  pipeline_id    = var.pipeline_id
+  pipeline_id    = var.pr_pipeline_id
   type           = "scm"
   name           = join(" - ", ["Git2", local.repo_name])
   event_listener = local.listener
@@ -103,7 +103,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_pr_trigger" {
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_pr_git_app_name" {
   count       = (local.git) ? 1 : 0
-  pipeline_id = var.pipeline_id
+  pipeline_id = var.pr_pipeline_id
   name        = "app-name"
   type        = "text"
   value       = local.repo_name
