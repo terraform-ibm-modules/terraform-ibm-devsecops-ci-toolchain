@@ -2,7 +2,6 @@
 # - manual
 # - timer/cron
 # - Git
-#push, pull_request, pull_request_closed
 locals {
   cron_schedule       = (try(var.trigger_data.cron_schedule, "") == "") ? "0 4 * * *" : var.trigger_data.cron_schedule
   time_zone           = (try(var.trigger_data.time_zone, "") == "") ? "UTC" : var.trigger_data.time_zone
@@ -12,7 +11,18 @@ locals {
   event_listener      = var.trigger_data.event_listener
   max_concurrent_runs = var.trigger_data.max_concurrent_runs
   trigger_enable      = var.trigger_data.enabled
-  trigger_events      = try(jsondecode(var.trigger_data.events), ["push"])
+
+  # Events = push, pull_request, pull_request_closed
+  resolved_events = (
+    (strcontains(var.trigger_data.events, "push") && strcontains(var.trigger_data.events, "pull_request") && strcontains(var.trigger_data.events, "pull_request_closed")) ? ["push","pull_request","pull_request_closed"] :
+    (strcontains(var.trigger_data.events, "push") && strcontains(var.trigger_data.events, "pull_request")) ? ["push","pull_request"] :
+    (strcontains(var.trigger_data.events, "push") && strcontains(var.trigger_data.events, "pull_request_closed")) ? ["push","pull_request_closed"] :
+    (strcontains(var.trigger_data.events, "pull_request") && strcontains(var.trigger_data.events, "pull_request_closed")) ? ["pull_request","pull_request_closed"] :
+    (strcontains(var.trigger_data.events, "push")) ? ["push"] :
+    (strcontains(var.trigger_data.events, "pull_request")) ? ["pull_request"] : ["pull_request_closed"]
+  )
+  
+
 
   repo_url_raw = try(trimsuffix(var.trigger_data.repo_url, ".git"), "")
   repo_url     = format("%s%s", local.repo_url_raw, ".git")
@@ -60,7 +70,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   type           = "scm"
   name           = local.trigger_name
   event_listener = local.event_listener
-  events         = local.trigger_events
+  events         = local.resolved_events
   enabled        = local.trigger_enable
   source {
     type = "git"
