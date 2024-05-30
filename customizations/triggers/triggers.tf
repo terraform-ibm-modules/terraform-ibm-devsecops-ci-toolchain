@@ -2,17 +2,17 @@
 # - manual
 # - timer/cron
 # - Git
-
+#push, pull_request, pull_request_closed
 locals {
   cron_schedule       = (try(var.trigger_data.cron_schedule, "") == "") ? "0 4 * * *" : var.trigger_data.cron_schedule
   time_zone           = (try(var.trigger_data.time_zone, "") == "") ? "UTC" : var.trigger_data.time_zone
-  trigger_type        = (try(var.trigger_data.type, "") == "") ? "" : var.trigger_data.type
+  trigger_type        = (try(var.trigger_data.type, "") == "") ? "manual" : var.trigger_data.type
   pipeline_id         = (try(var.trigger_data.pipeline_id, "") == "") ? "" : var.trigger_data.pipeline_id
   trigger_name        = (try(var.trigger_data.name, "") == "") ? "" : var.trigger_data.name
   event_listener      = var.trigger_data.event_listener
   max_concurrent_runs = var.trigger_data.max_concurrent_runs
-  trigger_enable      = var.trigger_data.trigger_enable
-  trigger_events      = var.trigger_data.trigger_events
+  trigger_enable      = var.trigger_data.enabled
+  trigger_events      = try(jsondecode(var.trigger_data.events), ["push"])
 
   repo_url_raw = try(trimsuffix(var.trigger_data.repo_url, ".git"), "")
   repo_url     = format("%s%s", local.repo_url_raw, ".git")
@@ -60,7 +60,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   type           = "scm"
   name           = local.trigger_name
   event_listener = local.event_listener
-  events         = ["push"] #local.trigger_events
+  events         = local.trigger_events
   enabled        = local.trigger_enable
   source {
     type = "git"

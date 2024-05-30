@@ -32,19 +32,19 @@ locals {
   triggers = try(var.repository_data.triggers, [])
   #pre-process to ensure the element key is present
   pre_process_trigger_data = flatten([for trigger in local.triggers : {
-    type                = try(trigger.type, "")
-    name                = try(trigger.name, "")
-    worker_id           = try(trigger.worker_id, "")
-    properties          = try(trigger.properties, [])
-    event_listener      = local.event_listener
-    time_zone           = try(trigger.time_zone, "")
-    cron_schedule       = try(trigger.cron_schedule, "")
-    trigger_enable      = try(trigger.trigger_enable, true)
-    max_concurrent_runs = try(trigger.max_concurrent_runs, 1)
+    type                = (trigger.type == "") ? "manual" : trigger.type 
+    name                = trigger.name
+    worker_id           = (trigger.worker_id == "") ? local.worker_id : trigger.worker_id
+    properties          = trigger.properties # Set to empty list if not set
+    event_listener      = (trigger.event_listener == "") ? local.event_listener : trigger.event_listener # If not set infer from repo url
+    timezone            = trigger.timezone #only required by timed trigger
+    cron                = trigger.cron  #Only required for timed trigger
+    enabled             = trigger.enabled
+    max_concurrent_runs = trigger.max_concurrent_runs
     pipeline_id         = var.pipeline_id
     default_branch      = local.default_branch
-    trigger_events      = try(trigger.trigger_events, [])
-    repo_url            = try(trigger.trigger_events, local.repo_url_raw)
+    events              = trigger.events
+    repo_url            = local.repo_url_raw
     }
   ])
 }

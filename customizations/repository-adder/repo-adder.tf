@@ -22,7 +22,6 @@ locals {
     repository_owner     = try(repository.repository_owner, local.repository_owner) # If not set, read from parent
     name                 = try(repository.name, "") # Only used in clone mode
     worker_id            = try(repository.worker_id, local.worker_id) # If not set, read from parent
-    events               = try(repository.events, "[]") # If not set , default to "[]"
     triggers = flatten([for trigger in try(repository.triggers,[]) : {  #loop through triggers, if they exist
       # This is to ensure that all the properties are present. Trigger validation will happen in the trigger module
       type                = try(trigger.type, "") #If type is not set, default to "manual"
@@ -32,7 +31,8 @@ locals {
       cron                = try(trigger.cron, "")
       enabled             = try(trigger.enabled, true)
       event_listener      = try(trigger.event_listener, "")
-      events              = try(trigger.events, [])
+      events              = try(trigger.events, "[]")
+      timezone            = try(trigger.timezone, "")
       max_concurrent_runs = try(trigger.max_concurrent_runs, 1)
     }])
     }
