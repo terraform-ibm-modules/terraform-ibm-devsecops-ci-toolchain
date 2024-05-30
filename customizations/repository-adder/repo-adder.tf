@@ -12,17 +12,29 @@ locals {
   # Ensure there is a `worker_id` entry. The default is is `public` -> managed worker
   worker_id = try(var.pipeline_repo_data.worker_id, "public")
 
-  # Ensure repositories have the same structure 
+  # Ensure repositories have the same structure
   pre_process_repo_data = flatten([for repository in local.repositories : {
-    repository_url       = try(repository.repository_url, "")
-    default_branch       = try(repository.default_branch, "master")
-    mode                 = try(repository.mode, "link")
-    provider             = try(repository.provider, "")
-    git_token_secret_ref = try(repository.git_token_secret_ref, "")
-    repository_owner     = try(repository.repository_owner, "")
-    name                 = try(repository.name, "")
-    worker_id            = try(repository.worker_id, "public")
-    triggers             = try(repository.triggers, [])
+    repository_url       = try(repository.repository_url, "")                   # Required
+    default_branch       = try(repository.default_branch, local.default_branch) # If not set read from parent
+    mode                 = try(repository.mode, local.mode) # if not set, read from parent 
+    provider             = try(repository.provider, "") # only used when mode is set to clone otherwise determine from repo url
+    git_token_secret_ref = try(repository.git_token_secret_ref, local.git_token_secret_ref) # if not set, read from parent
+    repository_owner     = try(repository.repository_owner, local.repository_owner) # If not set, read from parent
+    name                 = try(repository.name, "") # Only used in clone mode
+    worker_id            = try(repository.worker_id, local.worker_id) # If not set, read from parent
+    events               = try(repository.events, "[]") # If not set , default to "[]"
+    triggers = flatten([for trigger in try(repository.triggers,[]) : {  #loop through triggers, if they exist
+      # This is to ensure that all the properties are present. Trigger validation will happen in the trigger module
+      type                = try(trigger.type, "") #If type is not set, default to "manual"
+      name                = try(trigger.name, "") # If trigger name is not set, leave empty
+      worker_id           = try(trigger.worker_id, "")
+      properties          = try(trigger.properties, [])
+      cron                = try(trigger.cron, "")
+      enabled             = try(trigger.enabled, true)
+      event_listener      = try(trigger.event_listener, "")
+      events              = try(trigger.events, [])
+      max_concurrent_runs = try(trigger.max_concurrent_runs, 1)
+    }])
     }
   ])
 }
@@ -40,12 +52,12 @@ locals {
 #      "triggers" = []
 #      "type" = "manual"
 #      "worker_id" = "public"
+#      "events" = []
 #    }
 
 module "repos_and_triggers" {
   source = "./repo-trigger-groups"
   for_each = tomap({
-    #for t in local.repositories : "${t.repository_url}" => t
     for t in local.pre_process_repo_data : "${t.repository_url}" => t
   })
   repository_owner     = local.repository_owner

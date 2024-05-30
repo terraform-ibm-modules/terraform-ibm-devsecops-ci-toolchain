@@ -182,7 +182,10 @@ locals {
     pipeline_id          = pipeline.pipeline_id # could be `ci`, `pr` or actual pipeline ID
     git_token_secret_ref = try(pipeline.git_token_secret_ref, "")
     repository_owner     = try(pipeline.repository_owner, "")
-    repositories         = try(pipeline.repositories, {})
+    repositories         = try(pipeline.repositories, [])
+    mode                 = try(pipeline.mode, "link")
+    worker_id            = try(pipeline.worker_id, "public")
+    default_branch       = try(pipeline.default_branch, "master")
     }
   ])
 }
