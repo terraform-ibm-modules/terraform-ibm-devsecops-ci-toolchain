@@ -175,8 +175,8 @@ resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_dbb_user" {
 resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_zos_dbb_secret_name" {
   count       = (var.deployment_target == "zos") ? 1 : 0
   name        = "dbb-secret-name"
-  type        = "text"
-  value       = var.zos_secret_key_name
+  type        = "secure"
+  value       = var.zos_dbb_secret_name
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
