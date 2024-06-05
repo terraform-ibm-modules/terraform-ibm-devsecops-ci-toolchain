@@ -53,10 +53,10 @@ module "terraform_devsecops_ci" {
 
 | Name | Type |
 |------|------|
-| [ibm_cd_toolchain.toolchain_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.60.0/docs/resources/cd_toolchain) | resource |
-| [ibm_cd_toolchain_tool_pipeline.ci_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.60.0/docs/resources/cd_toolchain_tool_pipeline) | resource |
-| [ibm_cd_toolchain_tool_pipeline.pr_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.60.0/docs/resources/cd_toolchain_tool_pipeline) | resource |
-| [ibm_resource_group.resource_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.60.0/docs/data-sources/resource_group) | data source |
+| [ibm_cd_toolchain.toolchain_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain) | resource |
+| [ibm_cd_toolchain_tool_pipeline.ci_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain_tool_pipeline) | resource |
+| [ibm_cd_toolchain_tool_pipeline.pr_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain_tool_pipeline) | resource |
+| [ibm_resource_group.resource_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
 
 ### Inputs
 
@@ -128,22 +128,6 @@ module "terraform_devsecops_ci" {
 | <a name="input_code_engine_service_bindings"></a> [code\_engine\_service\_bindings](#input\_code\_engine\_service\_bindings) | JSON array including service name(s) (as a simple JSON string. | `string` | `""` | no |
 | <a name="input_code_engine_source"></a> [code\_engine\_source](#input\_code\_engine\_source) | The path to the location of code to build in the repository. Defaults to the root of source code repository. | `string` | `""` | no |
 | <a name="input_code_engine_wait_timeout"></a> [code\_engine\_wait\_timeout](#input\_code\_engine\_wait\_timeout) | The maximum timeout for the CLI operation to wait. | `string` | `"1300"` | no |
-
-| <a name="input_zos_hostip"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_host_name"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_ssh_port"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_user"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_bastion_host_name"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_bastion_ssh_port"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_bastion_user"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_dbb_url"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_dbb_hlq"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_dbb_user"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_dbb_secret_name"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_secret_info"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-| <a name="input_zos_secret_key_name"></a> [zos](#input\_zos) |  | `string` | `""` | no |
-
-
 | <a name="input_compliance_base_image"></a> [compliance\_base\_image](#input\_compliance\_base\_image) | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` | no |
 | <a name="input_compliance_pipeline_group"></a> [compliance\_pipeline\_group](#input\_compliance\_pipeline\_group) | Specify Git user/group for your compliance pipeline repo. | `string` | `""` | no |
 | <a name="input_compliance_pipeline_repo_auth_type"></a> [compliance\_pipeline\_repo\_auth\_type](#input\_compliance\_pipeline\_repo\_auth\_type) | Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat' | `string` | `"oauth"` | no |
@@ -162,12 +146,12 @@ module "terraform_devsecops_ci" {
 | <a name="input_cos_dashboard_url"></a> [cos\_dashboard\_url](#input\_cos\_dashboard\_url) | The dashboard URL for the COS toolcard. | `string` | `"https://cloud.ibm.com/catalog/services/cloud-object-storage"` | no |
 | <a name="input_cos_description"></a> [cos\_description](#input\_cos\_description) | The COS description on the tool card. | `string` | `"Cloud Object Storage to store evidences within DevSecOps Pipelines"` | no |
 | <a name="input_cos_documentation_url"></a> [cos\_documentation\_url](#input\_cos\_documentation\_url) | The documentation URL that appears on the tool card. | `string` | `"https://cloud.ibm.com/catalog/services/cloud-object-storage"` | no |
-| <a name="input_cos_endpoint"></a> [cos\_endpoint](#input\_cos\_endpoint) | COS endpoint name. | `string` | `""` | no |
+| <a name="input_cos_endpoint"></a> [cos\_endpoint](#input\_cos\_endpoint) | COS endpoint name | `string` | `""` | no |
 | <a name="input_cos_integration_name"></a> [cos\_integration\_name](#input\_cos\_integration\_name) | The name of the COS integration. | `string` | `"Evidence Store"` | no |
 | <a name="input_cra_generate_cyclonedx_format"></a> [cra\_generate\_cyclonedx\_format](#input\_cra\_generate\_cyclonedx\_format) | If set to 1, CRA also generates the BOM in cyclonedx format. | `string` | `"1"` | no |
 | <a name="input_custom_image_tag"></a> [custom\_image\_tag](#input\_custom\_image\_tag) | The custom tag for the image in a comma-separated list. | `string` | `""` | no |
 | <a name="input_default_git_provider"></a> [default\_git\_provider](#input\_default\_git\_provider) | Choose the default git provider for app repo | `string` | `"hostedgit"` | no |
-| <a name="input_deployment_target"></a> [deployment\_target](#input\_deployment\_target) | The deployment target, 'cluster' or 'code-engine'. | `string` | `"cluster"` | no |
+| <a name="input_deployment_target"></a> [deployment\_target](#input\_deployment\_target) | The deployment target, 'cluster', 'code-engine' or `zos`. | `string` | `"cluster"` | no |
 | <a name="input_dev_region"></a> [dev\_region](#input\_dev\_region) | Region of the Kubernetes cluster where the application will be deployed. | `string` | `"ibm:yp:us-south"` | no |
 | <a name="input_dev_resource_group"></a> [dev\_resource\_group](#input\_dev\_resource\_group) | The cluster resource group. | `string` | `"Default"` | no |
 | <a name="input_doi_environment"></a> [doi\_environment](#input\_doi\_environment) | The DevOps Insights target environment. | `string` | `""` | no |
@@ -337,6 +321,12 @@ module "terraform_devsecops_ci" {
 | <a name="input_trigger_timed_pruner_enable"></a> [trigger\_timed\_pruner\_enable](#input\_trigger\_timed\_pruner\_enable) | Set to `true` to enable the timed Pruner trigger. | `bool` | `false` | no |
 | <a name="input_trigger_timed_pruner_name"></a> [trigger\_timed\_pruner\_name](#input\_trigger\_timed\_pruner\_name) | The name of the timed Pruner trigger. | `string` | `"Evidence Pruner Timed Trigger"` | no |
 | <a name="input_worker_id"></a> [worker\_id](#input\_worker\_id) | The identifier for the Managed Pipeline worker. | `string` | `"public"` | no |
+| <a name="input_zos_dbb_hlq"></a> [zos\_dbb\_hlq](#input\_zos\_dbb\_hlq) | z/OS Dependency Based Build (DBB) engine High-Level Qualifier | `string` | `"IBMUSER.PIPELINE"` | no |
+| <a name="input_zos_dbb_user"></a> [zos\_dbb\_user](#input\_zos\_dbb\_user) | z/OS Dependency Based Build (DBB) engine userid | `string` | `""` | no |
+| <a name="input_zos_host_name"></a> [zos\_host\_name](#input\_zos\_host\_name) | z/OS hotname or IP address. | `string` | `""` | no |
+| <a name="input_zos_secret_key_name"></a> [zos\_secret\_key\_name](#input\_zos\_secret\_key\_name) | z/OS SSH key name. | `string` | `"ssh-auth"` | no |
+| <a name="input_zos_ssh_port"></a> [zos\_ssh\_port](#input\_zos\_ssh\_port) | z/OS SSH port. | `string` | `"22"` | no |
+| <a name="input_zos_user"></a> [zos\_user](#input\_zos\_user) | z/OS userid. | `string` | `"ibmuser"` | no |
 
 ### Outputs
 

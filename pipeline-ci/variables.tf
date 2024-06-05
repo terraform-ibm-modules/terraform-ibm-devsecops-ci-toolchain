@@ -329,9 +329,6 @@ variable "gosec_private_repository_host" {
 variable "gosec_repository_ssh_secret_ref" {
 }
 
-variable "zos_hostip" {
-}
-
 variable "zos_host_name" {
 }
 
@@ -341,28 +338,10 @@ variable "zos_ssh_port" {
 variable "zos_user" {
 }
 
-variable "zos_bastion_host_name" {
-}
-
-variable "zos_bastion_ssh_port" {
-}
-
-variable "zos_bastion_user" {
-}
-
-variable "zos_dbb_url" {
-}
-
 variable "zos_dbb_hlq" {
 }
 
 variable "zos_dbb_user" {
-}
-
-variable "zos_dbb_secret_name" {
-}
-
-variable "zos_secret_info" {
 }
 
 variable "zos_secret_key_name" {
