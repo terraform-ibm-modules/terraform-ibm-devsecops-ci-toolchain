@@ -330,7 +330,7 @@ module "pipeline_ci" {
   registry_namespace                   = var.registry_namespace
   registry_region                      = var.registry_region
   signing_key_secret_ref               = local.signing_key_secret_ref
-  cos_api_key_secret_ref               = local.cos_secret_ref
+  cos_api_key_secret_ref               = (var.cos_bucket_name == "") ? "" : local.cos_secret_ref
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
   pipeline_git_token_secret_ref        = local.pipeline_git_token_secret_ref
   app_repo_url                         = module.app_repo.repository_url

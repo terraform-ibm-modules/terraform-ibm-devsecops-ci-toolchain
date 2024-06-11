@@ -144,7 +144,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key_secret_name" {
-  count       = (var.cos_bucket_name != "") ? 1 : 0
   name        = "cos-api-key"
   type        = "secure"
   value       = var.cos_api_key_secret_ref
@@ -404,7 +403,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_source" {
 
 resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_code_engine_binding_rg" {
   count       = (var.deployment_target == "code-engine") ? 1 : 0
-  name        = "ode-engine-binding-resource-group"
+  name        = "code-engine-binding-resource-group"
   type        = "text"
   value       = var.code_engine_binding_resource_group
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
