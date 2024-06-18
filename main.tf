@@ -169,6 +169,38 @@ locals {
     (var.gosec_private_repository_ssh_key_secret_group == "") ? format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.gosec_private_repository_ssh_key_secret_group))
   )
+
+  properties_file_input = try(file("${path.root}/properties.json"), "[]")
+  properties_file_data  = (local.properties_file_input == "") ? "[]" : local.properties_file_input
+  properties_input      = (var.pipeline_properties == "") ? local.properties_file_data : var.pipeline_properties
+  pre_process_prop_data = flatten([for pipeline in jsondecode(local.properties_input) : {
+    pipeline_id = pipeline.pipeline_id # could be `ci`, `pr` or actual pipeline ID
+    properties  = try(pipeline.properties, {})
+    }
+  ])
+
+  config_data = {
+    "secrets_integration_name" = "${var.sm_integration_name}",
+    "secrets_group"            = "${var.sm_secret_group}",
+    "secrets_provider_type" = (
+      (var.enable_key_protect) ? "kp" :
+      (var.enable_secrets_manager) ? "sm" : ""
+    )
+  }
+
+  repos_file_input = try(file("${path.root}/repositories.json"), "[]")
+  repos_file_data  = (local.repos_file_input == "") ? "[]" : local.repos_file_input
+  repos_input      = (var.repository_properties == "") ? local.repos_file_data : var.repository_properties
+  pre_process_repo_data = flatten([for pipeline in jsondecode(local.repos_input) : {
+    pipeline_id          = pipeline.pipeline_id # could be `ci`, `pr` or actual pipeline ID
+    git_token_secret_ref = try(pipeline.git_token_secret_ref, "")
+    repository_owner     = try(pipeline.repository_owner, "")
+    repositories         = try(pipeline.repositories, [])
+    mode                 = try(pipeline.mode, "link")
+    worker_id            = try(pipeline.worker_id, "public")
+    default_branch       = try(pipeline.default_branch, "master")
+    }
+  ])
 }
 
 data "ibm_resource_group" "resource_group" {
@@ -182,7 +214,7 @@ resource "ibm_cd_toolchain" "toolchain_instance" {
 }
 
 module "issues_repo" {
-  source                = "./repos"
+  source                = "./customizations/repositories"
   depends_on            = [module.integrations]
   tool_name             = "issues-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
@@ -203,7 +235,7 @@ module "issues_repo" {
 }
 
 module "evidence_repo" {
-  source                = "./repos"
+  source                = "./customizations/repositories"
   depends_on            = [module.integrations]
   tool_name             = "evidence-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
@@ -224,7 +256,7 @@ module "evidence_repo" {
 }
 
 module "inventory_repo" {
-  source                = "./repos"
+  source                = "./customizations/repositories"
   depends_on            = [module.integrations]
   tool_name             = "inventory-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
@@ -245,7 +277,7 @@ module "inventory_repo" {
 }
 
 module "compliance_pipelines_repo" {
-  source                = "./repos"
+  source                = "./customizations/repositories"
   depends_on            = [module.integrations]
   tool_name             = "pipeline-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
@@ -267,7 +299,7 @@ module "compliance_pipelines_repo" {
 
 module "pipeline_config_repo" {
   count                 = ((var.pipeline_config_repo_existing_url == "") && (var.pipeline_config_repo_clone_from_url == "")) ? 0 : 1
-  source                = "./repos"
+  source                = "./customizations/repositories"
   depends_on            = [module.integrations]
   tool_name             = "pipeline-config-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
@@ -288,7 +320,7 @@ module "pipeline_config_repo" {
 }
 
 module "app_repo" {
-  source                = "./repos"
+  source                = "./customizations/repositories"
   depends_on            = [module.integrations]
   tool_name             = "app-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
@@ -551,4 +583,53 @@ module "services" {
   cluster_namespace      = var.cluster_namespace
   registry_namespace     = var.registry_namespace
   registry_region        = var.registry_region
+}
+
+# This is the structure being passed with each loop
+# into `property_data`. It is expected for `properties` to contain property data
+#  {
+#    "pipeline_id": "ci",
+#    "properties": []
+#  }
+
+module "pipeline_properties" {
+  source = "./customizations/pipeline-property-adder"
+  #preprossing the data ensures that a pipeline_id is variable is present
+  for_each = tomap({
+    for t in local.pre_process_prop_data : "${t.pipeline_id}" => t
+  })
+  property_data = each.value
+  # resolve the shorthand to an actual pipeline id
+  pipeline_id = (
+    (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id :
+    (lower(each.value.pipeline_id) == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
+  )
+  config_data = local.config_data
+}
+
+
+# This is the structure being passed with each loop
+# into `pipeline_repo_data`. It is expected for `repositories` to contain repo data
+#  {
+#    "git_token_secret_ref" = ""
+#    "pipeline_id" = "ci"
+#    "repository_owner" = "test"
+#    "repositories" = []
+#  }
+
+module "repository_properties" {
+  source = "./customizations/repository-adder"
+  #preprossing the data ensures that a pipeline_id is variable is present
+  for_each = tomap({
+    for t in local.pre_process_repo_data : "${t.pipeline_id}" => t
+  })
+  toolchain_id       = ibm_cd_toolchain.toolchain_instance.id
+  pipeline_repo_data = each.value
+  # resolve the shorthand to an actual pipeline id
+  pipeline_id = (
+    (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id :
+    (lower(each.value.pipeline_id) == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
+  )
+  pr_pipeline_id = try(module.pipeline_pr.pipeline_id, "")
+  config_data    = local.config_data
 }

@@ -1,0 +1,44 @@
+[
+  {
+    "pipeline_id": "ci",
+    "properties": [
+      {
+        "name": "custom-param1",
+        "type": "text",
+        "value": "example1"
+      },
+      {
+        "name": "custom-param2",
+        "type": "secure",
+        "value": "grit-token"
+      },
+      {
+        "name": "custom-param3",
+        "type": "single_select",
+        "value": "0",
+        "enum": "[0,1,2]"
+      }
+    ]
+  },
+  {
+    "pipeline_id": "pr",
+    "properties": [
+      {
+        "name": "custom-param1",
+        "type": "text",
+        "value": "example1"
+      },
+      {
+        "name": "custom-param2",
+        "type": "secure",
+        "value": "grit-token"
+      },
+      {
+        "name": "custom-param3",
+        "type": "single_select",
+        "value": "0",
+        "enum": "[0,1,2]"
+      }
+    ]
+  }
+]
