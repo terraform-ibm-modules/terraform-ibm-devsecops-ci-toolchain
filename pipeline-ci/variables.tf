@@ -133,9 +133,6 @@ variable "pipeline_doi_api_key_secret_ref" {
 variable "link_to_doi_toolchain" {
 }
 
-variable "cra_generate_cyclonedx_format" {
-}
-
 variable "custom_image_tag" {
 }
 

@@ -8,10 +8,9 @@
           "value": "my-cluster"
         },
         {
-          "name": "custom-param2",
-          "type": "secure",
-          "value": "grit-token",
-          "locked": "true"
+          "name": "cra-generate-cyclonedx-format",
+          "type": "text",
+          "value": "1"
         },
         {
           "name": "custom-param3",

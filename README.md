@@ -153,7 +153,6 @@ module "terraform_devsecops_ci" {
 | <a name="input_cos_documentation_url"></a> [cos\_documentation\_url](#input\_cos\_documentation\_url) | The documentation URL that appears on the tool card. | `string` | `"https://cloud.ibm.com/objectstorage"` | no |
 | <a name="input_cos_endpoint"></a> [cos\_endpoint](#input\_cos\_endpoint) | COS endpoint name | `string` | `""` | no |
 | <a name="input_cos_integration_name"></a> [cos\_integration\_name](#input\_cos\_integration\_name) | The name of the COS integration. | `string` | `"Evidence Store"` | no |
-| <a name="input_cra_generate_cyclonedx_format"></a> [cra\_generate\_cyclonedx\_format](#input\_cra\_generate\_cyclonedx\_format) | If set to 1, CRA also generates the BOM in cyclonedx format. | `string` | `"1"` | no |
 | <a name="input_custom_image_tag"></a> [custom\_image\_tag](#input\_custom\_image\_tag) | The custom tag for the image in a comma-separated list. | `string` | `""` | no |
 | <a name="input_default_git_provider"></a> [default\_git\_provider](#input\_default\_git\_provider) | Choose the default git provider for app repo | `string` | `"hostedgit"` | no |
 | <a name="input_deployment_target"></a> [deployment\_target](#input\_deployment\_target) | The deployment target, 'cluster' or 'code-engine'. | `string` | `"cluster"` | no |

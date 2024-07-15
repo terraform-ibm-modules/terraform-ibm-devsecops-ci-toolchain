@@ -421,7 +421,6 @@ module "pipeline_ci" {
   opt_in_dynamic_scan                  = var.opt_in_dynamic_scan
   opt_in_sonar                         = var.opt_in_sonar
   doi_environment                      = var.doi_environment
-  cra_generate_cyclonedx_format        = var.cra_generate_cyclonedx_format
   custom_image_tag                     = var.custom_image_tag
   app_version                          = var.app_version
   slack_notifications                  = var.slack_notifications

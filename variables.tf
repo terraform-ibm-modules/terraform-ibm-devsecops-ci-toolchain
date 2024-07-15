@@ -1431,12 +1431,6 @@ variable "doi_toolchain_id_pipeline_property" {
   default     = ""
 }
 
-variable "cra_generate_cyclonedx_format" {
-  type        = string
-  description = "If set to 1, CRA also generates the BOM in cyclonedx format."
-  default     = "1"
-}
-
 variable "custom_image_tag" {
   type        = string
   description = "The custom tag for the image in a comma-separated list."

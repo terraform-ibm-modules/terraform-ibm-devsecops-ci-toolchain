@@ -214,13 +214,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_api_key" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cra_generate_cyclonedx_format" {
-  name        = "cra-generate-cyclonedx-format"
-  type        = "text"
-  value       = var.cra_generate_cyclonedx_format
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_custom_image_tag" {
   name        = "custom-image-tag"
   type        = "text"
