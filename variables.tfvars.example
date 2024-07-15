@@ -20,7 +20,6 @@ ibmcloud_api_key                = ""
 #app_repo_existing_branch        = ""
 #app_repo_existing_git_provider  = ""
 #app_repo_existing_git_id        = ""
-#ibmcloud_api                    = "https://cloud.ibm.com"
 
 /*****************************************************/
 /* Variables for Module "Services"                   */
@@ -62,5 +61,3 @@ sm_resource_group               = "Default"
 #code_engine_region             = "ibm:yp:us-south"
 #code_engine_resource_group     = "Default"
 #code_engine_entity_type        = "application"   #Default type is 'application'. Set as 'job' for 'job' type"
-#code_engine_build_strategy     = "dockerfile"    #Default strategy is 'dockerfile'. Set as 'buildpacks' for 'buildpacks' build"
-#code_engine_source             = "path in repository to code"

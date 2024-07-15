@@ -38,8 +38,6 @@ variable "pipeline_path" {
   description = "The relative folder path within pipeline definitions repository containing tekton definitions for pipelines."
   default     = "definitions"
 }
-variable "compliance_base_image" {
-}
 
 variable "ibmcloud_api_key" {
 }
@@ -51,9 +49,6 @@ variable "enable_pipeline_dockerconfigjson" {
 }
 
 variable "enable_pipeline_git_token" {
-}
-
-variable "ibmcloud_api" {
 }
 
 variable "pr_pipeline_max_concurrent_runs" {
@@ -78,13 +73,4 @@ variable "trigger_pr_git_enable" {
 }
 
 variable "enable_pipeline_notifications" {
-}
-
-variable "cra_bom_generate" {
-}
-
-variable "cra_vulnerability_scan" {
-}
-
-variable "cra_deploy_analysis" {
 }

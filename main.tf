@@ -142,13 +142,7 @@ locals {
     (var.sonarqube_secret_group == "") ? format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sonarqube_secret_group))
   )
-  gosec_repository_ssh_secret_ref = (
-    (var.sm_instance_crn != "") ? var.gosec_private_repository_ssh_key_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", module.integrations.secret_tool) :
-    (var.gosec_private_repository_ssh_key_secret_group == "") ? format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.gosec_private_repository_ssh_key_secret_group))
-  )
-
+ 
   properties_file_input = (var.pipeline_properties_filepath == "") ? try(file("${path.root}/properties.json"), "[]") : try(file(var.pipeline_properties_filepath), "[]")
   properties_file_data  = (local.properties_file_input == "") ? "[]" : local.properties_file_input
   properties_input      = (var.pipeline_properties == "") ? local.properties_file_data : var.pipeline_properties
@@ -330,7 +324,6 @@ module "pipeline_ci" {
   source     = "./pipeline-ci"
   depends_on = [module.integrations, module.services]
 
-  ibmcloud_api                         = var.ibmcloud_api
   ibmcloud_api_key                     = var.ibmcloud_api_key
   pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
   app_name                             = var.app_name
@@ -358,38 +351,7 @@ module "pipeline_ci" {
   code_engine_project                  = var.code_engine_project
   code_engine_region                   = var.code_engine_region
   code_engine_resource_group           = var.code_engine_resource_group
-  code_engine_build_strategy           = var.code_engine_build_strategy
-  code_engine_build_use_native_docker  = var.code_engine_build_use_native_docker
-  code_engine_build_size               = var.code_engine_build_size
-  code_engine_build_timeout            = var.code_engine_build_timeout
-  code_engine_wait_timeout             = var.code_engine_wait_timeout
-  code_engine_context_dir              = var.code_engine_context_dir
-  code_engine_dockerfile               = var.code_engine_dockerfile
-  code_engine_image_name               = var.code_engine_image_name
-  code_engine_registry_domain          = var.code_engine_registry_domain
-  code_engine_source                   = var.code_engine_source
-  code_engine_binding_resource_group   = var.code_engine_binding_resource_group
-  code_engine_deployment_type          = var.code_engine_deployment_type
-  code_engine_cpu                      = var.code_engine_cpu
-  code_engine_memory                   = var.code_engine_memory
-  code_engine_ephemeral_storage        = var.code_engine_ephemeral_storage
-  code_engine_job_maxexecutiontime     = var.code_engine_job_maxexecutiontime
-  code_engine_job_retrylimit           = var.code_engine_job_retrylimit
-  code_engine_job_instances            = var.code_engine_job_instances
-  code_engine_app_port                 = var.code_engine_app_port
-  code_engine_app_min_scale            = var.code_engine_app_min_scale
-  code_engine_app_max_scale            = var.code_engine_app_max_scale
-  code_engine_app_deployment_timeout   = var.code_engine_app_deployment_timeout
-  code_engine_app_concurrency          = var.code_engine_app_concurrency
-  code_engine_app_visibility           = var.code_engine_app_visibility
-  code_engine_env_from_configmaps      = var.code_engine_env_from_configmaps
-  code_engine_env_from_secrets         = var.code_engine_env_from_secrets
-  code_engine_remove_refs              = var.code_engine_remove_refs
-  code_engine_service_bindings         = var.code_engine_service_bindings
-  print_code_signing_certificate       = var.print_code_signing_certificate
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
-  compliance_base_image                = var.compliance_base_image
-  app_version                          = var.app_version
   sonarqube_config                     = var.sonarqube_config
   doi_toolchain_id_pipeline_property   = var.doi_toolchain_id_pipeline_property
   enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
@@ -417,11 +379,6 @@ module "pipeline_ci" {
   pipeline_doi_api_key_secret_ref      = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref
   link_to_doi_toolchain                = var.link_to_doi_toolchain
   sonarqube_tool                       = (module.integrations.sonarqube_tool)
-  gosec_private_repository_host        = var.gosec_private_repository_host
-  gosec_repository_ssh_secret_ref      = local.gosec_repository_ssh_secret_ref
-  cra_bom_generate                     = var.ci_cra_bom_generate
-  cra_vulnerability_scan               = var.ci_cra_vulnerability_scan
-  cra_deploy_analysis                  = var.ci_cra_deploy_analysis
 
 }
 
@@ -436,7 +393,6 @@ module "pipeline_pr" {
   source     = "./pipeline-pr"
   depends_on = [module.integrations, module.services]
 
-  ibmcloud_api                         = var.ibmcloud_api
   ibmcloud_api_key                     = var.ibmcloud_api_key
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
   pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
@@ -449,7 +405,6 @@ module "pipeline_pr" {
   pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
   pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
-  compliance_base_image                = var.compliance_base_image
   enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
   enable_pipeline_git_token            = var.enable_pipeline_git_token
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
@@ -459,9 +414,6 @@ module "pipeline_pr" {
   trigger_pr_git_name                  = var.trigger_pr_git_name
   trigger_pr_git_enable                = var.trigger_pr_git_enable
   enable_pipeline_notifications        = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
-  cra_bom_generate                     = var.pr_cra_bom_generate
-  cra_vulnerability_scan               = var.pr_cra_vulnerability_scan
-  cra_deploy_analysis                  = var.pr_cra_deploy_analysis
 }
 
 module "integrations" {
