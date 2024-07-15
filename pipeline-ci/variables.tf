@@ -293,9 +293,6 @@ variable "compliance_base_image" {
   default     = ""
 }
 
-variable "opt_in_gosec" {
-}
-
 variable "gosec_private_repository_host" {
 }
 

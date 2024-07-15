@@ -489,13 +489,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_artifactory-dockerconfigjson" {
   path        = "parameters.docker_config_json"
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_opt_in_gosec" {
-  name        = "opt-in-gosec"
-  type        = "text"
-  value       = var.opt_in_gosec
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_gosec_private_repository_host" {
   count       = var.gosec_private_repository_host == "" ? 0 : 1
   name        = "gosec-private-repository-host"

@@ -438,7 +438,6 @@ module "pipeline_ci" {
   pipeline_doi_api_key_secret_ref      = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref
   link_to_doi_toolchain                = var.link_to_doi_toolchain
   sonarqube_tool                       = (module.integrations.sonarqube_tool)
-  opt_in_gosec                         = var.opt_in_gosec
   gosec_private_repository_host        = var.gosec_private_repository_host
   gosec_repository_ssh_secret_ref      = local.gosec_repository_ssh_secret_ref
   cra_bom_generate                     = var.ci_cra_bom_generate
