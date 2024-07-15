@@ -148,13 +148,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_ui_environment" 
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dynamic_environment" {
-  name        = "opt-in-dynamic-scan"
-  type        = "text"
-  value       = var.opt_in_dynamic_scan
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
   name        = "opt-in-sonar"
   type        = "text"

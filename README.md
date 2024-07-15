@@ -228,7 +228,6 @@ module "terraform_devsecops_ci" {
 | <a name="input_kp_name"></a> [kp\_name](#input\_kp\_name) | Name of the Key Protect instance where the secrets are stored. | `string` | `"kp-compliance-secrets"` | no |
 | <a name="input_kp_resource_group"></a> [kp\_resource\_group](#input\_kp\_resource\_group) | The resource group containing the Key Protect instance. | `string` | `"Default"` | no |
 | <a name="input_link_to_doi_toolchain"></a> [link\_to\_doi\_toolchain](#input\_link\_to\_doi\_toolchain) | Enable a link to a DevOps Insights instance in another toolchain, true or false. | `bool` | `false` | no |
-| <a name="input_opt_in_dynamic_scan"></a> [opt\_in\_dynamic\_scan](#input\_opt\_in\_dynamic\_scan) | To enable the OWASP Zap scan. '1' enable or '0' disable. | `string` | `"1"` | no |
 | <a name="input_opt_in_dynamic_ui_scan"></a> [opt\_in\_dynamic\_ui\_scan](#input\_opt\_in\_dynamic\_ui\_scan) | To enable the OWASP Zap UI scan. '1' enable or '0' disable. | `string` | `"1"` | no |
 | <a name="input_opt_in_gosec"></a> [opt\_in\_gosec](#input\_opt\_in\_gosec) | Enables gosec scans | `string` | `""` | no |
 | <a name="input_opt_in_sonar"></a> [opt\_in\_sonar](#input\_opt\_in\_sonar) | Opt in for Sonarqube. | `string` | `"1"` | no |

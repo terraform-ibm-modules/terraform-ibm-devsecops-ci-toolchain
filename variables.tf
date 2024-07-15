@@ -1365,12 +1365,6 @@ variable "opt_in_dynamic_ui_scan" {
   default     = "1"
 }
 
-variable "opt_in_dynamic_scan" {
-  type        = string
-  description = "To enable the OWASP Zap scan. '1' enable or '0' disable."
-  default     = "1"
-}
-
 variable "opt_in_sonar" {
   type        = string
   description = "Opt in for Sonarqube."

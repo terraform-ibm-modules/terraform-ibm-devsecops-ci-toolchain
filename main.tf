@@ -407,7 +407,6 @@ module "pipeline_ci" {
   compliance_base_image                = var.compliance_base_image
   pipeline_debug                       = var.pipeline_debug
   opt_in_dynamic_ui_scan               = var.opt_in_dynamic_ui_scan
-  opt_in_dynamic_scan                  = var.opt_in_dynamic_scan
   opt_in_sonar                         = var.opt_in_sonar
   app_version                          = var.app_version
   slack_notifications                  = var.slack_notifications
