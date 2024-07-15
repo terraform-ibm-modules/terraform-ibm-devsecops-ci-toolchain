@@ -355,7 +355,6 @@ module "pipeline_ci" {
   ibmcloud_api_key                     = var.ibmcloud_api_key
   pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
   app_name                             = var.app_name
-  cluster_namespace                    = var.cluster_namespace
   dev_region                           = var.dev_region
   dev_resource_group                   = var.dev_resource_group
   registry_namespace                   = var.registry_namespace
@@ -421,7 +420,6 @@ module "pipeline_ci" {
   opt_in_dynamic_scan                  = var.opt_in_dynamic_scan
   opt_in_sonar                         = var.opt_in_sonar
   doi_environment                      = var.doi_environment
-  custom_image_tag                     = var.custom_image_tag
   app_version                          = var.app_version
   slack_notifications                  = var.slack_notifications
   sonarqube_config                     = var.sonarqube_config
@@ -577,7 +575,6 @@ module "services" {
   kp_resource_group      = var.kp_resource_group
   enable_secrets_manager = var.enable_secrets_manager
   enable_key_protect     = var.enable_key_protect
-  cluster_namespace      = var.cluster_namespace
   registry_namespace     = var.registry_namespace
   registry_region        = var.registry_region
 }

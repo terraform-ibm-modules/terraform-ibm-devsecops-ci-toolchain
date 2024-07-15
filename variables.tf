@@ -138,12 +138,6 @@ variable "enable_pipeline_git_token" {
 }
 
 
-variable "cluster_namespace" {
-  type        = string
-  description = "Namespace of the Kubernetes cluster where the application will be deployed."
-  default     = "default"
-}
-
 variable "dev_region" {
   type        = string
   description = "Region of the Kubernetes cluster where the application will be deployed."

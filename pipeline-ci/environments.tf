@@ -99,14 +99,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_cluster_namespace" {
-  count       = (var.deployment_target != "code-engine") ? 1 : 0
-  name        = "dev-cluster-namespace"
-  type        = "text"
-  value       = var.cluster_namespace
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_region" {
   name        = "dev-region"
   type        = "text"
@@ -211,13 +203,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_api_key" {
   name        = "doi-ibmcloud-api-key"
   type        = "secure"
   value       = var.pipeline_doi_api_key_secret_ref
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_custom_image_tag" {
-  name        = "custom-image-tag"
-  type        = "text"
-  value       = var.custom_image_tag
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

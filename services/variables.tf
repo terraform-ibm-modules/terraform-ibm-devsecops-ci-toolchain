@@ -29,9 +29,6 @@ variable "kp_resource_group" {
 variable "kp_location" {
 }
 
-variable "cluster_namespace" {
-}
-
 variable "registry_namespace" {
 }
 

@@ -20,7 +20,6 @@ module "terraform_devsecops_ci" {
   sm_name                  = var.sm_name
   sm_location              = var.sm_location
   sm_secret_group          = var.sm_secret_group
-  cluster_namespace        = var.cluster_namespace
   dev_region               = var.dev_region
   dev_resource_group       = var.dev_resource_group
 }
@@ -101,7 +100,6 @@ module "terraform_devsecops_ci" {
 | <a name="input_ci_pipeline_branch"></a> [ci\_pipeline\_branch](#input\_ci\_pipeline\_branch) | The branch within CI pipeline definitions repository for Compliance CI Toolchain. | `string` | `"open-v10"` | no |
 | <a name="input_ci_pipeline_git_tag"></a> [ci\_pipeline\_git\_tag](#input\_ci\_pipeline\_git\_tag) | The GIT tag within the CI pipeline definitions repository for Compliance CI Toolchain. | `string` | `""` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the Kubernetes cluster where the application will be deployed. | `string` | `"mycluster-free"` | no |
-| <a name="input_cluster_namespace"></a> [cluster\_namespace](#input\_cluster\_namespace) | Namespace of the Kubernetes cluster where the application will be deployed. | `string` | `"default"` | no |
 | <a name="input_code_engine_app_concurrency"></a> [code\_engine\_app\_concurrency](#input\_code\_engine\_app\_concurrency) | The maximum number of requests that can be processed concurrently per instance. | `string` | `"100"` | no |
 | <a name="input_code_engine_app_deployment_timeout"></a> [code\_engine\_app\_deployment\_timeout](#input\_code\_engine\_app\_deployment\_timeout) | The maximum timeout for the application deployment. | `string` | `"300"` | no |
 | <a name="input_code_engine_app_max_scale"></a> [code\_engine\_app\_max\_scale](#input\_code\_engine\_app\_max\_scale) | The maximum number of instances that can be used for this application. If you set this value to 0, the application scales as needed. The application scaling is limited only by the instances per the resource quota for the project of your application. | `string` | `"1"` | no |

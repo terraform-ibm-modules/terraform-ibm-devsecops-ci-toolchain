@@ -16,6 +16,11 @@
           "name": "custom_image_tag",
           "type": "text",
           "value": ""
+        },
+        {
+          "name": "dev-cluster-namespace",
+          "type": "text",
+          "value": "default"
         }
       ]
     },
