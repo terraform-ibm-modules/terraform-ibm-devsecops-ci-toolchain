@@ -170,14 +170,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dockerjson_config" {
-  count       = (var.enable_pipeline_dockerconfigjson) ? 1 : 0
-  name        = "pipeline-dockerconfigjson"
-  type        = "secure"
-  value       = var.pipeline_dockerconfigjson_secret_ref
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 ######## Code Engine Vars #####################
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_project" {

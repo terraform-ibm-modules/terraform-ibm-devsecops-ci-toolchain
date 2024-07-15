@@ -58,12 +58,6 @@ variable "slack_webhook_secret_name" {
   default     = "slack-webhook"
 }
 
-variable "pipeline_dockerconfigjson_secret_name" {
-  type        = string
-  description = "Name of the dockerconfigjson secret in the secret provider."
-  default     = "pipeline-dockerconfigjson"
-}
-
 variable "pipeline_ibmcloud_api_key_secret_group" {
   type        = string
   description = "Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
@@ -79,12 +73,6 @@ variable "cos_api_key_secret_group" {
 variable "slack_webhook_secret_group" {
   type        = string
   description = "Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
-  default     = ""
-}
-
-variable "pipeline_dockerconfigjson_secret_group" {
-  type        = string
-  description = "Secret group prefix for the pipeline DockerConfigJson secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 

@@ -108,13 +108,6 @@ locals {
     format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_ibmcloud_api_key_secret_group))
   )
 
-  dockerconfigjson_secret_ref = (
-    (var.sm_instance_crn != "") ? var.pipeline_dockerconfigjson_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", module.integrations.secret_tool) :
-    (var.pipeline_dockerconfigjson_secret_group == "") ? format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_dockerconfigjson_secret_group))
-  )
-
   slack_webhook_secret_ref = (
     (var.sm_instance_crn != "") ? var.slack_webhook_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.slack_webhook_secret_name}}", module.integrations.secret_tool) :
@@ -401,7 +394,6 @@ module "pipeline_ci" {
   doi_toolchain_id_pipeline_property   = var.doi_toolchain_id_pipeline_property
   enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
   enable_pipeline_git_token            = var.enable_pipeline_git_token
-  pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref
   private_worker                       = module.integrations.private_worker
   enable_privateworker                 = var.enable_privateworker
   enable_artifactory                   = var.enable_artifactory
@@ -460,7 +452,6 @@ module "pipeline_pr" {
   compliance_base_image                = var.compliance_base_image
   enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
   enable_pipeline_git_token            = var.enable_pipeline_git_token
-  pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                   = var.enable_artifactory
   pr_pipeline_branch                   = var.pr_pipeline_branch

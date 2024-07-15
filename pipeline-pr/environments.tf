@@ -44,14 +44,6 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_base_image" {
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_dockerjson_config" {
-  count       = (var.enable_pipeline_dockerconfigjson) ? 1 : 0
-  name        = "pipeline-dockerconfigjson"
-  type        = "secure"
-  value       = var.pipeline_dockerconfigjson_secret_ref
-  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "artifactory-dockerconfigjson" {
   name        = "artifactory-dockerconfigjson"
   count       = (var.enable_artifactory) ? 1 : 0
