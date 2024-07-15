@@ -1353,12 +1353,6 @@ variable "pipeline_doi_api_key_secret_name" {
   default     = ""
 }
 
-variable "pipeline_debug" {
-  type        = string
-  description = "Set to '1' to enable debug logging"
-  default     = "0"
-}
-
 variable "doi_toolchain_id_pipeline_property" {
   type        = string
   description = "The DevOps Insights instance toolchain ID."

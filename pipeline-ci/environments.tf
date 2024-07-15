@@ -29,14 +29,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo_def
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_debug" {
-  name        = "pipeline-debug"
-  type        = "single_select"
-  enum        = ["0", "1"]
-  value       = var.pipeline_debug
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_print_signing_cert" {
   count       = (var.print_code_signing_certificate != "") ? 1 : 0
   name        = "print-code-signing-certificate"

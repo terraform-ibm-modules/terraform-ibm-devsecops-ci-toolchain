@@ -97,9 +97,6 @@ variable "pipeline_config_repo_branch" {
 variable "pipeline_config_path" {
 }
 
-variable "pipeline_debug" {
-}
-
 variable "doi_toolchain_id_pipeline_property" {
 }
 

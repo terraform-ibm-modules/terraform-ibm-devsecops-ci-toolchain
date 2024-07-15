@@ -74,9 +74,6 @@ variable "pr_pipeline_max_concurrent_runs" {
 variable "app_repo_provider_webhook_syntax" {
 }
 
-variable "pipeline_debug" {
-}
-
 variable "tool_artifactory" {
 }
 

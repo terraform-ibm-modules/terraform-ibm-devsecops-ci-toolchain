@@ -71,6 +71,12 @@
             "name": "pipeline-config",
             "type": "text",
             "value": ".pipeline-config.yaml"
+        },
+        {
+            "name": "pipeline-debug",
+            "type": "single_select",
+            "value": "0",
+            "enum": "[0,1]"
         }
       ]
     },
@@ -86,8 +92,13 @@
             "name": "opt-in-dynamic-api-scan",
             "type": "text",
             "value": "1"
+        },
+        {
+            "name": "pipeline-debug",
+            "type": "single_select",
+            "value": "0",
+            "enum": "[0,1]"
         }
       ]
     }
 ]
-
