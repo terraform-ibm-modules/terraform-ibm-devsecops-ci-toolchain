@@ -46,6 +46,11 @@
             "name": "opt-in-dynamic-scan",
             "type": "text",
             "value": "1"
+        },
+        {
+            "name": "opt-in-dynamic-ui-scan",
+            "type": "text",
+            "value": "1"
         }
       ]
     },
