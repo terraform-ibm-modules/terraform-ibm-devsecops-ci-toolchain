@@ -356,7 +356,6 @@ module "pipeline_ci" {
   pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
   app_name                             = var.app_name
   dev_region                           = var.dev_region
-  dev_resource_group                   = var.dev_resource_group
   registry_namespace                   = var.registry_namespace
   registry_region                      = var.registry_region
   signing_key_secret_ref               = local.signing_key_secret_ref

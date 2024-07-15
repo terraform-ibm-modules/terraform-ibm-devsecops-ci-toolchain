@@ -1,9 +1,6 @@
 variable "pipeline_id" {
 }
 
-variable "dev_resource_group" {
-}
-
 variable "app_name" {
 }
 

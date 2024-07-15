@@ -106,13 +106,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_region" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_resource_group" {
-  name        = "dev-resource-group"
-  type        = "text"
-  value       = var.dev_resource_group
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_namespace" {
   name        = "registry-namespace"
   type        = "text"

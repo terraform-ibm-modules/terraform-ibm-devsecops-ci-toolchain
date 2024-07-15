@@ -21,6 +21,11 @@
           "name": "dev-cluster-namespace",
           "type": "text",
           "value": "default"
+        },
+        {
+          "name": "dev-resource-group",
+          "type": "text",
+          "value": "Default"
         }
       ]
     },
