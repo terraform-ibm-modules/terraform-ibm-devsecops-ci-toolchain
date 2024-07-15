@@ -13,11 +13,9 @@
           "value": "1"
         },
         {
-          "name": "custom-param3",
-          "type": "single_select",
-          "value": "0",
-          "enum": "[0,1,2]",
-          "locked": "false"
+          "name": "custom_image_tag",
+          "type": "text",
+          "value": ""
         }
       ]
     },

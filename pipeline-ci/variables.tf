@@ -133,9 +133,6 @@ variable "pipeline_doi_api_key_secret_ref" {
 variable "link_to_doi_toolchain" {
 }
 
-variable "custom_image_tag" {
-}
-
 variable "app_version" {
 }
 

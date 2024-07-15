@@ -1431,12 +1431,6 @@ variable "doi_toolchain_id_pipeline_property" {
   default     = ""
 }
 
-variable "custom_image_tag" {
-  type        = string
-  description = "The custom tag for the image in a comma-separated list."
-  default     = ""
-}
-
 variable "app_version" {
   type        = string
   description = "The version of the app to deploy."
