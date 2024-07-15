@@ -142,7 +142,7 @@ locals {
     (var.sonarqube_secret_group == "") ? format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sonarqube_secret_group))
   )
- 
+
   properties_file_input = (var.pipeline_properties_filepath == "") ? try(file("${path.root}/properties.json"), "[]") : try(file(var.pipeline_properties_filepath), "[]")
   properties_file_data  = (local.properties_file_input == "") ? "[]" : local.properties_file_input
   properties_input      = (var.pipeline_properties == "") ? local.properties_file_data : var.pipeline_properties
@@ -362,7 +362,6 @@ module "pipeline_ci" {
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
   ci_pipeline_branch                   = var.ci_pipeline_branch
   pipeline_git_tag                     = var.ci_pipeline_git_tag
-  enable_devops_signing_var            = var.enable_devops_signing_var
   trigger_git_name                     = var.trigger_git_name
   trigger_git_enable                   = var.trigger_git_enable
   trigger_timed_name                   = var.trigger_timed_name

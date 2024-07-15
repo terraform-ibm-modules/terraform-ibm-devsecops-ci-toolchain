@@ -140,9 +140,6 @@ variable "code_engine_resource_group" {
 variable "app_repo_provider_webhook_syntax" {
 }
 
-variable "enable_devops_signing_var" {
-}
-
 variable "trigger_git_name" {
 }
 variable "trigger_git_enable" {
