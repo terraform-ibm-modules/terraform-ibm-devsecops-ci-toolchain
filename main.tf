@@ -143,13 +143,6 @@ locals {
     format("{vault::%s.${var.artifactory_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.artifactory_token_secret_group))
   )
 
-  pipeline_git_token_secret_ref = (
-    (var.sm_instance_crn != "") ? var.pipeline_git_token_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_git_token_secret_name}}", module.integrations.secret_tool) :
-    (var.pipeline_git_token_secret_group == "") ? format("{vault::%s.${var.pipeline_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.pipeline_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_git_token_secret_group))
-  )
-
   pipeline_doi_api_key_secret_ref = (
     (var.sm_instance_crn != "") ? var.pipeline_doi_api_key_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", module.integrations.secret_tool) :
@@ -361,7 +354,6 @@ module "pipeline_ci" {
   signing_key_secret_ref               = local.signing_key_secret_ref
   cos_api_key_secret_ref               = (var.cos_bucket_name == "") ? "" : local.cos_secret_ref
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
-  pipeline_git_token_secret_ref        = local.pipeline_git_token_secret_ref
   app_repo_url                         = module.app_repo.repository_url
   app_repo_branch                      = local.app_repo_branch
   pipeline_config_repo_existing_url    = var.pipeline_config_repo_existing_url
@@ -489,7 +481,6 @@ module "pipeline_pr" {
   enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
   enable_pipeline_git_token            = var.enable_pipeline_git_token
   pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref
-  pipeline_git_token_secret_ref        = local.pipeline_git_token_secret_ref
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                   = var.enable_artifactory
   pr_pipeline_branch                   = var.pr_pipeline_branch

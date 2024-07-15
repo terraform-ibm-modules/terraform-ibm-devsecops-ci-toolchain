@@ -64,12 +64,6 @@ variable "slack_webhook_secret_name" {
   default     = "slack-webhook"
 }
 
-variable "pipeline_git_token_secret_name" {
-  type        = string
-  description = "Name of the pipeline Git token secret in the secret provider."
-  default     = "pipeline-git-token"
-}
-
 variable "pipeline_dockerconfigjson_secret_name" {
   type        = string
   description = "Name of the dockerconfigjson secret in the secret provider."
@@ -105,13 +99,6 @@ variable "pipeline_dockerconfigjson_secret_group" {
   description = "Secret group prefix for the pipeline DockerConfigJson secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
-
-variable "pipeline_git_token_secret_group" {
-  type        = string
-  description = "Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
-  default     = ""
-}
-
 
 variable "pipeline_doi_api_key_secret_group" {
   type        = string
@@ -489,17 +476,6 @@ variable "artifactory_token_secret_crn" {
   default     = ""
   validation {
     condition     = startswith(var.artifactory_token_secret_crn, "crn:") || var.artifactory_token_secret_crn == ""
-    error_message = "Must be a CRN or left empty."
-  }
-}
-
-variable "pipeline_git_token_secret_crn" {
-  type        = string
-  sensitive   = true
-  description = "The CRN for the Git Token pipeline property."
-  default     = ""
-  validation {
-    condition     = startswith(var.pipeline_git_token_secret_crn, "crn:") || var.pipeline_git_token_secret_crn == ""
     error_message = "Must be a CRN or left empty."
   }
 }

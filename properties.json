@@ -31,12 +31,22 @@
             "name": "doi-environment",
             "type": "text",
             "value": ""
-          }
+        },
+        {
+            "name": "git-token",
+            "type": "secure",
+            "value": ""
+        }
       ]
     },
     {
       "pipeline_id": "pr",
       "properties": [
+        {
+            "name": "git-token",
+            "type": "secure",
+            "value": ""
+        }
       ]
     }
   ]
