@@ -108,13 +108,6 @@ locals {
     format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_ibmcloud_api_key_secret_group))
   )
 
-  signing_key_secret_ref = (
-    (var.sm_instance_crn != "") ? var.signing_key_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.signing_key_secret_name}}", module.integrations.secret_tool) :
-    (var.signing_key_secret_group == "") ? format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.signing_key_secret_group))
-  )
-
   dockerconfigjson_secret_ref = (
     (var.sm_instance_crn != "") ? var.pipeline_dockerconfigjson_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", module.integrations.secret_tool) :
@@ -351,7 +344,6 @@ module "pipeline_ci" {
   dev_region                           = var.dev_region
   registry_namespace                   = var.registry_namespace
   registry_region                      = var.registry_region
-  signing_key_secret_ref               = local.signing_key_secret_ref
   cos_api_key_secret_ref               = (var.cos_bucket_name == "") ? "" : local.cos_secret_ref
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
   app_repo_url                         = module.app_repo.repository_url

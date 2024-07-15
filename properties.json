@@ -77,6 +77,11 @@
             "type": "single_select",
             "value": "0",
             "enum": "[0,1]"
+        },
+        {
+            "name": "signing-key",
+            "type": "secure",
+            "value": "{vault::sm-compliance-secrets.Default.signing_key}"
         }
       ]
     },

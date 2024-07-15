@@ -19,9 +19,6 @@ variable "tool_artifactory" {
 variable "private_worker" {
 }
 
-variable "signing_key_secret_ref" {
-}
-
 variable "cos_api_key_secret_ref" {
 }
 

@@ -155,14 +155,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_version" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_signing_key_secret_name" {
-  count       = (var.enable_devops_signing_var) ? 1 : 0
-  name        = "signing-key"
-  type        = "secure"
-  value       = var.signing_key_secret_ref
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_app_name" {
   name        = "app-name"
   type        = "text"

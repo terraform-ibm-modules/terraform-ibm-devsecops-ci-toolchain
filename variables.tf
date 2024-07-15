@@ -46,12 +46,6 @@ variable "pipeline_ibmcloud_api_key_secret_name" {
   default     = "ibmcloud-api-key"
 }
 
-variable "signing_key_secret_name" {
-  type        = string
-  description = "Name of the signing key secret in the secret provider."
-  default     = "signing_key"
-}
-
 variable "cos_api_key_secret_name" {
   type        = string
   description = "Name of the COS API key secret in the secret provider."
@@ -73,12 +67,6 @@ variable "pipeline_dockerconfigjson_secret_name" {
 variable "pipeline_ibmcloud_api_key_secret_group" {
   type        = string
   description = "Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
-  default     = ""
-}
-
-variable "signing_key_secret_group" {
-  type        = string
-  description = "Secret group prefix for the signing key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 
@@ -421,17 +409,6 @@ variable "pipeline_ibmcloud_api_key_secret_crn" {
   default     = ""
   validation {
     condition     = startswith(var.pipeline_ibmcloud_api_key_secret_crn, "crn:") || var.pipeline_ibmcloud_api_key_secret_crn == ""
-    error_message = "Must be a CRN or left empty."
-  }
-}
-
-variable "signing_key_secret_crn" {
-  type        = string
-  sensitive   = true
-  description = "The CRN for Signing Key secret."
-  default     = ""
-  validation {
-    condition     = startswith(var.signing_key_secret_crn, "crn:") || var.signing_key_secret_crn == ""
     error_message = "Must be a CRN or left empty."
   }
 }
@@ -1440,12 +1417,6 @@ variable "privateworker_name" {
   type        = string
   description = "The name of the private worker integration."
   default     = "private-worker-tool-01"
-}
-
-variable "enable_devops_signing_var" {
-  type        = string
-  description = "Set to `true` to show the `signing-key` pipeline variable"
-  default     = true
 }
 
 variable "print_code_signing_certificate" {
