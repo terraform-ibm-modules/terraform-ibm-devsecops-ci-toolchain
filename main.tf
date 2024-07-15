@@ -355,7 +355,6 @@ module "pipeline_ci" {
   ibmcloud_api_key                     = var.ibmcloud_api_key
   pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
   app_name                             = var.app_name
-  cluster_name                         = var.cluster_name
   cluster_namespace                    = var.cluster_namespace
   dev_region                           = var.dev_region
   dev_resource_group                   = var.dev_resource_group
@@ -579,7 +578,6 @@ module "services" {
   kp_resource_group      = var.kp_resource_group
   enable_secrets_manager = var.enable_secrets_manager
   enable_key_protect     = var.enable_key_protect
-  cluster_name           = var.cluster_name
   cluster_namespace      = var.cluster_namespace
   registry_namespace     = var.registry_namespace
   registry_region        = var.registry_region

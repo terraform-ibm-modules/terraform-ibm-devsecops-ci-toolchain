@@ -99,14 +99,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cluster_name" {
-  count       = (var.deployment_target != "code-engine") ? 1 : 0
-  name        = "cluster-name"
-  type        = "text"
-  value       = var.cluster_name
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_cluster_namespace" {
   count       = (var.deployment_target != "code-engine") ? 1 : 0
   name        = "dev-cluster-namespace"

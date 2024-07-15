@@ -40,9 +40,6 @@ variable "pipeline_git_token_secret_ref" {
 variable "enable_pipeline_dockerconfigjson" {
 }
 
-variable "cluster_name" {
-}
-
 variable "cluster_namespace" {
 }
 

@@ -137,11 +137,6 @@ variable "enable_pipeline_git_token" {
   default     = false
 }
 
-variable "cluster_name" {
-  type        = string
-  description = "Name of the Kubernetes cluster where the application will be deployed."
-  default     = "mycluster-free"
-}
 
 variable "cluster_namespace" {
   type        = string

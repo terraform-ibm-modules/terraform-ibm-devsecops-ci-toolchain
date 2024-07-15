@@ -25,7 +25,6 @@ ibmcloud_api_key                = ""
 /*****************************************************/
 /* Variables for Module "Services"                   */
 /*****************************************************/
-cluster_name                    = "mycluster-free"
 cluster_namespace               = "devsecops-ci-ns"
 dev_region                      = "ibm:yp:us-south"
 dev_resource_group              = "Default"

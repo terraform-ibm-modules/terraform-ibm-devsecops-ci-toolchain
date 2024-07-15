@@ -20,7 +20,6 @@ module "terraform_devsecops_ci" {
   sm_name                  = var.sm_name
   sm_location              = var.sm_location
   sm_secret_group          = var.sm_secret_group
-  cluster_name             = var.cluster_name
   cluster_namespace        = var.cluster_namespace
   dev_region               = var.dev_region
   dev_resource_group       = var.dev_resource_group
