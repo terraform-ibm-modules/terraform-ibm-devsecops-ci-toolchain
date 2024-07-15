@@ -418,7 +418,6 @@ module "pipeline_ci" {
   opt_in_dynamic_ui_scan               = var.opt_in_dynamic_ui_scan
   opt_in_dynamic_scan                  = var.opt_in_dynamic_scan
   opt_in_sonar                         = var.opt_in_sonar
-  doi_environment                      = var.doi_environment
   app_version                          = var.app_version
   slack_notifications                  = var.slack_notifications
   sonarqube_config                     = var.sonarqube_config

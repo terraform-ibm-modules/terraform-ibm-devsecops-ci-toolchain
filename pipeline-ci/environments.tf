@@ -177,13 +177,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_git_token_environment" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_environment" {
-  name        = "doi-environment"
-  type        = "text"
-  value       = var.doi_environment
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
   name        = "doi-toolchain-id"
   type        = "text"

@@ -1407,12 +1407,6 @@ variable "opt_in_sonar" {
   default     = "1"
 }
 
-variable "doi_environment" {
-  type        = string
-  description = "The DevOps Insights target environment."
-  default     = ""
-}
-
 variable "doi_toolchain_id_pipeline_property" {
   type        = string
   description = "The DevOps Insights instance toolchain ID."

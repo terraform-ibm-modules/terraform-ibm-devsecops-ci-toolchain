@@ -115,9 +115,6 @@ variable "opt_in_dynamic_scan" {
 variable "opt_in_sonar" {
 }
 
-variable "doi_environment" {
-}
-
 variable "doi_toolchain_id_pipeline_property" {
 }
 

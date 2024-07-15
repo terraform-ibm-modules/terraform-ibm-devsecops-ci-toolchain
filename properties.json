@@ -26,7 +26,12 @@
           "name": "dev-resource-group",
           "type": "text",
           "value": "Default"
-        }
+        },
+        {
+            "name": "doi-environment",
+            "type": "text",
+            "value": ""
+          }
       ]
     },
     {
@@ -35,4 +40,5 @@
       ]
     }
   ]
+  
   
