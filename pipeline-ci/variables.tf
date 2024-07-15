@@ -100,9 +100,6 @@ variable "pipeline_config_path" {
 variable "pipeline_debug" {
 }
 
-variable "opt_in_sonar" {
-}
-
 variable "doi_toolchain_id_pipeline_property" {
 }
 
@@ -119,9 +116,6 @@ variable "sonarqube_config" {
 }
 
 variable "sonarqube_tool" {
-}
-
-variable "peer_review_compliance" {
 }
 
 variable "slack_notifications" {

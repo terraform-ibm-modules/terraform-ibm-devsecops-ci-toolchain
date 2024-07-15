@@ -141,13 +141,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_endpoint" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonar_environment" {
-  name        = "opt-in-sonar"
-  type        = "text"
-  value       = var.opt_in_sonar
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
   name        = "doi-toolchain-id"
   type        = "text"
@@ -204,13 +197,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
   name        = "sonarqube-config"
   type        = "text"
   value       = var.sonarqube_config
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_peer_review_compliance" {
-  name        = "peer-review-compliance"
-  type        = "text"
-  value       = var.peer_review_compliance
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

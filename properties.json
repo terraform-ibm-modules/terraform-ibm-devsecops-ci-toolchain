@@ -55,7 +55,22 @@
         {
             "name": "opt-in-gosec",
             "type": "text",
+            "value": ""
+        },
+        {
+            "name": "opt-in-sonar",
+            "type": "text",
             "value": "1"
+        },
+        {
+            "name": "peer-review-compliance",
+            "type": "text",
+            "value": "1"
+        },
+        {
+            "name": "pipeline-config",
+            "type": "text",
+            "value": ".pipeline-config.yaml"
         }
       ]
     },
@@ -75,3 +90,4 @@
       ]
     }
 ]
+

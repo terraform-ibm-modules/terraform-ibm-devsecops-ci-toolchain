@@ -1359,12 +1359,6 @@ variable "pipeline_debug" {
   default     = "0"
 }
 
-variable "opt_in_sonar" {
-  type        = string
-  description = "Opt in for Sonarqube."
-  default     = "1"
-}
-
 variable "doi_toolchain_id_pipeline_property" {
   type        = string
   description = "The DevOps Insights instance toolchain ID."
@@ -1464,12 +1458,6 @@ variable "print_code_signing_certificate" {
   type        = string
   description = "Set to `1` to enable printing of the public signing certificate in the logs."
   default     = ""
-}
-
-variable "peer_review_compliance" {
-  type        = string
-  description = "Set to `1` to enable peer review."
-  default     = "1"
 }
 
 ######SonarQube ############################

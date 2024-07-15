@@ -406,7 +406,6 @@ module "pipeline_ci" {
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image
   pipeline_debug                       = var.pipeline_debug
-  opt_in_sonar                         = var.opt_in_sonar
   app_version                          = var.app_version
   slack_notifications                  = var.slack_notifications
   sonarqube_config                     = var.sonarqube_config
@@ -418,7 +417,6 @@ module "pipeline_ci" {
   enable_privateworker                 = var.enable_privateworker
   enable_artifactory                   = var.enable_artifactory
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
-  peer_review_compliance               = var.peer_review_compliance
   ci_pipeline_branch                   = var.ci_pipeline_branch
   pipeline_git_tag                     = var.ci_pipeline_git_tag
   enable_devops_signing_var            = var.enable_devops_signing_var
