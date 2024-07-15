@@ -36,13 +36,6 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo_def
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_slack_notifications" {
-  name        = "slack-notifications"
-  type        = "text"
-  value       = var.slack_notifications
-  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibm_cloud_api" {
   name        = "ibmcloud-api"
   type        = "text"

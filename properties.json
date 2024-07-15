@@ -82,6 +82,11 @@
             "name": "signing-key",
             "type": "secure",
             "value": "{vault::sm-compliance-secrets.Default.signing_key}"
+        },
+        {
+            "name": "slack-notifications",
+            "type": "text",
+            "value": "0"
         }
       ]
     },

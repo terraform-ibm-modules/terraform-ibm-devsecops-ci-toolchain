@@ -112,9 +112,6 @@ variable "sonarqube_config" {
 variable "sonarqube_tool" {
 }
 
-variable "slack_notifications" {
-}
-
 variable "event_notifications" {
 }
 

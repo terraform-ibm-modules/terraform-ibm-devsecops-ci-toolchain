@@ -51,13 +51,6 @@ resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_event_notifications" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_slack_notifications" {
-  name        = "slack-notifications"
-  type        = "text"
-  value       = var.slack_notifications
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_ibmcloud_api_key" {
   name        = "ibmcloud-api-key"
   type        = "secure"

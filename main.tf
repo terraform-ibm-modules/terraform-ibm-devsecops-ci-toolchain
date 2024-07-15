@@ -398,7 +398,6 @@ module "pipeline_ci" {
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image
   app_version                          = var.app_version
-  slack_notifications                  = var.slack_notifications
   sonarqube_config                     = var.sonarqube_config
   doi_toolchain_id_pipeline_property   = var.doi_toolchain_id_pipeline_property
   enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
@@ -461,7 +460,6 @@ module "pipeline_pr" {
   pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image
-  slack_notifications                  = var.slack_notifications
   enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
   enable_pipeline_git_token            = var.enable_pipeline_git_token
   pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref

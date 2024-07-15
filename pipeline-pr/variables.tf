@@ -62,9 +62,6 @@ variable "enable_pipeline_git_token" {
 variable "ibmcloud_api" {
 }
 
-variable "slack_notifications" {
-}
-
 variable "pr_pipeline_max_concurrent_runs" {
   type        = number
   description = "The number of maximum concurrent runs to be supported by PR Pipeline"
