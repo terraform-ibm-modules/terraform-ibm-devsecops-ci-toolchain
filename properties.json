@@ -36,6 +36,11 @@
             "name": "git-token",
             "type": "secure",
             "value": ""
+        },
+        {
+            "name": "opt-in-dynamic-api-scan",
+            "type": "text",
+            "value": "1"
         }
       ]
     },
@@ -46,9 +51,12 @@
             "name": "git-token",
             "type": "secure",
             "value": ""
+        },
+        {
+            "name": "opt-in-dynamic-api-scan",
+            "type": "text",
+            "value": "1"
         }
       ]
     }
-  ]
-  
-  
+]

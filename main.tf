@@ -406,7 +406,6 @@ module "pipeline_ci" {
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image
   pipeline_debug                       = var.pipeline_debug
-  opt_in_dynamic_api_scan              = var.opt_in_dynamic_api_scan
   opt_in_dynamic_ui_scan               = var.opt_in_dynamic_ui_scan
   opt_in_dynamic_scan                  = var.opt_in_dynamic_scan
   opt_in_sonar                         = var.opt_in_sonar

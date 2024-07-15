@@ -100,9 +100,6 @@ variable "pipeline_config_path" {
 variable "pipeline_debug" {
 }
 
-variable "opt_in_dynamic_api_scan" {
-}
-
 variable "opt_in_dynamic_ui_scan" {
 }
 
