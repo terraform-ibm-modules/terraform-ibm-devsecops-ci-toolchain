@@ -5,13 +5,6 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibmcloud_api_key" {
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config" {
-  name        = "pipeline-config"
-  type        = "text"
-  value       = var.pipeline_config_path
-  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_branch" {
   name        = "pipeline-config-branch"
   type        = "text"

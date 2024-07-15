@@ -238,12 +238,6 @@ variable "pipeline_config_repo_clone_from_url" {
   default     = ""
 }
 
-variable "pipeline_config_path" {
-  type        = string
-  description = "The name and path of the pipeline-config.yaml file within the pipeline-config/app repo"
-  default     = ".pipeline-config.yaml"
-}
-
 variable "pipeline_config_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"

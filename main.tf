@@ -353,7 +353,6 @@ module "pipeline_ci" {
   pipeline_config_repo_branch          = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
   pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
   pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
-  pipeline_config_path                 = var.pipeline_config_path
   evidence_repo_url                    = module.evidence_repo.repository_url
   inventory_repo_url                   = module.inventory_repo.repository_url
   issues_repo_url                      = module.issues_repo.repository_url
@@ -456,7 +455,6 @@ module "pipeline_pr" {
   pipeline_config_repo_clone_from_url  = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo_branch          = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
   pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
-  pipeline_config_path                 = var.pipeline_config_path
   pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   compliance_base_image                = var.compliance_base_image

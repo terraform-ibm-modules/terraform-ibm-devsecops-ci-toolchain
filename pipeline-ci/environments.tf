@@ -1,10 +1,3 @@
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config" {
-  name        = "pipeline-config"
-  type        = "text"
-  value       = var.pipeline_config_path
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_branch" {
   name        = "pipeline-config-branch"
   type        = "text"

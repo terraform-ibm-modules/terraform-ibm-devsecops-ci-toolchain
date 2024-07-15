@@ -91,9 +91,6 @@ variable "pipeline_config_repo_clone_from_url" {
 variable "pipeline_config_repo_branch" {
 }
 
-variable "pipeline_config_path" {
-}
-
 variable "doi_toolchain_id_pipeline_property" {
 }
 

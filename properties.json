@@ -99,11 +99,6 @@
             "value": ""
         },
         {
-            "name": "opt-in-dynamic-api-scan",
-            "type": "text",
-            "value": "1"
-        },
-        {
             "name": "pipeline-debug",
             "type": "single_select",
             "value": "0",
