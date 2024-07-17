@@ -158,7 +158,11 @@ locals {
     "secrets_provider_type" = (
       (var.enable_key_protect) ? "kp" :
       (var.enable_secrets_manager) ? "sm" : ""
-    )
+    ),
+    "cos_bucket_name"    = var.cos_bucket_name,
+    "cos_endpoint"       = var.cos_endpoint,
+    "doi_toolchain_id"   = var.doi_toolchain_id_pipeline_property
+    "registry_namespace" = var.registry_namespace
   }
 
   repos_file_input = (var.repository_properties_filepath == "") ? try(file("${path.root}/repositories.json"), "[]") : try(file(var.repository_properties_filepath), "[]")
@@ -328,7 +332,6 @@ module "pipeline_ci" {
   pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
   app_name                             = var.app_name
   dev_region                           = var.dev_region
-  registry_namespace                   = var.registry_namespace
   registry_region                      = var.registry_region
   cos_api_key_secret_ref               = (var.cos_bucket_name == "") ? "" : local.cos_secret_ref
   pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
@@ -345,15 +348,12 @@ module "pipeline_ci" {
   evidence_repo                        = module.evidence_repo.repository
   inventory_repo                       = module.inventory_repo.repository
   issues_repo                          = module.issues_repo.repository
-  cos_bucket_name                      = var.cos_bucket_name
-  cos_endpoint                         = var.cos_endpoint
   deployment_target                    = var.deployment_target
   code_engine_project                  = var.code_engine_project
   code_engine_region                   = var.code_engine_region
   code_engine_resource_group           = var.code_engine_resource_group
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   sonarqube_config                     = var.sonarqube_config
-  doi_toolchain_id_pipeline_property   = var.doi_toolchain_id_pipeline_property
   private_worker                       = module.integrations.private_worker
   enable_privateworker                 = var.enable_privateworker
   enable_artifactory                   = var.enable_artifactory
@@ -482,7 +482,6 @@ module "services" {
   kp_resource_group      = var.kp_resource_group
   enable_secrets_manager = var.enable_secrets_manager
   enable_key_protect     = var.enable_key_protect
-  registry_namespace     = var.registry_namespace
   registry_region        = var.registry_region
 }
 

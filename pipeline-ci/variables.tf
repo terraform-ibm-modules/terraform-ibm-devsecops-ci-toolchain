@@ -25,9 +25,6 @@ variable "pipeline_ibmcloud_api_key_secret_ref" {
 variable "dev_region" {
 }
 
-variable "registry_namespace" {
-}
-
 variable "registry_region" {
 }
 
@@ -38,12 +35,6 @@ variable "app_repo_url" {
 }
 
 variable "app_repo_branch" {
-}
-
-variable "cos_bucket_name" {
-}
-
-variable "cos_endpoint" {
 }
 
 variable "pipeline_repo_url" {
@@ -77,9 +68,6 @@ variable "pipeline_config_repo_clone_from_url" {
 }
 
 variable "pipeline_config_repo_branch" {
-}
-
-variable "doi_toolchain_id_pipeline_property" {
 }
 
 variable "pipeline_doi_api_key_secret_ref" {

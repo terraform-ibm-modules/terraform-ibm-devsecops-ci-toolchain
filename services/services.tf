@@ -14,10 +14,6 @@
 #
 ####################################################################################
 
-// Limitation with datasource: Cannot fetch registry namespaces for a specific region.
-// Can only fetch registries in the region targeted for the provider.
-# data "ibm_cr_namespaces" "registry_namespace" {}
-
 
 ####################################################################################
 #

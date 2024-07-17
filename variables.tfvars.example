@@ -49,8 +49,6 @@ sm_resource_group               = "Default"
 #link_to_doi_toolchain                  = false|true (Default: false)
 
 #cos_api_key_secret_name = ""
-#cos_bucket_name = ""
-#cos_endpoint = ""
 
 /*****************************************************/
 /* Variables for "Code Engine"                       */

@@ -69,13 +69,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_region" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_namespace" {
-  name        = "registry-namespace"
-  type        = "text"
-  value       = var.registry_namespace
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
   name        = "registry-region"
   type        = "text"
@@ -87,27 +80,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key_secret_name"
   name        = "cos-api-key"
   type        = "secure"
   value       = var.cos_api_key_secret_ref
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_bucket_name" {
-  name        = "cos-bucket-name"
-  type        = "text"
-  value       = var.cos_bucket_name
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_endpoint" {
-  name        = "cos-endpoint"
-  type        = "text"
-  value       = var.cos_endpoint
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_toolchain_id" {
-  name        = "doi-toolchain-id"
-  type        = "text"
-  value       = var.doi_toolchain_id_pipeline_property
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
