@@ -8,6 +8,21 @@
           "value": "my-cluster"
         },
         {
+          "name": "cos-api-key",
+          "type": "secure",
+          "value": ""
+        },
+        {
+          "name": "cos-bucket-name",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "name": "cos-endpoint",
+          "type": "text",
+          "value": ""
+        },
+        {
           "name": "cra-generate-cyclonedx-format",
           "type": "text",
           "value": "1"
@@ -20,73 +35,108 @@
         {
           "name": "dev-cluster-namespace",
           "type": "text",
-          "value": "default"
+          "value": ""
         },
         {
           "name": "dev-resource-group",
           "type": "text",
-          "value": "Default"
+          "value": ""
         },
         {
-            "name": "doi-environment",
-            "type": "text",
-            "value": ""
+          "name": "doi-environment",
+          "type": "text",
+          "value": ""
         },
         {
-            "name": "git-token",
-            "type": "secure",
-            "value": ""
+          "name": "doi-ibmcloud-api-key",
+          "type": "secure",
+          "value": ""
         },
         {
-            "name": "opt-in-dynamic-api-scan",
-            "type": "text",
-            "value": "1"
+          "name": "doi-toolchain-id",
+          "type": "text",
+          "value": ""
         },
         {
-            "name": "opt-in-dynamic-scan",
-            "type": "text",
-            "value": "1"
+          "name": "git-token",
+          "type": "secure",
+          "value": ""
         },
         {
-            "name": "opt-in-dynamic-ui-scan",
-            "type": "text",
-            "value": "1"
+          "name": "ibmcloud-api-key",
+          "type": "secure",
+          "value": ""
         },
         {
-            "name": "opt-in-gosec",
-            "type": "text",
-            "value": ""
+          "name": "opt-in-dynamic-api-scan",
+          "type": "text",
+          "value": "1"
         },
         {
-            "name": "opt-in-sonar",
-            "type": "text",
-            "value": "1"
+          "name": "opt-in-dynamic-scan",
+          "type": "text",
+          "value": "1"
         },
         {
-            "name": "peer-review-compliance",
-            "type": "text",
-            "value": "1"
+          "name": "opt-in-dynamic-ui-scan",
+          "type": "text",
+          "value": "1"
         },
         {
-            "name": "pipeline-config",
-            "type": "text",
-            "value": ".pipeline-config.yaml"
+          "name": "opt-in-gosec",
+          "type": "text",
+          "value": ""
         },
         {
-            "name": "pipeline-debug",
-            "type": "single_select",
-            "value": "0",
-            "enum": "[0,1]"
+          "name": "opt-in-sonar",
+          "type": "text",
+          "value": "1"
         },
         {
-            "name": "signing-key",
-            "type": "secure",
-            "value": "{vault::sm-compliance-secrets.Default.signing_key}"
+          "name": "peer-review-compliance",
+          "type": "text",
+          "value": "1"
         },
         {
-            "name": "slack-notifications",
-            "type": "text",
-            "value": "0"
+          "name": "pipeline-config",
+          "type": "text",
+          "value": ".pipeline-config.yaml"
+        },
+        {
+          "name": "pipeline-config-branch",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "name": "pipeline-debug",
+          "type": "single_select",
+          "value": "0",
+          "enum": "[0,1]"
+        },
+        {
+          "name": "registry-namespace",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "name": "registry-region",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "name": "signing-key",
+          "type": "secure",
+          "value": "{vault::sm-compliance-secrets.Default.signing_key}"
+        },
+        {
+          "name": "slack-notifications",
+          "type": "text",
+          "value": "0"
+        },
+        {
+          "name": "version",
+          "type": "text",
+          "value": "v1"
         }
       ]
     },
@@ -94,15 +144,35 @@
       "pipeline_id": "pr",
       "properties": [
         {
-            "name": "git-token",
-            "type": "secure",
-            "value": ""
+          "name": "git-token",
+          "type": "secure",
+          "value": ""
         },
         {
-            "name": "pipeline-debug",
-            "type": "single_select",
-            "value": "0",
-            "enum": "[0,1]"
+          "name": "ibmcloud-api-key",
+          "type": "secure",
+          "value": ""
+        },
+        {
+          "name": "pipeline-config",
+          "type": "text",
+          "value": ".pipeline-config.yaml"
+        },
+        {
+          "name": "pipeline-config-branch",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "name": "pipeline-debug",
+          "type": "single_select",
+          "value": "0",
+          "enum": "[0,1]"
+        },
+        {
+          "name": "slack-notifications",
+          "type": "text",
+          "value": "1"
         }
       ]
     }
