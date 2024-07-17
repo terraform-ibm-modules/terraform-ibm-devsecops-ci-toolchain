@@ -16,9 +16,6 @@ variable "pipeline_config_repo" {
 variable "pipeline_config_repo_existing_url" {
 }
 
-variable "pipeline_config_repo_branch" {
-}
-
 variable "pipeline_config_repo_clone_from_url" {
 }
 
@@ -40,9 +37,6 @@ variable "pipeline_path" {
 }
 
 variable "ibmcloud_api_key" {
-}
-
-variable "pipeline_ibmcloud_api_key_secret_ref" {
 }
 
 variable "pr_pipeline_max_concurrent_runs" {

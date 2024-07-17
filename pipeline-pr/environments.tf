@@ -1,17 +1,3 @@
-resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_ibmcloud_api_key" {
-  name        = "ibmcloud-api-key"
-  type        = "secure"
-  value       = var.pipeline_ibmcloud_api_key_secret_ref
-  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_branch" {
-  name        = "pipeline-config-branch"
-  type        = "text"
-  value       = var.pipeline_config_repo_branch
-  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo" {
   count       = (var.pipeline_config_repo_existing_url == "") && (var.pipeline_config_repo_clone_from_url == "") ? 0 : 1
   name        = "pipeline-config-repo"

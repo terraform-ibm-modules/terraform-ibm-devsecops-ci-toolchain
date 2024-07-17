@@ -28,6 +28,3 @@ variable "kp_resource_group" {
 
 variable "kp_location" {
 }
-
-variable "registry_region" {
-}

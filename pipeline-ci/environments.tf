@@ -1,10 +1,3 @@
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_branch" {
-  name        = "pipeline-config-branch"
-  type        = "text"
-  value       = var.pipeline_config_repo_branch
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo" {
   count       = (var.pipeline_config_repo_existing_url == "") && (var.pipeline_config_repo_clone_from_url == "") ? 0 : 1
   name        = "pipeline-config-repo"
@@ -26,13 +19,6 @@ resource "ibm_cd_tekton_pipeline_property" "cd_pipeline_event_notifications" {
   type        = "text"
   name        = "event-notifications"
   value       = var.event_notifications
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_ibmcloud_api_key" {
-  name        = "ibmcloud-api-key"
-  type        = "secure"
-  value       = var.pipeline_ibmcloud_api_key_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
@@ -59,27 +45,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
   type        = "integration"
   value       = var.issues_repo.tool_id
   path        = "parameters.repo_url"
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_dev_region" {
-  name        = "dev-region"
-  type        = "text"
-  value       = var.dev_region
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_registry_region" {
-  name        = "registry-region"
-  type        = "text"
-  value       = var.registry_region
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_cos_api_key_secret_name" {
-  name        = "cos-api-key"
-  type        = "secure"
-  value       = var.cos_api_key_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 

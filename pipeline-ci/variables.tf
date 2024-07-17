@@ -16,18 +16,6 @@ variable "tool_artifactory" {
 variable "private_worker" {
 }
 
-variable "cos_api_key_secret_ref" {
-}
-
-variable "pipeline_ibmcloud_api_key_secret_ref" {
-}
-
-variable "dev_region" {
-}
-
-variable "registry_region" {
-}
-
 variable "ibmcloud_api_key" {
 }
 
@@ -65,9 +53,6 @@ variable "pipeline_config_repo_existing_url" {
 }
 
 variable "pipeline_config_repo_clone_from_url" {
-}
-
-variable "pipeline_config_repo_branch" {
 }
 
 variable "pipeline_doi_api_key_secret_ref" {
