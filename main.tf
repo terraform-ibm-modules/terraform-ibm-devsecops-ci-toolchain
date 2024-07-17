@@ -354,8 +354,6 @@ module "pipeline_ci" {
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
   sonarqube_config                     = var.sonarqube_config
   doi_toolchain_id_pipeline_property   = var.doi_toolchain_id_pipeline_property
-  enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
-  enable_pipeline_git_token            = var.enable_pipeline_git_token
   private_worker                       = module.integrations.private_worker
   enable_privateworker                 = var.enable_privateworker
   enable_artifactory                   = var.enable_artifactory
@@ -404,8 +402,6 @@ module "pipeline_pr" {
   pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
   pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
   app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
-  enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
-  enable_pipeline_git_token            = var.enable_pipeline_git_token
   tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                   = var.enable_artifactory
   pr_pipeline_branch                   = var.pr_pipeline_branch

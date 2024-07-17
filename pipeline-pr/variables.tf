@@ -45,12 +45,6 @@ variable "ibmcloud_api_key" {
 variable "pipeline_ibmcloud_api_key_secret_ref" {
 }
 
-variable "enable_pipeline_dockerconfigjson" {
-}
-
-variable "enable_pipeline_git_token" {
-}
-
 variable "pr_pipeline_max_concurrent_runs" {
   type        = number
   description = "The number of maximum concurrent runs to be supported by PR Pipeline"

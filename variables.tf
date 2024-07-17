@@ -82,19 +82,6 @@ variable "sonarqube_secret_group" {
   default     = ""
 }
 
-variable "enable_pipeline_dockerconfigjson" {
-  type        = bool
-  description = "Enable to add the pipeline-dockerconfigjson to the pipeline properties."
-  default     = false
-}
-
-variable "enable_pipeline_git_token" {
-  type        = bool
-  description = "Enable to add `git-token` to the pipeline properties."
-  default     = false
-}
-
-
 variable "dev_region" {
   type        = string
   description = "Region of the Kubernetes cluster where the application will be deployed."
@@ -1311,67 +1298,6 @@ variable "trigger_timed_pruner_enable" {
   default     = false
 }
 
-variable "pr_cra_bom_generate" {
-  type        = string
-  description = "Set this flag to `1` to generate cra bom in PR pipeline"
-  default     = "1"
-  validation {
-    condition     = contains(["0", "1"], var.pr_cra_bom_generate)
-    error_message = "Must be either \"0\" or \"1\" ."
-  }
-}
-
-variable "pr_cra_vulnerability_scan" {
-  type        = string
-  description = "Set this flag to `1` and `pr-cra-bom-generate` to `1` for cra vulnerability scan in PR pipeline. If this value is set to `1` and `pr-cra-bom-generate` is set to `0`, the scan will be marked as `failure`"
-  default     = "1"
-  validation {
-    condition     = contains(["0", "1"], var.pr_cra_vulnerability_scan)
-    error_message = "Must be either \"0\" or \"1\" ."
-  }
-
-}
-
-variable "pr_cra_deploy_analysis" {
-  type        = string
-  description = "Set this flag to `1` for cra deployment analysis to be done in PR pipeline."
-  default     = "1"
-  validation {
-    condition     = contains(["0", "1"], var.pr_cra_deploy_analysis)
-    error_message = "Must be either \"0\" or \"1\" ."
-  }
-}
-
-variable "ci_cra_bom_generate" {
-  type        = string
-  description = "Set this flag to `1` to generate cra bom in CI pipeline."
-  default     = "1"
-  validation {
-    condition     = contains(["0", "1"], var.ci_cra_bom_generate)
-    error_message = "Must be either \"0\" or \"1\" ."
-  }
-}
-
-variable "ci_cra_vulnerability_scan" {
-  type        = string
-  description = "Set this flag to `1` and `ci-cra-bom-generate` to `1` for cra vulnerability scan in CI pipeline. If this value is set to 1 and `ci-cra-bom-generate` is set to `0`, the scan will be marked as `failure`"
-  default     = "1"
-  validation {
-    condition     = contains(["0", "1"], var.ci_cra_vulnerability_scan)
-    error_message = "Must be either \"0\" or \"1\" ."
-  }
-
-}
-
-variable "ci_cra_deploy_analysis" {
-  type        = string
-  description = "Set this flag to `1` for cra deployment analysis to be done in CI pipeline."
-  default     = "1"
-  validation {
-    condition     = contains(["0", "1"], var.ci_cra_deploy_analysis)
-    error_message = "Must be either \"0\" or \"1\" ."
-  }
-}
 
 variable "pipeline_properties" {
   type        = string

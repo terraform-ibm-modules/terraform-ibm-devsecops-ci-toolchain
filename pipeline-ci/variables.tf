@@ -10,9 +10,6 @@ variable "enable_privateworker" {
 variable "enable_artifactory" {
 }
 
-variable "enable_pipeline_git_token" {
-}
-
 variable "tool_artifactory" {
 }
 
@@ -23,9 +20,6 @@ variable "cos_api_key_secret_ref" {
 }
 
 variable "pipeline_ibmcloud_api_key_secret_ref" {
-}
-
-variable "enable_pipeline_dockerconfigjson" {
 }
 
 variable "dev_region" {
