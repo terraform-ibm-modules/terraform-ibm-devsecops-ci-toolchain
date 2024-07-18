@@ -78,32 +78,6 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube-config" {
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
 }
 
-######## Code Engine Vars #####################
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_project" {
-  count       = (var.deployment_target == "code-engine") ? 1 : 0
-  name        = "code-engine-project"
-  type        = "text"
-  value       = var.code_engine_project
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_region" {
-  count       = (var.deployment_target == "code-engine") ? 1 : 0
-  name        = "code-engine-region"
-  type        = "text"
-  value       = var.code_engine_region
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
-resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_code_engine_resource_group" {
-  count       = (var.deployment_target == "code-engine") ? 1 : 0
-  name        = "code-engine-resource-group"
-  type        = "text"
-  value       = var.code_engine_resource_group
-  pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-}
-
 resource "ibm_cd_tekton_pipeline_property" "ci_artifactory-dockerconfigjson" {
   name        = "artifactory-dockerconfigjson"
   count       = (var.enable_artifactory) ? 1 : 0

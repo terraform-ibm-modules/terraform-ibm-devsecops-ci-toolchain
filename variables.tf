@@ -82,10 +82,28 @@ variable "sonarqube_secret_group" {
   default     = ""
 }
 
+variable "cluster_name" {
+  type        = string
+  description = "Name of the Kubernetes cluster where the application will be deployed."
+  default     = "mycluster-free"
+}
+
+variable "cluster_namespace" {
+  type        = string
+  description = "Namespace of the Kubernetes cluster where the application will be deployed."
+  default     = "default"
+}
+
 variable "dev_region" {
   type        = string
   description = "Region of the Kubernetes cluster where the application will be deployed."
   default     = "ibm:yp:us-south"
+}
+
+variable "dev_resource_group" {
+  type        = string
+  description = "The cluster resource group."
+  default     = ""
 }
 
 variable "registry_namespace" {
@@ -1010,13 +1028,13 @@ variable "deployment_target" {
 variable "code_engine_project" {
   type        = string
   description = "The name of the Code Engine project to use. Created if it does not exist."
-  default     = "DevSecOps_CE"
+  default     = ""
 }
 
 variable "code_engine_region" {
   type        = string
   description = "The region to create/lookup for the Code Engine project."
-  default     = "us-south"
+  default     = ""
 }
 
 variable "code_engine_resource_group" {

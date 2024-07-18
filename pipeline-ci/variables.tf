@@ -93,17 +93,6 @@ variable "ci_pipeline_max_concurrent_runs" {
 variable "deployment_target" {
 }
 
-######## Code Engine Vars #####################
-
-variable "code_engine_project" {
-}
-
-variable "code_engine_region" {
-}
-
-variable "code_engine_resource_group" {
-}
-
 variable "app_repo_provider_webhook_syntax" {
 }
 

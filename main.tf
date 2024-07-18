@@ -159,15 +159,22 @@ locals {
       (var.enable_key_protect) ? "kp" :
       (var.enable_secrets_manager) ? "sm" : ""
     ),
-    "cos_bucket_name"             = var.cos_bucket_name,
-    "cos_endpoint"                = var.cos_endpoint,
-    "doi_toolchain_id"            = var.doi_toolchain_id_pipeline_property,
-    "registry_namespace"          = var.registry_namespace,
-    "dev_region"                  = var.dev_region,
-    "registry_region"             = var.registry_region,
-    "cos_api_key"                 = local.cos_secret_ref,
-    "ibmcloud_api_key"            = local.pipeline_apikey_secret_ref,
-    "pipeline_config_repo_branch" = var.pipeline_config_repo_branch
+    "cluster-name"               = var.cluster_name,
+    "dev-cluster-namespace"      = var.cluster_namespace,
+    "code-engine-project"        = var.code_engine_project,
+    "code-engine-region"         = var.code_engine_region,
+    "code-engine-resource-group" = var.code_engine_resource_group,
+    "cos-api-key"                = local.cos_secret_ref,
+    "cos-bucket-name"            = var.cos_bucket_name,
+    "cos-endpoint"               = var.cos_endpoint,
+    "dev-region"                 = var.dev_region,
+    "dev-resource-group"         = var.dev_resource_group
+    "doi-ibmcloud-api-key"       = local.pipeline_doi_api_key_secret_ref,
+    "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
+    "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
+    "registry-namespace"         = var.registry_namespace,
+    "registry-region"            = var.registry_region,
+    "pipeline-config-branch"     = var.pipeline_config_repo_branch
   }
 
   repos_file_input = (var.repository_properties_filepath == "") ? try(file("${path.root}/repositories.json"), "[]") : try(file(var.repository_properties_filepath), "[]")
@@ -349,9 +356,6 @@ module "pipeline_ci" {
   inventory_repo                      = module.inventory_repo.repository
   issues_repo                         = module.issues_repo.repository
   deployment_target                   = var.deployment_target
-  code_engine_project                 = var.code_engine_project
-  code_engine_region                  = var.code_engine_region
-  code_engine_resource_group          = var.code_engine_resource_group
   app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
   sonarqube_config                    = var.sonarqube_config
   private_worker                      = module.integrations.private_worker
