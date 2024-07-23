@@ -832,15 +832,6 @@ variable "enable_pipeline_notifications" {
   default     = false
 }
 
-variable "event_notifications" {
-  type        = string
-  description = "To enable event notification, set event_notifications to 1 "
-  default     = "0"
-  validation {
-    condition     = contains(["0", "1"], var.event_notifications)
-    error_message = "Must be either \"0\" or \"1\" ."
-  }
-}
 variable "enable_slack" {
   type        = bool
   description = "Set to true to create the integration"
@@ -1127,12 +1118,6 @@ variable "doi_toolchain_id_pipeline_property" {
   type        = string
   description = "The DevOps Insights instance toolchain ID."
   default     = ""
-}
-
-variable "sonarqube_config" {
-  type        = string
-  description = "Runs a SonarQube scan in an isolated Docker-in-Docker container (default configuration) or in an existing Kubernetes cluster (custom configuration). Options: default or custom."
-  default     = "default"
 }
 
 variable "enable_artifactory" {

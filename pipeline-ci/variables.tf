@@ -61,13 +61,10 @@ variable "pipeline_doi_api_key_secret_ref" {
 variable "link_to_doi_toolchain" {
 }
 
-variable "sonarqube_config" {
+variable "sonarqube_user" {
 }
 
 variable "sonarqube_tool" {
-}
-
-variable "event_notifications" {
 }
 
 variable "ci_pipeline_branch" {

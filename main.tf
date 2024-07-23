@@ -357,7 +357,7 @@ module "pipeline_ci" {
   issues_repo                         = module.issues_repo.repository
   deployment_target                   = var.deployment_target
   app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
-  sonarqube_config                    = var.sonarqube_config
+  sonarqube_user                      = var.sonarqube_user
   private_worker                      = module.integrations.private_worker
   enable_privateworker                = var.enable_privateworker
   enable_artifactory                  = var.enable_artifactory
@@ -376,7 +376,6 @@ module "pipeline_ci" {
   trigger_timed_pruner_name           = var.trigger_timed_pruner_name
   trigger_timed_pruner_enable         = var.trigger_timed_pruner_enable
   enable_pipeline_notifications       = var.enable_pipeline_notifications
-  event_notifications                 = var.event_notifications
   pipeline_doi_api_key_secret_ref     = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref
   link_to_doi_toolchain               = var.link_to_doi_toolchain
   sonarqube_tool                      = (module.integrations.sonarqube_tool)
@@ -458,7 +457,6 @@ module "integrations" {
   artifactory_integration_name         = var.artifactory_integration_name
   event_notifications_tool_name        = var.event_notifications_tool_name
   event_notifications_crn              = var.event_notifications_crn
-  sonarqube_config                     = var.sonarqube_config
   sonarqube_integration_name           = var.sonarqube_integration_name
   sonarqube_user                       = var.sonarqube_user
   sonarqube_secret_ref                 = local.sonarqube_secret_ref

@@ -1,0 +1,435 @@
+[
+  {
+    "pipeline_id": "ci",
+    "properties": [
+      {
+        "name": "app-concurrency",
+        "type": "text",
+        "value": "100",
+        "locked" : "true"
+      },
+      {
+        "name": "app-deployment-timeout",
+        "type": "text",
+        "value": "300",
+        "locked" : "true"
+      },
+      {
+        "name": "app-max-scale",
+        "type": "text",
+        "value": "1"
+      },
+      {
+        "name": "app-min-scale",
+        "type": "text",
+        "value": "0",
+        "locked" : "true"
+      },
+      {
+        "name": "app-port",
+        "type": "text",
+        "value": "8080",
+        "locked" : "true"
+      },
+      {
+        "name": "app-visibility",
+        "type": "text",
+        "value": "public",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-binding-resource-group",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-build-size",
+        "type": "text",
+        "value": "large",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-build-strategy",
+        "type": "text",
+        "value": "dockerfile",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-build-timeout",
+        "type": "text",
+        "value": "1200",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-build-use-native-docker",
+        "type": "text",
+        "value": "false",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-deployment-type",
+        "type": "text",
+        "value": "application",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-project",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-region",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-resource-group",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "code-engine-wait-timeout",
+        "type": "text",
+        "value": "1300",
+        "locked" : "true"
+      },
+      {
+        "name": "context-dir",
+        "type": "text",
+        "value": "dockerfile-strategy",
+        "locked" : "true"
+      },
+      {
+        "name": "cos-api-key",
+        "type": "secure",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "cos-bucket-name",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "cos-endpoint",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "cpu",
+        "type": "text",
+        "value": "0.25",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-bom-generate",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-deploy-analysis",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-generate-cyclonedx-format",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-vulnerability-scan",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "custom_image_tag",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "name": "dev-resource-group",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "doi-environment",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "doi-ibmcloud-api-key",
+        "type": "secure",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "doi-toolchain-id",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "env-from-configmaps",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "env-from-secrets",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "name": "ephemeral-storage",
+        "type": "text",
+        "value": "0.4G",
+        "locked" : "true"
+      },
+      {
+        "name": "event-notifications",
+        "type": "text",
+        "value": "",
+        "locker" : "true"
+      },
+      {
+        "name": "git-token",
+        "type": "secure",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "ibmcloud-api-key",
+        "type": "secure",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "image-name",
+        "type": "text",
+        "value": "code-engine-compliance-app",
+        "locked" : "true"
+      },
+      {
+        "name": "job-instances",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "job-maxexecutiontime",
+        "type": "text",
+        "value": "7200",
+        "locked" : "true"
+      },
+      {
+        "name": "job-retrylimit",
+        "type": "text",
+        "value": "3",
+        "locked" : "true"
+      },
+      {
+        "name": "memory",
+        "type": "text",
+        "value": "0.5G",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-dynamic-api-scan",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-dynamic-scan",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-dynamic-ui-scan",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-gosec",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-sonar",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "peer-review-compliance",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "pipeline-config",
+        "type": "text",
+        "value": ".pipeline-config.yaml",
+        "locked" : "true"
+      },
+      {
+        "name": "pipeline-config-branch",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "pipeline-debug",
+        "type": "single_select",
+        "value": "0",
+        "enum": "[0,1]"
+      },
+      {
+        "name": "print-code-signing-certificate",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "registry-domain",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "registry-namespace",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "registry-region",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "remove-unspecified-references-to-configuration-resources",
+        "type": "text",
+        "value": "false",
+        "locked" : "true"
+      },
+      {
+        "name": "service-bindings",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "signing-key",
+        "type": "secure",
+        "value": "{vault::sm-compliance-secrets.Default.signing_key}",
+        "locked" : "true"
+      },
+      {
+        "name": "slack-notifications",
+        "type": "text",
+        "value": "0",
+        "locked" : "true"
+      },
+      {
+        "name": "sonarqube-config",
+        "type": "text",
+        "value": "default",
+        "locker" : "true"
+      },
+      {
+        "name": "source",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "version",
+        "type": "text",
+        "value": "v1",
+        "locked" : "true"
+      }
+    ]
+  },
+  {
+    "pipeline_id": "pr",
+    "properties": [
+      {
+        "name": "cra-bom-generate",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-deploy-analysis",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-vulnerability-scan",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "git-token",
+        "type": "secure",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "ibmcloud-api-key",
+        "type": "secure",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "pipeline-config",
+        "type": "text",
+        "value": ".pipeline-config.yaml",
+        "locked" : "true"
+      },
+      {
+        "name": "pipeline-config-branch",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "pipeline-debug",
+        "type": "single_select",
+        "value": "0",
+        "enum": "[0,1]"
+      },
+      {
+        "name": "slack-notifications",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      }
+    ]
+  }
+]
