@@ -143,7 +143,12 @@ locals {
     format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sonarqube_secret_group))
   )
 
-  properties_file_input = (var.pipeline_properties_filepath == "") ? try(file("${path.root}/properties.json"), "[]") : try(file(var.pipeline_properties_filepath), "[]")
+  properties_flavor = ((var.devsecops_flavor == "kube") ? "${path.root}/properties-kube.json" :
+    (var.devsecops_flavor == "code-engine") ? "${path.root}/properties-code-engine.json" :
+    (var.devsecops_flavor == "zos") ? "${path.root}/properties-zos.json" : "${path.root}/properties-kube.json"
+  )
+
+  properties_file_input = (var.pipeline_properties_filepath == "") ? try(file(local.properties_flavor), "[]") : try(file(var.pipeline_properties_filepath), "[]")
   properties_file_data  = (local.properties_file_input == "") ? "[]" : local.properties_file_input
   properties_input      = (var.pipeline_properties == "") ? local.properties_file_data : var.pipeline_properties
   pre_process_prop_data = flatten([for pipeline in jsondecode(local.properties_input) : {
@@ -355,7 +360,6 @@ module "pipeline_ci" {
   evidence_repo                       = module.evidence_repo.repository
   inventory_repo                      = module.inventory_repo.repository
   issues_repo                         = module.issues_repo.repository
-  deployment_target                   = var.deployment_target
   app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
   sonarqube_user                      = var.sonarqube_user
   private_worker                      = module.integrations.private_worker

@@ -56,7 +56,20 @@
       {
         "name": "custom_image_tag",
         "type": "text",
-        "value": ""
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "dbb-hlq",
+        "type": "text",
+        "value": "IBMUSER.PIPELINE",
+        "locked" : "true"
+      },
+      {
+        "name": "dbb-user",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
       },
       {
         "name": "dev-cluster-namespace",
@@ -103,8 +116,7 @@
       {
         "name": "git-token",
         "type": "secure",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "ibmcloud-api-key",
@@ -151,14 +163,12 @@
       {
         "name": "pipeline-config",
         "type": "text",
-        "value": ".pipeline-config.yaml",
-        "locked" : "true"
+        "value": ".pipeline-config.yaml"
       },
       {
         "name": "pipeline-config-branch",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "pipeline-debug",
@@ -207,12 +217,48 @@
         "type": "text",
         "value": "v1",
         "locked" : "true"
+      },
+      {
+        "name": "zos-hostname",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-secret-key-name",
+        "type": "text",
+        "value": "ssh-auth",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-ssh-port",
+        "type": "text",
+        "value": "22",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-user",
+        "type": "text",
+        "value": "ibmuser",
+        "locked" : "true"
       }
     ]
   },
   {
     "pipeline_id": "pr",
     "properties": [
+      {
+        "name": "dbb-hlq",
+        "type": "text",
+        "value": "IBMUSER.PIPELINE",
+        "locked" : "true"
+      },
+      {
+        "name": "dbb-user",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
       {
         "name": "git-token",
         "type": "secure",
@@ -249,14 +295,12 @@
       {
         "name": "pipeline-config",
         "type": "text",
-        "value": ".pipeline-config.yaml",
-        "locked" : "true"
+        "value": ".pipeline-config.yaml"
       },
       {
         "name": "pipeline-config-branch",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "pipeline-debug",
@@ -268,6 +312,30 @@
         "name": "slack-notifications",
         "type": "text",
         "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-hostname",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-secret-key-name",
+        "type": "text",
+        "value": "ssh-auth",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-ssh-port",
+        "type": "text",
+        "value": "22",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-user",
+        "type": "text",
+        "value": "ibmuser",
         "locked" : "true"
       }
     ]

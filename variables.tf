@@ -394,17 +394,6 @@ variable "pipeline_ibmcloud_api_key_secret_crn" {
   }
 }
 
-variable "pipeline_dockerconfigjson_secret_crn" {
-  type        = string
-  sensitive   = true
-  description = "The CRN for Dockerconfig json secret."
-  default     = ""
-  validation {
-    condition     = startswith(var.pipeline_dockerconfigjson_secret_crn, "crn:") || var.pipeline_dockerconfigjson_secret_crn == ""
-    error_message = "Must be a CRN or left empty."
-  }
-}
-
 variable "slack_webhook_secret_crn" {
   type        = string
   sensitive   = true
@@ -1006,12 +995,12 @@ variable "enable_insights" {
   default     = true
 }
 
-######## Deployment Strategy ##################
+######## DevSecOps Flavor ##################
 
-variable "deployment_target" {
+variable "devsecops_flavor" {
   type        = string
-  description = "The deployment target, 'cluster' or 'code-engine'."
-  default     = "cluster"
+  description = "The deployment target, 'kube', 'code-engine' or 'zos'."
+  default     = "kube"
 }
 
 ######## Code Engine Vars #####################
