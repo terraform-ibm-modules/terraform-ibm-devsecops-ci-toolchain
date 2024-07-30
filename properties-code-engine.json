@@ -82,13 +82,13 @@
       {
         "name": "code-engine-region",
         "type": "text",
-        "value": "",
+        "value": "us-south",
         "locked" : "true"
       },
       {
         "name": "code-engine-resource-group",
         "type": "text",
-        "value": "",
+        "value": "Default",
         "locked" : "true"
       },
       {
@@ -162,7 +162,7 @@
       {
         "name": "dev-resource-group",
         "type": "text",
-        "value": "",
+        "value": "Default",
         "locked" : "true"
       },
       {
@@ -174,7 +174,7 @@
       {
         "name": "doi-ibmcloud-api-key",
         "type": "secure",
-        "value": "",
+        "value": "ibmcloud-api-key",
         "locked" : "true"
       },
       {
@@ -215,7 +215,7 @@
       {
         "name": "ibmcloud-api-key",
         "type": "secure",
-        "value": "",
+        "value": "ibmcloud-api-key",
         "locked" : "true"
       },
       {
@@ -317,13 +317,13 @@
       {
         "name": "registry-namespace",
         "type": "text",
-        "value": "",
+        "value": "my-registry-namespace",
         "locked" : "true"
       },
       {
         "name": "registry-region",
         "type": "text",
-        "value": "",
+        "value": "us-south",
         "locked" : "true"
       },
       {
@@ -341,7 +341,7 @@
       {
         "name": "signing-key",
         "type": "secure",
-        "value": "{vault::sm-compliance-secrets.Default.signing_key}",
+        "value": "signing_key",
         "locked" : "true"
       },
       {
@@ -403,7 +403,7 @@
       {
         "name": "ibmcloud-api-key",
         "type": "secure",
-        "value": "",
+        "value": "ibmcloud-api-key",
         "locked" : "true"
       },
       {
