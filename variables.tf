@@ -70,6 +70,12 @@ variable "slack_webhook_secret_group" {
   default     = ""
 }
 
+variable "pipeline_doi_api_key_secret_group" {
+  type        = string
+  description = "Secret group prefix for the pipeline DOI api key. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
+  default     = ""
+}
+
 variable "sonarqube_secret_group" {
   type        = string
   description = "Secret group prefix for the SonarQube secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
@@ -1088,6 +1094,12 @@ variable "link_to_doi_toolchain" {
 variable "doi_toolchain_id" {
   type        = string
   description = "DevOps Insights Toolchain ID to link to."
+  default     = ""
+}
+
+variable "pipeline_doi_api_key_secret_name" {
+  type        = string
+  description = "Name of the Cloud API key secret in the secret provider to access the toolchain containing the Devops Insights instance."
   default     = ""
 }
 

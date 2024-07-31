@@ -129,6 +129,13 @@ locals {
     format("{vault::%s.${var.artifactory_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.artifactory_token_secret_group))
   )
 
+  pipeline_doi_api_key_secret_ref = (
+    (var.sm_instance_crn != "") ? var.pipeline_doi_api_key_secret_crn :
+    (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", module.integrations.secret_tool) :
+    (var.pipeline_doi_api_key_secret_group == "") ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_doi_api_key_secret_group))
+  )
+
   sonarqube_secret_ref = (
     (var.sm_instance_crn != "") ? var.sonarqube_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.sonarqube_secret_name}}", module.integrations.secret_tool) :
@@ -167,7 +174,7 @@ locals {
     "cos-endpoint"               = var.cos_endpoint,
     "dev-region"                 = var.dev_region,
     "dev-resource-group"         = var.dev_resource_group
-    "doi-ibmcloud-api-key"       = local.pipeline_apikey_secret_ref,
+    "doi-ibmcloud-api-key"       = local.pipeline_doi_api_key_secret_ref,
     "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
     "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
     "registry-namespace"         = var.registry_namespace,
