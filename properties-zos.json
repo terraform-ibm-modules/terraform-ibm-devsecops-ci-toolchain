@@ -1,0 +1,343 @@
+[
+  {
+    "pipeline_id": "ci",
+    "properties": [
+      {
+        "name": "cluster-name",
+        "type": "text",
+        "value": "mycluster",
+        "locked" : "true"
+      },
+      {
+        "name": "cos-api-key",
+        "type": "secure",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "cos-bucket-name",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "cos-endpoint",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-bom-generate",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-deploy-analysis",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-generate-cyclonedx-format",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-vulnerability-scan",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "custom_image_tag",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "dbb-hlq",
+        "type": "text",
+        "value": "IBMUSER.PIPELINE",
+        "locked" : "true"
+      },
+      {
+        "name": "dbb-user",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "dev-cluster-namespace",
+        "type": "text",
+        "value": "dev",
+        "locked" : "true"
+      },
+      {
+        "name": "dev-region",
+        "type": "text",
+        "value": "us-south",
+        "locked" : "true"
+      },
+      {
+        "name": "dev-resource-group",
+        "type": "text",
+        "value": "Default",
+        "locked" : "true"
+      },
+      {
+        "name": "doi-environment",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "doi-ibmcloud-api-key",
+        "type": "secure",
+        "value": "ibmcloud-api-key",
+        "locked" : "true"
+      },
+      {
+        "name": "doi-toolchain-id",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "event-notifications",
+        "type": "text",
+        "value": "",
+        "locker" : "true"
+      },
+      {
+        "name": "git-token",
+        "type": "secure",
+        "value": ""
+      },
+      {
+        "name": "ibmcloud-api-key",
+        "type": "secure",
+        "value": "ibmcloud-api-key",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-dynamic-api-scan",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-dynamic-scan",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-dynamic-ui-scan",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-gosec",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "opt-in-sonar",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "peer-review-compliance",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "pipeline-config",
+        "type": "text",
+        "value": ".pipeline-config.yaml"
+      },
+      {
+        "name": "pipeline-config-branch",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "name": "pipeline-debug",
+        "type": "single_select",
+        "value": "0",
+        "enum": "[0,1]"
+      },
+      {
+        "name": "print-code-signing-certificate",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "registry-namespace",
+        "type": "text",
+        "value": "my-registry-namespace",
+        "locked" : "true"
+      },
+      {
+        "name": "registry-region",
+        "type": "text",
+        "value": "us-south",
+        "locked" : "true"
+      },
+      {
+        "name": "signing-key",
+        "type": "secure",
+        "value": "signing_key",
+        "locked" : "true"
+      },
+      {
+        "name": "slack-notifications",
+        "type": "text",
+        "value": "0",
+        "locked" : "true"
+      },
+      {
+        "name": "sonarqube-config",
+        "type": "text",
+        "value": "default",
+        "locker" : "true"
+      },
+      {
+        "name": "version",
+        "type": "text",
+        "value": "v1",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-hostname",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-secret-key-name",
+        "type": "text",
+        "value": "ssh-auth",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-ssh-port",
+        "type": "text",
+        "value": "22",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-user",
+        "type": "text",
+        "value": "ibmuser",
+        "locked" : "true"
+      }
+    ]
+  },
+  {
+    "pipeline_id": "pr",
+    "properties": [
+      {
+        "name": "dbb-hlq",
+        "type": "text",
+        "value": "IBMUSER.PIPELINE",
+        "locked" : "true"
+      },
+      {
+        "name": "dbb-user",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "git-token",
+        "type": "secure",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-bom-generate",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-deploy-analysis",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "cra-vulnerability-scan",
+        "type": "single_select",
+        "value": "1",
+        "enum": "[0,1]",
+        "locked" : "true"
+      },
+      {
+        "name": "ibmcloud-api-key",
+        "type": "secure",
+        "value": "ibmcloud-api-key",
+        "locked" : "true"
+      },
+      {
+        "name": "pipeline-config",
+        "type": "text",
+        "value": ".pipeline-config.yaml"
+      },
+      {
+        "name": "pipeline-config-branch",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "name": "pipeline-debug",
+        "type": "single_select",
+        "value": "0",
+        "enum": "[0,1]"
+      },
+      {
+        "name": "slack-notifications",
+        "type": "text",
+        "value": "1",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-hostname",
+        "type": "text",
+        "value": "",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-secret-key-name",
+        "type": "text",
+        "value": "ssh-auth",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-ssh-port",
+        "type": "text",
+        "value": "22",
+        "locked" : "true"
+      },
+      {
+        "name": "zos-user",
+        "type": "text",
+        "value": "ibmuser",
+        "locked" : "true"
+      }
+    ]
+  }
+]

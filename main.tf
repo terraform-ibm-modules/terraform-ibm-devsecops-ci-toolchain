@@ -108,20 +108,6 @@ locals {
     format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_ibmcloud_api_key_secret_group))
   )
 
-  signing_key_secret_ref = (
-    (var.sm_instance_crn != "") ? var.signing_key_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.signing_key_secret_name}}", module.integrations.secret_tool) :
-    (var.signing_key_secret_group == "") ? format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.signing_key_secret_group))
-  )
-
-  dockerconfigjson_secret_ref = (
-    (var.sm_instance_crn != "") ? var.pipeline_dockerconfigjson_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", module.integrations.secret_tool) :
-    (var.pipeline_dockerconfigjson_secret_group == "") ? format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.pipeline_dockerconfigjson_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_dockerconfigjson_secret_group))
-  )
-
   slack_webhook_secret_ref = (
     (var.sm_instance_crn != "") ? var.slack_webhook_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.slack_webhook_secret_name}}", module.integrations.secret_tool) :
@@ -143,13 +129,6 @@ locals {
     format("{vault::%s.${var.artifactory_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.artifactory_token_secret_group))
   )
 
-  pipeline_git_token_secret_ref = (
-    (var.sm_instance_crn != "") ? var.pipeline_git_token_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_git_token_secret_name}}", module.integrations.secret_tool) :
-    (var.pipeline_git_token_secret_group == "") ? format("{vault::%s.${var.pipeline_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.pipeline_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_git_token_secret_group))
-  )
-
   pipeline_doi_api_key_secret_ref = (
     (var.sm_instance_crn != "") ? var.pipeline_doi_api_key_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", module.integrations.secret_tool) :
@@ -163,14 +142,13 @@ locals {
     (var.sonarqube_secret_group == "") ? format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sonarqube_secret_group))
   )
-  gosec_repository_ssh_secret_ref = (
-    (var.sm_instance_crn != "") ? var.gosec_private_repository_ssh_key_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", module.integrations.secret_tool) :
-    (var.gosec_private_repository_ssh_key_secret_group == "") ? format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.gosec_private_repository_ssh_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.gosec_private_repository_ssh_key_secret_group))
+
+  properties_flavor = ((var.devsecops_flavor == "kube") ? "${path.root}/properties-kube.json" :
+    (var.devsecops_flavor == "code-engine") ? "${path.root}/properties-code-engine.json" :
+    (var.devsecops_flavor == "zos") ? "${path.root}/properties-zos.json" : "${path.root}/properties-kube.json"
   )
 
-  properties_file_input = (var.pipeline_properties_filepath == "") ? try(file("${path.root}/properties.json"), "[]") : try(file(var.pipeline_properties_filepath), "[]")
+  properties_file_input = (var.pipeline_properties_filepath == "") ? try(file(local.properties_flavor), "[]") : try(file(var.pipeline_properties_filepath), "[]")
   properties_file_data  = (local.properties_file_input == "") ? "[]" : local.properties_file_input
   properties_input      = (var.pipeline_properties == "") ? local.properties_file_data : var.pipeline_properties
   pre_process_prop_data = flatten([for pipeline in jsondecode(local.properties_input) : {
@@ -185,7 +163,23 @@ locals {
     "secrets_provider_type" = (
       (var.enable_key_protect) ? "kp" :
       (var.enable_secrets_manager) ? "sm" : ""
-    )
+    ),
+    "cluster-name"               = var.cluster_name,
+    "dev-cluster-namespace"      = var.cluster_namespace,
+    "code-engine-project"        = var.code_engine_project,
+    "code-engine-region"         = var.code_engine_region,
+    "code-engine-resource-group" = var.code_engine_resource_group,
+    "cos-api-key"                = local.cos_secret_ref,
+    "cos-bucket-name"            = var.cos_bucket_name,
+    "cos-endpoint"               = var.cos_endpoint,
+    "dev-region"                 = var.dev_region,
+    "dev-resource-group"         = var.dev_resource_group
+    "doi-ibmcloud-api-key"       = local.pipeline_doi_api_key_secret_ref,
+    "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
+    "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
+    "registry-namespace"         = var.registry_namespace,
+    "registry-region"            = var.registry_region,
+    "pipeline-config-branch"     = var.pipeline_config_repo_branch
   }
 
   repos_file_input = (var.repository_properties_filepath == "") ? try(file("${path.root}/repositories.json"), "[]") : try(file(var.repository_properties_filepath), "[]")
@@ -351,116 +345,44 @@ module "pipeline_ci" {
   source     = "./pipeline-ci"
   depends_on = [module.integrations, module.services]
 
-  ibmcloud_api                         = var.ibmcloud_api
-  ibmcloud_api_key                     = var.ibmcloud_api_key
-  pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
-  app_name                             = var.app_name
-  cluster_name                         = var.cluster_name
-  cluster_namespace                    = var.cluster_namespace
-  dev_region                           = var.dev_region
-  dev_resource_group                   = var.dev_resource_group
-  registry_namespace                   = var.registry_namespace
-  registry_region                      = var.registry_region
-  signing_key_secret_ref               = local.signing_key_secret_ref
-  cos_api_key_secret_ref               = (var.cos_bucket_name == "") ? "" : local.cos_secret_ref
-  pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
-  pipeline_git_token_secret_ref        = local.pipeline_git_token_secret_ref
-  app_repo_url                         = module.app_repo.repository_url
-  app_repo_branch                      = local.app_repo_branch
-  pipeline_config_repo_existing_url    = var.pipeline_config_repo_existing_url
-  pipeline_config_repo_clone_from_url  = var.pipeline_config_repo_clone_from_url
-  pipeline_config_repo_branch          = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
-  pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
-  pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
-  pipeline_config_path                 = var.pipeline_config_path
-  evidence_repo_url                    = module.evidence_repo.repository_url
-  inventory_repo_url                   = module.inventory_repo.repository_url
-  issues_repo_url                      = module.issues_repo.repository_url
-  evidence_repo                        = module.evidence_repo.repository
-  inventory_repo                       = module.inventory_repo.repository
-  issues_repo                          = module.issues_repo.repository
-  cos_bucket_name                      = var.cos_bucket_name
-  cos_endpoint                         = var.cos_endpoint
-  deployment_target                    = var.deployment_target
-  code_engine_project                  = var.code_engine_project
-  code_engine_region                   = var.code_engine_region
-  code_engine_resource_group           = var.code_engine_resource_group
-  code_engine_build_strategy           = var.code_engine_build_strategy
-  code_engine_build_use_native_docker  = var.code_engine_build_use_native_docker
-  code_engine_build_size               = var.code_engine_build_size
-  code_engine_build_timeout            = var.code_engine_build_timeout
-  code_engine_wait_timeout             = var.code_engine_wait_timeout
-  code_engine_context_dir              = var.code_engine_context_dir
-  code_engine_dockerfile               = var.code_engine_dockerfile
-  code_engine_image_name               = var.code_engine_image_name
-  code_engine_registry_domain          = var.code_engine_registry_domain
-  code_engine_source                   = var.code_engine_source
-  code_engine_binding_resource_group   = var.code_engine_binding_resource_group
-  code_engine_deployment_type          = var.code_engine_deployment_type
-  code_engine_cpu                      = var.code_engine_cpu
-  code_engine_memory                   = var.code_engine_memory
-  code_engine_ephemeral_storage        = var.code_engine_ephemeral_storage
-  code_engine_job_maxexecutiontime     = var.code_engine_job_maxexecutiontime
-  code_engine_job_retrylimit           = var.code_engine_job_retrylimit
-  code_engine_job_instances            = var.code_engine_job_instances
-  code_engine_app_port                 = var.code_engine_app_port
-  code_engine_app_min_scale            = var.code_engine_app_min_scale
-  code_engine_app_max_scale            = var.code_engine_app_max_scale
-  code_engine_app_deployment_timeout   = var.code_engine_app_deployment_timeout
-  code_engine_app_concurrency          = var.code_engine_app_concurrency
-  code_engine_app_visibility           = var.code_engine_app_visibility
-  code_engine_env_from_configmaps      = var.code_engine_env_from_configmaps
-  code_engine_env_from_secrets         = var.code_engine_env_from_secrets
-  code_engine_remove_refs              = var.code_engine_remove_refs
-  code_engine_service_bindings         = var.code_engine_service_bindings
-  print_code_signing_certificate       = var.print_code_signing_certificate
-  app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
-  compliance_base_image                = var.compliance_base_image
-  pipeline_debug                       = var.pipeline_debug
-  opt_in_dynamic_api_scan              = var.opt_in_dynamic_api_scan
-  opt_in_dynamic_ui_scan               = var.opt_in_dynamic_ui_scan
-  opt_in_dynamic_scan                  = var.opt_in_dynamic_scan
-  opt_in_sonar                         = var.opt_in_sonar
-  doi_environment                      = var.doi_environment
-  cra_generate_cyclonedx_format        = var.cra_generate_cyclonedx_format
-  custom_image_tag                     = var.custom_image_tag
-  app_version                          = var.app_version
-  slack_notifications                  = var.slack_notifications
-  sonarqube_config                     = var.sonarqube_config
-  doi_toolchain_id_pipeline_property   = var.doi_toolchain_id_pipeline_property
-  enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
-  enable_pipeline_git_token            = var.enable_pipeline_git_token
-  pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref
-  private_worker                       = module.integrations.private_worker
-  enable_privateworker                 = var.enable_privateworker
-  enable_artifactory                   = var.enable_artifactory
-  tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
-  peer_review_compliance               = var.peer_review_compliance
-  ci_pipeline_branch                   = var.ci_pipeline_branch
-  pipeline_git_tag                     = var.ci_pipeline_git_tag
-  enable_devops_signing_var            = var.enable_devops_signing_var
-  trigger_git_name                     = var.trigger_git_name
-  trigger_git_enable                   = var.trigger_git_enable
-  trigger_timed_name                   = var.trigger_timed_name
-  trigger_timed_enable                 = var.trigger_timed_enable
-  trigger_timed_cron_schedule          = var.trigger_timed_cron_schedule
-  trigger_manual_name                  = var.trigger_manual_name
-  trigger_manual_enable                = var.trigger_manual_enable
-  trigger_manual_pruner_name           = var.trigger_manual_pruner_name
-  trigger_manual_pruner_enable         = var.trigger_manual_pruner_enable
-  trigger_timed_pruner_name            = var.trigger_timed_pruner_name
-  trigger_timed_pruner_enable          = var.trigger_timed_pruner_enable
-  enable_pipeline_notifications        = var.enable_pipeline_notifications
-  event_notifications                  = var.event_notifications
-  pipeline_doi_api_key_secret_ref      = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref
-  link_to_doi_toolchain                = var.link_to_doi_toolchain
-  sonarqube_tool                       = (module.integrations.sonarqube_tool)
-  opt_in_gosec                         = var.opt_in_gosec
-  gosec_private_repository_host        = var.gosec_private_repository_host
-  gosec_repository_ssh_secret_ref      = local.gosec_repository_ssh_secret_ref
-  cra_bom_generate                     = var.ci_cra_bom_generate
-  cra_vulnerability_scan               = var.ci_cra_vulnerability_scan
-  cra_deploy_analysis                  = var.ci_cra_deploy_analysis
+  ibmcloud_api_key                    = var.ibmcloud_api_key
+  pipeline_id                         = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
+  app_name                            = var.app_name
+  app_repo_url                        = module.app_repo.repository_url
+  app_repo_branch                     = local.app_repo_branch
+  pipeline_config_repo_existing_url   = var.pipeline_config_repo_existing_url
+  pipeline_config_repo_clone_from_url = var.pipeline_config_repo_clone_from_url
+  pipeline_config_repo                = try(module.pipeline_config_repo[0].repository, "")
+  pipeline_repo_url                   = module.compliance_pipelines_repo.repository_url
+  evidence_repo_url                   = module.evidence_repo.repository_url
+  inventory_repo_url                  = module.inventory_repo.repository_url
+  issues_repo_url                     = module.issues_repo.repository_url
+  evidence_repo                       = module.evidence_repo.repository
+  inventory_repo                      = module.inventory_repo.repository
+  issues_repo                         = module.issues_repo.repository
+  app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
+  sonarqube_user                      = var.sonarqube_user
+  private_worker                      = module.integrations.private_worker
+  enable_privateworker                = var.enable_privateworker
+  enable_artifactory                  = var.enable_artifactory
+  tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
+  ci_pipeline_branch                  = var.ci_pipeline_branch
+  pipeline_git_tag                    = var.ci_pipeline_git_tag
+  trigger_git_name                    = var.trigger_git_name
+  trigger_git_enable                  = var.trigger_git_enable
+  trigger_timed_name                  = var.trigger_timed_name
+  trigger_timed_enable                = var.trigger_timed_enable
+  trigger_timed_cron_schedule         = var.trigger_timed_cron_schedule
+  trigger_manual_name                 = var.trigger_manual_name
+  trigger_manual_enable               = var.trigger_manual_enable
+  trigger_manual_pruner_name          = var.trigger_manual_pruner_name
+  trigger_manual_pruner_enable        = var.trigger_manual_pruner_enable
+  trigger_timed_pruner_name           = var.trigger_timed_pruner_name
+  trigger_timed_pruner_enable         = var.trigger_timed_pruner_enable
+  enable_pipeline_notifications       = var.enable_pipeline_notifications
+  pipeline_doi_api_key_secret_ref     = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref
+  link_to_doi_toolchain               = var.link_to_doi_toolchain
+  sonarqube_tool                      = (module.integrations.sonarqube_tool)
 
 }
 
@@ -475,37 +397,23 @@ module "pipeline_pr" {
   source     = "./pipeline-pr"
   depends_on = [module.integrations, module.services]
 
-  ibmcloud_api                         = var.ibmcloud_api
-  ibmcloud_api_key                     = var.ibmcloud_api_key
-  pipeline_ibmcloud_api_key_secret_ref = local.pipeline_apikey_secret_ref
-  pipeline_id                          = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
-  app_name                             = var.app_name
-  app_repo_url                         = module.app_repo.repository_url
-  app_repo_branch                      = local.app_repo_branch
-  pipeline_config_repo_existing_url    = var.pipeline_config_repo_existing_url
-  pipeline_config_repo_clone_from_url  = var.pipeline_config_repo_clone_from_url
-  pipeline_config_repo_branch          = (var.pipeline_config_repo_branch != "") ? var.pipeline_config_repo_branch : local.app_repo_branch
-  pipeline_config_repo                 = try(module.pipeline_config_repo[0].repository, "")
-  pipeline_config_path                 = var.pipeline_config_path
-  pipeline_repo_url                    = module.compliance_pipelines_repo.repository_url
-  app_repo_provider_webhook_syntax     = module.app_repo.repo_provider_name
-  compliance_base_image                = var.compliance_base_image
-  pipeline_debug                       = var.pipeline_debug
-  slack_notifications                  = var.slack_notifications
-  enable_pipeline_dockerconfigjson     = var.enable_pipeline_dockerconfigjson
-  enable_pipeline_git_token            = var.enable_pipeline_git_token
-  pipeline_dockerconfigjson_secret_ref = local.dockerconfigjson_secret_ref
-  pipeline_git_token_secret_ref        = local.pipeline_git_token_secret_ref
-  tool_artifactory                     = module.integrations.ibm_cd_toolchain_tool_artifactory
-  enable_artifactory                   = var.enable_artifactory
-  pr_pipeline_branch                   = var.pr_pipeline_branch
-  pipeline_git_tag                     = var.pr_pipeline_git_tag
-  trigger_pr_git_name                  = var.trigger_pr_git_name
-  trigger_pr_git_enable                = var.trigger_pr_git_enable
-  enable_pipeline_notifications        = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
-  cra_bom_generate                     = var.pr_cra_bom_generate
-  cra_vulnerability_scan               = var.pr_cra_vulnerability_scan
-  cra_deploy_analysis                  = var.pr_cra_deploy_analysis
+  ibmcloud_api_key                    = var.ibmcloud_api_key
+  pipeline_id                         = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
+  app_name                            = var.app_name
+  app_repo_url                        = module.app_repo.repository_url
+  app_repo_branch                     = local.app_repo_branch
+  pipeline_config_repo_existing_url   = var.pipeline_config_repo_existing_url
+  pipeline_config_repo_clone_from_url = var.pipeline_config_repo_clone_from_url
+  pipeline_config_repo                = try(module.pipeline_config_repo[0].repository, "")
+  pipeline_repo_url                   = module.compliance_pipelines_repo.repository_url
+  app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
+  tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
+  enable_artifactory                  = var.enable_artifactory
+  pr_pipeline_branch                  = var.pr_pipeline_branch
+  pipeline_git_tag                    = var.pr_pipeline_git_tag
+  trigger_pr_git_name                 = var.trigger_pr_git_name
+  trigger_pr_git_enable               = var.trigger_pr_git_enable
+  enable_pipeline_notifications       = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
 }
 
 module "integrations" {
@@ -553,7 +461,6 @@ module "integrations" {
   artifactory_integration_name         = var.artifactory_integration_name
   event_notifications_tool_name        = var.event_notifications_tool_name
   event_notifications_crn              = var.event_notifications_crn
-  sonarqube_config                     = var.sonarqube_config
   sonarqube_integration_name           = var.sonarqube_integration_name
   sonarqube_user                       = var.sonarqube_user
   sonarqube_secret_ref                 = local.sonarqube_secret_ref
@@ -579,10 +486,6 @@ module "services" {
   kp_resource_group      = var.kp_resource_group
   enable_secrets_manager = var.enable_secrets_manager
   enable_key_protect     = var.enable_key_protect
-  cluster_name           = var.cluster_name
-  cluster_namespace      = var.cluster_namespace
-  registry_namespace     = var.registry_namespace
-  registry_region        = var.registry_region
 }
 
 # This is the structure being passed with each loop

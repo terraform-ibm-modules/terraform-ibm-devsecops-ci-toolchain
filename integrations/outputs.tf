@@ -45,5 +45,5 @@ output "secret_tool_v1" {
 }
 
 output "sonarqube_tool" {
-  value = (var.sonarqube_config == "custom") ? ibm_cd_toolchain_tool_sonarqube.cd_toolchain_tool_sonarqube_instance[0].tool_id : null
+  value = (var.sonarqube_user != "") ? ibm_cd_toolchain_tool_sonarqube.cd_toolchain_tool_sonarqube_instance[0].tool_id : null
 }

@@ -39,7 +39,7 @@ locals {
 
   secret_ref = (
     ((local.input_type == "secure") && (local.is_secret_ref == true)) ? local.input_value :
-    (local.input_type == "secure") ? "${local.secret_ref_prefix}${local.input_value}}" : local.input_value
+    ((local.input_type == "secure") && (local.input_value != "")) ? "${local.secret_ref_prefix}${local.input_value}}" : local.input_value
   )
 
   input_repository_integration_id = (local.input_value == "") ? try(var.property_data.repository_integration_id, "") : local.input_value
@@ -56,6 +56,11 @@ locals {
 
   #add_property = ((local.is_valid_type == true) && (local.is_name_valid == true) && (local.is_enum == true))
   resolved_locked = ((local.input_locked == "true") || (local.input_locked == "false")) ? local.input_locked : "false"
+
+  #special handling
+  #allow set of Terraform variables to set values
+
+  special_value = try(var.property_data.config_data[local.input_name], "")
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pipeline_property" {
@@ -63,7 +68,7 @@ resource "ibm_cd_tekton_pipeline_property" "pipeline_property" {
   pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
-  value       = local.resolved_value
+  value       = (local.input_name == "ibmcloud-api-key") ? local.special_value : local.resolved_value
   path        = local.resolved_path
   enum        = local.input_enum
   locked      = local.resolved_locked

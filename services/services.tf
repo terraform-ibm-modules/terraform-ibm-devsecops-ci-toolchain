@@ -4,12 +4,6 @@
 #
 ####################################################################################
 
-// Limitation with datasource: Cannot fetch clusters for a specific region. Only query with cluster name.
-// Can only fetch clusters in the region targeted for the provider.
-# data "ibm_container_cluster" "kubernetes_cluster" {
-#   name = var.cluster_name
-# }
-
 # output "ibm_container_cluster_name" {
 #   value = data.ibm_container_cluster.kubernetes_cluster.name
 # }
@@ -19,10 +13,6 @@
 # IBM Container Registry Services Details
 #
 ####################################################################################
-
-// Limitation with datasource: Cannot fetch registry namespaces for a specific region.
-// Can only fetch registries in the region targeted for the provider.
-# data "ibm_cr_namespaces" "registry_namespace" {}
 
 
 ####################################################################################

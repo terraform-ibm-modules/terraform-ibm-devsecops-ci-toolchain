@@ -16,12 +16,6 @@ variable "pipeline_config_repo" {
 variable "pipeline_config_repo_existing_url" {
 }
 
-variable "pipeline_config_repo_branch" {
-}
-
-variable "pipeline_config_path" {
-}
-
 variable "pipeline_config_repo_clone_from_url" {
 }
 
@@ -41,31 +35,8 @@ variable "pipeline_path" {
   description = "The relative folder path within pipeline definitions repository containing tekton definitions for pipelines."
   default     = "definitions"
 }
-variable "compliance_base_image" {
-}
 
 variable "ibmcloud_api_key" {
-}
-
-variable "pipeline_ibmcloud_api_key_secret_ref" {
-}
-
-variable "pipeline_dockerconfigjson_secret_ref" {
-}
-
-variable "pipeline_git_token_secret_ref" {
-}
-
-variable "enable_pipeline_dockerconfigjson" {
-}
-
-variable "enable_pipeline_git_token" {
-}
-
-variable "ibmcloud_api" {
-}
-
-variable "slack_notifications" {
 }
 
 variable "pr_pipeline_max_concurrent_runs" {
@@ -75,9 +46,6 @@ variable "pr_pipeline_max_concurrent_runs" {
 }
 
 variable "app_repo_provider_webhook_syntax" {
-}
-
-variable "pipeline_debug" {
 }
 
 variable "tool_artifactory" {
@@ -93,13 +61,4 @@ variable "trigger_pr_git_enable" {
 }
 
 variable "enable_pipeline_notifications" {
-}
-
-variable "cra_bom_generate" {
-}
-
-variable "cra_vulnerability_scan" {
-}
-
-variable "cra_deploy_analysis" {
 }

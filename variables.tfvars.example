@@ -20,15 +20,11 @@ ibmcloud_api_key                = ""
 #app_repo_existing_branch        = ""
 #app_repo_existing_git_provider  = ""
 #app_repo_existing_git_id        = ""
-#ibmcloud_api                    = "https://cloud.ibm.com"
 
 /*****************************************************/
 /* Variables for Module "Services"                   */
 /*****************************************************/
-cluster_name                    = "mycluster-free"
-cluster_namespace               = "devsecops-ci-ns"
 dev_region                      = "ibm:yp:us-south"
-dev_resource_group              = "Default"
 registry_namespace              = "devsecops-ci-registry"
 registry_region                 = "ibm:yp:us-south"
 sm_name                         = "sm-prod-dal"
@@ -43,7 +39,6 @@ sm_resource_group               = "Default"
 /*****************************************************/
 /* Variables for Module "Integrations"               */
 /*****************************************************/
-#signing_key_secret_name                = "signing_key"
 #cos_api_key_secret_name                = "cos-api-key"
 #pipeline_ibmcloud_api_key_secret_name  = "ibmcloud-api-key"
 #authorization_policy_creation          = "disabled"
@@ -54,8 +49,6 @@ sm_resource_group               = "Default"
 #link_to_doi_toolchain                  = false|true (Default: false)
 
 #cos_api_key_secret_name = ""
-#cos_bucket_name = ""
-#cos_endpoint = ""
 
 /*****************************************************/
 /* Variables for "Code Engine"                       */
@@ -66,5 +59,3 @@ sm_resource_group               = "Default"
 #code_engine_region             = "ibm:yp:us-south"
 #code_engine_resource_group     = "Default"
 #code_engine_entity_type        = "application"   #Default type is 'application'. Set as 'job' for 'job' type"
-#code_engine_build_strategy     = "dockerfile"    #Default strategy is 'dockerfile'. Set as 'buildpacks' for 'buildpacks' build"
-#code_engine_source             = "path in repository to code"
