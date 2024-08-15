@@ -158,6 +158,7 @@ locals {
   ])
 
   config_data = {
+    "default_locked_properties"  = var.default_locked_properties
     "secrets_integration_name" = var.sm_integration_name,
     "secrets_group"            = var.sm_secret_group,
     "secrets_provider_type" = (
@@ -383,7 +384,7 @@ module "pipeline_ci" {
   pipeline_doi_api_key_secret_ref     = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref
   link_to_doi_toolchain               = var.link_to_doi_toolchain
   sonarqube_tool                      = (module.integrations.sonarqube_tool)
-
+  default_locked_properties             = var.default_locked_properties
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -414,6 +415,7 @@ module "pipeline_pr" {
   trigger_pr_git_name                 = var.trigger_pr_git_name
   trigger_pr_git_enable               = var.trigger_pr_git_enable
   enable_pipeline_notifications       = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
+  default_locked_properties             = var.default_locked_properties
 }
 
 module "integrations" {

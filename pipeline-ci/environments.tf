@@ -5,6 +5,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo" {
   value       = try(var.pipeline_config_repo.tool_id, "")
   path        = "parameters.repo_url"
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"pipeline-config-repo") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo_default" {
@@ -13,6 +14,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_pipeline_config_repo_def
   type        = "text"
   value       = try(var.pipeline_config_repo.tool_id, "")
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"pipeline-config-repo") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_evidence_repo" {
@@ -21,6 +23,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_evidence_repo" {
   value       = var.evidence_repo.tool_id
   path        = "parameters.repo_url"
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"evidence-repo") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_inventory_repo" {
@@ -29,6 +32,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_inventory_repo" {
   value       = var.inventory_repo.tool_id
   path        = "parameters.repo_url"
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"inventory-repo") ? "true" : "false"
 }
 
 // Limitation with issues repository url: How to fetch issues repository url
@@ -39,6 +43,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
   value       = var.issues_repo.tool_id
   path        = "parameters.repo_url"
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"incident-repo") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_api_key" {
@@ -47,6 +52,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_doi_api_key" {
   type        = "secure"
   value       = var.pipeline_doi_api_key_secret_ref
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"doi-ibmcloud-api-key") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_app_name" {
@@ -54,6 +60,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_app_name" {
   type        = "text"
   value       = var.app_name
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"app-name") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
@@ -62,6 +69,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
   type        = "integration"
   value       = try(var.sonarqube_tool, "")
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"sonarqube") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_artifactory-dockerconfigjson" {
@@ -71,4 +79,5 @@ resource "ibm_cd_tekton_pipeline_property" "ci_artifactory-dockerconfigjson" {
   value       = var.tool_artifactory
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   path        = "parameters.docker_config_json"
+  locked      = contains(var.default_locked_properties,"artifactory-dockerconfigjson") ? "true" : "false"
 }

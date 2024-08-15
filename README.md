@@ -294,6 +294,25 @@ module "terraform_devsecops_ci" {
 | <a name="output_secrets_manager_instance_id"></a> [secrets\_manager\_instance\_id](#output\_secrets\_manager\_instance\_id) | The Secrets Manager instance ID. |
 | <a name="output_toolchain_id"></a> [toolchain\_id](#output\_toolchain\_id) | The CI toolchain ID. |
 | <a name="output_toolchain_url"></a> [toolchain\_url](#output\_toolchain\_url) | The CI toolchain URL. |
+
+## Additional Information
+## Locking Pipeline properties
+- To make a variable locked, we need to provide the locked key as true for that variable.</br>
+Example
+```
+  {
+    "name": "example_variable",
+    "type": "text",
+    "value": "example_data",
+    "locked": "true"
+  }
+```
+The variable `example_variable` is locked by providing `locked` to `true`.If you want to unlock it, provide `locked` to `false`.
+- Pipeline properties that are locked by default are stored in `default_locked_properties`.
+- Overriding of pipeline properties
+  - The code will first check if the locked key provides any value. If it is set, then it will take that value.
+  - If no locked value is provided for the variable, it will check if it is inside the default set of locked property `default_locked_properties`.
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- BEGIN CONTRIBUTING HOOK -->
 

@@ -62,3 +62,6 @@ variable "trigger_pr_git_enable" {
 
 variable "enable_pipeline_notifications" {
 }
+
+variable "default_locked_properties" {
+}
