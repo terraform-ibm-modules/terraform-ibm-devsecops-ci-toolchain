@@ -13,11 +13,10 @@ app_name                        = "hello-compliance-app"
 /*****************************************************/
 ibmcloud_api_key                = ""
 #app_repo_clone_from_url         = ""
-#app_repo_clone_from_branch      = ""
+#app_repo_branch      = ""
 #app_repo_clone_to_git_provider  = ""
 #app_repo_clone_to_git_id        = ""
 #app_repo_existing_url           = ""
-#app_repo_existing_branch        = ""
 #app_repo_existing_git_provider  = ""
 #app_repo_existing_git_id        = ""
 

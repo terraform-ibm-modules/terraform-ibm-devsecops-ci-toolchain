@@ -5,7 +5,7 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo" {
   value       = try(var.pipeline_config_repo.tool_id, "")
   path        = "parameters.repo_url"
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-  locked      = contains(var.default_locked_properties,"pipeline-config-repo") ? "true" : "false"
+  locked      = contains(var.default_locked_properties, "pipeline-config-repo") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo_default" {
@@ -14,7 +14,7 @@ resource "ibm_cd_tekton_pipeline_property" "pr_pipeline_pipeline_config_repo_def
   type        = "text"
   value       = try(var.pipeline_config_repo.tool_id, "")
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-  locked      = contains(var.default_locked_properties,"pipeline-config-repo") ? "true" : "false"
+  locked      = contains(var.default_locked_properties, "pipeline-config-repo") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "artifactory-dockerconfigjson" {
@@ -24,5 +24,5 @@ resource "ibm_cd_tekton_pipeline_property" "artifactory-dockerconfigjson" {
   value       = var.tool_artifactory
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   path        = "parameters.docker_config_json"
-  locked      = contains(var.default_locked_properties,"artifactory-dockerconfigjson") ? "true" : "false"
+  locked      = contains(var.default_locked_properties, "artifactory-dockerconfigjson") ? "true" : "false"
 }

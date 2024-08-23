@@ -5,14 +5,12 @@
       {
         "name": "app-concurrency",
         "type": "text",
-        "value": "100",
-        "locked" : "true"
+        "value": "100"
       },
       {
         "name": "app-deployment-timeout",
         "type": "text",
-        "value": "300",
-        "locked" : "true"
+        "value": "300"
       },
       {
         "name": "app-max-scale",
@@ -22,137 +20,115 @@
       {
         "name": "app-min-scale",
         "type": "text",
-        "value": "0",
-        "locked" : "true"
+        "value": "0"
       },
       {
         "name": "app-port",
         "type": "text",
-        "value": "8080",
-        "locked" : "true"
+        "value": "8080"
       },
       {
         "name": "app-visibility",
         "type": "text",
-        "value": "public",
-        "locked" : "true"
+        "value": "public"
       },
       {
         "name": "code-engine-binding-resource-group",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "code-engine-build-size",
         "type": "text",
-        "value": "large",
-        "locked" : "true"
+        "value": "large"
       },
       {
         "name": "code-engine-build-strategy",
         "type": "text",
-        "value": "dockerfile",
-        "locked" : "true"
+        "value": "dockerfile"
       },
       {
         "name": "code-engine-build-timeout",
         "type": "text",
-        "value": "1200",
-        "locked" : "true"
+        "value": "1200"
       },
       {
         "name": "code-engine-build-use-native-docker",
         "type": "text",
-        "value": "false",
-        "locked" : "true"
+        "value": "false"
       },
       {
         "name": "code-engine-deployment-type",
         "type": "text",
-        "value": "application",
-        "locked" : "true"
+        "value": "application"
       },
       {
         "name": "code-engine-project",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "code-engine-region",
         "type": "text",
-        "value": "us-south",
-        "locked" : "true"
+        "value": "us-south"
       },
       {
         "name": "code-engine-resource-group",
         "type": "text",
-        "value": "Default",
-        "locked" : "true"
+        "value": "Default"
       },
       {
         "name": "code-engine-wait-timeout",
         "type": "text",
-        "value": "1300",
-        "locked" : "true"
+        "value": "1300"
       },
       {
         "name": "context-dir",
         "type": "text",
-        "value": "dockerfile-strategy",
-        "locked" : "true"
+        "value": "dockerfile-strategy"
       },
       {
         "name": "cos-api-key",
         "type": "secure",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "cos-bucket-name",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "cos-endpoint",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "cpu",
         "type": "text",
-        "value": "0.25",
-        "locked" : "true"
+        "value": "0.25"
       },
       {
         "name": "cra-bom-generate",
         "type": "single_select",
         "value": "1",
-        "enum": "[0,1]",
-        "locked" : "true"
+        "enum": "[0,1]"
       },
       {
         "name": "cra-deploy-analysis",
         "type": "single_select",
         "value": "1",
-        "enum": "[0,1]",
-        "locked" : "true"
+        "enum": "[0,1]"
       },
       {
         "name": "cra-generate-cyclonedx-format",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       },
       {
         "name": "cra-vulnerability-scan",
         "type": "single_select",
         "value": "1",
-        "enum": "[0,1]",
-        "locked" : "true"
+        "enum": "[0,1]"
       },
       {
         "name": "custom_image_tag",
@@ -162,32 +138,27 @@
       {
         "name": "dev-resource-group",
         "type": "text",
-        "value": "Default",
-        "locked" : "true"
+        "value": "Default"
       },
       {
         "name": "doi-environment",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "doi-ibmcloud-api-key",
         "type": "secure",
-        "value": "ibmcloud-api-key",
-        "locked" : "true"
+        "value": "ibmcloud-api-key"
       },
       {
         "name": "doi-toolchain-id",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "env-from-configmaps",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "env-from-secrets",
@@ -197,104 +168,87 @@
       {
         "name": "ephemeral-storage",
         "type": "text",
-        "value": "0.4G",
-        "locked" : "true"
+        "value": "0.4G"
       },
       {
         "name": "event-notifications",
         "type": "text",
-        "value": "",
-        "locker" : "true"
+        "value": ""
       },
       {
         "name": "git-token",
         "type": "secure",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "ibmcloud-api-key",
         "type": "secure",
-        "value": "ibmcloud-api-key",
-        "locked" : "true"
+        "value": "ibmcloud-api-key"
       },
       {
         "name": "image-name",
         "type": "text",
-        "value": "code-engine-compliance-app",
-        "locked" : "true"
+        "value": "code-engine-compliance-app"
       },
       {
         "name": "job-instances",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       },
       {
         "name": "job-maxexecutiontime",
         "type": "text",
-        "value": "7200",
-        "locked" : "true"
+        "value": "7200"
       },
       {
         "name": "job-retrylimit",
         "type": "text",
-        "value": "3",
-        "locked" : "true"
+        "value": "3"
       },
       {
         "name": "memory",
         "type": "text",
-        "value": "0.5G",
-        "locked" : "true"
+        "value": "0.5G"
       },
       {
         "name": "opt-in-dynamic-api-scan",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       },
       {
         "name": "opt-in-dynamic-scan",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       },
       {
         "name": "opt-in-dynamic-ui-scan",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       },
       {
         "name": "opt-in-gosec",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "opt-in-sonar",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       },
       {
         "name": "peer-review-compliance",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       },
       {
         "name": "pipeline-config",
         "type": "text",
-        "value": ".pipeline-config.yaml",
-        "locked" : "true"
+        "value": ".pipeline-config.yaml"
       },
       {
         "name": "pipeline-config-branch",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "pipeline-debug",
@@ -305,68 +259,57 @@
       {
         "name": "print-code-signing-certificate",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       },
       {
         "name": "registry-domain",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "registry-namespace",
         "type": "text",
-        "value": "my-registry-namespace",
-        "locked" : "true"
+        "value": "my-registry-namespace"
       },
       {
         "name": "registry-region",
         "type": "text",
-        "value": "us-south",
-        "locked" : "true"
+        "value": "us-south"
       },
       {
         "name": "remove-unspecified-references-to-configuration-resources",
         "type": "text",
-        "value": "false",
-        "locked" : "true"
+        "value": "false"
       },
       {
         "name": "service-bindings",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "signing-key",
         "type": "secure",
-        "value": "signing_key",
-        "locked" : "true"
+        "value": "signing_key"
       },
       {
         "name": "slack-notifications",
         "type": "text",
-        "value": "0",
-        "locked" : "true"
+        "value": "0"
       },
       {
         "name": "sonarqube-config",
         "type": "text",
-        "value": "default",
-        "locker" : "true"
+        "value": "default"
       },
       {
         "name": "source",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "version",
         "type": "text",
-        "value": "v1",
-        "locked" : "true"
+        "value": "v1"
       }
     ]
   },
@@ -377,46 +320,39 @@
         "name": "cra-bom-generate",
         "type": "single_select",
         "value": "1",
-        "enum": "[0,1]",
-        "locked" : "true"
+        "enum": "[0,1]"
       },
       {
         "name": "cra-deploy-analysis",
         "type": "single_select",
         "value": "1",
-        "enum": "[0,1]",
-        "locked" : "true"
+        "enum": "[0,1]"
       },
       {
         "name": "cra-vulnerability-scan",
         "type": "single_select",
         "value": "1",
-        "enum": "[0,1]",
-        "locked" : "true"
+        "enum": "[0,1]"
       },
       {
         "name": "git-token",
         "type": "secure",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "ibmcloud-api-key",
         "type": "secure",
-        "value": "ibmcloud-api-key",
-        "locked" : "true"
+        "value": "ibmcloud-api-key"
       },
       {
         "name": "pipeline-config",
         "type": "text",
-        "value": ".pipeline-config.yaml",
-        "locked" : "true"
+        "value": ".pipeline-config.yaml"
       },
       {
         "name": "pipeline-config-branch",
         "type": "text",
-        "value": "",
-        "locked" : "true"
+        "value": ""
       },
       {
         "name": "pipeline-debug",
@@ -427,8 +363,7 @@
       {
         "name": "slack-notifications",
         "type": "text",
-        "value": "1",
-        "locked" : "true"
+        "value": "1"
       }
     ]
   }

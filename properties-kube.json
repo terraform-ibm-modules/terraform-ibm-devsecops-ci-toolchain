@@ -5,101 +5,85 @@
         {
           "name": "cluster-name",
           "type": "text",
-          "value": "mycluster",
-          "locked" : "true"
+          "value": "mycluster"
         },
         {
           "name": "cos-api-key",
           "type": "secure",
-          "value": "",
-          "locked" : "true"
+          "value": ""
         },
         {
           "name": "cos-bucket-name",
           "type": "text",
-          "value": "",
-          "locked" : "true"
+          "value": ""
         },
         {
           "name": "cos-endpoint",
           "type": "text",
-          "value": "",
-          "locked" : "true"
+          "value": ""
         },
         {
           "name": "cra-bom-generate",
           "type": "single_select",
           "value": "1",
-          "enum": "[0,1]",
-          "locked" : "true"
+          "enum": "[0,1]"
         },
         {
           "name": "cra-deploy-analysis",
           "type": "single_select",
           "value": "1",
-          "enum": "[0,1]",
-          "locked" : "true"
+          "enum": "[0,1]"
         },
         {
           "name": "cra-generate-cyclonedx-format",
           "type": "text",
-          "value": "1",
-          "locked" : "true"
+          "value": "1"
         },
         {
           "name": "cra-vulnerability-scan",
           "type": "single_select",
           "value": "1",
-          "enum": "[0,1]",
-          "locked" : "true"
+          "enum": "[0,1]"
         },
         {
           "name": "custom_image_tag",
           "type": "text",
-          "value": "",
-          "locked" : "true"
+          "value": ""
         },
         {
           "name": "dev-cluster-namespace",
           "type": "text",
-          "value": "dev",
-          "locked" : "true"
+          "value": "dev"
         },
         {
           "name": "dev-region",
           "type": "text",
-          "value": "us-south",
-          "locked" : "true"
+          "value": "us-south"
         },
         {
           "name": "dev-resource-group",
           "type": "text",
-          "value": "Default",
-          "locked" : "true"
+          "value": "Default"
         },
         {
           "name": "doi-environment",
           "type": "text",
-          "value": "",
-          "locked" : "true"
+          "value": ""
         },
         {
           "name": "doi-ibmcloud-api-key",
           "type": "secure",
-          "value": "ibmcloud-api-key",
-          "locked" : "true"
+          "value": "ibmcloud-api-key"
         },
         {
           "name": "doi-toolchain-id",
           "type": "text",
-          "value": "",
-          "locked" : "true"
+          "value": ""
         },
         {
           "name": "event-notifications",
           "type": "text",
-          "value": "",
-          "locker" : "true"
+          "value": ""
         },
         {
           "name": "git-token",
@@ -109,44 +93,37 @@
         {
           "name": "ibmcloud-api-key",
           "type": "secure",
-          "value": "ibmcloud-api-key",
-          "locked" : "true"
+          "value": "ibmcloud-api-key"
         },
         {
           "name": "opt-in-dynamic-api-scan",
           "type": "text",
-          "value": "1",
-          "locked" : "true"
+          "value": "1"
         },
         {
           "name": "opt-in-dynamic-scan",
           "type": "text",
-          "value": "1",
-          "locked" : "true"
+          "value": "1"
         },
         {
           "name": "opt-in-dynamic-ui-scan",
           "type": "text",
-          "value": "1",
-          "locked" : "true"
+          "value": "1"
         },
         {
           "name": "opt-in-gosec",
           "type": "text",
-          "value": "",
-          "locked" : "true"
+          "value": ""
         },
         {
           "name": "opt-in-sonar",
           "type": "text",
-          "value": "1",
-          "locked" : "true"
+          "value": "1"
         },
         {
           "name": "peer-review-compliance",
           "type": "text",
-          "value": "1",
-          "locked" : "true"
+          "value": "1"
         },
         {
           "name": "pipeline-config",
@@ -167,44 +144,37 @@
         {
           "name": "print-code-signing-certificate",
           "type": "text",
-          "value": "1",
-          "locked" : "true"
+          "value": "1"
         },
         {
           "name": "registry-namespace",
           "type": "text",
-          "value": "my-registry-namespace",
-          "locked" : "true"
+          "value": "my-registry-namespace"
         },
         {
           "name": "registry-region",
           "type": "text",
-          "value": "us-south",
-          "locked" : "true"
+          "value": "us-south"
         },
         {
           "name": "signing-key",
           "type": "secure",
-          "value": "signing_key",
-          "locked" : "true"
+          "value": "signing_key"
         },
         {
           "name": "slack-notifications",
           "type": "text",
-          "value": "0",
-          "locked" : "true"
+          "value": "0"
         },
         {
           "name": "sonarqube-config",
           "type": "text",
-          "value": "default",
-          "locker" : "true"
+          "value": "default"
         },
         {
           "name": "version",
           "type": "text",
-          "value": "v1",
-          "locked" : "true"
+          "value": "v1"
         }
       ]
     },
@@ -214,35 +184,30 @@
         {
           "name": "git-token",
           "type": "secure",
-          "value": "",
-          "locked" : "true"
+          "value": ""
         },
         {
           "name": "cra-bom-generate",
           "type": "single_select",
           "value": "1",
-          "enum": "[0,1]",
-          "locked" : "true"
+          "enum": "[0,1]"
         },
         {
           "name": "cra-deploy-analysis",
           "type": "single_select",
           "value": "1",
-          "enum": "[0,1]",
-          "locked" : "true"
+          "enum": "[0,1]"
         },
         {
           "name": "cra-vulnerability-scan",
           "type": "single_select",
           "value": "1",
-          "enum": "[0,1]",
-          "locked" : "true"
+          "enum": "[0,1]"
         },
         {
           "name": "ibmcloud-api-key",
           "type": "secure",
-          "value": "ibmcloud-api-key",
-          "locked" : "true"
+          "value": "ibmcloud-api-key"
         },
         {
           "name": "pipeline-config",
@@ -263,8 +228,7 @@
         {
           "name": "slack-notifications",
           "type": "text",
-          "value": "1",
-          "locked" : "true"
+          "value": "1"
         }
       ]
     }

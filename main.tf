@@ -29,23 +29,11 @@ locals {
 
   app_source_repo_url = (
     (var.app_repo_clone_from_url != "") ? var.app_repo_clone_from_url :
-    (var.app_repo_template_url != "") ? var.app_repo_template_url :
     format("%s/open-toolchain/hello-compliance-app.git", local.compliance_pipelines_git_server)
   )
 
-  app_repo_mode = ((length(var.app_repo_existing_url) > 0) ? "byo_app"
-    : (length(var.app_repo_clone_from_url) > 0) ? "byo_sample"
-  : "auto-sample")
-
   app_repo_branch = (
-    (local.app_repo_mode == "byo_app") ?
-    ((length(var.app_repo_existing_branch) > 0) ? var.app_repo_existing_branch
-      : file("[Error] var app_repo_existing_branch must be provided when using var app_repo_existing_url.")
-    )
-    : (local.app_repo_mode == "byo_sample") ?
-    ((length(var.app_repo_clone_from_branch) > 0) ? var.app_repo_clone_from_branch
-      : file("[Error] var app_repo_clone_from_branch must be provided when using var app_repo_clone_from_url.")
-    )
+    (length(var.app_repo_branch) > 0) ? var.app_repo_branch
     : "master" # hello-compliance-app has branch master
   )
 
@@ -158,9 +146,9 @@ locals {
   ])
 
   config_data = {
-    "default_locked_properties"  = var.default_locked_properties
-    "secrets_integration_name" = var.sm_integration_name,
-    "secrets_group"            = var.sm_secret_group,
+    "default_locked_properties" = var.default_locked_properties
+    "secrets_integration_name"  = var.sm_integration_name,
+    "secrets_group"             = var.sm_secret_group,
     "secrets_provider_type" = (
       (var.enable_key_protect) ? "kp" :
       (var.enable_secrets_manager) ? "sm" : ""
@@ -194,6 +182,8 @@ locals {
     mode                 = try(pipeline.mode, "link")
     worker_id            = try(pipeline.worker_id, "public")
     default_branch       = try(pipeline.default_branch, "master")
+    provider             = try(pipeline.provider, "")
+    git_id               = try(pipeline.git_id, "")
     }
   ])
 }
@@ -381,10 +371,9 @@ module "pipeline_ci" {
   trigger_timed_pruner_name           = var.trigger_timed_pruner_name
   trigger_timed_pruner_enable         = var.trigger_timed_pruner_enable
   enable_pipeline_notifications       = var.enable_pipeline_notifications
-  pipeline_doi_api_key_secret_ref     = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref
   link_to_doi_toolchain               = var.link_to_doi_toolchain
   sonarqube_tool                      = (module.integrations.sonarqube_tool)
-  default_locked_properties             = var.default_locked_properties
+  default_locked_properties           = var.default_locked_properties
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
@@ -415,7 +404,7 @@ module "pipeline_pr" {
   trigger_pr_git_name                 = var.trigger_pr_git_name
   trigger_pr_git_enable               = var.trigger_pr_git_enable
   enable_pipeline_notifications       = (var.event_notifications_crn != "" || var.enable_slack) ? true : false
-  default_locked_properties             = var.default_locked_properties
+  default_locked_properties           = var.default_locked_properties
 }
 
 module "integrations" {

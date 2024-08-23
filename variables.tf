@@ -124,18 +124,13 @@ variable "authorization_policy_creation" {
   default     = ""
 }
 
-variable "app_repo_template_url" {
-  type        = string
-  description = "Url of app repo template to be cloned"
-  default     = ""
-}
 variable "app_repo_clone_from_url" {
   type        = string
   description = "Override the default sample app by providing your own sample app URL, which will be cloned into the app repo. Note, using clone_if_not_exists mode, so if the app repo already exists the repo contents are unchanged."
   default     = ""
 }
 
-variable "app_repo_clone_from_branch" {
+variable "app_repo_branch" {
   type        = string
   description = "Used when app_repo_clone_from_url is provided, the default branch that will be used by the CI build, usually either main or master."
   default     = ""
@@ -147,21 +142,15 @@ variable "app_repo_existing_url" {
   default     = ""
 }
 
-variable "app_repo_existing_branch" {
-  type        = string
-  description = "Used when app_repo_existing_url is provided, the default branch that will be used by the CI build, usually either main or master."
-  default     = ""
-}
-
 variable "app_repo_existing_git_provider" {
   type        = string
-  description = "By default 'hostedgit', else use 'githubconsolidated' or 'gitlab'."
+  description = "This will be inferred based on the repo url. Either 'hostedgit', 'githubconsolidated' or 'gitlab'. Can explicitly be provided."
   default     = ""
 }
 
 variable "app_repo_existing_git_id" {
   type        = string
-  description = "Custom server GUID, or other options for 'git_id' field in the browser UI."
+  description = "This will be inferred based on the repo url. Custom server GUID, or other options for 'git_id' field in the browser UI."
   default     = ""
 }
 
@@ -1318,5 +1307,5 @@ variable "repository_properties_filepath" {
 variable "default_locked_properties" {
   type        = list(string)
   description = "List of default locked properties"
-  default     = ["pipeline-config", "pipeline-config-branch", "pipeline-config-repo", "print-code-signing-certificate", "event-notifications", "slack-notifications", "ibmcloud-api-key", "evidence-repo", "inventory-repo", "incident-repo", "cluster", "cluster-namespace", "cluster-region", "dev-region", "dev-resource-group", "registry-namespace", "registry-region", "cos-api-key", "cos-bucket-name", "cos-endpoint", "opt-in-dynamic-api-scan", "opt-in-dynamic-scan", "opt-in-dynamic-ui-scan", "opt-in-sonar", "git-token", "doi-environment", "doi-ibmcloud-api-key", "doi-toolchain-id", "cra-generate-cyclonedx-format", "custom-image-tag", "version", "signing-key", "ibmcloud-api", "sonarqube", "sonarqube-config", "peer-review-compliance", "pipeline-dockerconfigjson", "compliance-baseimage", "artifactory-dockerconfigjson", "opt-in-gosec", "gosec-private-repository-host", "gosec-private-repository-ssh-key", "cra-bom-generate", "cra-vulnerability-scan", "cra-deploy-analysis"]
+  default     = ["artifactory-dockerconfigjson", "cluster", "cluster-namespace", "cluster-region", "compliance-baseimage", "cos-api-key", "cos-bucket-name", "cos-endpoint", "cra-bom-generate", "cra-deploy-analysis", "cra-generate-cyclonedx-format", "cra-vulnerability-scan", "custom-image-tag", "dev-region", "dev-resource-group", "doi-environment", "doi-ibmcloud-api-key", "doi-toolchain-id", "event-notifications", "evidence-repo", "git-token", "gosec-private-repository-host", "gosec-private-repository-ssh-key", "ibmcloud-api", "ibmcloud-api-key", "incident-repo", "inventory-repo", "opt-in-dynamic-api-scan", "opt-in-dynamic-scan", "opt-in-dynamic-ui-scan", "opt-in-gosec", "opt-in-sonar", "peer-review-compliance", "pipeline-config", "pipeline-config-branch", "pipeline-config-repo", "pipeline-dockerconfigjson", "print-code-signing-certificate", "registry-namespace", "registry-region", "signing-key", "slack-notifications", "sonarqube", "sonarqube-config", "version"]
 }
