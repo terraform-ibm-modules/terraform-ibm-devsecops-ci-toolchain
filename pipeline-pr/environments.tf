@@ -26,3 +26,22 @@ resource "ibm_cd_tekton_pipeline_property" "artifactory-dockerconfigjson" {
   path        = "parameters.docker_config_json"
   locked      = contains(var.default_locked_properties, "artifactory-dockerconfigjson") ? "true" : "false"
 }
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
+  name        = "incident-repo"
+  type        = "integration"
+  value       = var.issues_repo.tool_id
+  path        = "parameters.repo_url"
+  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"incident-repo") ? "true" : "false"
+}
+
+resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_evidence_repo" {
+  name        = "evidence-repo"
+  type        = "integration"
+  value       = var.evidence_repo.tool_id
+  path        = "parameters.repo_url"
+  pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
+  locked      = contains(var.default_locked_properties,"evidence-repo") ? "true" : "false"
+}
+

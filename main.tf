@@ -396,6 +396,8 @@ module "pipeline_pr" {
   pipeline_config_repo_clone_from_url = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo                = try(module.pipeline_config_repo[0].repository, "")
   pipeline_repo_url                   = module.compliance_pipelines_repo.repository_url
+  issues_repo                         = module.issues_repo.repository
+  evidence_repo                       = module.evidence_repo.repository
   app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
   tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                  = var.enable_artifactory
