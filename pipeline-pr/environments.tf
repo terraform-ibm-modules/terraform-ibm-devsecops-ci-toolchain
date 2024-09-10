@@ -33,7 +33,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_issues_repo" {
   value       = var.issues_repo.tool_id
   path        = "parameters.repo_url"
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-  locked      = contains(var.default_locked_properties,"incident-repo") ? "true" : "false"
+  locked      = contains(var.default_locked_properties, "incident-repo") ? "true" : "false"
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_evidence_repo" {
@@ -42,6 +42,5 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_evidence_repo" {
   value       = var.evidence_repo.tool_id
   path        = "parameters.repo_url"
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-  locked      = contains(var.default_locked_properties,"evidence-repo") ? "true" : "false"
+  locked      = contains(var.default_locked_properties, "evidence-repo") ? "true" : "false"
 }
-

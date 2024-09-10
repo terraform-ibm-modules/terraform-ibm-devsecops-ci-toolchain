@@ -13,7 +13,7 @@ variable "issues_repo" {
 }
 
 variable "evidence_repo" {
-  
+
 }
 
 variable "pipeline_config_repo" {

@@ -69,7 +69,7 @@ resource "ibm_cd_tekton_pipeline_property" "pipeline_property" {
   pipeline_id = var.pipeline_id
   name        = local.input_name
   type        = local.input_type
-  value       = (local.input_name == "ibmcloud-api-key") ? local.special_value : local.resolved_value
+  value       = (local.resolved_value == "") ? local.special_value : local.resolved_value
   path        = local.resolved_path
   enum        = local.input_enum
   locked      = local.resolved_locked
