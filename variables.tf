@@ -438,6 +438,12 @@ variable "sonarqube_secret_crn" {
   }
 }
 
+variable "signing_key_secret_name" {
+  type        = string
+  description = "Name of the signing key secret in the secret provider."
+  default     = ""
+}
+
 ###########################
 variable "app_repo_secret_group" {
   type        = string
@@ -1273,12 +1279,12 @@ variable "trigger_timed_pruner_name" {
   description = "The name of the timed Pruner trigger."
   default     = "Evidence Pruner Timed Trigger"
 }
+
 variable "trigger_timed_pruner_enable" {
   type        = bool
   description = "Set to `true` to enable the timed Pruner trigger."
   default     = false
 }
-
 
 variable "pipeline_properties" {
   type        = string

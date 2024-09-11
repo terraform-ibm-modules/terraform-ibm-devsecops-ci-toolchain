@@ -168,6 +168,7 @@ locals {
     "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
     "registry-namespace"         = var.registry_namespace,
     "registry-region"            = var.registry_region,
+    "signing-key"                = var.signing_key_secret_name,
     "pipeline-config-branch"     = var.pipeline_config_repo_branch
   }
 
