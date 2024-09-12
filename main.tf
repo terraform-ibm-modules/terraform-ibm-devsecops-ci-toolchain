@@ -163,7 +163,7 @@ locals {
     "cos-endpoint"               = var.cos_endpoint,
     "dev-region"                 = var.dev_region,
     "dev-resource-group"         = var.dev_resource_group
-    "doi-ibmcloud-api-key"       = var.pipeline_doi_api_key_secret_name,
+    "doi-ibmcloud-api-key"       = (var.pipeline_doi_api_key_secret_name == "") ? var.pipeline_ibmcloud_api_key_secret_name : var.pipeline_doi_api_key_secret_name,
     "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
     "ibmcloud-api-key"           = var.pipeline_ibmcloud_api_key_secret_name,
     "registry-namespace"         = var.registry_namespace,
