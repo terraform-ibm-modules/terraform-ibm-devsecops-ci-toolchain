@@ -158,16 +158,17 @@ locals {
     "code-engine-project"        = var.code_engine_project,
     "code-engine-region"         = var.code_engine_region,
     "code-engine-resource-group" = var.code_engine_resource_group,
-    "cos-api-key"                = local.cos_secret_ref,
+    "cos-api-key"                = var.cos_api_key_secret_name,
     "cos-bucket-name"            = var.cos_bucket_name,
     "cos-endpoint"               = var.cos_endpoint,
     "dev-region"                 = var.dev_region,
     "dev-resource-group"         = var.dev_resource_group
-    "doi-ibmcloud-api-key"       = local.pipeline_doi_api_key_secret_ref,
+    "doi-ibmcloud-api-key"       = (var.pipeline_doi_api_key_secret_name == "") ? var.pipeline_ibmcloud_api_key_secret_name : var.pipeline_doi_api_key_secret_name,
     "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
-    "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
+    "ibmcloud-api-key"           = var.pipeline_ibmcloud_api_key_secret_name,
     "registry-namespace"         = var.registry_namespace,
     "registry-region"            = var.registry_region,
+    "signing-key"                = var.signing_key_secret_name,
     "pipeline-config-branch"     = var.pipeline_config_repo_branch
   }
 
