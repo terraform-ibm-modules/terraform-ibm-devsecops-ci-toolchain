@@ -84,7 +84,7 @@ variable "ci_pipeline_max_concurrent_runs" {
 
 ######## Deployment Strategy ##################
 
-variable "enable_trigger_creation" {
+variable "create_triggers" {
 }
 
 variable "app_repo_provider_webhook_syntax" {

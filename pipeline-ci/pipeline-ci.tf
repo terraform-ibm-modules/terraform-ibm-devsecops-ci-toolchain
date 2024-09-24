@@ -35,7 +35,7 @@ resource "ibm_cd_tekton_pipeline_definition" "cd_tekton_definition_tag" {
 ############ GIT Trigger #############################################
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "scm"
   name        = var.trigger_git_name
@@ -54,7 +54,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_scm_trigger_property_app_name" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "app-name"
   type        = "text"
   value       = var.app_name
@@ -65,7 +65,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_scm_trigger_prop
 ########### Timed Trigger ###################################################
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "timer"
   name        = var.trigger_timed_name
@@ -78,7 +78,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_trigger_property_app_name" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "app-name"
   type        = "text"
   value       = var.app_name
@@ -89,7 +89,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_trigger_pr
 ############ Manual Trigger ################################################
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "manual"
   name        = var.trigger_manual_name
@@ -100,7 +100,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_app_name" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "app-name"
   type        = "text"
   value       = var.app_name
@@ -109,7 +109,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_p
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_repository" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "repository"
   type        = "text"
   value       = var.app_repo_url
@@ -118,7 +118,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_p
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_property_branch" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "branch"
   type        = "text"
   value       = var.app_repo_branch
@@ -130,7 +130,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_trigger_p
 
 ############ Pruner Triggers   #############################
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_pruner_trigger" {
-  count          = (var.enable_trigger_creation) ? 1 : 0
+  count          = (var.create_triggers) ? 1 : 0
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type           = "manual"
   name           = var.trigger_manual_pruner_name
@@ -139,7 +139,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_pruner_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_trigger_property_batch" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "evidence-pruner-batch-size"
   type        = "text"
   value       = "1000"
@@ -148,7 +148,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_tr
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_trigger_property_branch" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "evidence-pruner-branch"
   type        = "text"
   value       = "chore/prune-evidences"
@@ -157,7 +157,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_tr
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_trigger_property_retention" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "evidence-retention-days"
   type        = "text"
   value       = ""
@@ -166,7 +166,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_tr
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_trigger_property_v1" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "opt-in-v1-evidence-pruner"
   type        = "single_select"
   enum        = ["0", "1"]
@@ -176,7 +176,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_tr
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_trigger_property_v2" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "opt-in-v2-evidence-pruner"
   type        = "single_select"
   enum        = ["0", "1"]
@@ -186,7 +186,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_manual_pruner_tr
 }
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_pruner_trigger" {
-  count          = (var.enable_trigger_creation) ? 1 : 0
+  count          = (var.create_triggers) ? 1 : 0
   pipeline_id    = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type           = "timer"
   name           = var.trigger_timed_pruner_name
@@ -197,7 +197,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_timed_pruner_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_trigger_property_batch" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "evidence-pruner-batch-size"
   type        = "text"
   value       = "1000"
@@ -206,7 +206,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_tri
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_trigger_property_branch" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "evidence-pruner-branch"
   type        = "text"
   value       = "chore/prune-evidences"
@@ -215,7 +215,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_tri
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_trigger_property_retention" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "evidence-retention-days"
   type        = "text"
   value       = "365"
@@ -224,7 +224,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_tri
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_trigger_property_v1" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "opt-in-v1-evidence-pruner"
   type        = "single_select"
   enum        = ["0", "1"]
@@ -234,7 +234,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_tri
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_timed_pruner_trigger_property_v2" {
-  count       = (var.enable_trigger_creation) ? 1 : 0
+  count       = (var.create_triggers) ? 1 : 0
   name        = "opt-in-v2-evidence-pruner"
   type        = "single_select"
   enum        = ["0", "1"]

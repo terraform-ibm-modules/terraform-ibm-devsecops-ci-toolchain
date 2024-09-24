@@ -1352,13 +1352,13 @@ variable "event_notifications_crn" {
 }
 
 ####### Trigger properties ###################
-variable "enable_custom_repository_default_triggers" {
+variable "create_custom_repository_default_triggers" {
   type        = string
   description = "Set to `true` to add default triggers for the repositories specified in the repositories JSON, if custom triggers are not set."
   default     = "true"
 }
 
-variable "enable_trigger_creation" {
+variable "create_triggers" {
   type        = string
   description = "Set to `true` to create the default triggers associated with the compliance repos and sample app."
   default     = "true"

@@ -60,6 +60,9 @@ variable "tool_artifactory" {
 variable "enable_artifactory" {
 }
 
+variable "create_triggers" {
+}
+
 variable "trigger_pr_git_name" {
 }
 
