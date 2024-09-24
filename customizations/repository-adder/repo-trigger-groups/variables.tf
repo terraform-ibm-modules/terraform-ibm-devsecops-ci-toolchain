@@ -46,7 +46,7 @@ variable "worker_id" {
   default     = ""
 }
 
-variable "create_default" {
+variable "create_default_triggers" {
   type        = bool
   description = "Set to `true` to allow creation of default triggers."
   default     = true

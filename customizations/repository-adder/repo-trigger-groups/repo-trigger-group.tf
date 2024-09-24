@@ -131,7 +131,7 @@ module "triggers" {
 }
 
 module "default_triggers" {
-  count                     = ((var.create_default == true) && (length(local.triggers) == 0)) ? 1 : 0
+  count                     = ((var.create_default_triggers == true) && (length(local.triggers) == 0)) ? 1 : 0
   depends_on                = [module.app_repo.repository]
   source                    = "./default_triggers"
   pipeline_id               = var.pipeline_id

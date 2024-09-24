@@ -1352,6 +1352,18 @@ variable "event_notifications_crn" {
 }
 
 ####### Trigger properties ###################
+variable "enable_custom_repository_default_triggers" {
+  type        = string
+  description = "Set to `true` to add default triggers for the repositories specified in the repositories JSON, if custom triggers are not set."
+  default     = "true"
+}
+
+variable "enable_trigger_creation" {
+  type        = string
+  description = "Set to `true` to create the default triggers associated with the compliance repos and sample app."
+  default     = "true"
+}
+
 variable "trigger_git_name" {
   type        = string
   description = "The name of the CI pipeline GIT trigger."

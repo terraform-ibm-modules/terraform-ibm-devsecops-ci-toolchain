@@ -378,6 +378,7 @@ module "pipeline_ci" {
   tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
   ci_pipeline_branch                  = var.ci_pipeline_branch
   pipeline_git_tag                    = var.ci_pipeline_git_tag
+  enable_trigger_creation             = var.enable_trigger_creation
   trigger_git_name                    = var.trigger_git_name
   trigger_git_enable                  = var.trigger_git_enable
   trigger_timed_name                  = var.trigger_timed_name
@@ -545,6 +546,7 @@ module "repository_properties" {
     (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id :
     (lower(each.value.pipeline_id) == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
   )
-  pr_pipeline_id = try(module.pipeline_pr.pipeline_id, "")
-  config_data    = local.config_data
+  pr_pipeline_id          = try(module.pipeline_pr.pipeline_id, "")
+  config_data             = local.config_data
+  create_default_triggers = var.enable_custom_repository_default_triggers
 }
