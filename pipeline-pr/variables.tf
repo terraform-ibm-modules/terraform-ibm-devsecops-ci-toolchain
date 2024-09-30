@@ -51,6 +51,9 @@ variable "pr_pipeline_max_concurrent_runs" {
   default     = 1
 }
 
+variable "add_pipeline_definitions" {
+}
+
 variable "app_repo_provider_webhook_syntax" {
 }
 

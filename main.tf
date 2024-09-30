@@ -376,6 +376,7 @@ module "pipeline_ci" {
   enable_privateworker                = var.enable_privateworker
   enable_artifactory                  = var.enable_artifactory
   tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
+  add_pipeline_definitions            = var.add_pipeline_definitions
   ci_pipeline_branch                  = var.ci_pipeline_branch
   pipeline_git_tag                    = var.ci_pipeline_git_tag
   create_triggers                     = var.create_triggers
@@ -422,6 +423,7 @@ module "pipeline_pr" {
   tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                  = var.enable_artifactory
   pr_pipeline_branch                  = var.pr_pipeline_branch
+  add_pipeline_definitions            = var.add_pipeline_definitions
   pipeline_git_tag                    = var.pr_pipeline_git_tag
   create_triggers                     = var.create_triggers
   trigger_pr_git_name                 = var.trigger_pr_git_name

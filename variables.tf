@@ -1176,6 +1176,12 @@ variable "pipeline_config_group" {
   default     = ""
 }
 
+variable "add_pipeline_definitions" {
+  type        = string
+  description = "Set to `true` to add pipeline definitions."
+  default     = "true"
+}
+
 variable "ci_pipeline_branch" {
   type        = string
   description = "The branch within CI pipeline definitions repository for Compliance CI Toolchain."
