@@ -380,6 +380,7 @@ module "pipeline_ci" {
   ci_pipeline_branch                  = var.ci_pipeline_branch
   pipeline_git_tag                    = var.ci_pipeline_git_tag
   create_triggers                     = var.create_triggers
+  create_git_triggers                 = var.create_git_triggers
   trigger_git_name                    = var.trigger_git_name
   trigger_git_enable                  = var.trigger_git_enable
   trigger_timed_name                  = var.trigger_timed_name
@@ -425,7 +426,7 @@ module "pipeline_pr" {
   pr_pipeline_branch                  = var.pr_pipeline_branch
   add_pipeline_definitions            = var.add_pipeline_definitions
   pipeline_git_tag                    = var.pr_pipeline_git_tag
-  create_triggers                     = var.create_triggers
+  create_git_triggers                 = var.create_git_triggers
   trigger_pr_git_name                 = var.trigger_pr_git_name
   trigger_pr_git_enable               = var.trigger_pr_git_enable
   enable_pipeline_notifications       = (var.event_notifications_crn != "" || var.enable_slack) ? true : false

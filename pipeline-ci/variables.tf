@@ -90,6 +90,9 @@ variable "add_pipeline_definitions" {
 variable "create_triggers" {
 }
 
+variable "create_git_triggers" {
+}
+
 variable "app_repo_provider_webhook_syntax" {
 }
 

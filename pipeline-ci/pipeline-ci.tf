@@ -35,7 +35,7 @@ resource "ibm_cd_tekton_pipeline_definition" "cd_tekton_definition_tag" {
 ############ GIT Trigger #############################################
 
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
-  count       = (var.create_triggers) ? 1 : 0
+  count       = (var.create_git_triggers) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type        = "scm"
   name        = var.trigger_git_name
@@ -54,7 +54,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "ci_pipeline_scm_trigger_property_app_name" {
-  count       = (var.create_triggers) ? 1 : 0
+  count       = (var.create_git_triggers) ? 1 : 0
   name        = "app-name"
   type        = "text"
   value       = var.app_name
