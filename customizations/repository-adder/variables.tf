@@ -21,3 +21,9 @@ variable "pipeline_repo_data" {
 
 variable "config_data" {
 }
+
+variable "create_default_triggers" {
+  type        = bool
+  description = "Set to `true` to allow creation of default triggers."
+  default     = true
+}

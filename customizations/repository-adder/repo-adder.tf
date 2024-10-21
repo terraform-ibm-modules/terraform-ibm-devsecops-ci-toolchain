@@ -10,9 +10,12 @@ locals {
   # Ensure there is a `mode` entry. The default behaviour is `link`to specified  repository.
   mode = try(var.pipeline_repo_data.mode, "link")
   # Ensure there is a `worker_id` entry. The default is is `public` -> managed worker
-  worker_id = try(var.pipeline_repo_data.worker_id, "public")
-  provider  = try(var.pipeline_repo_data.provider, "")
-  git_id    = try(var.pipeline_repo_data.git_id, "")
+  worker_id        = try(var.pipeline_repo_data.worker_id, "public")
+  provider         = try(var.pipeline_repo_data.provider, "")
+  git_id           = try(var.pipeline_repo_data.git_id, "")
+  blind_connection = try(var.pipeline_repo_data.blind_connection, "")
+  root_url         = try(var.pipeline_repo_data.root_url, "")
+  title            = try(var.pipeline_repo_data.title, "")
 
   # Ensure repositories have the same structure
   pre_process_repo_data = flatten([for repository in local.repositories : {
@@ -25,7 +28,10 @@ locals {
     repository_owner     = try(repository.repository_owner, local.repository_owner)         # If not set, read from parent
     name                 = try(repository.name, "")                                         # Only used in clone mode
     worker_id            = try(repository.worker_id, local.worker_id)                       # If not set, read from parent
-    triggers = flatten([for trigger in try(repository.triggers, []) : {                     #loop through triggers, if they exist
+    blind_connection     = try(repository.blind_connection, local.blind_connection)
+    root_url             = try(repository.root_url, local.root_url)
+    title                = try(repository.title, local.title)
+    triggers = flatten([for trigger in try(repository.triggers, []) : { #loop through triggers, if they exist
       # This is to ensure that all the properties are present. Trigger validation will happen in the trigger module
       type                = try(trigger.type, "") #If type is not set, default to "manual"
       name                = try(trigger.name, "") # If trigger name is not set, leave empty
@@ -65,14 +71,15 @@ module "repos_and_triggers" {
   for_each = tomap({
     for t in local.pre_process_repo_data : "${t.repository_url}" => t
   })
-  repository_owner     = local.repository_owner
-  toolchain_id         = var.toolchain_id
-  git_token_secret_ref = local.git_token_secret_ref
-  repository_data      = each.value # each repository payload
-  pipeline_id          = var.pipeline_id
-  pr_pipeline_id       = var.pr_pipeline_id
-  default_branch       = local.default_branch
-  mode                 = local.mode
-  worker_id            = local.worker_id
-  config_data          = var.config_data
+  repository_owner        = local.repository_owner
+  toolchain_id            = var.toolchain_id
+  git_token_secret_ref    = local.git_token_secret_ref
+  repository_data         = each.value # each repository payload
+  pipeline_id             = var.pipeline_id
+  pr_pipeline_id          = var.pr_pipeline_id
+  default_branch          = local.default_branch
+  mode                    = local.mode
+  worker_id               = local.worker_id
+  config_data             = var.config_data
+  create_default_triggers = var.create_default_triggers
 }

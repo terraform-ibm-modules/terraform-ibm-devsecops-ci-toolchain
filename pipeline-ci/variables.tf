@@ -82,7 +82,16 @@ variable "ci_pipeline_max_concurrent_runs" {
   default     = 1
 }
 
+variable "add_pipeline_definitions" {
+}
+
 ######## Deployment Strategy ##################
+
+variable "create_triggers" {
+}
+
+variable "create_git_triggers" {
+}
 
 variable "app_repo_provider_webhook_syntax" {
 }

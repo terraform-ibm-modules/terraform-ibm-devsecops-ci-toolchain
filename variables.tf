@@ -196,6 +196,24 @@ variable "app_repo_initialization_type" {
   default     = ""
 }
 
+variable "app_repo_blind_connection" {
+  type        = string
+  description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
+  default     = ""
+}
+
+variable "app_repo_title" {
+  type        = string
+  description = "(Optional) The title of the server. e.g. My Git Enterprise Server."
+  default     = ""
+}
+
+variable "app_repo_root_url" {
+  type        = string
+  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
+  default     = ""
+}
+
 variable "pipeline_config_repo_existing_url" {
   type        = string
   description = "Specify a repository containing a custom pipeline-config.yaml file"
@@ -627,6 +645,24 @@ variable "issues_repo_clone_from_url" {
   default     = ""
 }
 
+variable "issues_repo_blind_connection" {
+  type        = string
+  description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
+  default     = ""
+}
+
+variable "issues_repo_title" {
+  type        = string
+  description = "(Optional) The title of the server. e.g. My Git Enterprise Server."
+  default     = ""
+}
+
+variable "issues_repo_root_url" {
+  type        = string
+  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
+  default     = ""
+}
+
 variable "inventory_repo_issues_enabled" {
   type        = bool
   description = "Set to `true` to enable issues."
@@ -673,6 +709,24 @@ variable "inventory_repo_existing_url" {
 variable "inventory_repo_clone_from_url" {
   type        = string
   description = "The repo URL that the intgeration will clone from."
+  default     = ""
+}
+
+variable "inventory_repo_blind_connection" {
+  type        = string
+  description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
+  default     = ""
+}
+
+variable "inventory_repo_title" {
+  type        = string
+  description = "(Optional) The title of the server. e.g. My Git Enterprise Server."
+  default     = ""
+}
+
+variable "inventory_repo_root_url" {
+  type        = string
+  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
   default     = ""
 }
 
@@ -725,6 +779,24 @@ variable "evidence_repo_clone_from_url" {
   default     = ""
 }
 
+variable "evidence_repo_blind_connection" {
+  type        = string
+  description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
+  default     = ""
+}
+
+variable "evidence_repo_title" {
+  type        = string
+  description = "(Optional) The title of the server. e.g. My Git Enterprise Server."
+  default     = ""
+}
+
+variable "evidence_repo_root_url" {
+  type        = string
+  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
+  default     = ""
+}
+
 variable "compliance_pipeline_repo_integration_owner" {
   type        = string
   description = "The name of the integration owner."
@@ -735,6 +807,48 @@ variable "compliance_pipelines_repo_git_id" {
   type        = string
   description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
   default     = ""
+}
+
+variable "compliance_pipelines_repo_blind_connection" {
+  type        = string
+  description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
+  default     = ""
+}
+
+variable "compliance_pipelines_repo_title" {
+  type        = string
+  description = "(Optional) The title of the server. e.g. My Git Enterprise Server."
+  default     = ""
+}
+
+variable "compliance_pipelines_repo_root_url" {
+  type        = string
+  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
+  default     = ""
+}
+
+variable "compliance_pipelines_repo_traceability_enabled" {
+  type        = bool
+  description = "Set to `true` to enable traceability."
+  default     = false
+}
+
+variable "compliance_pipelines_repo_is_private_repo" {
+  type        = bool
+  description = "Set to `true` to make repository private."
+  default     = false
+}
+
+variable "compliance_pipelines_repo_initialization_type" {
+  type        = string
+  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
+  default     = ""
+}
+
+variable "compliance_pipelines_repo_name" {
+  type        = string
+  description = "The repository name."
+  default     = "compliance-pipelines"
 }
 
 variable "compliance_pipeline_repo_issues_enabled" {
@@ -780,6 +894,24 @@ variable "pipeline_config_repo_git_id" {
   default     = ""
 }
 
+variable "pipeline_config_repo_blind_connection" {
+  type        = string
+  description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
+  default     = ""
+}
+
+variable "pipeline_config_repo_title" {
+  type        = string
+  description = "(Optional) The title of the server. e.g. My Git Enterprise Server."
+  default     = ""
+}
+
+variable "pipeline_config_repo_root_url" {
+  type        = string
+  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
+  default     = ""
+}
+
 variable "app_repo_integration_owner" {
   type        = string
   description = "The name of the integration owner."
@@ -790,6 +922,18 @@ variable "compliance_pipeline_repo_url" {
   type        = string
   default     = ""
   description = "Url of pipeline repo template to be cloned"
+}
+
+variable "compliance_pipeline_existing_repo_url" {
+  type        = string
+  default     = ""
+  description = "The URL of an existing compliance pipelines repository."
+}
+
+variable "compliance_pipeline_source_repo_url" {
+  type        = string
+  default     = ""
+  description = "The URL of a compliance pipelines repository to clone."
 }
 
 variable "inventory_source_repo_url" {
@@ -1032,6 +1176,12 @@ variable "pipeline_config_group" {
   default     = ""
 }
 
+variable "add_pipeline_definitions" {
+  type        = string
+  description = "Set to `true` to add pipeline definitions."
+  default     = "true"
+}
+
 variable "ci_pipeline_branch" {
   type        = string
   description = "The branch within CI pipeline definitions repository for Compliance CI Toolchain."
@@ -1214,6 +1364,24 @@ variable "event_notifications_crn" {
 }
 
 ####### Trigger properties ###################
+variable "create_custom_repository_default_triggers" {
+  type        = string
+  description = "Set to `true` to add default triggers for the repositories specified in the repositories JSON, if custom triggers are not set."
+  default     = "true"
+}
+
+variable "create_triggers" {
+  type        = string
+  description = "Set to `true` to create the default triggers associated with the compliance repos and sample app."
+  default     = "true"
+}
+
+variable "create_git_triggers" {
+  type        = string
+  description = "Set to `true` to create the default Git triggers associated with the compliance repos and sample app."
+  default     = "true"
+}
+
 variable "trigger_git_name" {
   type        = string
   description = "The name of the CI pipeline GIT trigger."

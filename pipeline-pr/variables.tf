@@ -51,6 +51,9 @@ variable "pr_pipeline_max_concurrent_runs" {
   default     = 1
 }
 
+variable "add_pipeline_definitions" {
+}
+
 variable "app_repo_provider_webhook_syntax" {
 }
 
@@ -58,6 +61,9 @@ variable "tool_artifactory" {
 }
 
 variable "enable_artifactory" {
+}
+
+variable "create_git_triggers" {
 }
 
 variable "trigger_pr_git_name" {

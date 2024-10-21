@@ -7,7 +7,7 @@ resource "ibm_cd_tekton_pipeline" "pr_pipeline_instance" {
 }
 
 resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {
-  count       = (var.pipeline_git_tag == "") ? 1 : 0
+  count       = ((var.pipeline_git_tag == "") && (var.add_pipeline_definitions)) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   source {
     type = "git"
@@ -20,7 +20,7 @@ resource "ibm_cd_tekton_pipeline_definition" "pr_pipeline_definition" {
 }
 
 resource "ibm_cd_tekton_pipeline_definition" "pr_tekton_definition_tag" {
-  count       = (var.pipeline_git_tag != "") ? 1 : 0
+  count       = ((var.pipeline_git_tag != "") && (var.add_pipeline_definitions)) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   source {
     type = "git"
@@ -33,6 +33,7 @@ resource "ibm_cd_tekton_pipeline_definition" "pr_tekton_definition_tag" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
+  count       = (var.create_git_triggers) ? 1 : 0
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
   type        = "scm"
   name        = var.trigger_pr_git_name
@@ -51,9 +52,10 @@ resource "ibm_cd_tekton_pipeline_trigger" "pr_pipeline_scm_trigger" {
 }
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "pr_pipeline_scm_trigger_property_app_name" {
+  count       = (var.create_git_triggers) ? 1 : 0
   name        = "app-name"
   type        = "text"
   value       = var.app_name
   pipeline_id = ibm_cd_tekton_pipeline.pr_pipeline_instance.pipeline_id
-  trigger_id  = ibm_cd_tekton_pipeline_trigger.pr_pipeline_scm_trigger.trigger_id
+  trigger_id  = ibm_cd_tekton_pipeline_trigger.pr_pipeline_scm_trigger[0].trigger_id
 }
