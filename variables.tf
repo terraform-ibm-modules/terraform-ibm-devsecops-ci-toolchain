@@ -1513,3 +1513,45 @@ variable "default_locked_properties" {
   description = "List of default locked properties"
   default     = ["artifactory-dockerconfigjson", "cluster", "cluster-namespace", "cluster-region", "compliance-baseimage", "cos-api-key", "cos-bucket-name", "cos-endpoint", "cra-bom-generate", "cra-deploy-analysis", "cra-generate-cyclonedx-format", "cra-vulnerability-scan", "custom-image-tag", "dev-region", "dev-resource-group", "doi-environment", "doi-ibmcloud-api-key", "doi-toolchain-id", "event-notifications", "evidence-repo", "git-token", "gosec-private-repository-host", "gosec-private-repository-ssh-key", "ibmcloud-api", "ibmcloud-api-key", "incident-repo", "inventory-repo", "opt-in-dynamic-api-scan", "opt-in-dynamic-scan", "opt-in-dynamic-ui-scan", "opt-in-gosec", "opt-in-sonar", "peer-review-compliance", "pipeline-config", "pipeline-config-branch", "pipeline-config-repo", "pipeline-dockerconfigjson", "print-code-signing-certificate", "registry-namespace", "registry-region", "signing-key", "slack-notifications", "sonarqube", "sonarqube-config", "version"]
 }
+
+variable "repo_blind_connection" {
+  type        = string
+  description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
+  default     = ""
+}
+
+variable "repo_git_id" {
+  type        = string
+  description = "The Git ID for the compliance repositories."
+  default     = ""
+}
+
+variable "repo_git_provider" {
+  type        = string
+  description = "The Git provider type."
+  default     = ""
+}
+
+variable "repo_root_url" {
+  type        = string
+  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
+  default     = ""
+}
+
+variable "repo_title" {
+  type        = string
+  description = "(Optional) The title of the server. e.g. My Git Enterprise Server."
+  default     = ""
+}
+
+variable "repo_group" {
+  type        = string
+  description = "Specify the Git user or group for your application. This must be set if the repository authentication type is `pat` (personal access token)."
+  default     = ""
+}
+
+variable "repo_git_token_secret_name" {
+  type        = string
+  description = "Name of the Git token secret in the secret provider. Specifying a secret name for the Git Token automatically sets the authentication type to `pat`."
+  default     = ""
+}
