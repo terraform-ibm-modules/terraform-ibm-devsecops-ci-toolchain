@@ -235,7 +235,7 @@ variable "pipeline_config_repo_clone_from_url" {
 variable "pipeline_config_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
-  default     = "oauth"
+  default     = ""
 }
 
 variable "pipeline_config_initialization_type" {
@@ -247,31 +247,31 @@ variable "pipeline_config_initialization_type" {
 variable "app_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
-  default     = "oauth"
+  default     = ""
 }
 
 variable "compliance_pipeline_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
-  default     = "oauth"
+  default     = ""
 }
 
 variable "issues_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
-  default     = "oauth"
+  default     = ""
 }
 
 variable "evidence_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
-  default     = "oauth"
+  default     = ""
 }
 
 variable "inventory_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
-  default     = "oauth"
+  default     = ""
 }
 
 # SECRET REF NAMES
@@ -1553,5 +1553,17 @@ variable "repo_group" {
 variable "repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider. Specifying a secret name for the Git Token automatically sets the authentication type to `pat`."
+  default     = ""
+}
+
+variable "repo_auth_type" {
+  type        = string
+  description = "The auth type for the repo `oauth` or 'pat` (personal access token). Applies to all the default compliance repositories but can be overriden by the repository specific variable."
+  default     = ""
+}
+
+variable "repo_integration_owner" {
+  type        = string
+  description = "The integration owner of the repository. Applies to all the default compliance repositories but can be overriden by the repository specific variable."
   default     = ""
 }
