@@ -1,5 +1,5 @@
 module "devsecops_ci_toolchain" {
-  source                                         = "../../"
+  source                                         = "../"
   add_pipeline_definitions                       = var.add_pipeline_definitions
   app_group                                      = var.app_group
   app_name                                       = var.app_name

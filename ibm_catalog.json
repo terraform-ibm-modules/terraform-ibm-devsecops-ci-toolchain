@@ -3,7 +3,7 @@
         {
             "label": "DevSecOps CI Toolchain",
             "name": "devsecops-ci-toolchain",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "product_kind": "solution",
             "tags": [
                 "enterprise_app"
@@ -22,7 +22,6 @@
                 {
                     "label": "Deploy to Kubernetes",
                     "name": "devsecops_kube",
-                    "index": 2,
                     "working_directory": "solutions",
                     "compliance": {
                         "authority": "scc-v3",
@@ -34,63 +33,63 @@
                                     "version": "1.6.0"
                                 },
                                 "names": [
-                                    "SA-3(a)",
-                                    "CM-6(d)",
-                                    "CM-7(b)",
-                                    "RA-5(3)",
-                                    "SA-3(d)",
+                                    "CM-6(c)",
+                                    "CM-3(f)",
+                                    "CM-7(1)(a)",
+                                    "SI-2(b)",
+                                    "CM-9(d)",
+                                    "CM-10(1)",
                                     "SI-10",
-                                    "SI-7",
-                                    "SA-10(d)",
-                                    "CM-3(g)",
-                                    "CM-8(1)",
-                                    "SA-15(a)",
-                                    "CM-4",
                                     "CM-2(3)",
-                                    "SI-2(d)",
-                                    "CM-4(1)",
-                                    "CM-9(c)",
-                                    "CM-9(a)",
-                                    "CM-2(1)(a)",
-                                    "CM-2(1)(b)",
-                                    "CM-3(b)",
-                                    "RA-5(b)",
-                                    "SI-2(2)",
-                                    "RA-5(2)",
-                                    "SA-10(1)",
                                     "SA-10(e)",
                                     "CM-6(1)",
-                                    "CM-2(2)",
+                                    "CM-3(a)",
+                                    "RA-5(a)",
+                                    "SI-2(2)",
                                     "SA-10(c)",
-                                    "CM-2",
                                     "SA-8",
-                                    "CM-6(c)",
-                                    "CM-2(1)(c)",
-                                    "CM-8(b)",
-                                    "CM-3(f)",
+                                    "CM-6(b)",
+                                    "SI-2(d)",
+                                    "CM-2(1)(a)",
+                                    "CM-3(b)",
+                                    "CM-9(a)",
                                     "CM-8(2)",
                                     "RA-5(1)",
-                                    "SI-2(b)",
-                                    "CM-6(b)",
-                                    "CM-9(d)",
-                                    "SI-2(c)",
-                                    "CM-8(a)",
-                                    "CM-3(d)",
-                                    "CM-9(b)",
-                                    "SA-10(b)",
-                                    "SA-10(a)",
-                                    "CM-3(c)",
-                                    "SI-2(a)",
-                                    "CM-10(1)",
-                                    "RA-5(a)",
-                                    "CM-6(a)",
                                     "RA-5(c)",
-                                    "RA-5(d)",
-                                    "CM-7(1)(a)",
-                                    "CM-3(2)",
-                                    "CM-5",
+                                    "RA-5(3)",
+                                    "SA-3(d)",
+                                    "CM-4",
+                                    "CM-3(g)",
+                                    "RA-5(2)",
                                     "CM-3(e)",
-                                    "CM-3(a)"
+                                    "CM-8(a)",
+                                    "CM-9(b)",
+                                    "CM-6(a)",
+                                    "CM-3(2)",
+                                    "CM-2",
+                                    "SI-2(c)",
+                                    "CM-5",
+                                    "CM-2(1)(b)",
+                                    "RA-5(b)",
+                                    "SA-10(1)",
+                                    "CM-2(2)",
+                                    "SA-15(a)",
+                                    "CM-2(1)(c)",
+                                    "SA-10(b)",
+                                    "RA-5(d)",
+                                    "SA-3(a)",
+                                    "CM-9(c)",
+                                    "SI-2(a)",
+                                    "CM-8(b)",
+                                    "CM-3(c)",
+                                    "CM-7(b)",
+                                    "SI-7",
+                                    "SA-10(d)",
+                                    "CM-4(1)",
+                                    "CM-8(1)",
+                                    "CM-6(d)",
+                                    "CM-3(d)",
+                                    "SA-10(a)"
                                 ]
                             }
                         ]
@@ -1293,9 +1292,15 @@
                         {
                             "key": "pipeline_properties",
                             "type": "string",
-                            "default_value": "",
+                            "default_value": "[\n  {\n    \"pipeline_id\": \"ci\",\n    \"properties\": [\n      {\n        \"name\": \"cluster-name\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cos-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cos-bucket-name\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cos-endpoint\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cra-bom-generate\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-deploy-analysis\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-generate-cyclonedx-format\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"cra-vulnerability-scan\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"custom_image_tag\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"dev-cluster-namespace\",\n        \"type\": \"text\",\n        \"value\": \"dev\"\n      },\n      {\n        \"name\": \"dev-region\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"dev-resource-group\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-environment\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-toolchain-id\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"event-notifications\",\n        \"type\": \"text\",\n        \"value\": \"0\"\n      },\n      {\n        \"name\": \"git-token\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-api-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-ui-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-gosec\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"opt-in-sonar\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"peer-review-compliance\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"pipeline-config\",\n        \"type\": \"text\",\n        \"value\": \".pipeline-config.yaml\"\n      },\n      {\n        \"name\": \"pipeline-config-branch\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-debug\",\n        \"type\": \"single_select\",\n        \"value\": \"0\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"print-code-signing-certificate\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"registry-namespace\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"registry-region\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"signing-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"slack-notifications\",\n        \"type\": \"text\",\n        \"value\": \"0\"\n      },\n      {\n        \"name\": \"sonarqube-config\",\n        \"type\": \"text\",\n        \"value\": \"default\"\n      },\n      {\n        \"name\": \"version\",\n        \"type\": \"text\",\n        \"value\": \"v1\"\n      }\n    ]\n  },\n  {\n    \"pipeline_id\": \"pr\",\n    \"properties\": [\n      {\n        \"name\": \"git-token\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cra-bom-generate\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-deploy-analysis\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-vulnerability-scan\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-config\",\n        \"type\": \"text\",\n        \"value\": \".pipeline-config.yaml\"\n      },\n      {\n        \"name\": \"pipeline-config-branch\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-debug\",\n        \"type\": \"single_select\",\n        \"value\": \"0\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"slack-notifications\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      }\n    ]\n  }\n]\n",
                             "description": "Stringified JSON containing the properties. This takes precedence over the properties JSON.",
-                            "required": false
+                            "display_name": "JSON",
+                            "required": true,
+                            "custom_config": {
+                                "type": "json_editor",
+                                "grouping": "deployment",
+                                "original_grouping": "deployment"
+                            }
                         },
                         {
                             "key": "pipeline_properties_filepath",
@@ -1656,74 +1661,6 @@
                     ],
                     "outputs": [
                         {
-                            "key": "inventory_repo_url",
-                            "description": "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
-                        },
-                        {
-                            "key": "pr_pipeline_id",
-                            "description": "The PR pipeline ID."
-                        },
-                        {
-                            "key": "secret_tool_v1",
-                            "description": "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
-                        },
-                        {
-                            "key": "secrets_manager_instance_id",
-                            "description": "The Secrets Manager instance ID."
-                        },
-                        {
-                            "key": "app_repo_git_provider",
-                            "description": "The app repo provider 'hostedgit', 'githubconsolidated' etc."
-                        },
-                        {
-                            "key": "pipeline_repo_url",
-                            "description": "This repository URL contains the tekton definitions for compliance pipelines."
-                        },
-                        {
-                            "key": "private_worker_id",
-                            "description": "The ID of the pipeline worker."
-                        },
-                        {
-                            "key": "issues_repo_url",
-                            "description": "The incident issues repository instance URL, where issues are created when vulnerabilities and CVEs are detected."
-                        },
-                        {
-                            "key": "secret_tool",
-                            "description": "The secret tool."
-                        },
-                        {
-                            "key": "evidence_repo",
-                            "description": "The Evidence repo."
-                        },
-                        {
-                            "key": "inventory_repo",
-                            "description": "The Inventory repo."
-                        },
-                        {
-                            "key": "app_repo_url",
-                            "description": "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
-                        },
-                        {
-                            "key": "key_protect_instance_id",
-                            "description": "The Key Protect instance ID."
-                        },
-                        {
-                            "key": "app_repo_branch",
-                            "description": "The branch of the app repo to be used."
-                        },
-                        {
-                            "key": "ci_pipeline_id",
-                            "description": "The CI pipeline ID."
-                        },
-                        {
-                            "key": "app_repo_git_id",
-                            "description": "The app repo Git ID."
-                        },
-                        {
-                            "key": "evidence_repo_url",
-                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
-                        },
-                        {
                             "key": "toolchain_url",
                             "description": "The CI toolchain URL."
                         },
@@ -1732,8 +1669,76 @@
                             "description": "The CI toolchain ID."
                         },
                         {
+                            "key": "secrets_manager_instance_id",
+                            "description": "The Secrets Manager instance ID."
+                        },
+                        {
+                            "key": "pr_pipeline_id",
+                            "description": "The PR pipeline ID."
+                        },
+                        {
+                            "key": "secret_tool",
+                            "description": "The secret tool."
+                        },
+                        {
+                            "key": "key_protect_instance_id",
+                            "description": "The Key Protect instance ID."
+                        },
+                        {
+                            "key": "inventory_repo_url",
+                            "description": "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
+                        },
+                        {
+                            "key": "issues_repo_url",
+                            "description": "The incident issues repository instance URL, where issues are created when vulnerabilities and CVEs are detected."
+                        },
+                        {
+                            "key": "private_worker_id",
+                            "description": "The ID of the pipeline worker."
+                        },
+                        {
+                            "key": "app_repo_url",
+                            "description": "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
+                        },
+                        {
+                            "key": "evidence_repo_url",
+                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
+                        },
+                        {
+                            "key": "inventory_repo",
+                            "description": "The Inventory repo."
+                        },
+                        {
+                            "key": "secret_tool_v1",
+                            "description": "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
+                        },
+                        {
+                            "key": "app_repo_git_provider",
+                            "description": "The app repo provider 'hostedgit', 'githubconsolidated' etc."
+                        },
+                        {
+                            "key": "ci_pipeline_id",
+                            "description": "The CI pipeline ID."
+                        },
+                        {
+                            "key": "app_repo_branch",
+                            "description": "The branch of the app repo to be used."
+                        },
+                        {
+                            "key": "evidence_repo",
+                            "description": "The Evidence repo."
+                        },
+                        {
                             "key": "issues_repo",
                             "description": "The Issues repo."
+                        },
+                        {
+                            "key": "pipeline_repo_url",
+                            "description": "This repository URL contains the tekton definitions for compliance pipelines."
+                        },
+                        {
+                            "key": "app_repo_git_id",
+                            "description": "The app repo Git ID."
                         }
                     ],
                     "install_type": "fullstack"
@@ -1741,7 +1746,6 @@
                 {
                     "label": "Deploy to Code Engine",
                     "name": "devsecops_ce",
-                    "index": 1,
                     "working_directory": "solutions",
                     "compliance": {
                         "authority": "scc-v3",
@@ -1753,63 +1757,63 @@
                                     "version": "1.6.0"
                                 },
                                 "names": [
-                                    "SA-3(a)",
-                                    "CM-6(d)",
-                                    "CM-7(b)",
-                                    "RA-5(3)",
-                                    "SA-3(d)",
-                                    "SI-10",
-                                    "SI-7",
-                                    "SA-10(d)",
-                                    "CM-3(g)",
-                                    "CM-8(1)",
-                                    "SA-15(a)",
-                                    "CM-4",
-                                    "CM-2(3)",
-                                    "SI-2(d)",
-                                    "CM-4(1)",
-                                    "CM-9(c)",
-                                    "CM-9(a)",
-                                    "CM-2(1)(a)",
-                                    "CM-2(1)(b)",
-                                    "CM-3(b)",
-                                    "RA-5(b)",
+                                    "CM-9(b)",
+                                    "CM-3(f)",
+                                    "CM-8(a)",
+                                    "SA-10(a)",
+                                    "CM-7(1)(a)",
+                                    "CM-3(e)",
+                                    "SA-8",
                                     "SI-2(2)",
                                     "RA-5(2)",
-                                    "SA-10(1)",
-                                    "SA-10(e)",
-                                    "CM-6(1)",
                                     "CM-2(2)",
-                                    "SA-10(c)",
-                                    "CM-2",
-                                    "SA-8",
-                                    "CM-6(c)",
-                                    "CM-2(1)(c)",
-                                    "CM-8(b)",
-                                    "CM-3(f)",
-                                    "CM-8(2)",
-                                    "RA-5(1)",
-                                    "SI-2(b)",
-                                    "CM-6(b)",
-                                    "CM-9(d)",
-                                    "SI-2(c)",
-                                    "CM-8(a)",
-                                    "CM-3(d)",
-                                    "CM-9(b)",
-                                    "SA-10(b)",
-                                    "SA-10(a)",
-                                    "CM-3(c)",
-                                    "SI-2(a)",
+                                    "CM-3(a)",
+                                    "CM-2(1)(b)",
+                                    "SI-2(d)",
                                     "CM-10(1)",
                                     "RA-5(a)",
-                                    "CM-6(a)",
-                                    "RA-5(c)",
                                     "RA-5(d)",
-                                    "CM-7(1)(a)",
+                                    "SA-3(a)",
+                                    "CM-9(a)",
+                                    "CM-6(1)",
+                                    "CM-6(b)",
+                                    "CM-3(b)",
+                                    "CM-8(b)",
+                                    "CM-9(d)",
+                                    "CM-6(c)",
+                                    "CM-8(1)",
+                                    "CM-2",
+                                    "CM-3(g)",
+                                    "SA-10(1)",
+                                    "CM-2(1)(c)",
+                                    "SI-2(b)",
+                                    "SA-10(d)",
+                                    "CM-2(1)(a)",
+                                    "SI-2(a)",
                                     "CM-3(2)",
+                                    "SA-15(a)",
+                                    "SI-10",
+                                    "CM-4",
+                                    "SI-2(c)",
+                                    "SI-7",
+                                    "RA-5(3)",
+                                    "CM-9(c)",
+                                    "SA-10(e)",
+                                    "CM-6(a)",
+                                    "CM-7(b)",
+                                    "CM-2(3)",
+                                    "CM-4(1)",
+                                    "RA-5(b)",
+                                    "RA-5(1)",
+                                    "SA-10(b)",
                                     "CM-5",
-                                    "CM-3(e)",
-                                    "CM-3(a)"
+                                    "SA-3(d)",
+                                    "CM-3(d)",
+                                    "CM-3(c)",
+                                    "RA-5(c)",
+                                    "CM-6(d)",
+                                    "CM-8(2)",
+                                    "SA-10(c)"
                                 ]
                             }
                         ]
@@ -3012,9 +3016,15 @@
                         {
                             "key": "pipeline_properties",
                             "type": "string",
-                            "default_value": "",
+                            "default_value": "[\n  {\n    \"pipeline_id\": \"ci\",\n    \"properties\": [\n      {\n        \"name\": \"app-concurrency\",\n        \"type\": \"text\",\n        \"value\": \"100\"\n      },\n      {\n        \"name\": \"app-deployment-timeout\",\n        \"type\": \"text\",\n        \"value\": \"300\"\n      },\n      {\n        \"name\": \"app-max-scale\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"app-min-scale\",\n        \"type\": \"text\",\n        \"value\": \"0\"\n      },\n      {\n        \"name\": \"app-port\",\n        \"type\": \"text\",\n        \"value\": \"8080\"\n      },\n      {\n        \"name\": \"app-visibility\",\n        \"type\": \"text\",\n        \"value\": \"public\"\n      },\n      {\n        \"name\": \"code-engine-binding-resource-group\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"code-engine-build-size\",\n        \"type\": \"text\",\n        \"value\": \"large\"\n      },\n      {\n        \"name\": \"code-engine-build-strategy\",\n        \"type\": \"text\",\n        \"value\": \"dockerfile\"\n      },\n      {\n        \"name\": \"code-engine-build-timeout\",\n        \"type\": \"text\",\n        \"value\": \"1200\"\n      },\n      {\n        \"name\": \"code-engine-build-use-native-docker\",\n        \"type\": \"text\",\n        \"value\": \"false\"\n      },\n      {\n        \"name\": \"code-engine-deployment-type\",\n        \"type\": \"text\",\n        \"value\": \"application\"\n      },\n      {\n        \"name\": \"code-engine-project\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"code-engine-region\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"code-engine-resource-group\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"code-engine-wait-timeout\",\n        \"type\": \"text\",\n        \"value\": \"1300\"\n      },\n      {\n        \"name\": \"context-dir\",\n        \"type\": \"text\",\n        \"value\": \"dockerfile-strategy\"\n      },\n      {\n        \"name\": \"cos-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cos-bucket-name\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cos-endpoint\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cpu\",\n        \"type\": \"text\",\n        \"value\": \"0.25\"\n      },\n      {\n        \"name\": \"cra-bom-generate\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-deploy-analysis\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-generate-cyclonedx-format\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"cra-vulnerability-scan\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"custom_image_tag\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"dev-region\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"dev-resource-group\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-environment\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-toolchain-id\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"env-from-configmaps\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"env-from-secrets\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"ephemeral-storage\",\n        \"type\": \"text\",\n        \"value\": \"0.4G\"\n      },\n      {\n        \"name\": \"event-notifications\",\n        \"type\": \"text\",\n        \"value\": \"0\"\n      },\n      {\n        \"name\": \"git-token\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"image-name\",\n        \"type\": \"text\",\n        \"value\": \"code-engine-compliance-app\"\n      },\n      {\n        \"name\": \"job-instances\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"job-maxexecutiontime\",\n        \"type\": \"text\",\n        \"value\": \"7200\"\n      },\n      {\n        \"name\": \"job-retrylimit\",\n        \"type\": \"text\",\n        \"value\": \"3\"\n      },\n      {\n        \"name\": \"memory\",\n        \"type\": \"text\",\n        \"value\": \"0.5G\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-api-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-ui-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-gosec\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"opt-in-sonar\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"peer-review-compliance\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"pipeline-config\",\n        \"type\": \"text\",\n        \"value\": \".pipeline-config.yaml\"\n      },\n      {\n        \"name\": \"pipeline-config-branch\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-debug\",\n        \"type\": \"single_select\",\n        \"value\": \"0\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"print-code-signing-certificate\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"registry-domain\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"registry-namespace\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"registry-region\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"remove-unspecified-references-to-configuration-resources\",\n        \"type\": \"text\",\n        \"value\": \"false\"\n      },\n      {\n        \"name\": \"service-bindings\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"signing-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"slack-notifications\",\n        \"type\": \"text\",\n        \"value\": \"0\"\n      },\n      {\n        \"name\": \"sonarqube-config\",\n        \"type\": \"text\",\n        \"value\": \"default\"\n      },\n      {\n        \"name\": \"source\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"version\",\n        \"type\": \"text\",\n        \"value\": \"v1\"\n      }\n    ]\n  },\n  {\n    \"pipeline_id\": \"pr\",\n    \"properties\": [\n      {\n        \"name\": \"cra-bom-generate\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-deploy-analysis\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-vulnerability-scan\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"git-token\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-config\",\n        \"type\": \"text\",\n        \"value\": \".pipeline-config.yaml\"\n      },\n      {\n        \"name\": \"pipeline-config-branch\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-debug\",\n        \"type\": \"single_select\",\n        \"value\": \"0\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"slack-notifications\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      }\n    ]\n  }\n]\n",
                             "description": "Stringified JSON containing the properties. This takes precedence over the properties JSON.",
-                            "required": false
+                            "display_name": "JSON",
+                            "required": true,
+                            "custom_config": {
+                                "type": "json_editor",
+                                "grouping": "deployment",
+                                "original_grouping": "deployment"
+                            }
                         },
                         {
                             "key": "pipeline_properties_filepath",
@@ -3215,7 +3225,16 @@
                             "type": "string",
                             "default_value": "us-south",
                             "description": "IBM Cloud location/region containing the Secrets Manager instance. Not required if using a Secrets Manager CRN instance.",
-                            "required": false
+                            "display_name": "VPC region",
+                            "required": false,
+                            "custom_config": {
+                                "type": "vpc_region",
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "config_constraints": {
+                                    "generationType": "2"
+                                }
+                            }
                         },
                         {
                             "key": "sm_name",
@@ -3375,16 +3394,16 @@
                     ],
                     "outputs": [
                         {
-                            "key": "inventory_repo_url",
-                            "description": "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
-                        },
-                        {
-                            "key": "pr_pipeline_id",
-                            "description": "The PR pipeline ID."
+                            "key": "ci_pipeline_id",
+                            "description": "The CI pipeline ID."
                         },
                         {
                             "key": "secret_tool_v1",
                             "description": "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
+                        },
+                        {
+                            "key": "secret_tool",
+                            "description": "The secret tool."
                         },
                         {
                             "key": "secrets_manager_instance_id",
@@ -3395,8 +3414,52 @@
                             "description": "The app repo provider 'hostedgit', 'githubconsolidated' etc."
                         },
                         {
+                            "key": "app_repo_git_id",
+                            "description": "The app repo Git ID."
+                        },
+                        {
+                            "key": "app_repo_branch",
+                            "description": "The branch of the app repo to be used."
+                        },
+                        {
+                            "key": "inventory_repo",
+                            "description": "The Inventory repo."
+                        },
+                        {
+                            "key": "key_protect_instance_id",
+                            "description": "The Key Protect instance ID."
+                        },
+                        {
                             "key": "pipeline_repo_url",
                             "description": "This repository URL contains the tekton definitions for compliance pipelines."
+                        },
+                        {
+                            "key": "app_repo_url",
+                            "description": "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
+                        },
+                        {
+                            "key": "toolchain_url",
+                            "description": "The CI toolchain URL."
+                        },
+                        {
+                            "key": "issues_repo",
+                            "description": "The Issues repo."
+                        },
+                        {
+                            "key": "evidence_repo_url",
+                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
+                        },
+                        {
+                            "key": "evidence_repo",
+                            "description": "The Evidence repo."
+                        },
+                        {
+                            "key": "inventory_repo_url",
+                            "description": "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
+                        },
+                        {
+                            "key": "pr_pipeline_id",
+                            "description": "The PR pipeline ID."
                         },
                         {
                             "key": "private_worker_id",
@@ -3407,52 +3470,8 @@
                             "description": "The incident issues repository instance URL, where issues are created when vulnerabilities and CVEs are detected."
                         },
                         {
-                            "key": "secret_tool",
-                            "description": "The secret tool."
-                        },
-                        {
-                            "key": "evidence_repo",
-                            "description": "The Evidence repo."
-                        },
-                        {
-                            "key": "inventory_repo",
-                            "description": "The Inventory repo."
-                        },
-                        {
-                            "key": "app_repo_url",
-                            "description": "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
-                        },
-                        {
-                            "key": "key_protect_instance_id",
-                            "description": "The Key Protect instance ID."
-                        },
-                        {
-                            "key": "app_repo_branch",
-                            "description": "The branch of the app repo to be used."
-                        },
-                        {
-                            "key": "ci_pipeline_id",
-                            "description": "The CI pipeline ID."
-                        },
-                        {
-                            "key": "app_repo_git_id",
-                            "description": "The app repo Git ID."
-                        },
-                        {
-                            "key": "evidence_repo_url",
-                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
-                        },
-                        {
-                            "key": "toolchain_url",
-                            "description": "The CI toolchain URL."
-                        },
-                        {
                             "key": "toolchain_id",
                             "description": "The CI toolchain ID."
-                        },
-                        {
-                            "key": "issues_repo",
-                            "description": "The Issues repo."
                         }
                     ],
                     "install_type": "fullstack"
