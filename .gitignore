@@ -4,6 +4,8 @@
 /*.tfstate
 /*.terraformrc
 /*.tfstate.backup
+/solutions/*.tfstate
+/solutions/*.tfstate.backup
 *.bak
 *.history
 .metadata
