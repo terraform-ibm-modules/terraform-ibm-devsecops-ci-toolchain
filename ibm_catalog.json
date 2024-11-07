@@ -1661,84 +1661,108 @@
                     ],
                     "outputs": [
                         {
-                            "key": "toolchain_url",
-                            "description": "The CI toolchain URL."
-                        },
-                        {
-                            "key": "toolchain_id",
-                            "description": "The CI toolchain ID."
-                        },
-                        {
-                            "key": "secrets_manager_instance_id",
-                            "description": "The Secrets Manager instance ID."
-                        },
-                        {
-                            "key": "pr_pipeline_id",
-                            "description": "The PR pipeline ID."
-                        },
-                        {
-                            "key": "secret_tool",
-                            "description": "The secret tool."
-                        },
-                        {
-                            "key": "key_protect_instance_id",
-                            "description": "The Key Protect instance ID."
-                        },
-                        {
                             "key": "inventory_repo_url",
                             "description": "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
                         },
                         {
-                            "key": "issues_repo_url",
-                            "description": "The incident issues repository instance URL, where issues are created when vulnerabilities and CVEs are detected."
+                            "key": "inventory_repo_git_provider",
+                            "description": "The inventory repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
                         },
                         {
                             "key": "private_worker_id",
                             "description": "The ID of the pipeline worker."
                         },
                         {
-                            "key": "app_repo_url",
-                            "description": "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
-                        },
-                        {
-                            "key": "evidence_repo_url",
-                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
-                        },
-                        {
-                            "key": "inventory_repo",
-                            "description": "The Inventory repo."
-                        },
-                        {
-                            "key": "secret_tool_v1",
-                            "description": "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
-                        },
-                        {
-                            "key": "app_repo_git_provider",
-                            "description": "The app repo provider 'hostedgit', 'githubconsolidated' etc."
-                        },
-                        {
-                            "key": "ci_pipeline_id",
-                            "description": "The CI pipeline ID."
-                        },
-                        {
-                            "key": "app_repo_branch",
-                            "description": "The branch of the app repo to be used."
-                        },
-                        {
-                            "key": "evidence_repo",
-                            "description": "The Evidence repo."
-                        },
-                        {
                             "key": "issues_repo",
                             "description": "The Issues repo."
+                        },
+                        {
+                            "key": "evidence_repo_git_provider",
+                            "description": "The evidence repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
                         },
                         {
                             "key": "pipeline_repo_url",
                             "description": "This repository URL contains the tekton definitions for compliance pipelines."
                         },
                         {
+                            "key": "evidence_repo_url",
+                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
+                        },
+                        {
+                            "key": "issues_repo_git_id",
+                            "description": "The issues repository Git ID"
+                        },
+                        {
+                            "key": "app_repo_git_provider",
+                            "description": "The app repo provider 'hostedgit', 'githubconsolidated' etc."
+                        },
+                        {
+                            "key": "toolchain_id",
+                            "description": "The CI toolchain ID."
+                        },
+                        {
+                            "key": "app_repo_url",
+                            "description": "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
+                        },
+                        {
                             "key": "app_repo_git_id",
                             "description": "The app repo Git ID."
+                        },
+                        {
+                            "key": "app_repo_branch",
+                            "description": "The branch of the app repo to be used."
+                        },
+                        {
+                            "key": "secrets_manager_instance_id",
+                            "description": "The Secrets Manager instance ID."
+                        },
+                        {
+                            "key": "secret_tool_v1",
+                            "description": "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
+                        },
+                        {
+                            "key": "toolchain_url",
+                            "description": "The CI toolchain URL."
+                        },
+                        {
+                            "key": "evidence_repo",
+                            "description": "The Evidence repo."
+                        },
+                        {
+                            "key": "issues_repo_git_provider",
+                            "description": "The issues repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
+                        },
+                        {
+                            "key": "evidence_repo_git_id",
+                            "description": "The evidence repository Git ID"
+                        },
+                        {
+                            "key": "issues_repo_url",
+                            "description": "The incident issues repository instance URL, where issues are created when vulnerabilities and CVEs are detected."
+                        },
+                        {
+                            "key": "pr_pipeline_id",
+                            "description": "The PR pipeline ID."
+                        },
+                        {
+                            "key": "inventory_repo_git_id",
+                            "description": "The inventory repository Git ID"
+                        },
+                        {
+                            "key": "secret_tool",
+                            "description": "The secret tool."
+                        },
+                        {
+                            "key": "inventory_repo",
+                            "description": "The Inventory repo."
+                        },
+                        {
+                            "key": "ci_pipeline_id",
+                            "description": "The CI pipeline ID."
+                        },
+                        {
+                            "key": "key_protect_instance_id",
+                            "description": "The Key Protect instance ID."
                         }
                     ],
                     "install_type": "fullstack"
@@ -3394,24 +3418,48 @@
                     ],
                     "outputs": [
                         {
-                            "key": "ci_pipeline_id",
-                            "description": "The CI pipeline ID."
+                            "key": "inventory_repo_url",
+                            "description": "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
                         },
                         {
-                            "key": "secret_tool_v1",
-                            "description": "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
+                            "key": "inventory_repo_git_provider",
+                            "description": "The inventory repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
                         },
                         {
-                            "key": "secret_tool",
-                            "description": "The secret tool."
+                            "key": "private_worker_id",
+                            "description": "The ID of the pipeline worker."
                         },
                         {
-                            "key": "secrets_manager_instance_id",
-                            "description": "The Secrets Manager instance ID."
+                            "key": "issues_repo",
+                            "description": "The Issues repo."
+                        },
+                        {
+                            "key": "evidence_repo_git_provider",
+                            "description": "The evidence repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
+                        },
+                        {
+                            "key": "pipeline_repo_url",
+                            "description": "This repository URL contains the tekton definitions for compliance pipelines."
+                        },
+                        {
+                            "key": "evidence_repo_url",
+                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
+                        },
+                        {
+                            "key": "issues_repo_git_id",
+                            "description": "The issues repository Git ID"
                         },
                         {
                             "key": "app_repo_git_provider",
                             "description": "The app repo provider 'hostedgit', 'githubconsolidated' etc."
+                        },
+                        {
+                            "key": "toolchain_id",
+                            "description": "The CI toolchain ID."
+                        },
+                        {
+                            "key": "app_repo_url",
+                            "description": "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
                         },
                         {
                             "key": "app_repo_git_id",
@@ -3422,56 +3470,56 @@
                             "description": "The branch of the app repo to be used."
                         },
                         {
-                            "key": "inventory_repo",
-                            "description": "The Inventory repo."
+                            "key": "secrets_manager_instance_id",
+                            "description": "The Secrets Manager instance ID."
                         },
                         {
-                            "key": "key_protect_instance_id",
-                            "description": "The Key Protect instance ID."
-                        },
-                        {
-                            "key": "pipeline_repo_url",
-                            "description": "This repository URL contains the tekton definitions for compliance pipelines."
-                        },
-                        {
-                            "key": "app_repo_url",
-                            "description": "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
+                            "key": "secret_tool_v1",
+                            "description": "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
                         },
                         {
                             "key": "toolchain_url",
                             "description": "The CI toolchain URL."
                         },
                         {
-                            "key": "issues_repo",
-                            "description": "The Issues repo."
-                        },
-                        {
-                            "key": "evidence_repo_url",
-                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
-                        },
-                        {
                             "key": "evidence_repo",
                             "description": "The Evidence repo."
                         },
                         {
-                            "key": "inventory_repo_url",
-                            "description": "The inventory repository instance URL, with details of which artifact has been built and will be deployed."
+                            "key": "issues_repo_git_provider",
+                            "description": "The issues repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
                         },
                         {
-                            "key": "pr_pipeline_id",
-                            "description": "The PR pipeline ID."
-                        },
-                        {
-                            "key": "private_worker_id",
-                            "description": "The ID of the pipeline worker."
+                            "key": "evidence_repo_git_id",
+                            "description": "The evidence repository Git ID"
                         },
                         {
                             "key": "issues_repo_url",
                             "description": "The incident issues repository instance URL, where issues are created when vulnerabilities and CVEs are detected."
                         },
                         {
-                            "key": "toolchain_id",
-                            "description": "The CI toolchain ID."
+                            "key": "pr_pipeline_id",
+                            "description": "The PR pipeline ID."
+                        },
+                        {
+                            "key": "inventory_repo_git_id",
+                            "description": "The inventory repository Git ID"
+                        },
+                        {
+                            "key": "secret_tool",
+                            "description": "The secret tool."
+                        },
+                        {
+                            "key": "inventory_repo",
+                            "description": "The Inventory repo."
+                        },
+                        {
+                            "key": "ci_pipeline_id",
+                            "description": "The CI pipeline ID."
+                        },
+                        {
+                            "key": "key_protect_instance_id",
+                            "description": "The Key Protect instance ID."
                         }
                     ],
                     "install_type": "fullstack"
