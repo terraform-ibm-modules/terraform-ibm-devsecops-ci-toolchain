@@ -179,25 +179,26 @@ locals {
 
   config_data = {
     "default_locked_properties" = var.default_locked_properties
-    "secrets_integration_name"  = var.sm_integration_name,
+    "secrets_integration_name"  = (var.enable_key_protect) ? var.kp_integration_name : var.sm_integration_name,
     "secrets_group"             = var.sm_secret_group,
     "secrets_provider_type" = (
       (var.enable_key_protect) ? "kp" :
       (var.enable_secrets_manager) ? "sm" : ""
     ),
+    "slack-notifications"        = (var.enable_slack) ? "1" : "0"
     "cluster-name"               = var.cluster_name,
     "dev-cluster-namespace"      = var.cluster_namespace,
     "code-engine-project"        = var.code_engine_project,
     "code-engine-region"         = var.code_engine_region,
     "code-engine-resource-group" = var.code_engine_resource_group,
-    "cos-api-key"                = var.cos_api_key_secret_name,
+    "cos-api-key"                = (var.cos_api_key_secret_name != "") ? local.cos_secret_ref : ""
     "cos-bucket-name"            = var.cos_bucket_name,
     "cos-endpoint"               = var.cos_endpoint,
     "dev-region"                 = var.dev_region,
     "dev-resource-group"         = var.dev_resource_group
-    "doi-ibmcloud-api-key"       = (var.pipeline_doi_api_key_secret_name == "") ? var.pipeline_ibmcloud_api_key_secret_name : var.pipeline_doi_api_key_secret_name,
+    "doi-ibmcloud-api-key"       = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref,
     "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
-    "ibmcloud-api-key"           = var.pipeline_ibmcloud_api_key_secret_name,
+    "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
     "registry-namespace"         = var.registry_namespace,
     "registry-region"            = var.registry_region,
     "signing-key"                = var.signing_key_secret_name,

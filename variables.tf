@@ -43,7 +43,7 @@ variable "pipeline_ibmcloud_api_key_secret_name" {
 variable "cos_api_key_secret_name" {
   type        = string
   description = "Name of the COS API key secret in the secret provider."
-  default     = "cos-api-key"
+  default     = ""
 }
 
 variable "slack_webhook_secret_name" {
