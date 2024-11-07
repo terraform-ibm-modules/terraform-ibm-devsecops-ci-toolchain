@@ -63,16 +63,46 @@ output "inventory_repo" {
   sensitive   = true
 }
 
+output "inventory_repo_git_provider" {
+  value       = module.inventory_repo.repo_provider
+  description = "The inventory repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
+}
+
+output "inventory_repo_git_id" {
+  value       = module.inventory_repo.repo_git_id
+  description = "The inventory repository Git ID"
+}
+
 output "evidence_repo" {
   value       = module.evidence_repo.repository
   description = "The Evidence repo."
   sensitive   = true
 }
 
+output "evidence_repo_git_provider" {
+  value       = module.evidence_repo.repo_provider
+  description = "The evidence repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
+}
+
+output "evidence_repo_git_id" {
+  value       = module.evidence_repo.repo_git_id
+  description = "The evidence repository Git ID"
+}
+
 output "issues_repo" {
   value       = module.issues_repo.repository
   description = "The Issues repo."
   sensitive   = true
+}
+
+output "issues_repo_git_provider" {
+  value       = module.issues_repo.repo_provider
+  description = "The issues repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
+}
+
+output "issues_repo_git_id" {
+  value       = module.issues_repo.repo_git_id
+  description = "The issues repository Git ID"
 }
 
 output "pipeline_repo_url" {
