@@ -110,6 +110,31 @@ output "pipeline_repo_url" {
   description = "This repository URL contains the tekton definitions for compliance pipelines."
 }
 
+output "pipeline_repo_git_provider" {
+  value       = module.compliance_pipelines_repo.repo_provider
+  description = "The compliance pipeline repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
+}
+
+output "pipeline_repo_git_id" {
+  value       = module.compliance_pipelines_repo.repo_git_id
+  description = "The compliance pipeline repository Git ID"
+}
+
+output "pipeline_config_repo_config_repo_url" {
+  value       = try(module.pipeline_config_repo[0].repository_url, "")
+  description = "This repository URL contains the tekton definitions for compliance pipelines."
+}
+
+output "pipeline_config_repo_git_provider" {
+  value       = try(module.pipeline_config_repo[0].repo_provider, "")
+  description = "The compliance pipeline repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
+}
+
+output "pipeline_config_repo_git_id" {
+  value       = try(module.pipeline_config_repo[0].repo_git_id, "")
+  description = "The compliance pipeline repository Git ID"
+}
+
 output "app_repo_url" {
   value       = module.app_repo.repository_url
   description = "The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates."
