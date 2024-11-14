@@ -134,6 +134,19 @@ resource "ibm_cd_toolchain_tool_custom" "cos_integration" {
   }
 }
 
+resource "ibm_cd_toolchain_tool_custom" "concert_integration" {
+  count        = (var.enable_concert) ? 1 : 0
+  toolchain_id = var.toolchain_id
+  parameters {
+    type              = "concert"
+    lifecycle_phase   = "MANAGE"
+    documentation_url = var.concert_documentation_url
+    name              = var.concert_integration_name
+    dashboard_url     = var.concert_dashboard_url
+    description       = var.concert_description
+  }
+}
+
 resource "ibm_cd_toolchain_tool_artifactory" "cd_toolchain_tool_artifactory_instance" {
   count = (var.enable_artifactory) ? 1 : 0
   parameters {

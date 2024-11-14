@@ -106,6 +106,21 @@ variable "privateworker_credentials_secret_ref" {
 variable "privateworker_name" {
 }
 
+variable "concert_dashboard_url" {
+}
+
+variable "concert_description" {
+}
+
+variable "concert_documentation_url" {
+}
+
+variable "concert_integration_name" {
+}
+
+variable "enable_concert" {
+}
+
 variable "cos_dashboard_url" {
 }
 
