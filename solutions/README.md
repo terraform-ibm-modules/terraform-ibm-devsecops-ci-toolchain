@@ -41,27 +41,11 @@ module "terraform_devsecops_ci" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_app_repo"></a> [app\_repo](#module\_app\_repo) | ./customizations/repositories | n/a |
-| <a name="module_compliance_pipelines_repo"></a> [compliance\_pipelines\_repo](#module\_compliance\_pipelines\_repo) | ./customizations/repositories | n/a |
-| <a name="module_evidence_repo"></a> [evidence\_repo](#module\_evidence\_repo) | ./customizations/repositories | n/a |
-| <a name="module_integrations"></a> [integrations](#module\_integrations) | ./integrations | n/a |
-| <a name="module_inventory_repo"></a> [inventory\_repo](#module\_inventory\_repo) | ./customizations/repositories | n/a |
-| <a name="module_issues_repo"></a> [issues\_repo](#module\_issues\_repo) | ./customizations/repositories | n/a |
-| <a name="module_pipeline_ci"></a> [pipeline\_ci](#module\_pipeline\_ci) | ./pipeline-ci | n/a |
-| <a name="module_pipeline_config_repo"></a> [pipeline\_config\_repo](#module\_pipeline\_config\_repo) | ./customizations/repositories | n/a |
-| <a name="module_pipeline_pr"></a> [pipeline\_pr](#module\_pipeline\_pr) | ./pipeline-pr | n/a |
-| <a name="module_pipeline_properties"></a> [pipeline\_properties](#module\_pipeline\_properties) | ./customizations/pipeline-property-adder | n/a |
-| <a name="module_repository_properties"></a> [repository\_properties](#module\_repository\_properties) | ./customizations/repository-adder | n/a |
-| <a name="module_services"></a> [services](#module\_services) | ./services | n/a |
+| <a name="module_devsecops_ci_toolchain"></a> [devsecops\_ci\_toolchain](#module\_devsecops\_ci\_toolchain) | ../ | n/a |
 
 ### Resources
 
-| Name | Type |
-|------|------|
-| [ibm_cd_toolchain.toolchain_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain) | resource |
-| [ibm_cd_toolchain_tool_pipeline.ci_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain_tool_pipeline) | resource |
-| [ibm_cd_toolchain_tool_pipeline.pr_pipeline](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cd_toolchain_tool_pipeline) | resource |
-| [ibm_resource_group.resource_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
+No resources.
 
 ### Inputs
 
@@ -125,10 +109,6 @@ module "terraform_devsecops_ci" {
 | <a name="input_compliance_pipelines_repo_root_url"></a> [compliance\_pipelines\_repo\_root\_url](#input\_compliance\_pipelines\_repo\_root\_url) | (Optional) The Root URL of the server. e.g. https://git.example.com. | `string` | `""` | no |
 | <a name="input_compliance_pipelines_repo_title"></a> [compliance\_pipelines\_repo\_title](#input\_compliance\_pipelines\_repo\_title) | (Optional) The title of the server. e.g. My Git Enterprise Server. | `string` | `""` | no |
 | <a name="input_compliance_pipelines_repo_traceability_enabled"></a> [compliance\_pipelines\_repo\_traceability\_enabled](#input\_compliance\_pipelines\_repo\_traceability\_enabled) | Set to `true` to enable traceability. | `bool` | `false` | no |
-| <a name="input_concert_dashboard_url"></a> [concert\_dashboard\_url](#input\_concert\_dashboard\_url) | The dashboard URL for the Concert tool | `string` | `""` | no |
-| <a name="input_concert_description"></a> [concert\_description](#input\_concert\_description) | The description of the Concert toolcard. | `string` | `"IBM Concert combines traditional analytics and generative AI to deliver comprehensive insights into your operational health and identify critical risk across your application lifecycle"` | no |
-| <a name="input_concert_documentation_url"></a> [concert\_documentation\_url](#input\_concert\_documentation\_url) | The documentation URL that appears on the tool card. | `string` | `"https://www.ibm.com/docs/en/concert"` | no |
-| <a name="input_concert_integration_name"></a> [concert\_integration\_name](#input\_concert\_integration\_name) | The name of the Concert integration. | `string` | `"Concert"` | no |
 | <a name="input_cos_api_key_secret_crn"></a> [cos\_api\_key\_secret\_crn](#input\_cos\_api\_key\_secret\_crn) | The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
 | <a name="input_cos_api_key_secret_group"></a> [cos\_api\_key\_secret\_group](#input\_cos\_api\_key\_secret\_group) | Secret group prefix for the COS API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` | no |
 | <a name="input_cos_api_key_secret_name"></a> [cos\_api\_key\_secret\_name](#input\_cos\_api\_key\_secret\_name) | Name of the COS API key secret in the secret provider. | `string` | `""` | no |
@@ -149,7 +129,6 @@ module "terraform_devsecops_ci" {
 | <a name="input_doi_toolchain_id"></a> [doi\_toolchain\_id](#input\_doi\_toolchain\_id) | DevOps Insights Toolchain ID to link to. | `string` | `""` | no |
 | <a name="input_doi_toolchain_id_pipeline_property"></a> [doi\_toolchain\_id\_pipeline\_property](#input\_doi\_toolchain\_id\_pipeline\_property) | The DevOps Insights instance toolchain ID. | `string` | `""` | no |
 | <a name="input_enable_artifactory"></a> [enable\_artifactory](#input\_enable\_artifactory) | Set true to enable artifacory for devsecops. | `bool` | `false` | no |
-| <a name="input_enable_concert"></a> [enable\_concert](#input\_enable\_concert) | Set to `true` to enable the Concert tool integration. | `bool` | `false` | no |
 | <a name="input_enable_cos"></a> [enable\_cos](#input\_enable\_cos) | Set to `true` to enable the COS integration. | `bool` | `true` | no |
 | <a name="input_enable_insights"></a> [enable\_insights](#input\_enable\_insights) | Set to `true` to enable the DevOps Insights integration. | `bool` | `true` | no |
 | <a name="input_enable_key_protect"></a> [enable\_key\_protect](#input\_enable\_key\_protect) | Set to enable Key Protect Integration. | `bool` | `false` | no |
@@ -350,23 +329,6 @@ module "terraform_devsecops_ci" {
 | <a name="output_toolchain_id"></a> [toolchain\_id](#output\_toolchain\_id) | The CI toolchain ID. |
 | <a name="output_toolchain_url"></a> [toolchain\_url](#output\_toolchain\_url) | The CI toolchain URL. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Additional Information
-## Locking Pipeline properties
-- To make a variable locked, we need to provide the locked key as true for that variable.</br>
-Example
-```
-  {
-    "name": "example_variable",
-    "type": "text",
-    "value": "example_data",
-    "locked": "true"
-  }
-```
-The variable `example_variable` is locked by providing `locked` to `true`.If you want to unlock it, provide `locked` to `false`.
-- Pipeline properties that are locked by default are stored in `default_locked_properties`.
-- Overriding of pipeline properties
-  - The code will first check if the locked key provides any value. If it is set, then it will take that value.
-  - If no locked value is provided for the variable, it will check if it is inside the default set of locked property `default_locked_properties`.
 <!-- BEGIN CONTRIBUTING HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
