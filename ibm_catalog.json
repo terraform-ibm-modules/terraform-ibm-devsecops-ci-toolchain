@@ -2,7 +2,7 @@
     "products": [
         {
             "label": "DevSecOps CI Toolchain",
-            "name": "devsecops-ci-toolchain",
+            "name": "deploy-arch-devsecops-ci-toolchain",
             "version": "1.0.1",
             "product_kind": "solution",
             "tags": [
