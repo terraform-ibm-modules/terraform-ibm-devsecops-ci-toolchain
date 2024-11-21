@@ -1412,6 +1412,13 @@
                             "required": false
                         },
                         {
+                            "key": "repo_git_token_crn",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The CRN of the  Git token secret in the secret provider. Specifying a CRN for the Git Token automatically sets the authentication type to `pat`.",
+                            "required": false
+                        },
+                        {
                             "key": "repo_git_token_secret_name",
                             "type": "string",
                             "default_value": "",
@@ -3201,6 +3208,13 @@
                             "type": "string",
                             "default_value": "",
                             "description": "The Git provider type.",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_git_token_crn",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The CRN of the  Git token secret in the secret provider. Specifying a CRN for the Git Token automatically sets the authentication type to `pat`.",
                             "required": false
                         },
                         {
