@@ -1020,36 +1020,6 @@ variable "cos_bucket_name" {
   default     = ""
 }
 
-variable "concert_dashboard_url" {
-  type        = string
-  description = "The dashboard URL for the Concert tool"
-  default     = ""
-}
-
-variable "concert_description" {
-  type        = string
-  description = "The description of the Concert toolcard."
-  default     = "IBM Concert combines traditional analytics and generative AI to deliver comprehensive insights into your operational health and identify critical risk across your application lifecycle"
-}
-
-variable "concert_documentation_url" {
-  type        = string
-  description = "The documentation URL that appears on the tool card."
-  default     = "https://www.ibm.com/docs/en/concert"
-}
-
-variable "concert_integration_name" {
-  type        = string
-  description = "The name of the Concert integration."
-  default     = "Concert"
-}
-
-variable "enable_concert" {
-  type        = bool
-  description = "Set to `true` to enable the Concert tool integration."
-  default     = false
-}
-
 variable "cos_dashboard_url" {
   type        = string
   description = "The dashboard URL for the COS toolcard."

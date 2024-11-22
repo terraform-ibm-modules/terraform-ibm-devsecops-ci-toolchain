@@ -40,46 +40,58 @@ locals {
   compliance_repo_url = (var.compliance_pipeline_repo_url != "") ? var.compliance_pipeline_repo_url : format("%s/open-toolchain/compliance-pipelines.git", local.compliance_pipelines_git_server)
 
   #Secrets
+  app_repo_secret_name = (var.app_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.app_repo_git_token_secret_name
+  app_repo_secret_crn  = (var.app_repo_git_token_secret_crn == "") ? var.repo_git_token_crn : var.app_repo_git_token_secret_crn
   app_repo_secret_ref = (
-    (var.sm_instance_crn != "") ? var.app_repo_git_token_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.app_repo_git_token_secret_name}}", module.integrations.secret_tool) :
-    (var.app_repo_secret_group == "") ? format("{vault::%s.${var.app_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.app_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.app_repo_secret_group))
+    (var.sm_instance_crn != "") ? local.app_repo_secret_crn :
+    (var.enable_key_protect) ? format("{vault::%s.${local.app_repo_secret_name}}", module.integrations.secret_tool) :
+    (var.app_repo_secret_group == "") ? format("{vault::%s.${local.app_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${local.app_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.app_repo_secret_group))
   )
 
+  issue_repo_secret_name = (var.issues_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.issues_repo_git_token_secret_name
+  issues_repo_secret_crn = (var.issues_repo_git_token_secret_crn == "") ? var.repo_git_token_crn : var.issues_repo_git_token_secret_crn
   issues_repo_secret_ref = (
-    (var.sm_instance_crn != "") ? var.issues_repo_git_token_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.issues_repo_git_token_secret_name}}", module.integrations.secret_tool) :
-    (var.issues_repo_secret_group == "") ? format("{vault::%s.${var.issues_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.issues_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.issues_repo_secret_group))
+    (var.sm_instance_crn != "") ? local.issues_repo_secret_crn :
+    (var.enable_key_protect) ? format("{vault::%s.${local.issue_repo_secret_name}}", module.integrations.secret_tool) :
+    (var.issues_repo_secret_group == "") ? format("{vault::%s.${local.issue_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${local.issue_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.issues_repo_secret_group))
   )
 
+  evidence_repo_secret_name = (var.evidence_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.evidence_repo_git_token_secret_name
+  evidence_repo_secret_crn  = (var.evidence_repo_git_token_secret_crn == "") ? var.repo_git_token_crn : var.evidence_repo_git_token_secret_crn
   evidence_repo_secret_ref = (
-    (var.sm_instance_crn != "") ? var.evidence_repo_git_token_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.evidence_repo_git_token_secret_name}}", module.integrations.secret_tool) :
-    (var.evidence_repo_secret_group == "") ? format("{vault::%s.${var.evidence_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.evidence_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.evidence_repo_secret_group))
+    (var.sm_instance_crn != "") ? local.evidence_repo_secret_crn :
+    (var.enable_key_protect) ? format("{vault::%s.${local.evidence_repo_secret_name}}", module.integrations.secret_tool) :
+    (var.evidence_repo_secret_group == "") ? format("{vault::%s.${local.evidence_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${local.evidence_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.evidence_repo_secret_group))
   )
 
+  inventory_repo_secret_name = (var.inventory_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.inventory_repo_git_token_secret_name
+  inventory_repo_secret_crn  = (var.inventory_repo_git_token_secret_crn == "") ? var.repo_git_token_crn : var.inventory_repo_git_token_secret_crn
   inventory_repo_secret_ref = (
-    (var.sm_instance_crn != "") ? var.inventory_repo_git_token_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.inventory_repo_git_token_secret_name}}", module.integrations.secret_tool) :
-    (var.inventory_repo_secret_group == "") ? format("{vault::%s.${var.inventory_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.inventory_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.inventory_repo_secret_group))
+    (var.sm_instance_crn != "") ? local.inventory_repo_secret_crn :
+    (var.enable_key_protect) ? format("{vault::%s.${local.inventory_repo_secret_name}}", module.integrations.secret_tool) :
+    (var.inventory_repo_secret_group == "") ? format("{vault::%s.${local.inventory_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${local.inventory_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.inventory_repo_secret_group))
   )
 
+  compliance_pipeline_repo_secret_name = (var.compliance_pipeline_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.compliance_pipeline_repo_git_token_secret_name
+  compliance_pipeline_repo_secret_crn  = (var.compliance_pipeline_repo_git_token_secret_crn == "") ? var.repo_git_token_crn : var.compliance_pipeline_repo_git_token_secret_crn
   compliance_pipeline_repo_secret_ref = (
-    (var.sm_instance_crn != "") ? var.compliance_pipeline_repo_git_token_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.compliance_pipeline_repo_git_token_secret_name}}", module.integrations.secret_tool) :
-    (var.compliance_pipeline_repo_secret_group == "") ? format("{vault::%s.${var.compliance_pipeline_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.compliance_pipeline_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.compliance_pipeline_repo_secret_group))
+    (var.sm_instance_crn != "") ? local.compliance_pipeline_repo_secret_crn :
+    (var.enable_key_protect) ? format("{vault::%s.${local.compliance_pipeline_repo_secret_name}}", module.integrations.secret_tool) :
+    (var.compliance_pipeline_repo_secret_group == "") ? format("{vault::%s.${local.compliance_pipeline_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${local.compliance_pipeline_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.compliance_pipeline_repo_secret_group))
   )
 
+  pipeline_config_repo_secret_name = (var.pipeline_config_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.pipeline_config_repo_git_token_secret_name
+  pipeline_config_repo_secret_crn  = (var.pipeline_config_repo_git_token_secret_crn == "") ? var.repo_git_token_crn : var.pipeline_config_repo_git_token_secret_crn
   pipeline_config_repo_secret_ref = (
-    (var.sm_instance_crn != "") ? var.pipeline_config_repo_git_token_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_config_repo_git_token_secret_name}}", module.integrations.secret_tool) :
-    (var.pipeline_config_repo_secret_group == "") ? format("{vault::%s.${var.pipeline_config_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    format("{vault::%s.${var.pipeline_config_repo_git_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_config_repo_secret_group))
+    (var.sm_instance_crn != "") ? local.pipeline_config_repo_secret_crn :
+    (var.enable_key_protect) ? format("{vault::%s.${local.pipeline_config_repo_secret_name}}", module.integrations.secret_tool) :
+    (var.pipeline_config_repo_secret_group == "") ? format("{vault::%s.${local.pipeline_config_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${local.pipeline_config_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_config_repo_secret_group))
   )
 
   cos_secret_ref = (
@@ -145,27 +157,60 @@ locals {
     }
   ])
 
+  issues_repo_auth_type = (
+    (var.issues_repo_auth_type != "") ? var.issues_repo_auth_type :
+    (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
+  )
+
+  evidence_repo_auth_type = (
+    (var.evidence_repo_auth_type != "") ? var.evidence_repo_auth_type :
+    (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
+  )
+
+  inventory_repo_auth_type = (
+    (var.inventory_repo_auth_type != "") ? var.inventory_repo_auth_type :
+    (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
+  )
+
+  compliance_pipeline_repo_auth_type = (
+    (var.compliance_pipeline_repo_auth_type != "") ? var.compliance_pipeline_repo_auth_type :
+    (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
+  )
+
+  pipeline_config_repo_auth_type = (
+    (var.pipeline_config_repo_auth_type != "") ? var.pipeline_config_repo_auth_type :
+    (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
+  )
+
+  app_repo_auth_type = (
+    (var.app_repo_auth_type != "") ? var.app_repo_auth_type :
+    (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
+  )
+
+  app_repo_provider = (var.app_repo_existing_git_provider != "") ? var.app_repo_existing_git_provider : var.app_repo_clone_to_git_provider
+
   config_data = {
     "default_locked_properties" = var.default_locked_properties
-    "secrets_integration_name"  = var.sm_integration_name,
+    "secrets_integration_name"  = (var.enable_key_protect) ? var.kp_integration_name : var.sm_integration_name,
     "secrets_group"             = var.sm_secret_group,
     "secrets_provider_type" = (
       (var.enable_key_protect) ? "kp" :
       (var.enable_secrets_manager) ? "sm" : ""
     ),
+    "slack-notifications"        = (var.enable_slack) ? "1" : "0"
     "cluster-name"               = var.cluster_name,
     "dev-cluster-namespace"      = var.cluster_namespace,
     "code-engine-project"        = var.code_engine_project,
     "code-engine-region"         = var.code_engine_region,
     "code-engine-resource-group" = var.code_engine_resource_group,
-    "cos-api-key"                = var.cos_api_key_secret_name,
+    "cos-api-key"                = (var.cos_api_key_secret_name != "") ? local.cos_secret_ref : ""
     "cos-bucket-name"            = var.cos_bucket_name,
     "cos-endpoint"               = var.cos_endpoint,
     "dev-region"                 = var.dev_region,
     "dev-resource-group"         = var.dev_resource_group
-    "doi-ibmcloud-api-key"       = (var.pipeline_doi_api_key_secret_name == "") ? var.pipeline_ibmcloud_api_key_secret_name : var.pipeline_doi_api_key_secret_name,
+    "doi-ibmcloud-api-key"       = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref,
     "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
-    "ibmcloud-api-key"           = var.pipeline_ibmcloud_api_key_secret_name,
+    "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
     "registry-namespace"         = var.registry_namespace,
     "registry-region"            = var.registry_region,
     "signing-key"                = var.signing_key_secret_name,
@@ -204,22 +249,22 @@ module "issues_repo" {
   depends_on            = [module.integrations]
   tool_name             = "issues-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
-  git_provider          = var.issues_repo_git_provider
+  git_provider          = (var.issues_repo_git_provider == "") ? var.repo_git_provider : var.issues_repo_git_provider
   initialization_type   = var.issues_repo_initialization_type
   repository_url        = var.issues_repo_existing_url
   source_repository_url = local.issues_source_repo_url
   repository_name       = (var.issues_repo_name != "") ? var.issues_repo_name : join("-", [var.repositories_prefix, "issues-repo"])
   is_private_repo       = var.issues_repo_is_private_repo
-  owner_id              = var.issues_group
+  owner_id              = (var.issues_group == "") ? var.repo_group : var.issues_group
   issues_enabled        = var.issues_repo_issues_enabled
   traceability_enabled  = var.issues_repo_traceability_enabled
-  integration_owner     = var.issues_repo_integration_owner
-  auth_type             = var.issues_repo_auth_type
+  integration_owner     = (var.issues_repo_integration_owner == "") ? var.repo_integration_owner : var.issues_repo_integration_owner
+  auth_type             = local.issues_repo_auth_type
   secret_ref            = local.issues_repo_secret_ref
-  git_id                = var.issues_repo_git_id
-  blind_connection      = var.issues_repo_blind_connection
-  title                 = var.issues_repo_title
-  root_url              = var.issues_repo_root_url
+  git_id                = (var.issues_repo_git_id == "") ? var.repo_git_id : var.issues_repo_git_id
+  blind_connection      = (var.issues_repo_blind_connection == "") ? var.repo_blind_connection : var.issues_repo_blind_connection
+  title                 = (var.issues_repo_title == "") ? var.repo_title : var.issues_repo_title
+  root_url              = (var.issues_repo_root_url == "") ? var.repo_root_url : var.issues_repo_root_url
   default_git_provider  = var.default_git_provider
 }
 
@@ -228,22 +273,22 @@ module "evidence_repo" {
   depends_on            = [module.integrations]
   tool_name             = "evidence-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
-  git_provider          = var.evidence_repo_git_provider
+  git_provider          = (var.evidence_repo_git_provider == "") ? var.repo_git_provider : var.evidence_repo_git_provider
   initialization_type   = var.evidence_repo_initialization_type
   repository_url        = var.evidence_repo_existing_url
   source_repository_url = local.evidence_source_repo_url
   repository_name       = (var.evidence_repo_name != "") ? var.evidence_repo_name : join("-", [var.repositories_prefix, "evidence-repo"])
   is_private_repo       = var.evidence_repo_is_private_repo
-  owner_id              = var.evidence_group
+  owner_id              = (var.evidence_group == "") ? var.repo_group : var.evidence_group
   issues_enabled        = var.evidence_repo_issues_enabled
   traceability_enabled  = var.evidence_repo_traceability_enabled
-  integration_owner     = var.evidence_repo_integration_owner
-  auth_type             = var.evidence_repo_auth_type
+  integration_owner     = (var.evidence_repo_integration_owner == "") ? var.repo_integration_owner : var.evidence_repo_integration_owner
+  auth_type             = local.evidence_repo_auth_type
   secret_ref            = local.evidence_repo_secret_ref
-  git_id                = var.evidence_repo_git_id
-  blind_connection      = var.evidence_repo_blind_connection
-  title                 = var.evidence_repo_title
-  root_url              = var.evidence_repo_root_url
+  git_id                = (var.evidence_repo_git_id == "") ? var.repo_git_id : var.evidence_repo_git_id
+  blind_connection      = (var.evidence_repo_blind_connection == "") ? var.repo_blind_connection : var.evidence_repo_blind_connection
+  title                 = (var.evidence_repo_title == "") ? var.repo_title : var.evidence_repo_title
+  root_url              = (var.evidence_repo_root_url == "") ? var.repo_root_url : var.evidence_repo_root_url
   default_git_provider  = var.default_git_provider
 }
 
@@ -252,22 +297,22 @@ module "inventory_repo" {
   depends_on            = [module.integrations]
   tool_name             = "inventory-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
-  git_provider          = var.inventory_repo_git_provider
+  git_provider          = (var.inventory_repo_git_provider == "") ? var.repo_git_provider : var.inventory_repo_git_provider
   initialization_type   = var.inventory_repo_initialization_type
   repository_url        = var.inventory_repo_existing_url
   source_repository_url = local.inventory_source_repo_url
   repository_name       = (var.inventory_repo_name != "") ? var.inventory_repo_name : join("-", [var.repositories_prefix, "inventory-repo"])
   is_private_repo       = var.inventory_repo_is_private_repo
-  owner_id              = var.inventory_group
+  owner_id              = (var.inventory_group == "") ? var.repo_group : var.inventory_group
   issues_enabled        = var.inventory_repo_issues_enabled
   traceability_enabled  = var.inventory_repo_traceability_enabled
-  integration_owner     = var.inventory_repo_integration_owner
-  auth_type             = var.inventory_repo_auth_type
+  integration_owner     = (var.inventory_repo_integration_owner == "") ? var.repo_integration_owner : var.inventory_repo_integration_owner
+  auth_type             = local.inventory_repo_auth_type
   secret_ref            = local.inventory_repo_secret_ref
-  git_id                = var.inventory_repo_git_id
-  blind_connection      = var.inventory_repo_blind_connection
-  title                 = var.inventory_repo_title
-  root_url              = var.inventory_repo_root_url
+  git_id                = (var.inventory_repo_git_id == "") ? var.repo_git_id : var.inventory_repo_git_id
+  blind_connection      = (var.inventory_repo_blind_connection == "") ? var.repo_blind_connection : var.inventory_repo_blind_connection
+  title                 = (var.inventory_repo_title == "") ? var.repo_title : var.inventory_repo_title
+  root_url              = (var.inventory_repo_root_url == "") ? var.repo_root_url : var.inventory_repo_root_url
   default_git_provider  = var.default_git_provider
 }
 
@@ -276,22 +321,22 @@ module "compliance_pipelines_repo" {
   depends_on            = [module.integrations]
   tool_name             = "pipeline-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
-  git_provider          = var.compliance_pipeline_repo_git_provider
+  git_provider          = (var.compliance_pipeline_repo_git_provider == "") ? var.repo_git_provider : var.compliance_pipeline_repo_git_provider
   initialization_type   = var.compliance_pipelines_repo_initialization_type
   repository_url        = (var.compliance_pipeline_existing_repo_url == "") ? local.compliance_repo_url : var.compliance_pipeline_existing_repo_url
   source_repository_url = var.compliance_pipeline_source_repo_url
   repository_name       = var.compliance_pipelines_repo_name
   is_private_repo       = var.compliance_pipelines_repo_is_private_repo
-  owner_id              = var.compliance_pipeline_group
+  owner_id              = (var.compliance_pipeline_group == "") ? var.repo_group : var.compliance_pipeline_group
   issues_enabled        = var.compliance_pipeline_repo_issues_enabled
   traceability_enabled  = var.compliance_pipelines_repo_traceability_enabled
-  integration_owner     = var.compliance_pipeline_repo_integration_owner
-  auth_type             = var.compliance_pipeline_repo_auth_type
+  integration_owner     = (var.compliance_pipeline_repo_integration_owner == "") ? var.repo_integration_owner : var.compliance_pipeline_repo_integration_owner
+  auth_type             = local.compliance_pipeline_repo_auth_type
   secret_ref            = local.compliance_pipeline_repo_secret_ref
-  git_id                = var.compliance_pipelines_repo_git_id
-  blind_connection      = var.compliance_pipelines_repo_blind_connection
-  title                 = var.compliance_pipelines_repo_title
-  root_url              = var.compliance_pipelines_repo_root_url
+  git_id                = (var.compliance_pipelines_repo_git_id == "") ? var.repo_git_id : var.compliance_pipelines_repo_git_id
+  blind_connection      = (var.compliance_pipelines_repo_blind_connection == "") ? var.repo_blind_connection : var.compliance_pipelines_repo_blind_connection
+  title                 = (var.compliance_pipelines_repo_title == "") ? var.repo_title : var.compliance_pipelines_repo_title
+  root_url              = (var.compliance_pipelines_repo_root_url == "") ? var.repo_root_url : var.compliance_pipelines_repo_root_url
   default_git_provider  = var.default_git_provider
 }
 
@@ -301,22 +346,22 @@ module "pipeline_config_repo" {
   depends_on            = [module.integrations]
   tool_name             = "pipeline-config-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
-  git_provider          = var.pipeline_config_repo_git_provider
+  git_provider          = (var.pipeline_config_repo_git_provider == "") ? var.repo_git_provider : var.pipeline_config_repo_git_provider
   initialization_type   = var.pipeline_config_initialization_type
   repository_url        = var.pipeline_config_repo_existing_url
   source_repository_url = var.pipeline_config_repo_clone_from_url
   repository_name       = (var.pipeline_config_repo_name != "") ? var.pipeline_config_repo_name : join("-", [var.repositories_prefix, "pipeline-config-repo"])
   is_private_repo       = var.pipeline_config_repo_is_private_repo
-  owner_id              = var.pipeline_config_group
+  owner_id              = (var.pipeline_config_group == "") ? var.repo_group : var.pipeline_config_group
   issues_enabled        = var.pipeline_config_repo_issues_enabled
   traceability_enabled  = var.pipeline_config_repo_traceability_enabled
-  integration_owner     = var.pipeline_config_repo_integration_owner
-  auth_type             = var.pipeline_config_repo_auth_type
+  integration_owner     = (var.pipeline_config_repo_integration_owner == "") ? var.repo_integration_owner : var.pipeline_config_repo_integration_owner
+  auth_type             = local.pipeline_config_repo_auth_type
   secret_ref            = local.pipeline_config_repo_secret_ref
-  git_id                = var.pipeline_config_repo_git_id
-  blind_connection      = var.pipeline_config_repo_blind_connection
-  title                 = var.pipeline_config_repo_title
-  root_url              = var.pipeline_config_repo_root_url
+  git_id                = (var.pipeline_config_repo_git_id == "") ? var.repo_git_id : var.pipeline_config_repo_git_id
+  blind_connection      = (var.pipeline_config_repo_blind_connection == "") ? var.repo_blind_connection : var.pipeline_config_repo_blind_connection
+  title                 = (var.pipeline_config_repo_title == "") ? var.repo_title : var.pipeline_config_repo_title
+  root_url              = (var.pipeline_config_repo_root_url == "") ? var.repo_root_url : var.pipeline_config_repo_root_url
   default_git_provider  = var.default_git_provider
 }
 
@@ -325,22 +370,22 @@ module "app_repo" {
   depends_on            = [module.integrations]
   tool_name             = "app-repo"
   toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
-  git_provider          = (var.app_repo_existing_git_provider != "") ? var.app_repo_existing_git_provider : var.app_repo_clone_to_git_provider
+  git_provider          = (local.app_repo_provider == "") ? var.repo_git_provider : local.app_repo_provider
   initialization_type   = var.app_repo_initialization_type
   repository_url        = var.app_repo_existing_url
   source_repository_url = local.app_source_repo_url
   repository_name       = (var.app_repo_name != "") ? var.app_repo_name : join("-", [var.repositories_prefix, "app-repo"])
   is_private_repo       = var.app_repo_is_private_repo
-  owner_id              = var.app_group
+  owner_id              = (var.app_group == "") ? var.repo_group : var.app_group
   issues_enabled        = var.app_repo_issues_enabled
   traceability_enabled  = var.app_repo_traceability_enabled
-  integration_owner     = var.app_repo_integration_owner
-  auth_type             = var.app_repo_auth_type
+  integration_owner     = (var.app_repo_integration_owner == "") ? var.repo_integration_owner : var.app_repo_integration_owner
+  auth_type             = local.app_repo_auth_type
   secret_ref            = local.app_repo_secret_ref
   git_id                = (var.app_repo_existing_git_id != "") ? var.app_repo_existing_git_id : var.app_repo_clone_to_git_id
-  blind_connection      = var.app_repo_blind_connection
-  title                 = var.app_repo_title
-  root_url              = var.app_repo_root_url
+  blind_connection      = (var.app_repo_blind_connection == "") ? var.repo_blind_connection : var.app_repo_blind_connection
+  title                 = (var.app_repo_title == "") ? var.repo_title : var.app_repo_title
+  root_url              = (var.app_repo_root_url == "") ? var.repo_root_url : var.app_repo_root_url
   default_git_provider  = var.default_git_provider
 }
 
