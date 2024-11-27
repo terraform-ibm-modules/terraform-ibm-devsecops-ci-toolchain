@@ -27,6 +27,12 @@
                     "architecture": {},
                     "configuration": [
                         {
+                            "key": "ibmcloud_api_key",
+                            "type": "password",
+                            "description": "API key used to create the toolchain.",
+                            "required": true
+                        },
+                        {
                             "key": "toolchain_name",
                             "type": "string",
                             "default_value": "DevSecOps CI Toolchain - Terraform",
@@ -72,6 +78,20 @@
                             }
                         },
                         {
+                            "key": "cluster_name",
+                            "type": "string",
+                            "default_value": "mycluster-free",
+                            "description": "Name of the Kubernetes cluster where the application will be deployed.",
+                            "required": true
+                        },
+                        {
+                            "key": "registry_namespace",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "A unique namespace within the IBM Cloud Container Registry region where the application image is stored.",
+                            "required": true
+                        },
+                        {
                             "key": "pipeline_properties",
                             "type": "string",
                             "default_value": "[\n  {\n    \"pipeline_id\": \"ci\",\n    \"properties\": [\n      {\n        \"name\": \"cluster-name\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cos-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cos-bucket-name\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cos-endpoint\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cra-bom-generate\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-deploy-analysis\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-generate-cyclonedx-format\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"cra-vulnerability-scan\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"custom_image_tag\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"dev-cluster-namespace\",\n        \"type\": \"text\",\n        \"value\": \"dev\"\n      },\n      {\n        \"name\": \"dev-region\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"dev-resource-group\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-environment\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"doi-toolchain-id\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"event-notifications\",\n        \"type\": \"text\",\n        \"value\": \"0\"\n      },\n      {\n        \"name\": \"git-token\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-api-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-dynamic-ui-scan\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"opt-in-gosec\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"opt-in-sonar\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"peer-review-compliance\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"pipeline-config\",\n        \"type\": \"text\",\n        \"value\": \".pipeline-config.yaml\"\n      },\n      {\n        \"name\": \"pipeline-config-branch\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-debug\",\n        \"type\": \"single_select\",\n        \"value\": \"0\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"print-code-signing-certificate\",\n        \"type\": \"text\",\n        \"value\": \"1\"\n      },\n      {\n        \"name\": \"registry-namespace\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"registry-region\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"signing-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"slack-notifications\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"sonarqube-config\",\n        \"type\": \"text\",\n        \"value\": \"default\"\n      },\n      {\n        \"name\": \"version\",\n        \"type\": \"text\",\n        \"value\": \"v1\"\n      }\n    ]\n  },\n  {\n    \"pipeline_id\": \"pr\",\n    \"properties\": [\n      {\n        \"name\": \"git-token\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"cra-bom-generate\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-deploy-analysis\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"cra-vulnerability-scan\",\n        \"type\": \"single_select\",\n        \"value\": \"1\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"ibmcloud-api-key\",\n        \"type\": \"secure\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-config\",\n        \"type\": \"text\",\n        \"value\": \".pipeline-config.yaml\"\n      },\n      {\n        \"name\": \"pipeline-config-branch\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      },\n      {\n        \"name\": \"pipeline-debug\",\n        \"type\": \"single_select\",\n        \"value\": \"0\",\n        \"enum\": \"[0,1]\"\n      },\n      {\n        \"name\": \"slack-notifications\",\n        \"type\": \"text\",\n        \"value\": \"\"\n      }\n    ]\n  }\n]\n",
@@ -85,33 +105,40 @@
                             }
                         },
                         {
-                            "key": "ibmcloud_api_key",
-                            "type": "password",
-                            "description": "API key used to create the toolchains.",
+                            "key": "enable_secrets_manager",
+                            "type": "boolean",
+                            "default_value": false,
+                            "description": "Set `true` to enable a Secrets Manager tool integration. If this is enabled then the Secrets Manager instance details are required. See the `sm_` prefixed variables in the optional section. This can be configured using a CRN or using a combination of the Secrets Manager name, region and resource group. An IBMcloud api key is required for running the pipelines. It is recommended that a secrets provider is used for storing the secrets. For a CRN configuration use `pipeline_ibmcloud_api_key_secret_crn` for setting the CRN for the apikey. Alternatively use `pipeline_ibmcloud_api_key_secret_name` for setting the name of the apikey as set in Secrets Manager. This applies to the non CRN configuration of the Secrets tool.",
                             "required": true
+                        },
+                        {
+                            "key": "sm_instance_crn",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The CRN of the Secrets Manager instance. If the CRN is provided, it will take precendence over the subsequent `sm_` variables. Secrets using a CRN can be set with the variables ending in `secret_crn`",
+                            "required": false
                         },
                         {
                             "key": "sm_location",
                             "type": "string",
                             "default_value": "us-south",
                             "description": "IBM Cloud location/region containing the Secrets Manager instance. Not required if using a Secrets Manager CRN instance.",
-                            "display_name": "VPC region",
+                            "display_name": "Region",
                             "required": false,
                             "custom_config": {
-                                "type": "vpc_region",
+                                "type": "region",
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "config_constraints": {
-                                    "generationType": "2"
+                                    "filterString": "id:au-syd,br-sao,ca-tor,eu-de,eu-es,eu-gb,jp-osa,jp-tok,us-east,us-south",
+                                    "showKinds": [
+                                        "region",
+                                        "zone",
+                                        "dc",
+                                        "location"
+                                    ]
                                 }
                             }
-                        },
-                        {
-                            "key": "sm_instance_crn",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The CRN of the Secrets Manager instance.",
-                            "required": false
                         },
                         {
                             "key": "sm_name",
@@ -364,38 +391,10 @@
                             "required": false
                         },
                         {
-                            "key": "cluster_name",
-                            "type": "string",
-                            "default_value": "mycluster-free",
-                            "description": "Name of the Kubernetes cluster where the application will be deployed.",
-                            "required": false
-                        },
-                        {
                             "key": "cluster_namespace",
                             "type": "string",
                             "default_value": "default",
                             "description": "Namespace of the Kubernetes cluster where the application will be deployed.",
-                            "required": false
-                        },
-                        {
-                            "key": "code_engine_project",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The name of the Code Engine project to use. Created if it does not exist.",
-                            "required": false
-                        },
-                        {
-                            "key": "code_engine_region",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The region to create/lookup for the Code Engine project.",
-                            "required": false
-                        },
-                        {
-                            "key": "code_engine_resource_group",
-                            "type": "string",
-                            "default_value": "Default",
-                            "description": "The resource group of the Code Engine project.",
                             "required": false
                         },
                         {
@@ -702,13 +701,6 @@
                             "type": "boolean",
                             "default_value": false,
                             "description": "Set true to enable private worker  for devsecops.",
-                            "required": false
-                        },
-                        {
-                            "key": "enable_secrets_manager",
-                            "type": "boolean",
-                            "default_value": true,
-                            "description": "Set to enable Secrets Manager Integration.",
                             "required": false
                         },
                         {
@@ -1368,13 +1360,6 @@
                             "default_value": "private-worker-tool-01",
                             "description": "The name of the private worker integration.",
                             "required": false
-                        },
-                        {
-                            "key": "registry_namespace",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "A unique namespace within the IBM Cloud Container Registry region where the application image is stored.",
-                            "required": true
                         },
                         {
                             "key": "registry_region",
@@ -1752,79 +1737,15 @@
                     "label": "Deploy to Code Engine",
                     "name": "devsecops_ce",
                     "working_directory": "solutions",
-                    "compliance": {
-                        "authority": "scc-v3",
-                        "controls": [
-                            {
-                                "profile": {
-                                    "id": "",
-                                    "name": "IBM Cloud Framework for Financial Services",
-                                    "version": "1.6.0"
-                                },
-                                "names": [
-                                    "CM-9(b)",
-                                    "CM-3(f)",
-                                    "CM-8(a)",
-                                    "SA-10(a)",
-                                    "CM-7(1)(a)",
-                                    "CM-3(e)",
-                                    "SA-8",
-                                    "SI-2(2)",
-                                    "RA-5(2)",
-                                    "CM-2(2)",
-                                    "CM-3(a)",
-                                    "CM-2(1)(b)",
-                                    "SI-2(d)",
-                                    "CM-10(1)",
-                                    "RA-5(a)",
-                                    "RA-5(d)",
-                                    "SA-3(a)",
-                                    "CM-9(a)",
-                                    "CM-6(1)",
-                                    "CM-6(b)",
-                                    "CM-3(b)",
-                                    "CM-8(b)",
-                                    "CM-9(d)",
-                                    "CM-6(c)",
-                                    "CM-8(1)",
-                                    "CM-2",
-                                    "CM-3(g)",
-                                    "SA-10(1)",
-                                    "CM-2(1)(c)",
-                                    "SI-2(b)",
-                                    "SA-10(d)",
-                                    "CM-2(1)(a)",
-                                    "SI-2(a)",
-                                    "CM-3(2)",
-                                    "SA-15(a)",
-                                    "SI-10",
-                                    "CM-4",
-                                    "SI-2(c)",
-                                    "SI-7",
-                                    "RA-5(3)",
-                                    "CM-9(c)",
-                                    "SA-10(e)",
-                                    "CM-6(a)",
-                                    "CM-7(b)",
-                                    "CM-2(3)",
-                                    "CM-4(1)",
-                                    "RA-5(b)",
-                                    "RA-5(1)",
-                                    "SA-10(b)",
-                                    "CM-5",
-                                    "SA-3(d)",
-                                    "CM-3(d)",
-                                    "CM-3(c)",
-                                    "RA-5(c)",
-                                    "CM-6(d)",
-                                    "CM-8(2)",
-                                    "SA-10(c)"
-                                ]
-                            }
-                        ]
-                    },
+                    "compliance": {},
                     "architecture": {},
                     "configuration": [
+                        {
+                            "key": "ibmcloud_api_key",
+                            "type": "password",
+                            "description": "API key used to create the toolchain.",
+                            "required": true
+                        },
                         {
                             "key": "toolchain_name",
                             "type": "string",
@@ -1871,9 +1792,17 @@
                             }
                         },
                         {
-                            "key": "ibmcloud_api_key",
-                            "type": "password",
-                            "description": "API key used to create the toolchains.",
+                            "key": "code_engine_project",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The name of the Code Engine project to use. Created if it does not exist.",
+                            "required": true
+                        },
+                        {
+                            "key": "registry_namespace",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "A unique namespace within the IBM Cloud Container Registry region where the application image is stored.",
                             "required": true
                         },
                         {
@@ -1890,27 +1819,40 @@
                             }
                         },
                         {
-                            "key": "sm_location",
-                            "type": "string",
-                            "default_value": "us-south",
-                            "description": "IBM Cloud location/region containing the Secrets Manager instance. Not required if using a Secrets Manager CRN instance.",
-                            "display_name": "VPC region",
-                            "required": false,
-                            "custom_config": {
-                                "type": "vpc_region",
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "config_constraints": {
-                                    "generationType": "2"
-                                }
-                            }
+                            "key": "enable_secrets_manager",
+                            "type": "boolean",
+                            "default_value": false,
+                            "description": "Set `true` to enable a Secrets Manager tool integration. If this is enabled then the Secrets Manager instance details are required. See the `sm_` prefixed variables in the optional section. This can be configured using a CRN or using a combination of the Secrets Manager name, region and resource group. An IBMcloud api key is required for running the pipelines. It is recommended that a secrets provider is used for storing the secrets. For a CRN configuration use `pipeline_ibmcloud_api_key_secret_crn` for setting the CRN for the apikey. Alternatively use `pipeline_ibmcloud_api_key_secret_name` for setting the name of the apikey as set in Secrets Manager. This applies to the non CRN configuration of the Secrets tool.",
+                            "required": true
                         },
                         {
                             "key": "sm_instance_crn",
                             "type": "string",
                             "default_value": "",
-                            "description": "The CRN of the Secrets Manager instance.",
+                            "description": "The CRN of the Secrets Manager instance. If the CRN is provided, it will take precendence over the subsequent `sm_` variables. Secrets using a CRN can be set with the variables ending in `secret_crn`",
                             "required": false
+                        },
+                        {
+                            "key": "sm_location",
+                            "type": "string",
+                            "default_value": "us-south",
+                            "description": "IBM Cloud location/region containing the Secrets Manager instance. Not required if using a Secrets Manager CRN instance.",
+                            "display_name": "Region",
+                            "required": false,
+                            "custom_config": {
+                                "type": "region",
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "config_constraints": {
+                                    "filterString": "id:au-syd,br-sao,ca-tor,eu-de,eu-es,eu-gb,jp-osa,jp-tok,us-east,us-south",
+                                    "showKinds": [
+                                        "region",
+                                        "zone",
+                                        "dc",
+                                        "location"
+                                    ]
+                                }
+                            }
                         },
                         {
                             "key": "sm_name",
@@ -2160,27 +2102,6 @@
                             "type": "string",
                             "default_value": "",
                             "description": "The GIT tag within the CI pipeline definitions repository for Compliance CI Toolchain.",
-                            "required": false
-                        },
-                        {
-                            "key": "cluster_name",
-                            "type": "string",
-                            "default_value": "mycluster-free",
-                            "description": "Name of the Kubernetes cluster where the application will be deployed.",
-                            "required": false
-                        },
-                        {
-                            "key": "cluster_namespace",
-                            "type": "string",
-                            "default_value": "default",
-                            "description": "Namespace of the Kubernetes cluster where the application will be deployed.",
-                            "required": false
-                        },
-                        {
-                            "key": "code_engine_project",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The name of the Code Engine project to use. Created if it does not exist.",
                             "required": false
                         },
                         {
@@ -2501,13 +2422,6 @@
                             "type": "boolean",
                             "default_value": false,
                             "description": "Set true to enable private worker  for devsecops.",
-                            "required": false
-                        },
-                        {
-                            "key": "enable_secrets_manager",
-                            "type": "boolean",
-                            "default_value": true,
-                            "description": "Set to enable Secrets Manager Integration.",
                             "required": false
                         },
                         {
@@ -3167,13 +3081,6 @@
                             "default_value": "private-worker-tool-01",
                             "description": "The name of the private worker integration.",
                             "required": false
-                        },
-                        {
-                            "key": "registry_namespace",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "A unique namespace within the IBM Cloud Container Registry region where the application image is stored.",
-                            "required": true
                         },
                         {
                             "key": "registry_region",
