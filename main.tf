@@ -417,8 +417,7 @@ module "pipeline_ci" {
   issues_repo                         = module.issues_repo.repository
   app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
   sonarqube_user                      = var.sonarqube_user
-  private_worker                      = module.integrations.private_worker
-  enable_privateworker                = var.enable_privateworker
+  worker_id                           = module.integrations.worker_id
   enable_artifactory                  = var.enable_artifactory
   tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
   add_pipeline_definitions            = var.add_pipeline_definitions
@@ -470,6 +469,7 @@ module "pipeline_pr" {
   enable_artifactory                  = var.enable_artifactory
   pr_pipeline_branch                  = var.pr_pipeline_branch
   add_pipeline_definitions            = var.add_pipeline_definitions
+  worker_id                           = module.integrations.worker_id
   pipeline_git_tag                    = var.pr_pipeline_git_tag
   create_git_triggers                 = var.create_git_triggers
   trigger_pr_git_name                 = var.trigger_pr_git_name

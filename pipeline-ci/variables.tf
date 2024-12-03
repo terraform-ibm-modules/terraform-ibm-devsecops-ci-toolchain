@@ -4,16 +4,13 @@ variable "pipeline_id" {
 variable "app_name" {
 }
 
-variable "enable_privateworker" {
-}
-
 variable "enable_artifactory" {
 }
 
 variable "tool_artifactory" {
 }
 
-variable "private_worker" {
+variable "worker_id" {
 }
 
 variable "ibmcloud_api_key" {

@@ -38,7 +38,7 @@ output "secret_tool_v1" {
 }
 
 output "private_worker_id" {
-  value       = module.integrations.private_worker
+  value       = module.integrations.worker_id
   description = "The ID of the pipeline worker."
 }
 

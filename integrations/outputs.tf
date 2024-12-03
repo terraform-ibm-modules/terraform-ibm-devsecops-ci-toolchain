@@ -2,7 +2,7 @@
 # Outputs
 ##############################################################################
 
-output "private_worker" {
+output "worker_id" {
   value = (var.enable_privateworker) ? ibm_cd_toolchain_tool_privateworker.cd_toolchain_tool_privateworker_instance[0].tool_id : var.worker_id
 }
 

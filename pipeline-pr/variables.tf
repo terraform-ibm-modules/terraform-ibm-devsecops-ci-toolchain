@@ -77,3 +77,6 @@ variable "enable_pipeline_notifications" {
 
 variable "default_locked_properties" {
 }
+
+variable "worker_id" {
+}

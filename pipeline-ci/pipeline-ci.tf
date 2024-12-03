@@ -1,7 +1,7 @@
 resource "ibm_cd_tekton_pipeline" "ci_pipeline_instance" {
   pipeline_id = var.pipeline_id
   worker {
-    id = var.private_worker
+    id = var.worker_id
   }
   enable_notifications = var.enable_pipeline_notifications
 }
