@@ -198,6 +198,8 @@ module "devsecops_ci_toolchain" {
   repo_git_token_secret_name                     = var.repo_git_token_secret_name
   repo_auth_type                                 = var.repo_auth_type
   repo_integration_owner                         = var.repo_integration_owner
+  signing_key_secret_crn                         = var.signing_key_secret_crn
+  signing_key_secret_group                       = var.signing_key_secret_group
   signing_key_secret_name                        = var.signing_key_secret_name
   slack_channel_name                             = var.slack_channel_name
   slack_integration_name                         = var.slack_integration_name
