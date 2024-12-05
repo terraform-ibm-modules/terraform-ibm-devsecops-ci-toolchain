@@ -401,6 +401,17 @@ variable "pipeline_ibmcloud_api_key_secret_crn" {
   }
 }
 
+variable "signing_key_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the signing key secret."
+  default     = ""
+  validation {
+    condition     = startswith(var.signing_key_secret_crn, "crn:") || var.signing_key_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
 variable "slack_webhook_secret_crn" {
   type        = string
   sensitive   = true
@@ -502,6 +513,12 @@ variable "pipeline_config_repo_secret_group" {
 variable "privateworker_credentials_secret_group" {
   type        = string
   description = "Secret group prefix for the Private Worker secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
+  default     = ""
+}
+
+variable "signing_key_secret_group" {
+  type        = string
+  description = "Secret group prefix for the signing secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
   default     = ""
 }
 

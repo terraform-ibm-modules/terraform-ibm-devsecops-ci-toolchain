@@ -136,6 +136,13 @@ locals {
     format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_doi_api_key_secret_group))
   )
 
+  signing_key_secret_ref = (
+    (var.sm_instance_crn != "") ? var.signing_key_secret_crn :
+    (var.enable_key_protect) ? format("{vault::%s.${var.signing_key_secret_name}}", module.integrations.secret_tool) :
+    (var.signing_key_secret_group == "") ? format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
+    format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.signing_key_secret_group))
+  )
+
   sonarqube_secret_ref = (
     (var.sm_instance_crn != "") ? var.sonarqube_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.sonarqube_secret_name}}", module.integrations.secret_tool) :
@@ -213,7 +220,7 @@ locals {
     "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
     "registry-namespace"         = var.registry_namespace,
     "registry-region"            = var.registry_region,
-    "signing-key"                = var.signing_key_secret_name,
+    "signing-key"                = (var.signing_key_secret_name != "") ? local.signing_key_secret_ref : ""
     "pipeline-config-branch"     = var.pipeline_config_repo_branch
   }
 
