@@ -397,6 +397,7 @@ module "app_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
+  count = (var.enable_ci_pipeline == true) ? 1 : 0
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "ci-pipeline"
@@ -404,11 +405,12 @@ resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
 }
 
 module "pipeline_ci" {
+  count = (var.enable_ci_pipeline == true) ? 1 : 0
   source     = "./pipeline-ci"
   depends_on = [module.integrations, module.services]
 
   ibmcloud_api_key                    = var.ibmcloud_api_key
-  pipeline_id                         = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline.id)[1]
+  pipeline_id                         = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline[0].id)[1]
   app_name                            = var.app_name
   app_repo_url                        = module.app_repo.repository_url
   app_repo_branch                     = local.app_repo_branch
@@ -450,6 +452,7 @@ module "pipeline_ci" {
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
+  count = (var.enable_pr_pipeline == true )? 1 : 0
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "pr-pipeline"
@@ -458,10 +461,11 @@ resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
 
 module "pipeline_pr" {
   source     = "./pipeline-pr"
+  count = (var.enable_pr_pipeline == true )? 1 : 0
   depends_on = [module.integrations, module.services]
 
   ibmcloud_api_key                    = var.ibmcloud_api_key
-  pipeline_id                         = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
+  pipeline_id                         = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline[0].id)[1]
   app_name                            = var.app_name
   app_repo_url                        = module.app_repo.repository_url
   app_repo_branch                     = local.app_repo_branch
@@ -578,8 +582,8 @@ module "pipeline_properties" {
   property_data = each.value
   # resolve the shorthand to an actual pipeline id
   pipeline_id = (
-    (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id :
-    (lower(each.value.pipeline_id) == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
+    (lower(each.value.pipeline_id) == "ci") ? try(module.pipeline_ci[0].pipeline_id,"0") :
+    (lower(each.value.pipeline_id) == "pr") ? try(module.pipeline_pr[0].pipeline_id ,"0"): each.value.pipeline_id
   )
   config_data = local.config_data
 }
@@ -604,10 +608,10 @@ module "repository_properties" {
   pipeline_repo_data = each.value
   # resolve the shorthand to an actual pipeline id
   pipeline_id = (
-    (lower(each.value.pipeline_id) == "ci") ? module.pipeline_ci.pipeline_id :
-    (lower(each.value.pipeline_id) == "pr") ? module.pipeline_pr.pipeline_id : each.value.pipeline_id
+    (lower(each.value.pipeline_id) == "ci") ?  try(module.pipeline_ci[0].pipeline_id,"0") :
+    (lower(each.value.pipeline_id) == "pr") ?  try(module.pipeline_pr[0].pipeline_id,"0") : each.value.pipeline_id
   )
-  pr_pipeline_id          = try(module.pipeline_pr.pipeline_id, "")
+  pr_pipeline_id          = try(module.pipeline_pr[0].pipeline_id, "")
   config_data             = local.config_data
   create_default_triggers = var.create_custom_repository_default_triggers
 }

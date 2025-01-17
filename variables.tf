@@ -28,6 +28,18 @@ variable "toolchain_description" {
   default     = "Toolchain created with Terraform template for DevSecOps CI Best Practices."
 }
 
+variable "enable_ci_pipeline" {
+  type        = bool
+  description = "Set `enable_ci_pipeline` to true to create CI pipeline."
+  default     = true
+}
+
+variable "enable_pr_pipeline" {
+  type        = bool
+  description = "Set `enable_pr_pipeline` to true to create PR pipeline."
+  default     = true
+}
+
 variable "app_name" {
   type        = string
   description = "Name of the application image and inventory entry."

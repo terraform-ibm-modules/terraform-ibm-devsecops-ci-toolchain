@@ -78,6 +78,18 @@
                             }
                         },
                         {
+                            "key": "enable_ci_pipeline",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Set `enable_ci_pipeline` to true to create CI pipeline."
+                        },
+                        {
+                            "key": "enable_pr_pipeline",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Set `enable_pr_pipeline` to true to create PR pipeline."
+                        },
+                        {
                             "key": "cluster_name",
                             "type": "string",
                             "default_value": "mycluster-free",

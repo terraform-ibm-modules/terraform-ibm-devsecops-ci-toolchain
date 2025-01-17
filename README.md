@@ -149,11 +149,13 @@ module "terraform_devsecops_ci" {
 | <a name="input_doi_toolchain_id"></a> [doi\_toolchain\_id](#input\_doi\_toolchain\_id) | DevOps Insights Toolchain ID to link to. | `string` | `""` | no |
 | <a name="input_doi_toolchain_id_pipeline_property"></a> [doi\_toolchain\_id\_pipeline\_property](#input\_doi\_toolchain\_id\_pipeline\_property) | The DevOps Insights instance toolchain ID. | `string` | `""` | no |
 | <a name="input_enable_artifactory"></a> [enable\_artifactory](#input\_enable\_artifactory) | Set true to enable artifacory for devsecops. | `bool` | `false` | no |
+| <a name="input_enable_ci_pipeline"></a> [enable\_ci\_pipeline](#input\_enable\_ci\_pipeline) | Set `enable_ci_pipeline` to true to create CI pipeline. | `bool` | `true` | no |
 | <a name="input_enable_concert"></a> [enable\_concert](#input\_enable\_concert) | Set to `true` to enable the Concert tool integration. | `bool` | `false` | no |
 | <a name="input_enable_cos"></a> [enable\_cos](#input\_enable\_cos) | Set to `true` to enable the COS integration. | `bool` | `true` | no |
 | <a name="input_enable_insights"></a> [enable\_insights](#input\_enable\_insights) | Set to `true` to enable the DevOps Insights integration. | `bool` | `true` | no |
 | <a name="input_enable_key_protect"></a> [enable\_key\_protect](#input\_enable\_key\_protect) | Set to enable Key Protect Integration. | `bool` | `false` | no |
 | <a name="input_enable_pipeline_notifications"></a> [enable\_pipeline\_notifications](#input\_enable\_pipeline\_notifications) | When enabled, pipeline run events will be sent to the Event Notifications and Slack integrations in the enclosing toolchain. | `bool` | `false` | no |
+| <a name="input_enable_pr_pipeline"></a> [enable\_pr\_pipeline](#input\_enable\_pr\_pipeline) | Set `enable_pr_pipeline` to true to create PR pipeline. | `bool` | `true` | no |
 | <a name="input_enable_privateworker"></a> [enable\_privateworker](#input\_enable\_privateworker) | Set true to enable private worker  for devsecops. | `bool` | `false` | no |
 | <a name="input_enable_secrets_manager"></a> [enable\_secrets\_manager](#input\_enable\_secrets\_manager) | Set to enable Secrets Manager Integration. | `bool` | `true` | no |
 | <a name="input_enable_slack"></a> [enable\_slack](#input\_enable\_slack) | Set to true to create the integration | `bool` | `false` | no |
