@@ -486,6 +486,12 @@ variable "signing_key_secret_name" {
 }
 
 ###########################
+variable "enable_app_repo_integration" {
+  type        = bool
+  description = "Set `enable_app_repo_integration` to false if you don't want to create default app repo integration.You can make use of `repository.json` to create the integration."
+  default     = true
+}
+
 variable "app_repo_secret_group" {
   type        = string
   description = "Secret group prefix for the App repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."

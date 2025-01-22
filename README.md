@@ -148,6 +148,7 @@ module "terraform_devsecops_ci" {
 | <a name="input_devsecops_flavor"></a> [devsecops\_flavor](#input\_devsecops\_flavor) | The deployment target, 'kube', 'code-engine' or 'zos'. | `string` | `"kube"` | no |
 | <a name="input_doi_toolchain_id"></a> [doi\_toolchain\_id](#input\_doi\_toolchain\_id) | DevOps Insights Toolchain ID to link to. | `string` | `""` | no |
 | <a name="input_doi_toolchain_id_pipeline_property"></a> [doi\_toolchain\_id\_pipeline\_property](#input\_doi\_toolchain\_id\_pipeline\_property) | The DevOps Insights instance toolchain ID. | `string` | `""` | no |
+| <a name="input_enable_app_repo_integration"></a> [enable\_app\_repo\_integration](#input\_enable\_app\_repo\_integration) | Set `enable_app_repo_integration` to false if you don't want to create default app repo integration.You can make use of `repository.json` to create the integration. | `bool` | `true` | no |
 | <a name="input_enable_artifactory"></a> [enable\_artifactory](#input\_enable\_artifactory) | Set true to enable artifacory for devsecops. | `bool` | `false` | no |
 | <a name="input_enable_ci_pipeline"></a> [enable\_ci\_pipeline](#input\_enable\_ci\_pipeline) | Set `enable_ci_pipeline` to true to create CI pipeline. | `bool` | `true` | no |
 | <a name="input_enable_concert"></a> [enable\_concert](#input\_enable\_concert) | Set to `true` to enable the Concert tool integration. | `bool` | `false` | no |

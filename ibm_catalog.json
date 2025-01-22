@@ -181,6 +181,13 @@
                             "required": false
                         },
                         {
+                            "key":"enable_app_repo_integration",
+                            "type":"boolean",
+                            "default_value": true,
+                            "description": "Set `enable_app_repo_integration` to false if you don't want to create default app repo integration.You can make use of `repository.json` to create the integration.",
+                            "required": false
+                        },
+                        {
                             "key": "app_group",
                             "type": "string",
                             "default_value": "",

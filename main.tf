@@ -373,6 +373,7 @@ module "pipeline_config_repo" {
 }
 
 module "app_repo" {
+  count                 = (var.enable_app_repo_integration == true ? 1 : 0)
   source                = "./customizations/repositories"
   depends_on            = [module.integrations]
   tool_name             = "app-repo"
@@ -397,7 +398,7 @@ module "app_repo" {
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
-  count = (var.enable_ci_pipeline == true) ? 1 : 0
+  count        = (var.enable_ci_pipeline == true) ? 1 : 0
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "ci-pipeline"
@@ -405,14 +406,15 @@ resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {
 }
 
 module "pipeline_ci" {
-  count = (var.enable_ci_pipeline == true) ? 1 : 0
+  count      = (var.enable_ci_pipeline == true) ? 1 : 0
   source     = "./pipeline-ci"
   depends_on = [module.integrations, module.services]
 
   ibmcloud_api_key                    = var.ibmcloud_api_key
   pipeline_id                         = split("/", ibm_cd_toolchain_tool_pipeline.ci_pipeline[0].id)[1]
   app_name                            = var.app_name
-  app_repo_url                        = module.app_repo.repository_url
+  enable_app_repo_integration         = var.enable_app_repo_integration
+  app_repo_url                        = try(module.app_repo[0].repository_url, "")
   app_repo_branch                     = local.app_repo_branch
   pipeline_config_repo_existing_url   = var.pipeline_config_repo_existing_url
   pipeline_config_repo_clone_from_url = var.pipeline_config_repo_clone_from_url
@@ -424,7 +426,7 @@ module "pipeline_ci" {
   evidence_repo                       = module.evidence_repo.repository
   inventory_repo                      = module.inventory_repo.repository
   issues_repo                         = module.issues_repo.repository
-  app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
+  app_repo_provider_webhook_syntax    = try(module.app_repo[0].repo_provider_name, "")
   sonarqube_user                      = var.sonarqube_user
   worker_id                           = module.integrations.worker_id
   enable_artifactory                  = var.enable_artifactory
@@ -452,7 +454,7 @@ module "pipeline_ci" {
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
-  count = (var.enable_pr_pipeline == true )? 1 : 0
+  count        = (var.enable_pr_pipeline == true) ? 1 : 0
   toolchain_id = ibm_cd_toolchain.toolchain_instance.id
   parameters {
     name = "pr-pipeline"
@@ -461,13 +463,14 @@ resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
 
 module "pipeline_pr" {
   source     = "./pipeline-pr"
-  count = (var.enable_pr_pipeline == true )? 1 : 0
+  count      = (var.enable_pr_pipeline == true) ? 1 : 0
   depends_on = [module.integrations, module.services]
 
   ibmcloud_api_key                    = var.ibmcloud_api_key
   pipeline_id                         = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline[0].id)[1]
+  enable_app_repo_integration         = var.enable_app_repo_integration
   app_name                            = var.app_name
-  app_repo_url                        = module.app_repo.repository_url
+  app_repo_url                        = try(module.app_repo[0].repository_url, "")
   app_repo_branch                     = local.app_repo_branch
   pipeline_config_repo_existing_url   = var.pipeline_config_repo_existing_url
   pipeline_config_repo_clone_from_url = var.pipeline_config_repo_clone_from_url
@@ -475,7 +478,7 @@ module "pipeline_pr" {
   pipeline_repo_url                   = module.compliance_pipelines_repo.repository_url
   issues_repo                         = module.issues_repo.repository
   evidence_repo                       = module.evidence_repo.repository
-  app_repo_provider_webhook_syntax    = module.app_repo.repo_provider_name
+  app_repo_provider_webhook_syntax    = try(module.app_repo[0].repo_provider_name, "")
   tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                  = var.enable_artifactory
   pr_pipeline_branch                  = var.pr_pipeline_branch
@@ -582,8 +585,8 @@ module "pipeline_properties" {
   property_data = each.value
   # resolve the shorthand to an actual pipeline id
   pipeline_id = (
-    (lower(each.value.pipeline_id) == "ci") ? try(module.pipeline_ci[0].pipeline_id,"0") :
-    (lower(each.value.pipeline_id) == "pr") ? try(module.pipeline_pr[0].pipeline_id ,"0"): each.value.pipeline_id
+    (lower(each.value.pipeline_id) == "ci") ? try(module.pipeline_ci[0].pipeline_id, "0") :
+    (lower(each.value.pipeline_id) == "pr") ? try(module.pipeline_pr[0].pipeline_id, "0") : each.value.pipeline_id
   )
   config_data = local.config_data
 }
@@ -608,8 +611,8 @@ module "repository_properties" {
   pipeline_repo_data = each.value
   # resolve the shorthand to an actual pipeline id
   pipeline_id = (
-    (lower(each.value.pipeline_id) == "ci") ?  try(module.pipeline_ci[0].pipeline_id,"0") :
-    (lower(each.value.pipeline_id) == "pr") ?  try(module.pipeline_pr[0].pipeline_id,"0") : each.value.pipeline_id
+    (lower(each.value.pipeline_id) == "ci") ? try(module.pipeline_ci[0].pipeline_id, "0") :
+    (lower(each.value.pipeline_id) == "pr") ? try(module.pipeline_pr[0].pipeline_id, "0") : each.value.pipeline_id
   )
   pr_pipeline_id          = try(module.pipeline_pr[0].pipeline_id, "")
   config_data             = local.config_data

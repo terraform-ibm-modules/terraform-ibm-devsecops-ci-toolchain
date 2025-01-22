@@ -125,3 +125,6 @@ variable "enable_pipeline_notifications" {
 
 variable "default_locked_properties" {
 }
+
+variable "enable_app_repo_integration" {
+}

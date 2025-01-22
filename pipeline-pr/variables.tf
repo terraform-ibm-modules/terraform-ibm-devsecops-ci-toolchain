@@ -80,3 +80,6 @@ variable "default_locked_properties" {
 
 variable "worker_id" {
 }
+
+variable "enable_app_repo_integration" {
+}
