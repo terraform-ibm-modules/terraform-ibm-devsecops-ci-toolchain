@@ -260,6 +260,7 @@ locals {
     "dev-resource-group"         = var.dev_resource_group
     "doi-ibmcloud-api-key"       = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref,
     "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
+    "registry-domain"            = var.registry_domain,
     "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
     "registry-namespace"         = var.registry_namespace,
     "registry-region"            = var.registry_region,

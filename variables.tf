@@ -10,6 +10,12 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
+variable "registry_domain" {
+  type        = string
+  description = "The domain mapping for IBMCloud Container Registry. For the case of a private registry set to `private.icr` and for the global registry set to `icr`, otherwise leave unset."
+  default     = ""
+}
+
 variable "toolchain_region" {
   type        = string
   description = "IBM Cloud Region for the toolchain."

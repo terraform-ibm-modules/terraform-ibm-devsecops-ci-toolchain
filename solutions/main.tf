@@ -183,6 +183,7 @@ module "devsecops_ci_toolchain" {
   privateworker_credentials_secret_group         = var.privateworker_credentials_secret_group
   privateworker_credentials_secret_name          = var.privateworker_credentials_secret_name
   privateworker_name                             = var.privateworker_name
+  registry_domain                                = var.registry_domain
   registry_namespace                             = var.registry_namespace
   registry_region                                = var.registry_region
   repositories_prefix                            = var.repositories_prefix

@@ -106,6 +106,12 @@ variable "dev_resource_group" {
   default     = ""
 }
 
+variable "registry_domain" {
+  type        = string
+  description = "The domain mapping for IBMCloud Container Registry. In the case of a private registry set to `private.icr` and for the global registry set to `icr`, otherwise leave unset."
+  default     = ""
+}
+
 variable "registry_namespace" {
   type        = string
   description = "A unique namespace within the IBM Cloud Container Registry region where the application image is stored."

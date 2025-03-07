@@ -3115,6 +3115,13 @@
                             "required": false
                         },
                         {
+                            "key": "registry_domain",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The domain mapping for IBMCloud Container Registry. In the case of a private registry set to `private.icr` and for the global registry set to `icr`, otherwise leave unset.",
+                            "required": false
+                        },
+                        {
                             "key": "registry_region",
                             "type": "string",
                             "default_value": "ibm:yp:us-south",
