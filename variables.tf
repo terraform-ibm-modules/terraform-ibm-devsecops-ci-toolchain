@@ -1337,6 +1337,12 @@ variable "worker_id" {
   description = "The identifier for the Managed Pipeline worker."
 }
 
+variable "pr_worker_id" {
+  type        = string
+  default     = ""
+  description = "The identifier for the Managed Pipeline worker for the PR pipeline. If not set it will use the value set in `worker_id`."
+}
+
 variable "artifactory_token_secret_name" {
   type        = string
   default     = "artifactory-token"

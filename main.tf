@@ -526,7 +526,7 @@ module "pipeline_pr" {
   enable_artifactory                  = var.enable_artifactory
   pr_pipeline_branch                  = var.pr_pipeline_branch
   add_pipeline_definitions            = var.add_pipeline_definitions
-  worker_id                           = module.integrations.worker_id
+  worker_id                           = (var.pr_worker_id != "") ? var.pr_worker_id : module.integrations.worker_id
   pipeline_git_tag                    = var.pr_pipeline_git_tag
   create_git_triggers                 = var.create_git_triggers
   trigger_pr_git_name                 = var.trigger_pr_git_name
