@@ -596,6 +596,11 @@ module "integrations" {
   cos_description                      = var.cos_description
   cos_documentation_url                = var.cos_documentation_url
   cos_integration_name                 = var.cos_integration_name
+  cos_api_key_secret_ref               = local.cos_secret_ref
+  cos_endpoint                         = var.cos_endpoint
+  cos_instance_crn                     = var.cos_instance_crn
+  cos_bucket_name                      = var.cos_bucket_name
+  use_legacy_cos_tool                  = var.use_legacy_cos_tool
 }
 
 module "services" {
