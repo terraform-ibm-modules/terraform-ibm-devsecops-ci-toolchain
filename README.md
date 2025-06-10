@@ -323,7 +323,7 @@ module "terraform_devsecops_ci" {
 | <a name="input_trigger_timed_name"></a> [trigger\_timed\_name](#input\_trigger\_timed\_name) | The name of the CI pipeline Timed trigger. | `string` | `"Git CI Timed Trigger"` | no |
 | <a name="input_trigger_timed_pruner_enable"></a> [trigger\_timed\_pruner\_enable](#input\_trigger\_timed\_pruner\_enable) | Set to `true` to enable the timed Pruner trigger. | `bool` | `false` | no |
 | <a name="input_trigger_timed_pruner_name"></a> [trigger\_timed\_pruner\_name](#input\_trigger\_timed\_pruner\_name) | The name of the timed Pruner trigger. | `string` | `"Evidence Pruner Timed Trigger"` | no |
-| <a name="input_use_legacy_cos_tool"></a> [use\_legacy\_cos\_tool](#input\_use\_legacy\_cos\_tool) | The custom tool integration for is being replaced with the new COS tool integration. To continue using the legacy tool. Set the value to `true`. See `enable_cos` | `bool` | `false` | no |
+| <a name="input_use_legacy_cos_tool"></a> [use\_legacy\_cos\_tool](#input\_use\_legacy\_cos\_tool) | The custom tool integration is being replaced with the new COS tool integration. To continue using the legacy tool. Set the value to `true`. See `enable_cos` | `bool` | `false` | no |
 | <a name="input_use_legacy_ref"></a> [use\_legacy\_ref](#input\_use\_legacy\_ref) | Set to `true` to use the legacy secret reference format for Secrets Manager secrets. | `bool` | `true` | no |
 | <a name="input_worker_id"></a> [worker\_id](#input\_worker\_id) | The identifier for the Managed Pipeline worker. | `string` | `"public"` | no |
 
