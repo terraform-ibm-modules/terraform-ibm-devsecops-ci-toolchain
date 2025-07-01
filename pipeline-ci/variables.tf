@@ -40,6 +40,9 @@ variable "inventory_repo" {
 variable "evidence_repo" {
 }
 
+variable "evidence_repo_enabled" {
+}
+
 variable "issues_repo" {
 }
 

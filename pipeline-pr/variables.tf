@@ -16,6 +16,9 @@ variable "evidence_repo" {
 
 }
 
+variable "evidence_repo_enabled" {
+}
+
 variable "pipeline_config_repo" {
 }
 
