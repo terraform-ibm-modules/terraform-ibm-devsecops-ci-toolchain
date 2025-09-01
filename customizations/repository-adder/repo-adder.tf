@@ -33,16 +33,18 @@ locals {
     title                = try(repository.title, local.title)
     triggers = flatten([for trigger in try(repository.triggers, []) : { #loop through triggers, if they exist
       # This is to ensure that all the properties are present. Trigger validation will happen in the trigger module
-      type                = try(trigger.type, "") #If type is not set, default to "manual"
-      name                = try(trigger.name, "") # If trigger name is not set, leave empty
-      worker_id           = try(trigger.worker_id, "")
-      properties          = try(trigger.properties, [])
-      cron                = try(trigger.cron, "")
-      enabled             = try(trigger.enabled, true)
-      event_listener      = try(trigger.event_listener, "")
-      events              = try(trigger.events, "[]")
-      timezone            = try(trigger.timezone, "")
-      max_concurrent_runs = try(trigger.max_concurrent_runs, 1)
+      type                     = try(trigger.type, "") #If type is not set, default to "manual"
+      name                     = try(trigger.name, "") # If trigger name is not set, leave empty
+      worker_id                = try(trigger.worker_id, "")
+      properties               = try(trigger.properties, [])
+      cron                     = try(trigger.cron, "")
+      enabled                  = try(trigger.enabled, true)
+      event_listener           = try(trigger.event_listener, "")
+      pipeline_id              = try(trigger.pipeline_id, "ci")
+      events                   = try(trigger.events, "[]")
+      timezone                 = try(trigger.timezone, "")
+      max_concurrent_runs      = try(trigger.max_concurrent_runs, 1)
+      enable_events_from_forks = try(trigger.enable_events_from_forks, false)
     }])
     }
   ])
@@ -75,11 +77,10 @@ module "repos_and_triggers" {
   toolchain_id            = var.toolchain_id
   git_token_secret_ref    = local.git_token_secret_ref
   repository_data         = each.value # each repository payload
-  pipeline_id             = var.pipeline_id
-  pr_pipeline_id          = var.pr_pipeline_id
   default_branch          = local.default_branch
   mode                    = local.mode
   worker_id               = local.worker_id
   config_data             = var.config_data
+  pipeline_data           = var.pipeline_data
   create_default_triggers = var.create_default_triggers
 }

@@ -4,22 +4,13 @@ variable "toolchain_id" {
   default     = ""
 }
 
-variable "pipeline_id" {
-  type        = string
-  description = "The ID of the pipeline to which properties are attached."
-  default     = ""
-}
-
-variable "pr_pipeline_id" {
-  type        = string
-  description = "The ID of the PR pipeline."
-  default     = ""
-}
-
 variable "pipeline_repo_data" {
 }
 
 variable "config_data" {
+}
+
+variable "pipeline_data" {
 }
 
 variable "create_default_triggers" {

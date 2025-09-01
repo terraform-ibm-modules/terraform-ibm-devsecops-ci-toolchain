@@ -4,18 +4,6 @@ variable "repository_integration_id" {
   default     = ""
 }
 
-variable "pipeline_id" {
-  type        = string
-  description = "The ID of the target pipeline."
-  default     = ""
-}
-
-variable "pr_pipeline_id" {
-  type        = string
-  description = "The ID of the PR pipeline."
-  default     = ""
-}
-
 variable "branch" {
   type        = string
   description = "The default branch of the repository."
@@ -32,4 +20,10 @@ variable "max_concurrent_runs" {
   type        = number
   description = "The max number of concurrent runs."
   default     = 1
+}
+
+variable "config_data" {
+}
+
+variable "pipeline_data" {
 }

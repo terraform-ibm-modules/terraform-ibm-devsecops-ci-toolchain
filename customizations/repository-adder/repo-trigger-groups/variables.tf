@@ -75,3 +75,6 @@ variable "repository_data" {
 
 variable "config_data" {
 }
+
+variable "pipeline_data" {
+}

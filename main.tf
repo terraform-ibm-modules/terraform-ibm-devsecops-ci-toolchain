@@ -281,11 +281,16 @@ locals {
     "pipeline-config-branch"     = var.pipeline_config_repo_branch
   }
 
+  pipeline_data = {
+    "ci" = try(module.pipeline_ci[0].pipeline_id, "")
+    "pr" = try(module.pipeline_pr[0].pipeline_id, "")
+  }
+
   repos_file_input = (var.repository_properties_filepath == "") ? try(file("${path.root}/repositories.json"), "[]") : try(file(var.repository_properties_filepath), "[]")
   repos_file_data  = (local.repos_file_input == "") ? "[]" : local.repos_file_input
   repos_input      = (var.repository_properties == "") ? local.repos_file_data : var.repository_properties
   pre_process_repo_data = flatten([for pipeline in jsondecode(local.repos_input) : {
-    pipeline_id          = pipeline.pipeline_id # could be `ci`, `pr` or actual pipeline ID
+    pipeline_id          = try(pipeline.pipeline_id, ibm_cd_toolchain.toolchain_instance.id) # could be `ci`, `pr` or actual pipeline ID, or other ID
     git_token_secret_ref = try(pipeline.git_token_secret_ref, "")
     repository_owner     = try(pipeline.repository_owner, "")
     repositories         = try(pipeline.repositories, [])
@@ -674,14 +679,9 @@ module "repository_properties" {
   for_each = tomap({
     for t in local.pre_process_repo_data : t.pipeline_id => t
   })
-  toolchain_id       = ibm_cd_toolchain.toolchain_instance.id
-  pipeline_repo_data = each.value
-  # resolve the shorthand to an actual pipeline id
-  pipeline_id = (
-    (lower(each.value.pipeline_id) == "ci") ? try(module.pipeline_ci[0].pipeline_id, "0") :
-    (lower(each.value.pipeline_id) == "pr") ? try(module.pipeline_pr[0].pipeline_id, "0") : each.value.pipeline_id
-  )
-  pr_pipeline_id          = try(module.pipeline_pr[0].pipeline_id, "")
+  toolchain_id            = ibm_cd_toolchain.toolchain_instance.id
+  pipeline_repo_data      = each.value
   config_data             = local.config_data
+  pipeline_data           = local.pipeline_data
   create_default_triggers = var.create_custom_repository_default_triggers
 }

@@ -3,18 +3,20 @@ locals {
   listener = (
     (strcontains(var.repository_url, "git.cloud.ibm.com")) ? "ci-listener-gitlab" : "ci-listener"
   )
-  manual       = true
-  git          = true
-  pr           = false
-  repo_url_raw = try(trimsuffix(var.repository_url, ".git"), "")
-  repo_url     = format("%s%s", local.repo_url_raw, ".git")
+  manual         = true
+  git            = true
+  pr             = false
+  repo_url_raw   = try(trimsuffix(var.repository_url, ".git"), "")
+  repo_url       = format("%s%s", local.repo_url_raw, ".git")
+  ci_pipeline_id = var.pipeline_data.ci
+  pr_pipeline_id = var.pipeline_data.pr
 }
 
 # MANUAL TRIGGER FOR CI PIPELINE
 
 resource "ibm_cd_tekton_pipeline_trigger" "pipeline_manual_trigger" {
   count               = (local.manual) ? 1 : 0
-  pipeline_id         = var.pipeline_id
+  pipeline_id         = local.ci_pipeline_id
   type                = "manual"
   name                = join(" - ", ["Manual", local.repo_name])
   event_listener      = local.listener
@@ -24,7 +26,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_manual_trigger" {
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_app_name" {
   count       = (local.manual) ? 1 : 0
-  pipeline_id = var.pipeline_id
+  pipeline_id = local.ci_pipeline_id
   name        = "app-name"
   type        = "text"
   value       = local.repo_name
@@ -34,7 +36,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_app_name" {
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_branch" {
   count       = (local.manual) ? 1 : 0
-  pipeline_id = var.pipeline_id
+  pipeline_id = local.ci_pipeline_id
   name        = "branch"
   type        = "text"
   value       = var.branch
@@ -44,7 +46,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_branch" {
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_repo_url" {
   count       = (local.manual) ? 1 : 0
-  pipeline_id = var.pipeline_id
+  pipeline_id = local.ci_pipeline_id
   name        = "repository"
   type        = "integration"
   value       = var.repository_integration_id
@@ -56,7 +58,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_repo_url" {
 # GIT TRIGGER FOR CI PIPELINE
 resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   count          = (local.git) ? 1 : 0
-  pipeline_id    = var.pipeline_id
+  pipeline_id    = local.ci_pipeline_id
   type           = "scm"
   name           = join(" - ", ["Git", local.repo_name])
   event_listener = local.listener
@@ -74,7 +76,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_git_app_name" {
   count       = (local.git) ? 1 : 0
-  pipeline_id = var.pipeline_id
+  pipeline_id = local.ci_pipeline_id
   name        = "app-name"
   type        = "text"
   value       = local.repo_name
@@ -85,7 +87,7 @@ resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_git_app_nam
 # GIT TRIGGER FOR PR PIPELINE
 resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_pr_trigger" {
   count          = (local.git) ? 1 : 0
-  pipeline_id    = var.pr_pipeline_id
+  pipeline_id    = local.pr_pipeline_id
   type           = "scm"
   name           = join(" - ", ["Git PR", local.repo_name])
   event_listener = local.listener
@@ -103,7 +105,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_pr_trigger" {
 
 resource "ibm_cd_tekton_pipeline_trigger_property" "trigger_property_pr_git_app_name" {
   count       = (local.git) ? 1 : 0
-  pipeline_id = var.pr_pipeline_id
+  pipeline_id = local.pr_pipeline_id
   name        = "app-name"
   type        = "text"
   value       = local.repo_name

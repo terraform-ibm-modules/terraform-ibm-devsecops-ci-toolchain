@@ -3,15 +3,17 @@
 # - timer/cron
 # - Git
 locals {
-  cron_schedule       = (try(var.trigger_data.cron_schedule, "") == "") ? "0 4 * * *" : var.trigger_data.cron_schedule
-  time_zone           = (try(var.trigger_data.time_zone, "") == "") ? "UTC" : var.trigger_data.time_zone
-  trigger_type        = (try(var.trigger_data.type, "") == "") ? "manual" : var.trigger_data.type
-  pipeline_id         = (try(var.trigger_data.pipeline_id, "") == "") ? "" : var.trigger_data.pipeline_id
-  trigger_name        = (try(var.trigger_data.name, "") == "") ? "" : var.trigger_data.name
-  event_listener      = var.trigger_data.event_listener
-  max_concurrent_runs = var.trigger_data.max_concurrent_runs
-  trigger_enable      = var.trigger_data.enabled
-  worker_id           = var.trigger_data.worker_id
+  cron_schedule            = (try(var.trigger_data.cron_schedule, "") == "") ? "0 4 * * *" : var.trigger_data.cron_schedule
+  time_zone                = (try(var.trigger_data.time_zone, "") == "") ? "UTC" : var.trigger_data.time_zone
+  trigger_type             = (try(var.trigger_data.type, "") == "") ? "manual" : var.trigger_data.type
+  pipeline_id              = var.trigger_data.pipeline_data[var.trigger_data.pipeline_id]
+  trigger_name             = (try(var.trigger_data.name, "") == "") ? "" : var.trigger_data.name
+  event_listener           = var.trigger_data.event_listener
+  max_concurrent_runs      = var.trigger_data.max_concurrent_runs
+  trigger_enable           = var.trigger_data.enabled
+  worker_id                = var.trigger_data.worker_id
+  enable_events_from_forks = var.trigger_data.enable_events_from_forks
+
 
   # Events = push, pull_request, pull_request_closed
   input_events      = try(var.trigger_data.events, "")
@@ -32,7 +34,7 @@ locals {
 
   # Adding pipeline_id and property_name to generate a unique map key
   pre_process_property_data = flatten([for prop in var.trigger_data.properties : {
-    pipeline_id               = var.trigger_data.pipeline_id
+    pipeline_id               = local.pipeline_id
     property                  = prop
     type                      = prop.type
     name                      = prop.name
@@ -74,13 +76,14 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_timed_trigger" {
 
 # Git Trigger
 resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
-  count          = (local.trigger_type == "git" || local.trigger_type == "scm") ? 1 : 0
-  pipeline_id    = local.pipeline_id
-  type           = "scm"
-  name           = local.trigger_name
-  event_listener = local.event_listener
-  events         = local.resolved_events
-  enabled        = local.trigger_enable
+  count                    = (local.trigger_type == "git" || local.trigger_type == "scm") ? 1 : 0
+  pipeline_id              = local.pipeline_id
+  type                     = "scm"
+  name                     = local.trigger_name
+  event_listener           = local.event_listener
+  events                   = local.resolved_events
+  enabled                  = local.trigger_enable
+  enable_events_from_forks = local.enable_events_from_forks
   source {
     type = "git"
     properties {
