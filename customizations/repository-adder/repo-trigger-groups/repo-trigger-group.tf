@@ -60,7 +60,7 @@ locals {
     enabled                  = trigger.enabled
     max_concurrent_runs      = trigger.max_concurrent_runs
     pipeline_id              = trigger.pipeline_id
-    default_branch           = local.default_branch
+    default_branch           = (trigger.default_branch != "") ? trigger.default_branch : local.default_branch
     events                   = trigger.events
     repo_url                 = local.repo_url_raw
     config_data              = var.config_data
