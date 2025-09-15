@@ -1510,6 +1510,13 @@ variable "trigger_git_name" {
   description = "The name of the CI pipeline GIT trigger."
   default     = "Git CI Trigger"
 }
+
+variable "trigger_git_ci_filter" {
+  type        = string
+  description = "(Optional) The CEL filter for the Git CI trigger. e.g. `body.ref.startsWith(\"refs/tags/\")`"
+  default     = null
+}
+
 variable "trigger_git_enable" {
   type        = bool
   description = "Set to `true` to enable the CI pipeline Git trigger."

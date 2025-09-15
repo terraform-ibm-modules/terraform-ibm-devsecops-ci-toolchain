@@ -1,7 +1,7 @@
 locals {
   repo_name = basename(var.repository_url)
   listener = (
-    (strcontains(var.repository_url, "git.cloud.ibm.com")) ? "ci-listener-gitlab" : "ci-listener"
+    (strcontains(var.repository_url, "git.cloud.ibm.com")) ? "listener-gitlab" : "listener"
   )
   manual         = true
   git            = true
@@ -10,6 +10,7 @@ locals {
   repo_url       = format("%s%s", local.repo_url_raw, ".git")
   ci_pipeline_id = var.pipeline_data.ci
   pr_pipeline_id = var.pipeline_data.pr
+  trigger_git_ci_filter         = var.trigger_git_ci_filter
 }
 
 # MANUAL TRIGGER FOR CI PIPELINE
@@ -19,7 +20,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_manual_trigger" {
   pipeline_id         = local.ci_pipeline_id
   type                = "manual"
   name                = join(" - ", ["Manual", local.repo_name])
-  event_listener      = local.listener
+  event_listener      = "ci-${local.listener}"
   enabled             = true
   max_concurrent_runs = var.max_concurrent_runs
 }
@@ -61,14 +62,15 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   pipeline_id    = local.ci_pipeline_id
   type           = "scm"
   name           = join(" - ", ["Git", local.repo_name])
-  event_listener = local.listener
-  events         = ["push"]
+  event_listener = "ci-${local.listener}"
+  events         = (local.trigger_git_ci_filter != null) ? null : ["push"]
+  filter         = local.trigger_git_ci_filter
   enabled        = true
   source {
     type = "git"
     properties {
       url    = local.repo_url
-      branch = var.branch
+      branch = (local.trigger_git_ci_filter != null) ? null : var.branch
     }
   }
   max_concurrent_runs = var.max_concurrent_runs
@@ -90,7 +92,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_pr_trigger" {
   pipeline_id    = local.pr_pipeline_id
   type           = "scm"
   name           = join(" - ", ["Git PR", local.repo_name])
-  event_listener = local.listener
+  event_listener = "pr-${local.listener}"
   events         = ["pull_request"]
   enabled        = true
   source {

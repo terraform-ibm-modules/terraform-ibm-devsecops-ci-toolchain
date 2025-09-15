@@ -98,6 +98,10 @@ variable "app_repo_provider_webhook_syntax" {
 
 variable "trigger_git_name" {
 }
+
+variable "trigger_git_ci_filter" {
+}
+
 variable "trigger_git_enable" {
 }
 

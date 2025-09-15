@@ -41,13 +41,14 @@ resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
   name        = var.trigger_git_name
   event_listener = ((var.app_repo_provider_webhook_syntax == "github") ?
   "ci-listener" : "ci-listener-gitlab")
-  events  = ["push"]
+  events  = (var.trigger_git_ci_filter != null) ? null : ["push"]
+  filter = var.trigger_git_ci_filter
   enabled = var.trigger_git_enable
   source {
     type = "git"
     properties {
       url    = var.app_repo_url
-      branch = var.app_repo_branch
+      branch = (var.trigger_git_ci_filter != null) ? null : var.app_repo_branch
     }
   }
   max_concurrent_runs = var.ci_pipeline_max_concurrent_runs

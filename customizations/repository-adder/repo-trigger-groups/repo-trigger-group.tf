@@ -15,6 +15,7 @@ locals {
   blind_connection     = try(var.repository_data.blind_connection, var.blind_connection)
   root_url             = try(var.repository_data.root_url, var.root_url)
   title                = try(var.repository_data.title, var.title)
+  trigger_git_ci_filter = try(var.repository_data.trigger_git_ci_filter, var.trigger_git_ci_filter)
   #if not provided use `hostedgit` as the default.
   repo_url_raw = try(trimsuffix(var.repository_data.repository_url, ".git"), "")
 
@@ -61,7 +62,8 @@ locals {
     max_concurrent_runs      = trigger.max_concurrent_runs
     pipeline_id              = trigger.pipeline_id
     default_branch           = (trigger.default_branch != "") ? trigger.default_branch : local.default_branch
-    events                   = trigger.events
+    events                   = (trigger.filter != null) ? null : trigger.events
+    filter                   = try(trigger.filter, null)
     repo_url                 = local.repo_url_raw
     config_data              = var.config_data
     pipeline_data            = var.pipeline_data
@@ -141,4 +143,5 @@ module "default_triggers" {
   repository_integration_id = module.app_repo.repository.tool_id
   config_data               = var.config_data
   pipeline_data             = var.pipeline_data
+  trigger_git_ci_filter     = local.trigger_git_ci_filter
 }

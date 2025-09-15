@@ -16,6 +16,7 @@ locals {
   blind_connection = try(var.pipeline_repo_data.blind_connection, "")
   root_url         = try(var.pipeline_repo_data.root_url, "")
   title            = try(var.pipeline_repo_data.title, "")
+  trigger_git_ci_filter           = try(var.pipeline_repo_data.trigger_git_ci_filter, null)
 
   # Ensure repositories have the same structure
   pre_process_repo_data = flatten([for repository in local.repositories : {
@@ -31,6 +32,7 @@ locals {
     blind_connection     = try(repository.blind_connection, local.blind_connection)
     root_url             = try(repository.root_url, local.root_url)
     title                = try(repository.title, local.title)
+    trigger_git_ci_filter = try(repository.trigger_git_ci_filter, local.trigger_git_ci_filter)
     triggers = flatten([for trigger in try(repository.triggers, []) : { #loop through triggers, if they exist
       # This is to ensure that all the properties are present. Trigger validation will happen in the trigger module
       type                     = try(trigger.type, "") #If type is not set, default to "manual"
@@ -43,6 +45,7 @@ locals {
       event_listener           = try(trigger.event_listener, "")
       pipeline_id              = try(trigger.pipeline_id, "ci")
       events                   = try(trigger.events, "[]")
+      filter                   = try(trigger.filter, null)
       timezone                 = try(trigger.timezone, "")
       max_concurrent_runs      = try(trigger.max_concurrent_runs, 1)
       enable_events_from_forks = try(trigger.enable_events_from_forks, false)
@@ -84,4 +87,5 @@ module "repos_and_triggers" {
   config_data             = var.config_data
   pipeline_data           = var.pipeline_data
   create_default_triggers = var.create_default_triggers
+  trigger_git_ci_filter   = var.trigger_git_ci_filter
 }

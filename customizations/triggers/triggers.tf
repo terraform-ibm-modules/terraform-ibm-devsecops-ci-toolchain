@@ -22,7 +22,7 @@ locals {
   input_events_filtered = replace(local.input_events, "pull_request_closed", "")
   contains_pull_request = (strcontains(local.input_events_filtered, "pull_request")) ? concat(local.contains_pr_close, ["pull_request"]) : local.contains_pr_close
   resolved_events       = (strcontains(local.input_events_filtered, "push")) ? concat(local.contains_pull_request, ["push"]) : local.contains_pull_request
-
+  filter               = try(var.trigger_data.filter, null)
 
 
 
@@ -81,7 +81,8 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   type                     = "scm"
   name                     = local.trigger_name
   event_listener           = local.event_listener
-  events                   = local.resolved_events
+  events                   = (local.filter != null) ? null : local.resolved_events
+  filter                   = local.filter
   enabled                  = local.trigger_enable
   enable_events_from_forks = local.enable_events_from_forks
   source {

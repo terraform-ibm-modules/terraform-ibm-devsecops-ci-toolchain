@@ -18,3 +18,9 @@ variable "create_default_triggers" {
   description = "Set to `true` to allow creation of default triggers."
   default     = true
 }
+
+variable "trigger_git_ci_filter" {
+  type        = string
+  description = "(Optional) The CEL filter pattern. e.g. 'branch == \"main\" && event == \"push\"'."
+  default     = null
+}

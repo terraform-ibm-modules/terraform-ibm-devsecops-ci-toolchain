@@ -299,6 +299,7 @@ locals {
     default_branch       = try(pipeline.default_branch, "master")
     provider             = try(pipeline.provider, "")
     git_id               = try(pipeline.git_id, "")
+    trigger_git_ci_filter               = try(pipeline.trigger_git_ci_filter, null)
     }
   ])
 }
@@ -501,6 +502,7 @@ module "pipeline_ci" {
   create_triggers                     = var.create_triggers
   create_git_triggers                 = var.create_git_triggers
   trigger_git_name                    = var.trigger_git_name
+  trigger_git_ci_filter               = var.trigger_git_ci_filter
   trigger_git_enable                  = var.trigger_git_enable
   trigger_timed_name                  = var.trigger_timed_name
   trigger_timed_enable                = var.trigger_timed_enable
