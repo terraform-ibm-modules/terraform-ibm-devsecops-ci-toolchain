@@ -40,6 +40,8 @@ locals {
       cron                     = try(trigger.cron, "")
       enabled                  = try(trigger.enabled, true)
       default_branch           = try(trigger.default_branch, "")
+      filter                   = try(trigger.filter, "")
+      pattern                  = try(trigger.pattern, "")
       event_listener           = try(trigger.event_listener, "")
       pipeline_id              = try(trigger.pipeline_id, "ci")
       events                   = try(trigger.events, "[]")
