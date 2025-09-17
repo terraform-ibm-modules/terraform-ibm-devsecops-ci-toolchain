@@ -1581,6 +1581,13 @@
                             "required": false
                         },
                         {
+                            "key": "toolchain_resource_region_override",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "IBM Cloud Region for the created resources. If not set resources will be created in the region set in `toolchain_region`.",
+                            "required": false
+                        },
+                        {
                             "key": "trigger_git_enable",
                             "type": "boolean",
                             "default_value": true,
@@ -3299,6 +3306,13 @@
                             "type": "string",
                             "default_value": "Toolchain created with Terraform template for DevSecOps CI Best Practices.",
                             "description": "Description for the CI Toolchain.",
+                            "required": false
+                        },
+                        {
+                            "key": "toolchain_resource_region_override",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "IBM Cloud Region for the created resources. If not set resources will be created in the region set in `toolchain_region`.",
                             "required": false
                         },
                         {
