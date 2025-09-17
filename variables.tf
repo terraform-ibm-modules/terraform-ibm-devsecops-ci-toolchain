@@ -16,6 +16,12 @@ variable "toolchain_region" {
   default     = "us-south"
 }
 
+variable "toolchain_resource_region_override" {
+  type        = string
+  description = "IBM Cloud Region for the created resources. If not set resources will be created in the region set in `toolchain_region`."
+  default     = ""
+}
+
 variable "toolchain_name" {
   type        = string
   description = "Name of the CI Toolchain."
