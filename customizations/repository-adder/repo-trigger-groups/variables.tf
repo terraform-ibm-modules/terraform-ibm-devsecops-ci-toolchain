@@ -34,6 +34,30 @@ variable "default_branch" {
   default     = ""
 }
 
+variable "default_trigger_ci_cel_filter" {
+  type        = string
+  description = "Set a CEL filter for the default created CI GIT triggers."
+  default     = ""
+}
+
+variable "default_trigger_ci_pattern" {
+  type        = string
+  description = "Set a pattern for the default created CI GIT triggers."
+  default     = ""
+}
+
+variable "default_trigger_pr_cel_filter" {
+  type        = string
+  description = "Set a CEL filter for the default created PR GIT triggers."
+  default     = ""
+}
+
+variable "default_trigger_pr_pattern" {
+  type        = string
+  description = "Set a pattern for the default created PR GIT triggers."
+  default     = ""
+}
+
 variable "mode" {
   type        = string
   description = "The default operation for creating a repository integration. `clone` will clone the specifed repository. `link` will link to it."

@@ -135,12 +135,16 @@ module "triggers" {
 }
 
 module "default_triggers" {
-  count                     = ((var.create_default_triggers == true) && (length(local.triggers) == 0)) ? 1 : 0
-  depends_on                = [module.app_repo.repository]
-  source                    = "./default_triggers"
-  repository_url            = module.app_repo.repository_url
-  branch                    = local.default_branch
-  repository_integration_id = module.app_repo.repository.tool_id
-  config_data               = var.config_data
-  pipeline_data             = var.pipeline_data
+  count                         = ((var.create_default_triggers == true) && (length(local.triggers) == 0)) ? 1 : 0
+  depends_on                    = [module.app_repo.repository]
+  source                        = "./default_triggers"
+  repository_url                = module.app_repo.repository_url
+  default_branch                = local.default_branch
+  default_trigger_ci_cel_filter = var.default_trigger_ci_cel_filter
+  default_trigger_ci_pattern    = var.default_trigger_ci_pattern
+  default_trigger_pr_cel_filter = var.default_trigger_pr_cel_filter
+  default_trigger_pr_pattern    = var.default_trigger_pr_pattern
+  repository_integration_id     = module.app_repo.repository.tool_id
+  config_data                   = var.config_data
+  pipeline_data                 = var.pipeline_data
 }

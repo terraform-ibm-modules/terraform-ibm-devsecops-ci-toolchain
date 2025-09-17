@@ -86,7 +86,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   type                     = "scm"
   name                     = local.trigger_name
   event_listener           = local.event_listener
-  events                   = local.resolved_events
+  events                   = (local.resolved_filter != null) ? null : local.resolved_events
   enabled                  = local.trigger_enable
   enable_events_from_forks = local.enable_events_from_forks
   filter                   = local.resolved_filter

@@ -76,14 +76,18 @@ module "repos_and_triggers" {
   for_each = tomap({
     for t in local.pre_process_repo_data : "${t.repository_url}" => t
   })
-  repository_owner        = local.repository_owner
-  toolchain_id            = var.toolchain_id
-  git_token_secret_ref    = local.git_token_secret_ref
-  repository_data         = each.value # each repository payload
-  default_branch          = local.default_branch
-  mode                    = local.mode
-  worker_id               = local.worker_id
-  config_data             = var.config_data
-  pipeline_data           = var.pipeline_data
-  create_default_triggers = var.create_default_triggers
+  repository_owner              = local.repository_owner
+  toolchain_id                  = var.toolchain_id
+  git_token_secret_ref          = local.git_token_secret_ref
+  repository_data               = each.value # each repository payload
+  default_branch                = local.default_branch
+  default_trigger_ci_cel_filter = try(var.pipeline_repo_data.default_trigger_ci_cel_filter, "")
+  default_trigger_pr_cel_filter = try(var.pipeline_repo_data.default_trigger_pr_cel_filter, "")
+  default_trigger_ci_pattern    = try(var.pipeline_repo_data.default_trigger_ci_pattern, "")
+  default_trigger_pr_pattern    = try(var.pipeline_repo_data.default_trigger_pr_pattern, "")
+  mode                          = local.mode
+  worker_id                     = local.worker_id
+  config_data                   = var.config_data
+  pipeline_data                 = var.pipeline_data
+  create_default_triggers       = var.create_default_triggers
 }
