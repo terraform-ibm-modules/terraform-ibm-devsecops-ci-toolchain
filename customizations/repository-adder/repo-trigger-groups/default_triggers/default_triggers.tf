@@ -1,9 +1,8 @@
 locals {
   repo_name = basename(var.repository_url)
   listener = (
-    (strcontains(var.repository_url, "git.cloud.ibm.com")) ? "listener-gitlab" : "listener"
+    (strcontains(var.repository_url, "git.cloud.ibm.com")) ? "ci-listener-gitlab" : "ci-listener"
   )
-
   manual         = true
   git            = true
   pr             = false
@@ -20,7 +19,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_manual_trigger" {
   pipeline_id         = local.ci_pipeline_id
   type                = "manual"
   name                = join(" - ", ["Manual", local.repo_name])
-  event_listener      = "ci-${local.listener}"
+  event_listener      = local.listener
   enabled             = true
   max_concurrent_runs = var.max_concurrent_runs
 }
@@ -62,7 +61,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   pipeline_id    = local.ci_pipeline_id
   type           = "scm"
   name           = join(" - ", ["Git", local.repo_name])
-  event_listener = "ci-${local.listener}"
+  event_listener = local.listener
   events         = ["push"]
   enabled        = true
   source {
@@ -91,7 +90,7 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_pr_trigger" {
   pipeline_id    = local.pr_pipeline_id
   type           = "scm"
   name           = join(" - ", ["Git PR", local.repo_name])
-  event_listener = "pr-${local.listener}"
+  event_listener = local.listener
   events         = ["pull_request"]
   enabled        = true
   source {

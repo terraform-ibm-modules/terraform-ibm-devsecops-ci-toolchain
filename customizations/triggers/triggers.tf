@@ -23,19 +23,14 @@ locals {
   contains_pull_request = (strcontains(local.input_events_filtered, "pull_request")) ? concat(local.contains_pr_close, ["pull_request"]) : local.contains_pr_close
   resolved_events       = (strcontains(local.input_events_filtered, "push")) ? concat(local.contains_pull_request, ["push"]) : local.contains_pull_request
 
+
+
+
+
+
   repo_url_raw = try(trimsuffix(var.trigger_data.repo_url, ".git"), "")
   repo_url     = format("%s%s", local.repo_url_raw, ".git")
   repo_branch  = try(var.trigger_data.default_branch, "master")
-  repo_pattern = var.trigger_data.pattern
-  repo_filter  = var.trigger_data.filter
-
-  # if both pattern and filter are set then ignore the case and default to using a branch value
-  # Otherwise both pattern or cel filter value will take priority
-  resolved_branch = ((local.repo_pattern == "" && local.repo_filter == "") ? local.repo_branch :
-  (local.repo_pattern != "" && local.repo_filter != "") ? local.repo_branch : null)
-
-  resolved_pattern = (local.repo_pattern != "" && local.repo_filter == "") ? local.repo_pattern : null
-  resolved_filter  = (local.repo_pattern == "" && local.repo_filter != "") ? local.repo_filter : null
 
   # Adding pipeline_id and property_name to generate a unique map key
   pre_process_property_data = flatten([for prop in var.trigger_data.properties : {
@@ -89,13 +84,11 @@ resource "ibm_cd_tekton_pipeline_trigger" "pipeline_scm_trigger" {
   events                   = local.resolved_events
   enabled                  = local.trigger_enable
   enable_events_from_forks = local.enable_events_from_forks
-  filter                   = local.resolved_filter
   source {
     type = "git"
     properties {
-      url     = local.repo_url
-      branch  = local.resolved_branch
-      pattern = local.resolved_pattern
+      url    = local.repo_url
+      branch = local.repo_branch
     }
   }
   max_concurrent_runs = local.max_concurrent_runs
