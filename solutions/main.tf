@@ -229,6 +229,7 @@ module "devsecops_ci_toolchain" {
   toolchain_name                                 = var.toolchain_name
   toolchain_region                               = var.toolchain_region
   toolchain_resource_group                       = var.toolchain_resource_group
+  toolchain_resource_region_override             = var.toolchain_resource_region_override
   trigger_git_enable                             = var.trigger_git_enable
   trigger_git_name                               = var.trigger_git_name
   trigger_manual_enable                          = var.trigger_manual_enable
