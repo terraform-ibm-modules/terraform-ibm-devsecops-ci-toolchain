@@ -1454,29 +1454,6 @@ variable "trigger_pr_git_enable" {
   default     = true
 }
 
-variable "trigger_manual_pruner_name" {
-  type        = string
-  description = "The name of the manual Pruner trigger."
-  default     = "Evidence Pruner Manual Trigger"
-}
-variable "trigger_manual_pruner_enable" {
-  type        = bool
-  description = "Set to `true` to enable the manual Pruner trigger."
-  default     = true
-}
-
-variable "trigger_timed_pruner_name" {
-  type        = string
-  description = "The name of the timed Pruner trigger."
-  default     = "Evidence Pruner Timed Trigger"
-}
-
-variable "trigger_timed_pruner_enable" {
-  type        = bool
-  description = "Set to `true` to enable the timed Pruner trigger."
-  default     = false
-}
-
 variable "pipeline_properties" {
   type        = string
   description = "Stringified JSON containing the properties. This takes precedence over the properties JSON."
