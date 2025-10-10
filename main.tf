@@ -291,7 +291,7 @@ locals {
   repos_file_data  = (local.repos_file_input == "") ? "[]" : local.repos_file_input
   repos_input      = (var.repository_properties == "") ? local.repos_file_data : var.repository_properties
   pre_process_repo_data = flatten([for pipeline in jsondecode(local.repos_input) : {
-    pipeline_id                   = try(pipeline.pipeline_id, ibm_cd_toolchain.toolchain_instance.id) # could be `ci`, `pr` or actual pipeline ID, or other ID
+    pipeline_id                   = try(pipeline.pipeline_id, "ci") # could be `ci`, `pr` or actual pipeline ID, or other ID
     git_token_secret_ref          = try(pipeline.git_token_secret_ref, "")
     repository_owner              = try(pipeline.repository_owner, "")
     repositories                  = try(pipeline.repositories, [])
