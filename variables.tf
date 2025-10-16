@@ -296,37 +296,37 @@ variable "inventory_repo_auth_type" {
 variable "app_repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider."
-  default     = "git-token"
+  default     = ""
 }
 
 variable "pipeline_config_repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider."
-  default     = "git-token"
+  default     = ""
 }
 
 variable "inventory_repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider."
-  default     = "git-token"
+  default     = ""
 }
 
 variable "issues_repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider."
-  default     = "git-token"
+  default     = ""
 }
 
 variable "evidence_repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider."
-  default     = "git-token"
+  default     = ""
 }
 
 variable "compliance_pipeline_repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider."
-  default     = "git-token"
+  default     = ""
 }
 
 # SECRET CRNs
@@ -583,60 +583,60 @@ variable "repositories_prefix" {
 
 variable "default_git_provider" {
   type        = string
-  default     = "hostedgit"
+  default     = ""
   description = "Choose the default git provider for app repo"
   validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab"], var.default_git_provider)
+    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.default_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\"."
   }
 }
 
 variable "pipeline_config_repo_git_provider" {
   type        = string
-  default     = "hostedgit"
+  default     = ""
   description = "Git provider for pipeline repo config"
   validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab"], var.pipeline_config_repo_git_provider)
+    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.pipeline_config_repo_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for pipeline config repo."
   }
 }
 
 variable "compliance_pipeline_repo_git_provider" {
   type        = string
-  default     = "hostedgit"
+  default     = ""
   description = "Git provider for pipeline repo"
   validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab"], var.compliance_pipeline_repo_git_provider)
+    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.compliance_pipeline_repo_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for pipeline repo."
   }
 }
 
 variable "inventory_repo_git_provider" {
   type        = string
-  default     = "hostedgit"
+  default     = ""
   description = "Git provider for inventory repo"
   validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab"], var.inventory_repo_git_provider)
+    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.inventory_repo_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for Inventory repo."
   }
 }
 
 variable "evidence_repo_git_provider" {
   type        = string
-  default     = "hostedgit"
+  default     = ""
   description = "Git provider for evidence repo"
   validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab"], var.evidence_repo_git_provider)
+    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.evidence_repo_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for evidence repo."
   }
 }
 
 variable "issues_repo_git_provider" {
   type        = string
-  default     = "hostedgit"
+  default     = ""
   description = "Git provider for issue repo "
   validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab"], var.issues_repo_git_provider)
+    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.issues_repo_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for issue repo."
   }
 }
@@ -1560,29 +1560,6 @@ variable "trigger_pr_git_enable" {
   default     = true
 }
 
-variable "trigger_manual_pruner_name" {
-  type        = string
-  description = "The name of the manual Pruner trigger."
-  default     = "Evidence Pruner Manual Trigger"
-}
-variable "trigger_manual_pruner_enable" {
-  type        = bool
-  description = "Set to `true` to enable the manual Pruner trigger."
-  default     = true
-}
-
-variable "trigger_timed_pruner_name" {
-  type        = string
-  description = "The name of the timed Pruner trigger."
-  default     = "Evidence Pruner Timed Trigger"
-}
-
-variable "trigger_timed_pruner_enable" {
-  type        = bool
-  description = "Set to `true` to enable the timed Pruner trigger."
-  default     = false
-}
-
 variable "pipeline_properties" {
   type        = string
   description = "Stringified JSON containing the properties. This takes precedence over the properties JSON."
@@ -1676,5 +1653,5 @@ variable "repo_integration_owner" {
 variable "use_legacy_ref" {
   type        = bool
   description = "Set to `true` to use the legacy secret reference format for Secrets Manager secrets."
-  default     = true
+  default     = false
 }

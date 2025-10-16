@@ -50,7 +50,7 @@ locals {
   # The Terraform urlencode function encodes differently to Ref Resolver " " -> "+" instead of "%20" etc
   # Simple search and replace for this case.
 
-  sm_ref_format_root = "ref://secrets-manager.${var.sm_location}.${var.sm_resource_group}.${var.sm_name}/"
+  sm_ref_format_root = "ref://secrets-manager.${var.sm_location}.${var.sm_resource_group}.${var.sm_name}"
 
   app_repo_secret_name = (var.app_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.app_repo_git_token_secret_name
   app_repo_secret_crn  = (var.app_repo_git_token_secret_crn == "") ? var.repo_git_token_crn : var.app_repo_git_token_secret_crn
@@ -59,7 +59,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${local.app_repo_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.app_repo_secret_group == "") ? format("{vault::%s.${local.app_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.app_repo_secret_group != "") ? format("{vault::%s.${local.app_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.app_repo_secret_group)) :
-    (var.app_repo_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${local.app_repo_secret_name}", " ", "%20") :
+    (var.app_repo_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${local.app_repo_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.app_repo_secret_group}/${local.app_repo_secret_name}", " ", "%20")
   )
 
@@ -70,7 +70,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${local.issue_repo_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.issues_repo_secret_group == "") ? format("{vault::%s.${local.issue_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.issues_repo_secret_group != "") ? format("{vault::%s.${local.issue_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.issues_repo_secret_group)) :
-    (var.issues_repo_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${local.issue_repo_secret_name}", " ", "%20") :
+    (var.issues_repo_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${local.issue_repo_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.issues_repo_secret_group}/${local.issue_repo_secret_name}", " ", "%20")
   )
 
@@ -81,7 +81,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${local.evidence_repo_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.evidence_repo_secret_group == "") ? format("{vault::%s.${local.evidence_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.evidence_repo_secret_group != "") ? format("{vault::%s.${local.evidence_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.evidence_repo_secret_group)) :
-    (var.evidence_repo_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${local.evidence_repo_secret_name}", " ", "%20") :
+    (var.evidence_repo_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${local.evidence_repo_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.evidence_repo_secret_group}/${local.evidence_repo_secret_name}", " ", "%20")
   )
 
@@ -92,7 +92,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${local.inventory_repo_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.inventory_repo_secret_group == "") ? format("{vault::%s.${local.inventory_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.inventory_repo_secret_group != "") ? format("{vault::%s.${local.inventory_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.inventory_repo_secret_group)) :
-    (var.inventory_repo_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${local.inventory_repo_secret_name}", " ", "%20") :
+    (var.inventory_repo_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${local.inventory_repo_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.inventory_repo_secret_group}/${local.inventory_repo_secret_name}", " ", "%20")
   )
 
@@ -103,7 +103,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${local.compliance_pipeline_repo_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.compliance_pipeline_repo_secret_group == "") ? format("{vault::%s.${local.compliance_pipeline_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.compliance_pipeline_repo_secret_group != "") ? format("{vault::%s.${local.compliance_pipeline_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.compliance_pipeline_repo_secret_group)) :
-    (var.compliance_pipeline_repo_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${local.compliance_pipeline_repo_secret_name}", " ", "%20") :
+    (var.compliance_pipeline_repo_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${local.compliance_pipeline_repo_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.compliance_pipeline_repo_secret_group}/${local.compliance_pipeline_repo_secret_name}", " ", "%20")
   )
 
@@ -114,7 +114,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${local.pipeline_config_repo_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.pipeline_config_repo_secret_group == "") ? format("{vault::%s.${local.pipeline_config_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.pipeline_config_repo_secret_group != "") ? format("{vault::%s.${local.pipeline_config_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_config_repo_secret_group)) :
-    (var.pipeline_config_repo_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${local.pipeline_config_repo_secret_name}", " ", "%20") :
+    (var.pipeline_config_repo_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${local.pipeline_config_repo_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.pipeline_config_repo_secret_group}/${local.pipeline_config_repo_secret_name}", " ", "%20")
   )
 
@@ -123,21 +123,21 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${var.cos_api_key_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.cos_api_key_secret_group == "") ? format("{vault::%s.${var.cos_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.cos_api_key_secret_group != "") ? format("{vault::%s.${var.cos_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.cos_api_key_secret_group)) :
-    (var.cos_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.cos_api_key_secret_name}", " ", "%20") :
+    (var.cos_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.cos_api_key_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.cos_api_key_secret_group}/${var.cos_api_key_secret_name}", " ", "%20")
   )
 
   cos_hmac_access_key_id_ref = (
     (var.sm_instance_crn != "") ? var.cos_hmac_secret_access_id_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.cos_hmac_access_key_id_secret_name}}", module.integrations.secret_tool) :
-    (var.cos_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.cos_hmac_access_key_id_secret_name}", " ", "%20") :
+    (var.cos_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.cos_hmac_access_key_id_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.cos_api_key_secret_group}/${var.cos_hmac_access_key_id_secret_name}", " ", "%20")
   )
 
   cos_hmac_secret_access_key_ref = (
     (var.sm_instance_crn != "") ? var.cos_hmac_access_key_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.cos_hmac_secret_access_key_secret_name}}", module.integrations.secret_tool) :
-    (var.cos_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.cos_hmac_secret_access_key_secret_name}", " ", "%20") :
+    (var.cos_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.cos_hmac_secret_access_key_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.cos_api_key_secret_group}/${var.cos_hmac_secret_access_key_secret_name}", " ", "%20")
   )
 
@@ -146,7 +146,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.pipeline_ibmcloud_api_key_secret_group == "") ? format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.pipeline_ibmcloud_api_key_secret_group != "") ? format("{vault::%s.${var.pipeline_ibmcloud_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_ibmcloud_api_key_secret_group)) :
-    (var.pipeline_ibmcloud_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.pipeline_ibmcloud_api_key_secret_name}", " ", "%20") :
+    (var.pipeline_ibmcloud_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.pipeline_ibmcloud_api_key_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.pipeline_ibmcloud_api_key_secret_group}/${var.pipeline_ibmcloud_api_key_secret_name}", " ", "%20")
   )
 
@@ -155,7 +155,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${var.slack_webhook_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.slack_webhook_secret_group == "") ? format("{vault::%s.${var.slack_webhook_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.slack_webhook_secret_group != "") ? format("{vault::%s.${var.slack_webhook_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.slack_webhook_secret_group)) :
-    (var.slack_webhook_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.slack_webhook_secret_name}", " ", "%20") :
+    (var.slack_webhook_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.slack_webhook_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.slack_webhook_secret_group}/${var.slack_webhook_secret_name}", " ", "%20")
   )
 
@@ -164,7 +164,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${var.privateworker_credentials_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.privateworker_credentials_secret_group == "") ? format("{vault::%s.${var.privateworker_credentials_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.privateworker_credentials_secret_group != "") ? format("{vault::%s.${var.privateworker_credentials_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.privateworker_credentials_secret_group)) :
-    (var.privateworker_credentials_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.privateworker_credentials_secret_name}", " ", "%20") :
+    (var.privateworker_credentials_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.privateworker_credentials_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.privateworker_credentials_secret_group}/${var.privateworker_credentials_secret_name}", " ", "%20")
   )
 
@@ -173,7 +173,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${var.artifactory_token_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.artifactory_token_secret_group == "") ? format("{vault::%s.${var.artifactory_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.artifactory_token_secret_group != "") ? format("{vault::%s.${var.artifactory_token_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.artifactory_token_secret_group)) :
-    (var.artifactory_token_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.artifactory_token_secret_name}", " ", "%20") :
+    (var.artifactory_token_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.artifactory_token_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.artifactory_token_secret_group}/${var.artifactory_token_secret_name}", " ", "%20")
   )
 
@@ -182,7 +182,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.pipeline_doi_api_key_secret_group == "") ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.pipeline_doi_api_key_secret_group != "") ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_doi_api_key_secret_group)) :
-    (var.pipeline_doi_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.pipeline_doi_api_key_secret_name}", " ", "%20") :
+    (var.pipeline_doi_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.pipeline_doi_api_key_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.pipeline_doi_api_key_secret_group}/${var.pipeline_doi_api_key_secret_name}", " ", "%20")
   )
 
@@ -191,7 +191,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${var.signing_key_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.signing_key_secret_group == "") ? format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.signing_key_secret_group != "") ? format("{vault::%s.${var.signing_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.signing_key_secret_group)) :
-    (var.signing_key_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.signing_key_secret_name}", " ", "%20") :
+    (var.signing_key_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.signing_key_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.signing_key_secret_group}/${var.signing_key_secret_name}", " ", "%20")
   )
 
@@ -200,7 +200,7 @@ locals {
     (var.enable_key_protect) ? format("{vault::%s.${var.sonarqube_secret_name}}", module.integrations.secret_tool) :
     (var.use_legacy_ref == true && var.sonarqube_secret_group == "") ? format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
     (var.use_legacy_ref == true && var.sonarqube_secret_group != "") ? format("{vault::%s.${var.sonarqube_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sonarqube_secret_group)) :
-    (var.sonarqube_secret_group == "") ? replace("${local.sm_ref_format_root}${var.sm_secret_group}/${var.sonarqube_secret_name}", " ", "%20") :
+    (var.sonarqube_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.sonarqube_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.sonarqube_secret_group}/${var.sonarqube_secret_name}", " ", "%20")
   )
 
@@ -291,7 +291,7 @@ locals {
   repos_file_data  = (local.repos_file_input == "") ? "[]" : local.repos_file_input
   repos_input      = (var.repository_properties == "") ? local.repos_file_data : var.repository_properties
   pre_process_repo_data = flatten([for pipeline in jsondecode(local.repos_input) : {
-    pipeline_id                   = try(pipeline.pipeline_id, ibm_cd_toolchain.toolchain_instance.id) # could be `ci`, `pr` or actual pipeline ID, or other ID
+    pipeline_id                   = try(pipeline.pipeline_id, "ci") # could be `ci`, `pr` or actual pipeline ID, or other ID
     git_token_secret_ref          = try(pipeline.git_token_secret_ref, "")
     repository_owner              = try(pipeline.repository_owner, "")
     repositories                  = try(pipeline.repositories, [])
@@ -515,10 +515,6 @@ module "pipeline_ci" {
   trigger_timed_cron_schedule         = var.trigger_timed_cron_schedule
   trigger_manual_name                 = var.trigger_manual_name
   trigger_manual_enable               = var.trigger_manual_enable
-  trigger_manual_pruner_name          = var.trigger_manual_pruner_name
-  trigger_manual_pruner_enable        = var.trigger_manual_pruner_enable
-  trigger_timed_pruner_name           = var.trigger_timed_pruner_name
-  trigger_timed_pruner_enable         = var.trigger_timed_pruner_enable
   enable_pipeline_notifications       = var.enable_pipeline_notifications
   link_to_doi_toolchain               = var.link_to_doi_toolchain
   sonarqube_tool                      = (module.integrations.sonarqube_tool)
