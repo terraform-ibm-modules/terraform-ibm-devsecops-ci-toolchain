@@ -1,5 +1,5 @@
 locals {
-  repo_name = basename(var.repository_url)
+  repo_name = trimsuffix(basename(var.repository_url), ".git")
   listener = (
     (strcontains(var.repository_url, "git.cloud.ibm.com")) ? "listener-gitlab" : "listener"
   )
