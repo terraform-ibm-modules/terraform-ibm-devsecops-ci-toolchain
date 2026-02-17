@@ -192,3 +192,6 @@ variable "enable_insights" {
 
 variable "enable_cos" {
 }
+
+variable "enable_sonarqube" {
+}

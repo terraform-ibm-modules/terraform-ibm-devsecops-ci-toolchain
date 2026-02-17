@@ -35,7 +35,7 @@ module "terraform_devsecops_ci" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.70.0, < 2.0.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.82.1, < 2.0.0 |
 
 ### Modules
 
@@ -43,7 +43,6 @@ module "terraform_devsecops_ci" {
 |------|--------|---------|
 | <a name="module_app_repo"></a> [app\_repo](#module\_app\_repo) | ./customizations/repositories | n/a |
 | <a name="module_compliance_pipelines_repo"></a> [compliance\_pipelines\_repo](#module\_compliance\_pipelines\_repo) | ./customizations/repositories | n/a |
-| <a name="module_evidence_repo"></a> [evidence\_repo](#module\_evidence\_repo) | ./customizations/repositories | n/a |
 | <a name="module_integrations"></a> [integrations](#module\_integrations) | ./integrations | n/a |
 | <a name="module_inventory_repo"></a> [inventory\_repo](#module\_inventory\_repo) | ./customizations/repositories | n/a |
 | <a name="module_issues_repo"></a> [issues\_repo](#module\_issues\_repo) | ./customizations/repositories | n/a |
@@ -147,7 +146,7 @@ module "terraform_devsecops_ci" {
 | <a name="input_create_git_triggers"></a> [create\_git\_triggers](#input\_create\_git\_triggers) | Set to `true` to create the default Git triggers associated with the compliance repos and sample app. | `string` | `"true"` | no |
 | <a name="input_create_triggers"></a> [create\_triggers](#input\_create\_triggers) | Set to `true` to create the default triggers associated with the compliance repos and sample app. | `string` | `"true"` | no |
 | <a name="input_default_git_provider"></a> [default\_git\_provider](#input\_default\_git\_provider) | Choose the default git provider for app repo | `string` | `""` | no |
-| <a name="input_default_locked_properties"></a> [default\_locked\_properties](#input\_default\_locked\_properties) | List of default locked properties | `list(string)` | <pre>[<br/>  "artifactory-dockerconfigjson",<br/>  "cluster",<br/>  "cluster-namespace",<br/>  "cluster-region",<br/>  "compliance-baseimage",<br/>  "cos-api-key",<br/>  "cos-bucket-name",<br/>  "cos-endpoint",<br/>  "cra-bom-generate",<br/>  "cra-deploy-analysis",<br/>  "cra-generate-cyclonedx-format",<br/>  "cra-vulnerability-scan",<br/>  "custom-image-tag",<br/>  "dev-region",<br/>  "dev-resource-group",<br/>  "doi-environment",<br/>  "doi-ibmcloud-api-key",<br/>  "doi-toolchain-id",<br/>  "event-notifications",<br/>  "evidence-repo",<br/>  "git-token",<br/>  "gosec-private-repository-host",<br/>  "gosec-private-repository-ssh-key",<br/>  "ibmcloud-api",<br/>  "ibmcloud-api-key",<br/>  "incident-repo",<br/>  "inventory-repo",<br/>  "opt-in-dynamic-api-scan",<br/>  "opt-in-dynamic-scan",<br/>  "opt-in-dynamic-ui-scan",<br/>  "opt-in-gosec",<br/>  "opt-in-sonar",<br/>  "peer-review-compliance",<br/>  "pipeline-config",<br/>  "pipeline-config-branch",<br/>  "pipeline-config-repo",<br/>  "pipeline-dockerconfigjson",<br/>  "print-code-signing-certificate",<br/>  "registry-namespace",<br/>  "registry-region",<br/>  "signing-key",<br/>  "slack-notifications",<br/>  "sonarqube",<br/>  "sonarqube-config",<br/>  "version"<br/>]</pre> | no |
+| <a name="input_default_locked_properties"></a> [default\_locked\_properties](#input\_default\_locked\_properties) | List of default locked properties | `list(string)` | <pre>[<br/>  "artifactory-dockerconfigjson",<br/>  "cluster",<br/>  "cluster-namespace",<br/>  "cluster-region",<br/>  "compliance-baseimage",<br/>  "cos-api-key",<br/>  "cos-bucket-name",<br/>  "cos-endpoint",<br/>  "cra-bom-generate",<br/>  "cra-deploy-analysis",<br/>  "cra-generate-cyclonedx-format",<br/>  "cra-vulnerability-scan",<br/>  "custom-image-tag",<br/>  "dev-region",<br/>  "dev-resource-group",<br/>  "doi-environment",<br/>  "doi-ibmcloud-api-key",<br/>  "doi-toolchain-id",<br/>  "event-notifications",<br/>  "git-token",<br/>  "gosec-private-repository-host",<br/>  "gosec-private-repository-ssh-key",<br/>  "ibmcloud-api",<br/>  "ibmcloud-api-key",<br/>  "incident-repo",<br/>  "inventory-repo",<br/>  "opt-in-dynamic-api-scan",<br/>  "opt-in-dynamic-scan",<br/>  "opt-in-dynamic-ui-scan",<br/>  "opt-in-gosec",<br/>  "opt-in-sonar",<br/>  "peer-review-compliance",<br/>  "pipeline-config",<br/>  "pipeline-config-branch",<br/>  "pipeline-config-repo",<br/>  "pipeline-dockerconfigjson",<br/>  "print-code-signing-certificate",<br/>  "registry-namespace",<br/>  "registry-region",<br/>  "signing-key",<br/>  "slack-notifications",<br/>  "sonarqube",<br/>  "sonarqube-config",<br/>  "version"<br/>]</pre> | no |
 | <a name="input_dev_region"></a> [dev\_region](#input\_dev\_region) | Region of the Kubernetes cluster where the application will be deployed. | `string` | `"ibm:yp:us-south"` | no |
 | <a name="input_dev_resource_group"></a> [dev\_resource\_group](#input\_dev\_resource\_group) | The cluster resource group. | `string` | `""` | no |
 | <a name="input_devsecops_flavor"></a> [devsecops\_flavor](#input\_devsecops\_flavor) | The deployment target, 'kube', 'code-engine' or 'zos'. | `string` | `"kube"` | no |
@@ -165,28 +164,9 @@ module "terraform_devsecops_ci" {
 | <a name="input_enable_privateworker"></a> [enable\_privateworker](#input\_enable\_privateworker) | Set true to enable private worker  for devsecops. | `bool` | `false` | no |
 | <a name="input_enable_secrets_manager"></a> [enable\_secrets\_manager](#input\_enable\_secrets\_manager) | Set to enable Secrets Manager Integration. | `bool` | `true` | no |
 | <a name="input_enable_slack"></a> [enable\_slack](#input\_enable\_slack) | Set to true to create the integration | `bool` | `false` | no |
+| <a name="input_enable_sonarqube"></a> [enable\_sonarqube](#input\_enable\_sonarqube) | Set to `true` to enable the SonarQube tool integration. | `bool` | `false` | no |
 | <a name="input_event_notifications_crn"></a> [event\_notifications\_crn](#input\_event\_notifications\_crn) | The CRN for the Event Notifications instance. | `string` | `""` | no |
 | <a name="input_event_notifications_tool_name"></a> [event\_notifications\_tool\_name](#input\_event\_notifications\_tool\_name) | The name of the Event Notifications integration. | `string` | `"Event Notifications"` | no |
-| <a name="input_evidence_group"></a> [evidence\_group](#input\_evidence\_group) | Specify Git user/group for evidence repository. | `string` | `""` | no |
-| <a name="input_evidence_repo_auth_type"></a> [evidence\_repo\_auth\_type](#input\_evidence\_repo\_auth\_type) | Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat' | `string` | `""` | no |
-| <a name="input_evidence_repo_blind_connection"></a> [evidence\_repo\_blind\_connection](#input\_evidence\_repo\_blind\_connection) | Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server. | `string` | `""` | no |
-| <a name="input_evidence_repo_clone_from_url"></a> [evidence\_repo\_clone\_from\_url](#input\_evidence\_repo\_clone\_from\_url) | The repo URL that the intgeration will clone from. | `string` | `""` | no |
-| <a name="input_evidence_repo_enabled"></a> [evidence\_repo\_enabled](#input\_evidence\_repo\_enabled) | Set to `true` to enable the evidence repository tool integration. | `bool` | `true` | no |
-| <a name="input_evidence_repo_existing_url"></a> [evidence\_repo\_existing\_url](#input\_evidence\_repo\_existing\_url) | The repo URL that integration will link with. | `string` | `""` | no |
-| <a name="input_evidence_repo_git_id"></a> [evidence\_repo\_git\_id](#input\_evidence\_repo\_git\_id) | Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server. | `string` | `""` | no |
-| <a name="input_evidence_repo_git_provider"></a> [evidence\_repo\_git\_provider](#input\_evidence\_repo\_git\_provider) | Git provider for evidence repo | `string` | `""` | no |
-| <a name="input_evidence_repo_git_token_secret_crn"></a> [evidence\_repo\_git\_token\_secret\_crn](#input\_evidence\_repo\_git\_token\_secret\_crn) | The CRN for the Evidence repository Git Token. | `string` | `""` | no |
-| <a name="input_evidence_repo_git_token_secret_name"></a> [evidence\_repo\_git\_token\_secret\_name](#input\_evidence\_repo\_git\_token\_secret\_name) | Name of the Git token secret in the secret provider. | `string` | `""` | no |
-| <a name="input_evidence_repo_initialization_type"></a> [evidence\_repo\_initialization\_type](#input\_evidence\_repo\_initialization\_type) | The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`. | `string` | `""` | no |
-| <a name="input_evidence_repo_integration_owner"></a> [evidence\_repo\_integration\_owner](#input\_evidence\_repo\_integration\_owner) | The name of the integration owner. | `string` | `""` | no |
-| <a name="input_evidence_repo_is_private_repo"></a> [evidence\_repo\_is\_private\_repo](#input\_evidence\_repo\_is\_private\_repo) | Set to `true` to make repository private. | `bool` | `true` | no |
-| <a name="input_evidence_repo_issues_enabled"></a> [evidence\_repo\_issues\_enabled](#input\_evidence\_repo\_issues\_enabled) | Set to `true` to enable issues. | `bool` | `false` | no |
-| <a name="input_evidence_repo_name"></a> [evidence\_repo\_name](#input\_evidence\_repo\_name) | The repository name. | `string` | `""` | no |
-| <a name="input_evidence_repo_root_url"></a> [evidence\_repo\_root\_url](#input\_evidence\_repo\_root\_url) | (Optional) The Root URL of the server. e.g. https://git.example.com. | `string` | `""` | no |
-| <a name="input_evidence_repo_secret_group"></a> [evidence\_repo\_secret\_group](#input\_evidence\_repo\_secret\_group) | Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` | no |
-| <a name="input_evidence_repo_title"></a> [evidence\_repo\_title](#input\_evidence\_repo\_title) | (Optional) The title of the server. e.g. My Git Enterprise Server. | `string` | `""` | no |
-| <a name="input_evidence_repo_traceability_enabled"></a> [evidence\_repo\_traceability\_enabled](#input\_evidence\_repo\_traceability\_enabled) | Set to `true` to enable traceability. | `bool` | `false` | no |
-| <a name="input_evidence_source_repo_url"></a> [evidence\_source\_repo\_url](#input\_evidence\_source\_repo\_url) | Url of evidence repo template to be cloned | `string` | `""` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | API key used to create the toolchain. | `string` | n/a | yes |
 | <a name="input_inventory_group"></a> [inventory\_group](#input\_inventory\_group) | Specify Git user/group for inventory repository. | `string` | `""` | no |
 | <a name="input_inventory_repo_auth_type"></a> [inventory\_repo\_auth\_type](#input\_inventory\_repo\_auth\_type) | Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat' | `string` | `""` | no |
@@ -311,7 +291,7 @@ module "terraform_devsecops_ci" {
 | <a name="input_toolchain_name"></a> [toolchain\_name](#input\_toolchain\_name) | Name of the CI Toolchain. | `string` | `"DevSecOps CI Toolchain - Terraform"` | no |
 | <a name="input_toolchain_region"></a> [toolchain\_region](#input\_toolchain\_region) | IBM Cloud Region for the toolchain. | `string` | `"us-south"` | no |
 | <a name="input_toolchain_resource_group"></a> [toolchain\_resource\_group](#input\_toolchain\_resource\_group) | The resource group within which the toolchain is created. | `string` | `"Default"` | no |
-| <a name="input_toolchain_resource_region_override"></a> [toolchain\_resource\_region\_override](#input\_toolchain\_resource\_region\_override) | IBM Cloud region for the created resources. If not set resources will be created in the region set in `toolchain_region`. | `string` | `"Default"` | no |
+| <a name="input_toolchain_resource_region_override"></a> [toolchain\_resource\_region\_override](#input\_toolchain\_resource\_region\_override) | IBM Cloud region for the created resources. If not set resources will be created in the region set in `toolchain_region`. | `string` | `""` | no |
 | <a name="input_trigger_git_enable"></a> [trigger\_git\_enable](#input\_trigger\_git\_enable) | Set to `true` to enable the CI pipeline Git trigger. | `bool` | `true` | no |
 | <a name="input_trigger_git_name"></a> [trigger\_git\_name](#input\_trigger\_git\_name) | The name of the CI pipeline GIT trigger. | `string` | `"Git CI Trigger"` | no |
 | <a name="input_trigger_manual_enable"></a> [trigger\_manual\_enable](#input\_trigger\_manual\_enable) | Set to `true` to enable the CI pipeline Manual trigger. | `bool` | `true` | no |
@@ -334,10 +314,6 @@ module "terraform_devsecops_ci" {
 | <a name="output_app_repo_git_provider"></a> [app\_repo\_git\_provider](#output\_app\_repo\_git\_provider) | The app repo provider 'hostedgit', 'githubconsolidated' etc. |
 | <a name="output_app_repo_url"></a> [app\_repo\_url](#output\_app\_repo\_url) | The app repository instance URL containing an application that can be built and deployed with the reference DevSecOps toolchain templates. |
 | <a name="output_ci_pipeline_id"></a> [ci\_pipeline\_id](#output\_ci\_pipeline\_id) | The CI pipeline ID. |
-| <a name="output_evidence_repo"></a> [evidence\_repo](#output\_evidence\_repo) | The Evidence repo. |
-| <a name="output_evidence_repo_git_id"></a> [evidence\_repo\_git\_id](#output\_evidence\_repo\_git\_id) | The evidence repository Git ID |
-| <a name="output_evidence_repo_git_provider"></a> [evidence\_repo\_git\_provider](#output\_evidence\_repo\_git\_provider) | The evidence repository provider type. Can be 'hostedgit', 'githubconsolidated' etc. |
-| <a name="output_evidence_repo_url"></a> [evidence\_repo\_url](#output\_evidence\_repo\_url) | The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit. |
 | <a name="output_inventory_repo"></a> [inventory\_repo](#output\_inventory\_repo) | The Inventory repo. |
 | <a name="output_inventory_repo_git_id"></a> [inventory\_repo\_git\_id](#output\_inventory\_repo\_git\_id) | The inventory repository Git ID |
 | <a name="output_inventory_repo_git_provider"></a> [inventory\_repo\_git\_provider](#output\_inventory\_repo\_git\_provider) | The inventory repository provider type. Can be 'hostedgit', 'githubconsolidated' etc. |

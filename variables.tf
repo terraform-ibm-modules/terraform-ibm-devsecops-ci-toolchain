@@ -280,12 +280,6 @@ variable "issues_repo_auth_type" {
   default     = ""
 }
 
-variable "evidence_repo_auth_type" {
-  type        = string
-  description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
-  default     = ""
-}
-
 variable "inventory_repo_auth_type" {
   type        = string
   description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
@@ -317,12 +311,6 @@ variable "issues_repo_git_token_secret_name" {
   default     = ""
 }
 
-variable "evidence_repo_git_token_secret_name" {
-  type        = string
-  description = "Name of the Git token secret in the secret provider."
-  default     = ""
-}
-
 variable "compliance_pipeline_repo_git_token_secret_name" {
   type        = string
   description = "Name of the Git token secret in the secret provider."
@@ -349,17 +337,6 @@ variable "issues_repo_git_token_secret_crn" {
   default     = ""
   validation {
     condition     = startswith(var.issues_repo_git_token_secret_crn, "crn:") || var.issues_repo_git_token_secret_crn == ""
-    error_message = "Must be a CRN or left empty."
-  }
-}
-
-variable "evidence_repo_git_token_secret_crn" {
-  type        = string
-  sensitive   = true
-  description = "The CRN for the Evidence repository Git Token."
-  default     = ""
-  validation {
-    condition     = startswith(var.evidence_repo_git_token_secret_crn, "crn:") || var.evidence_repo_git_token_secret_crn == ""
     error_message = "Must be a CRN or left empty."
   }
 }
@@ -538,12 +515,6 @@ variable "inventory_repo_secret_group" {
   default     = ""
 }
 
-variable "evidence_repo_secret_group" {
-  type        = string
-  description = "Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
-  default     = ""
-}
-
 variable "compliance_pipeline_repo_secret_group" {
   type        = string
   description = "Secret group prefix for the Compliance Pipeline repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
@@ -621,16 +592,6 @@ variable "inventory_repo_git_provider" {
   }
 }
 
-variable "evidence_repo_git_provider" {
-  type        = string
-  default     = ""
-  description = "Git provider for evidence repo"
-  validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.evidence_repo_git_provider)
-    error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for evidence repo."
-  }
-}
-
 variable "issues_repo_git_provider" {
   type        = string
   default     = ""
@@ -642,12 +603,6 @@ variable "issues_repo_git_provider" {
 }
 
 variable "issues_repo_integration_owner" {
-  type        = string
-  description = "The name of the integration owner."
-  default     = ""
-}
-
-variable "evidence_repo_integration_owner" {
   type        = string
   description = "The name of the integration owner."
   default     = ""
@@ -788,79 +743,6 @@ variable "inventory_repo_title" {
 }
 
 variable "inventory_repo_root_url" {
-  type        = string
-  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
-  default     = ""
-}
-
-variable "evidence_repo_issues_enabled" {
-  type        = bool
-  description = "Set to `true` to enable issues."
-  default     = false
-}
-
-variable "evidence_repo_git_id" {
-  type        = string
-  description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
-  default     = ""
-}
-
-variable "evidence_repo_traceability_enabled" {
-  type        = bool
-  description = "Set to `true` to enable traceability."
-  default     = false
-}
-
-variable "evidence_repo_is_private_repo" {
-  type        = bool
-  description = "Set to `true` to make repository private."
-  default     = true
-}
-
-variable "evidence_repo_initialization_type" {
-  type        = string
-  description = "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`."
-  default     = ""
-}
-
-variable "evidence_repo_enabled" {
-  type        = bool
-  description = "Set to `true` to enable the evidence repository tool integration."
-  default     = true
-}
-
-variable "evidence_repo_name" {
-  type        = string
-  description = "The repository name."
-  default     = ""
-}
-
-variable "evidence_repo_existing_url" {
-  type        = string
-  description = "The repo URL that integration will link with."
-  default     = ""
-
-}
-
-variable "evidence_repo_clone_from_url" {
-  type        = string
-  description = "The repo URL that the intgeration will clone from."
-  default     = ""
-}
-
-variable "evidence_repo_blind_connection" {
-  type        = string
-  description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
-  default     = ""
-}
-
-variable "evidence_repo_title" {
-  type        = string
-  description = "(Optional) The title of the server. e.g. My Git Enterprise Server."
-  default     = ""
-}
-
-variable "evidence_repo_root_url" {
   type        = string
   description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
   default     = ""
@@ -1009,12 +891,6 @@ variable "inventory_source_repo_url" {
   type        = string
   default     = ""
   description = "Url of inventory repo template to be cloned"
-}
-
-variable "evidence_source_repo_url" {
-  type        = string
-  default     = ""
-  description = "Url of evidence repo template to be cloned"
 }
 
 variable "issues_source_repo_url" {
@@ -1347,12 +1223,6 @@ variable "inventory_group" {
   default     = ""
 }
 
-variable "evidence_group" {
-  type        = string
-  description = "Specify Git user/group for evidence repository."
-  default     = ""
-}
-
 variable "link_to_doi_toolchain" {
   description = "Enable a link to a DevOps Insights instance in another toolchain, true or false."
   type        = bool
@@ -1449,6 +1319,13 @@ variable "privateworker_name" {
 }
 
 ######SonarQube ############################
+
+variable "enable_sonarqube" {
+  type        = bool
+  description = "Set to `true` to enable the SonarQube tool integration."
+  default     = false
+}
+
 variable "sonarqube_integration_name" {
   type        = string
   description = "The name of the SonarQube integration."
@@ -1587,7 +1464,7 @@ variable "repository_properties_filepath" {
 variable "default_locked_properties" {
   type        = list(string)
   description = "List of default locked properties"
-  default     = ["artifactory-dockerconfigjson", "cluster", "cluster-namespace", "cluster-region", "compliance-baseimage", "cos-api-key", "cos-bucket-name", "cos-endpoint", "cra-bom-generate", "cra-deploy-analysis", "cra-generate-cyclonedx-format", "cra-vulnerability-scan", "custom-image-tag", "dev-region", "dev-resource-group", "doi-environment", "doi-ibmcloud-api-key", "doi-toolchain-id", "event-notifications", "evidence-repo", "git-token", "gosec-private-repository-host", "gosec-private-repository-ssh-key", "ibmcloud-api", "ibmcloud-api-key", "incident-repo", "inventory-repo", "opt-in-dynamic-api-scan", "opt-in-dynamic-scan", "opt-in-dynamic-ui-scan", "opt-in-gosec", "opt-in-sonar", "peer-review-compliance", "pipeline-config", "pipeline-config-branch", "pipeline-config-repo", "pipeline-dockerconfigjson", "print-code-signing-certificate", "registry-namespace", "registry-region", "signing-key", "slack-notifications", "sonarqube", "sonarqube-config", "version"]
+  default     = ["artifactory-dockerconfigjson", "cluster", "cluster-namespace", "cluster-region", "compliance-baseimage", "cos-api-key", "cos-bucket-name", "cos-endpoint", "cra-bom-generate", "cra-deploy-analysis", "cra-generate-cyclonedx-format", "cra-vulnerability-scan", "custom-image-tag", "dev-region", "dev-resource-group", "doi-environment", "doi-ibmcloud-api-key", "doi-toolchain-id", "event-notifications", "git-token", "gosec-private-repository-host", "gosec-private-repository-ssh-key", "ibmcloud-api", "ibmcloud-api-key", "incident-repo", "inventory-repo", "opt-in-dynamic-api-scan", "opt-in-dynamic-scan", "opt-in-dynamic-ui-scan", "opt-in-gosec", "opt-in-sonar", "peer-review-compliance", "pipeline-config", "pipeline-config-branch", "pipeline-config-repo", "pipeline-dockerconfigjson", "print-code-signing-certificate", "registry-namespace", "registry-region", "signing-key", "slack-notifications", "sonarqube", "sonarqube-config", "version"]
 }
 
 variable "repo_blind_connection" {

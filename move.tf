@@ -24,9 +24,3 @@ moved {
   from = module.app_repo
   to   = module.app_repo[0]
 }
-
-# Default evidence repo integration move
-moved {
-  from = module.evidence_repo
-  to   = module.evidence_repo[0]
-}

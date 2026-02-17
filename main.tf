@@ -16,12 +16,6 @@ locals {
     format("%s/open-toolchain/compliance-incident-issues.git", local.compliance_pipelines_git_server)
   )
 
-  evidence_source_repo_url = (
-    (var.evidence_source_repo_url != "") ? var.evidence_source_repo_url :
-    (var.evidence_repo_clone_from_url != "") ? var.evidence_repo_clone_from_url :
-    format("%s/open-toolchain/compliance-evidence-locker.git", local.compliance_pipelines_git_server)
-  )
-
   inventory_source_repo_url = (
     (var.inventory_source_repo_url != "") ? var.inventory_source_repo_url :
     (var.inventory_repo_clone_from_url != "") ? var.inventory_repo_clone_from_url :
@@ -72,17 +66,6 @@ locals {
     (var.use_legacy_ref == true && var.issues_repo_secret_group != "") ? format("{vault::%s.${local.issue_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.issues_repo_secret_group)) :
     (var.issues_repo_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${local.issue_repo_secret_name}", " ", "%20") :
     replace("${local.sm_ref_format_root}/${var.issues_repo_secret_group}/${local.issue_repo_secret_name}", " ", "%20")
-  )
-
-  evidence_repo_secret_name = (var.evidence_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.evidence_repo_git_token_secret_name
-  evidence_repo_secret_crn  = (var.evidence_repo_git_token_secret_crn == "") ? var.repo_git_token_crn : var.evidence_repo_git_token_secret_crn
-  evidence_repo_secret_ref = (
-    (var.sm_instance_crn != "") ? local.evidence_repo_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${local.evidence_repo_secret_name}}", module.integrations.secret_tool) :
-    (var.use_legacy_ref == true && var.evidence_repo_secret_group == "") ? format("{vault::%s.${local.evidence_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    (var.use_legacy_ref == true && var.evidence_repo_secret_group != "") ? format("{vault::%s.${local.evidence_repo_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.evidence_repo_secret_group)) :
-    (var.evidence_repo_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${local.evidence_repo_secret_name}", " ", "%20") :
-    replace("${local.sm_ref_format_root}/${var.evidence_repo_secret_group}/${local.evidence_repo_secret_name}", " ", "%20")
   )
 
   inventory_repo_secret_name = (var.inventory_repo_git_token_secret_name == "") ? var.repo_git_token_secret_name : var.inventory_repo_git_token_secret_name
@@ -223,11 +206,6 @@ locals {
     (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
   )
 
-  evidence_repo_auth_type = (
-    (var.evidence_repo_auth_type != "") ? var.evidence_repo_auth_type :
-    (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
-  )
-
   inventory_repo_auth_type = (
     (var.inventory_repo_auth_type != "") ? var.inventory_repo_auth_type :
     (var.repo_auth_type != "") ? var.repo_auth_type : "oauth"
@@ -342,31 +320,6 @@ module "issues_repo" {
   blind_connection      = (var.issues_repo_blind_connection == "") ? var.repo_blind_connection : var.issues_repo_blind_connection
   title                 = (var.issues_repo_title == "") ? var.repo_title : var.issues_repo_title
   root_url              = (var.issues_repo_root_url == "") ? var.repo_root_url : var.issues_repo_root_url
-  default_git_provider  = var.default_git_provider
-}
-
-module "evidence_repo" {
-  count                 = (var.evidence_repo_enabled == true) ? 1 : 0
-  source                = "./customizations/repositories"
-  depends_on            = [module.integrations]
-  tool_name             = "evidence-repo"
-  toolchain_id          = ibm_cd_toolchain.toolchain_instance.id
-  git_provider          = (var.evidence_repo_git_provider == "") ? var.repo_git_provider : var.evidence_repo_git_provider
-  initialization_type   = var.evidence_repo_initialization_type
-  repository_url        = var.evidence_repo_existing_url
-  source_repository_url = local.evidence_source_repo_url
-  repository_name       = (var.evidence_repo_name != "") ? var.evidence_repo_name : join("-", [var.repositories_prefix, "evidence-repo"])
-  is_private_repo       = var.evidence_repo_is_private_repo
-  owner_id              = (var.evidence_group == "") ? var.repo_group : var.evidence_group
-  issues_enabled        = var.evidence_repo_issues_enabled
-  traceability_enabled  = var.evidence_repo_traceability_enabled
-  integration_owner     = (var.evidence_repo_integration_owner == "") ? var.repo_integration_owner : var.evidence_repo_integration_owner
-  auth_type             = local.evidence_repo_auth_type
-  secret_ref            = local.evidence_repo_secret_ref
-  git_id                = (var.evidence_repo_git_id == "") ? var.repo_git_id : var.evidence_repo_git_id
-  blind_connection      = (var.evidence_repo_blind_connection == "") ? var.repo_blind_connection : var.evidence_repo_blind_connection
-  title                 = (var.evidence_repo_title == "") ? var.repo_title : var.evidence_repo_title
-  root_url              = (var.evidence_repo_root_url == "") ? var.repo_root_url : var.evidence_repo_root_url
   default_git_provider  = var.default_git_provider
 }
 
@@ -491,11 +444,8 @@ module "pipeline_ci" {
   pipeline_config_repo_clone_from_url = var.pipeline_config_repo_clone_from_url
   pipeline_config_repo                = try(module.pipeline_config_repo[0].repository, "")
   pipeline_repo_url                   = module.compliance_pipelines_repo.repository_url
-  evidence_repo_url                   = try(module.evidence_repo[0].repository_url, "")
   inventory_repo_url                  = module.inventory_repo.repository_url
   issues_repo_url                     = module.issues_repo.repository_url
-  evidence_repo                       = try(module.evidence_repo[0].repository, "")
-  evidence_repo_enabled               = var.evidence_repo_enabled
   inventory_repo                      = module.inventory_repo.repository
   issues_repo                         = module.issues_repo.repository
   app_repo_provider_webhook_syntax    = try(module.app_repo[0].repo_provider_name, "")
@@ -545,8 +495,6 @@ module "pipeline_pr" {
   pipeline_config_repo                = try(module.pipeline_config_repo[0].repository, "")
   pipeline_repo_url                   = module.compliance_pipelines_repo.repository_url
   issues_repo                         = module.issues_repo.repository
-  evidence_repo                       = try(module.evidence_repo[0].repository, "")
-  evidence_repo_enabled               = var.evidence_repo_enabled
   app_repo_provider_webhook_syntax    = try(module.app_repo[0].repo_provider_name, "")
   tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
   enable_artifactory                  = var.enable_artifactory
@@ -606,6 +554,7 @@ module "integrations" {
   artifactory_integration_name         = var.artifactory_integration_name
   event_notifications_tool_name        = var.event_notifications_tool_name
   event_notifications_crn              = var.event_notifications_crn
+  enable_sonarqube                     = var.enable_sonarqube
   sonarqube_integration_name           = var.sonarqube_integration_name
   sonarqube_user                       = var.sonarqube_user
   sonarqube_secret_ref                 = local.sonarqube_secret_ref

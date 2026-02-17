@@ -641,7 +641,7 @@
                         {
                             "key": "default_locked_properties",
                             "type": "array",
-                            "default_value": "[\"artifactory-dockerconfigjson\", \"cluster\", \"cluster-namespace\", \"cluster-region\", \"compliance-baseimage\", \"cos-api-key\", \"cos-bucket-name\", \"cos-endpoint\", \"cra-bom-generate\", \"cra-deploy-analysis\", \"cra-generate-cyclonedx-format\", \"cra-vulnerability-scan\", \"custom-image-tag\", \"dev-region\", \"dev-resource-group\", \"doi-environment\", \"doi-ibmcloud-api-key\", \"doi-toolchain-id\", \"event-notifications\", \"evidence-repo\", \"git-token\", \"gosec-private-repository-host\", \"gosec-private-repository-ssh-key\", \"ibmcloud-api\", \"ibmcloud-api-key\", \"incident-repo\", \"inventory-repo\", \"opt-in-dynamic-api-scan\", \"opt-in-dynamic-scan\", \"opt-in-dynamic-ui-scan\", \"opt-in-gosec\", \"opt-in-sonar\", \"peer-review-compliance\", \"pipeline-config\", \"pipeline-config-branch\", \"pipeline-config-repo\", \"pipeline-dockerconfigjson\", \"print-code-signing-certificate\", \"registry-namespace\", \"registry-region\", \"signing-key\", \"slack-notifications\", \"sonarqube\", \"sonarqube-config\", \"version\"]",
+                            "default_value": "[\"artifactory-dockerconfigjson\", \"cluster\", \"cluster-namespace\", \"cluster-region\", \"compliance-baseimage\", \"cos-api-key\", \"cos-bucket-name\", \"cos-endpoint\", \"cra-bom-generate\", \"cra-deploy-analysis\", \"cra-generate-cyclonedx-format\", \"cra-vulnerability-scan\", \"custom-image-tag\", \"dev-region\", \"dev-resource-group\", \"doi-environment\", \"doi-ibmcloud-api-key\", \"doi-toolchain-id\", \"event-notifications\", \"git-token\", \"gosec-private-repository-host\", \"gosec-private-repository-ssh-key\", \"ibmcloud-api\", \"ibmcloud-api-key\", \"incident-repo\", \"inventory-repo\", \"opt-in-dynamic-api-scan\", \"opt-in-dynamic-scan\", \"opt-in-dynamic-ui-scan\", \"opt-in-gosec\", \"opt-in-sonar\", \"peer-review-compliance\", \"pipeline-config\", \"pipeline-config-branch\", \"pipeline-config-repo\", \"pipeline-dockerconfigjson\", \"print-code-signing-certificate\", \"registry-namespace\", \"registry-region\", \"signing-key\", \"slack-notifications\", \"sonarqube\", \"sonarqube-config\", \"version\"]",
                             "description": "List of default locked properties",
                             "required": false
                         },
@@ -734,138 +734,6 @@
                             "type": "string",
                             "default_value": "",
                             "description": "The CRN for the Event Notifications instance.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_group",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Specify Git user/group for evidence repository.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_auth_type",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_blind_connection",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_clone_from_url",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The repo URL that the intgeration will clone from.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_existing_url",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The repo URL that integration will link with.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_git_id",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_git_provider",
-                            "type": "string",
-                            "default_value": "hostedgit",
-                            "description": "Git provider for evidence repo",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_git_token_secret_crn",
-                            "type": "password",
-                            "description": "The CRN for the Evidence repository Git Token.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_git_token_secret_name",
-                            "type": "string",
-                            "default_value": "git-token",
-                            "description": "Name of the Git token secret in the secret provider.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_initialization_type",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_integration_owner",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The name of the integration owner.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_is_private_repo",
-                            "type": "boolean",
-                            "default_value": true,
-                            "description": "Set to `true` to make repository private.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_issues_enabled",
-                            "type": "boolean",
-                            "default_value": false,
-                            "description": "Set to `true` to enable issues.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_name",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The repository name.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_root_url",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "(Optional) The Root URL of the server. e.g. https://git.example.com.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_secret_group",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_title",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "(Optional) The title of the server. e.g. My Git Enterprise Server.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_traceability_enabled",
-                            "type": "boolean",
-                            "default_value": false,
-                            "description": "Set to `true` to enable traceability.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_source_repo_url",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Url of evidence repo template to be cloned",
                             "required": false
                         },
                         {
@@ -1652,22 +1520,6 @@
                             "description": "The CI pipeline ID."
                         },
                         {
-                            "key": "evidence_repo",
-                            "description": "The Evidence repo."
-                        },
-                        {
-                            "key": "evidence_repo_git_id",
-                            "description": "The evidence repository Git ID"
-                        },
-                        {
-                            "key": "evidence_repo_git_provider",
-                            "description": "The evidence repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
-                        },
-                        {
-                            "key": "evidence_repo_url",
-                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
-                        },
-                        {
                             "key": "inventory_repo",
                             "description": "The Inventory repo."
                         },
@@ -2368,7 +2220,7 @@
                         {
                             "key": "default_locked_properties",
                             "type": "array",
-                            "default_value": "[\"artifactory-dockerconfigjson\", \"cluster\", \"cluster-namespace\", \"cluster-region\", \"compliance-baseimage\", \"cos-api-key\", \"cos-bucket-name\", \"cos-endpoint\", \"cra-bom-generate\", \"cra-deploy-analysis\", \"cra-generate-cyclonedx-format\", \"cra-vulnerability-scan\", \"custom-image-tag\", \"dev-region\", \"dev-resource-group\", \"doi-environment\", \"doi-ibmcloud-api-key\", \"doi-toolchain-id\", \"event-notifications\", \"evidence-repo\", \"git-token\", \"gosec-private-repository-host\", \"gosec-private-repository-ssh-key\", \"ibmcloud-api\", \"ibmcloud-api-key\", \"incident-repo\", \"inventory-repo\", \"opt-in-dynamic-api-scan\", \"opt-in-dynamic-scan\", \"opt-in-dynamic-ui-scan\", \"opt-in-gosec\", \"opt-in-sonar\", \"peer-review-compliance\", \"pipeline-config\", \"pipeline-config-branch\", \"pipeline-config-repo\", \"pipeline-dockerconfigjson\", \"print-code-signing-certificate\", \"registry-namespace\", \"registry-region\", \"signing-key\", \"slack-notifications\", \"sonarqube\", \"sonarqube-config\", \"version\"]",
+                            "default_value": "[\"artifactory-dockerconfigjson\", \"cluster\", \"cluster-namespace\", \"cluster-region\", \"compliance-baseimage\", \"cos-api-key\", \"cos-bucket-name\", \"cos-endpoint\", \"cra-bom-generate\", \"cra-deploy-analysis\", \"cra-generate-cyclonedx-format\", \"cra-vulnerability-scan\", \"custom-image-tag\", \"dev-region\", \"dev-resource-group\", \"doi-environment\", \"doi-ibmcloud-api-key\", \"doi-toolchain-id\", \"event-notifications\", \"git-token\", \"gosec-private-repository-host\", \"gosec-private-repository-ssh-key\", \"ibmcloud-api\", \"ibmcloud-api-key\", \"incident-repo\", \"inventory-repo\", \"opt-in-dynamic-api-scan\", \"opt-in-dynamic-scan\", \"opt-in-dynamic-ui-scan\", \"opt-in-gosec\", \"opt-in-sonar\", \"peer-review-compliance\", \"pipeline-config\", \"pipeline-config-branch\", \"pipeline-config-repo\", \"pipeline-dockerconfigjson\", \"print-code-signing-certificate\", \"registry-namespace\", \"registry-region\", \"signing-key\", \"slack-notifications\", \"sonarqube\", \"sonarqube-config\", \"version\"]",
                             "description": "List of default locked properties",
                             "required": false
                         },
@@ -2461,138 +2313,6 @@
                             "type": "string",
                             "default_value": "",
                             "description": "The CRN for the Event Notifications instance.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_group",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Specify Git user/group for evidence repository.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_auth_type",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_blind_connection",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_clone_from_url",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The repo URL that the intgeration will clone from.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_existing_url",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The repo URL that integration will link with.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_git_id",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_git_provider",
-                            "type": "string",
-                            "default_value": "hostedgit",
-                            "description": "Git provider for evidence repo",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_git_token_secret_crn",
-                            "type": "password",
-                            "description": "The CRN for the Evidence repository Git Token.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_git_token_secret_name",
-                            "type": "string",
-                            "default_value": "git-token",
-                            "description": "Name of the Git token secret in the secret provider.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_initialization_type",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The initialization type for the repo. Can be `new`, `fork`, `clone`, `link`, `new_if_not_exists`, `clone_if_not_exists`, `fork_if_not_exists`.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_integration_owner",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The name of the integration owner.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_is_private_repo",
-                            "type": "boolean",
-                            "default_value": true,
-                            "description": "Set to `true` to make repository private.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_issues_enabled",
-                            "type": "boolean",
-                            "default_value": false,
-                            "description": "Set to `true` to enable issues.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_name",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "The repository name.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_root_url",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "(Optional) The Root URL of the server. e.g. https://git.example.com.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_secret_group",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_title",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "(Optional) The title of the server. e.g. My Git Enterprise Server.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_repo_traceability_enabled",
-                            "type": "boolean",
-                            "default_value": false,
-                            "description": "Set to `true` to enable traceability.",
-                            "required": false
-                        },
-                        {
-                            "key": "evidence_source_repo_url",
-                            "type": "string",
-                            "default_value": "",
-                            "description": "Url of evidence repo template to be cloned",
                             "required": false
                         },
                         {
@@ -3364,22 +3084,6 @@
                         {
                             "key": "ci_pipeline_id",
                             "description": "The CI pipeline ID."
-                        },
-                        {
-                            "key": "evidence_repo",
-                            "description": "The Evidence repo."
-                        },
-                        {
-                            "key": "evidence_repo_git_id",
-                            "description": "The evidence repository Git ID"
-                        },
-                        {
-                            "key": "evidence_repo_git_provider",
-                            "description": "The evidence repository provider type. Can be 'hostedgit', 'githubconsolidated' etc."
-                        },
-                        {
-                            "key": "evidence_repo_url",
-                            "description": "The evidence repository instance URL, where evidence of the builds and scans are stored, ready for any compliance audit."
                         },
                         {
                             "key": "inventory_repo",
