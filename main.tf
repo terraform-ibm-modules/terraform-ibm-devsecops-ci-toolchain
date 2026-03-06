@@ -160,15 +160,6 @@ locals {
     replace("${local.sm_ref_format_root}/${var.artifactory_token_secret_group}/${var.artifactory_token_secret_name}", " ", "%20")
   )
 
-  pipeline_doi_api_key_secret_ref = (
-    (var.sm_instance_crn != "") ? var.pipeline_doi_api_key_secret_crn :
-    (var.enable_key_protect) ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", module.integrations.secret_tool) :
-    (var.use_legacy_ref == true && var.pipeline_doi_api_key_secret_group == "") ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.sm_secret_group)) :
-    (var.use_legacy_ref == true && var.pipeline_doi_api_key_secret_group != "") ? format("{vault::%s.${var.pipeline_doi_api_key_secret_name}}", format("%s.%s", module.integrations.secret_tool, var.pipeline_doi_api_key_secret_group)) :
-    (var.pipeline_doi_api_key_secret_group == "") ? replace("${local.sm_ref_format_root}/${var.sm_secret_group}/${var.pipeline_doi_api_key_secret_name}", " ", "%20") :
-    replace("${local.sm_ref_format_root}/${var.pipeline_doi_api_key_secret_group}/${var.pipeline_doi_api_key_secret_name}", " ", "%20")
-  )
-
   signing_key_secret_ref = (
     (var.sm_instance_crn != "") ? var.signing_key_secret_crn :
     (var.enable_key_protect) ? format("{vault::%s.${var.signing_key_secret_name}}", module.integrations.secret_tool) :
@@ -250,9 +241,7 @@ locals {
     "cos-bucket-name"            = var.cos_bucket_name,
     "cos-endpoint"               = var.cos_endpoint,
     "dev-region"                 = var.dev_region,
-    "dev-resource-group"         = var.dev_resource_group
-    "doi-ibmcloud-api-key"       = (var.pipeline_doi_api_key_secret_name == "") ? local.pipeline_apikey_secret_ref : local.pipeline_doi_api_key_secret_ref,
-    "doi-toolchain-id"           = var.doi_toolchain_id_pipeline_property,
+    "dev-resource-group"         = var.dev_resource_group,
     "ibmcloud-api-key"           = local.pipeline_apikey_secret_ref,
     "registry-namespace"         = var.registry_namespace,
     "registry-region"            = var.registry_region,
@@ -466,7 +455,6 @@ module "pipeline_ci" {
   trigger_manual_name                 = var.trigger_manual_name
   trigger_manual_enable               = var.trigger_manual_enable
   enable_pipeline_notifications       = var.enable_pipeline_notifications
-  link_to_doi_toolchain               = var.link_to_doi_toolchain
   sonarqube_tool                      = (module.integrations.sonarqube_tool)
   default_locked_properties           = var.default_locked_properties
 }
@@ -536,8 +524,6 @@ module "integrations" {
   slack_toolchain_bind                 = var.slack_toolchain_bind
   slack_toolchain_unbind               = var.slack_toolchain_unbind
   authorization_policy_creation        = var.authorization_policy_creation
-  link_to_doi_toolchain                = var.link_to_doi_toolchain
-  doi_toolchain_id                     = var.doi_toolchain_id
   enable_artifactory                   = var.enable_artifactory
   artifactory_dashboard_url            = var.artifactory_dashboard_url
   artifactory_user                     = var.artifactory_user
@@ -560,7 +546,6 @@ module "integrations" {
   sonarqube_secret_ref                 = local.sonarqube_secret_ref
   sonarqube_is_blind_connection        = var.sonarqube_is_blind_connection
   sonarqube_server_url                 = var.sonarqube_server_url
-  enable_insights                      = var.enable_insights
   enable_concert                       = var.enable_concert
   concert_dashboard_url                = var.concert_dashboard_url
   concert_description                  = var.concert_description

@@ -88,12 +88,6 @@ variable "slack_webhook_secret_group" {
   default     = ""
 }
 
-variable "pipeline_doi_api_key_secret_group" {
-  type        = string
-  description = "Secret group prefix for the pipeline DOI api key. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
-  default     = ""
-}
-
 variable "sonarqube_secret_group" {
   type        = string
   description = "Secret group prefix for the SonarQube secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
@@ -458,17 +452,6 @@ variable "artifactory_token_secret_crn" {
   default     = ""
   validation {
     condition     = startswith(var.artifactory_token_secret_crn, "crn:") || var.artifactory_token_secret_crn == ""
-    error_message = "Must be a CRN or left empty."
-  }
-}
-
-variable "pipeline_doi_api_key_secret_crn" {
-  type        = string
-  sensitive   = true
-  description = "The CRN for the pipeline DOI apikey."
-  default     = ""
-  validation {
-    condition     = startswith(var.pipeline_doi_api_key_secret_crn, "crn:") || var.pipeline_doi_api_key_secret_crn == ""
     error_message = "Must be a CRN or left empty."
   }
 }
@@ -1127,12 +1110,6 @@ variable "enable_cos" {
   default     = false
 }
 
-variable "enable_insights" {
-  type        = bool
-  description = "Set to `true` to enable the DevOps Insights integration."
-  default     = true
-}
-
 ######## DevSecOps Flavor ##################
 
 variable "devsecops_flavor" {
@@ -1220,30 +1197,6 @@ variable "issues_group" {
 variable "inventory_group" {
   type        = string
   description = "Specify Git user/group for inventory repository."
-  default     = ""
-}
-
-variable "link_to_doi_toolchain" {
-  description = "Enable a link to a DevOps Insights instance in another toolchain, true or false."
-  type        = bool
-  default     = false
-}
-
-variable "doi_toolchain_id" {
-  type        = string
-  description = "DevOps Insights Toolchain ID to link to."
-  default     = ""
-}
-
-variable "pipeline_doi_api_key_secret_name" {
-  type        = string
-  description = "Name of the Cloud API key secret in the secret provider to access the toolchain containing the Devops Insights instance."
-  default     = ""
-}
-
-variable "doi_toolchain_id_pipeline_property" {
-  type        = string
-  description = "The DevOps Insights instance toolchain ID."
   default     = ""
 }
 
@@ -1464,7 +1417,7 @@ variable "repository_properties_filepath" {
 variable "default_locked_properties" {
   type        = list(string)
   description = "List of default locked properties"
-  default     = ["artifactory-dockerconfigjson", "cluster", "cluster-namespace", "cluster-region", "compliance-baseimage", "cos-api-key", "cos-bucket-name", "cos-endpoint", "cra-bom-generate", "cra-deploy-analysis", "cra-generate-cyclonedx-format", "cra-vulnerability-scan", "custom-image-tag", "dev-region", "dev-resource-group", "doi-environment", "doi-ibmcloud-api-key", "doi-toolchain-id", "event-notifications", "git-token", "gosec-private-repository-host", "gosec-private-repository-ssh-key", "ibmcloud-api", "ibmcloud-api-key", "incident-repo", "inventory-repo", "opt-in-dynamic-api-scan", "opt-in-dynamic-scan", "opt-in-dynamic-ui-scan", "opt-in-gosec", "opt-in-sonar", "peer-review-compliance", "pipeline-config", "pipeline-config-branch", "pipeline-config-repo", "pipeline-dockerconfigjson", "print-code-signing-certificate", "registry-namespace", "registry-region", "signing-key", "slack-notifications", "sonarqube", "sonarqube-config", "version"]
+  default     = ["artifactory-dockerconfigjson", "cluster", "cluster-namespace", "cluster-region", "compliance-baseimage", "cos-api-key", "cos-bucket-name", "cos-endpoint", "cra-bom-generate", "cra-deploy-analysis", "cra-generate-cyclonedx-format", "cra-vulnerability-scan", "custom-image-tag", "dev-region", "dev-resource-group", "event-notifications", "git-token", "gosec-private-repository-host", "gosec-private-repository-ssh-key", "ibmcloud-api", "ibmcloud-api-key", "incident-repo", "inventory-repo", "opt-in-dynamic-api-scan", "opt-in-dynamic-scan", "opt-in-dynamic-ui-scan", "opt-in-gosec", "opt-in-sonar", "peer-review-compliance", "pipeline-config", "pipeline-config-branch", "pipeline-config-repo", "pipeline-dockerconfigjson", "print-code-signing-certificate", "registry-namespace", "registry-region", "signing-key", "slack-notifications", "sonarqube", "sonarqube-config", "version"]
 }
 
 variable "repo_blind_connection" {
