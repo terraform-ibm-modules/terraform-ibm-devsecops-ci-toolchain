@@ -183,6 +183,3 @@ variable "sonarqube_server_url" {
 
 variable "enable_cos" {
 }
-
-variable "enable_sonarqube" {
-}

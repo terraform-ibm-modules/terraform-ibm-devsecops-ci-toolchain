@@ -540,7 +540,6 @@ module "integrations" {
   artifactory_integration_name         = var.artifactory_integration_name
   event_notifications_tool_name        = var.event_notifications_tool_name
   event_notifications_crn              = var.event_notifications_crn
-  enable_sonarqube                     = var.enable_sonarqube
   sonarqube_integration_name           = var.sonarqube_integration_name
   sonarqube_user                       = var.sonarqube_user
   sonarqube_secret_ref                 = local.sonarqube_secret_ref

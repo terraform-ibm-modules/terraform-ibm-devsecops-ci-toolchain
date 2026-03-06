@@ -1273,12 +1273,6 @@ variable "privateworker_name" {
 
 ######SonarQube ############################
 
-variable "enable_sonarqube" {
-  type        = bool
-  description = "Set to `true` to enable the SonarQube tool integration."
-  default     = false
-}
-
 variable "sonarqube_integration_name" {
   type        = string
   description = "The name of the SonarQube integration."
