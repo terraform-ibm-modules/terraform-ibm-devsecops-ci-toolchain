@@ -74,12 +74,6 @@ variable "slack_toolchain_unbind" {
 variable "authorization_policy_creation" {
 }
 
-variable "link_to_doi_toolchain" {
-}
-
-variable "doi_toolchain_id" {
-}
-
 variable "enable_artifactory" {
 }
 variable "artifactory_dashboard_url" {
@@ -187,11 +181,5 @@ variable "sonarqube_is_blind_connection" {
 variable "sonarqube_server_url" {
 }
 
-variable "enable_insights" {
-}
-
 variable "enable_cos" {
-}
-
-variable "enable_sonarqube" {
 }

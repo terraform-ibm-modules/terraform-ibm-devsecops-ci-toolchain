@@ -75,11 +75,8 @@ module "devsecops_ci_toolchain" {
   dev_region                                     = var.dev_region
   dev_resource_group                             = var.dev_resource_group
   devsecops_flavor                               = var.devsecops_flavor
-  doi_toolchain_id_pipeline_property             = var.doi_toolchain_id_pipeline_property
-  doi_toolchain_id                               = var.doi_toolchain_id
   enable_artifactory                             = var.enable_artifactory
   enable_cos                                     = var.enable_cos
-  enable_insights                                = var.enable_insights
   enable_key_protect                             = var.enable_key_protect
   enable_pipeline_notifications                  = var.enable_pipeline_notifications
   enable_privateworker                           = var.enable_privateworker
@@ -130,7 +127,6 @@ module "devsecops_ci_toolchain" {
   kp_location                                    = var.kp_location
   kp_name                                        = var.kp_name
   kp_resource_group                              = var.kp_resource_group
-  link_to_doi_toolchain                          = var.link_to_doi_toolchain
   pipeline_config_group                          = var.pipeline_config_group
   pipeline_config_initialization_type            = var.pipeline_config_initialization_type
   pipeline_config_repo_auth_type                 = var.pipeline_config_repo_auth_type
@@ -150,9 +146,6 @@ module "devsecops_ci_toolchain" {
   pipeline_config_repo_secret_group              = var.pipeline_config_repo_secret_group
   pipeline_config_repo_title                     = var.pipeline_config_repo_title
   pipeline_config_repo_traceability_enabled      = var.pipeline_config_repo_traceability_enabled
-  pipeline_doi_api_key_secret_crn                = var.pipeline_doi_api_key_secret_crn
-  pipeline_doi_api_key_secret_group              = var.pipeline_doi_api_key_secret_group
-  pipeline_doi_api_key_secret_name               = var.pipeline_doi_api_key_secret_name
   pipeline_ibmcloud_api_key_secret_crn           = var.pipeline_ibmcloud_api_key_secret_crn
   pipeline_ibmcloud_api_key_secret_group         = var.pipeline_ibmcloud_api_key_secret_group
   pipeline_ibmcloud_api_key_secret_name          = var.pipeline_ibmcloud_api_key_secret_name
