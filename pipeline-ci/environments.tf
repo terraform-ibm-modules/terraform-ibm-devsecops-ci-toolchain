@@ -46,7 +46,7 @@ resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_app_name" {
 }
 
 resource "ibm_cd_tekton_pipeline_property" "ci_pipeline_sonarqube" {
-  count       = (var.sonarqube_user != "") ? 1 : 0
+  count       = (var.sonarqube_server_url != "") ? 1 : 0
   name        = "sonarqube"
   type        = "integration"
   value       = try(var.sonarqube_tool, "")

@@ -438,7 +438,6 @@ module "pipeline_ci" {
   inventory_repo                      = module.inventory_repo.repository
   issues_repo                         = module.issues_repo.repository
   app_repo_provider_webhook_syntax    = try(module.app_repo[0].repo_provider_name, "")
-  sonarqube_user                      = var.sonarqube_user
   worker_id                           = module.integrations.worker_id
   enable_artifactory                  = var.enable_artifactory
   tool_artifactory                    = module.integrations.ibm_cd_toolchain_tool_artifactory
@@ -456,6 +455,7 @@ module "pipeline_ci" {
   trigger_manual_enable               = var.trigger_manual_enable
   enable_pipeline_notifications       = var.enable_pipeline_notifications
   sonarqube_tool                      = (module.integrations.sonarqube_tool)
+  sonarqube_server_url                = var.sonarqube_server_url
   default_locked_properties           = var.default_locked_properties
 }
 
