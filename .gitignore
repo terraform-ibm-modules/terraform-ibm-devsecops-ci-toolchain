@@ -13,3 +13,4 @@ workspaces
 *.tfstate.d
 .vscode
 provider.tf
+repositories.json

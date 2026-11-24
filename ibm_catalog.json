@@ -205,7 +205,7 @@
                             "key": "app_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -434,7 +434,7 @@
                             "key": "compliance_pipeline_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -726,7 +726,7 @@
                             "key": "inventory_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -858,7 +858,7 @@
                             "key": "issues_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -1018,7 +1018,7 @@
                             "key": "pipeline_config_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -1211,7 +1211,7 @@
                             "key": "repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "The auth type for the repo `oauth` or 'pat` (personal access token). Applies to all the default compliance repositories but can be overriden by the repository specific variable.",
+                            "description": "The auth type for the repo `oauth`, `pat` (personal access token) or `github_app`. Applies to all the default compliance repositories but can be overriden by the repository specific variable.",
                             "required": false
                         },
                         {
@@ -1447,6 +1447,362 @@
                             "type": "string",
                             "default_value": "public",
                             "description": "The identifier for the Managed Pipeline worker.",
+                            "required": false
+                        },
+                        {
+                            "key": "pr_worker_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The identifier for the Managed Pipeline worker for the PR pipeline. If not set it will use the value set in `worker_id`.",
+                            "required": false
+                        },
+                        {
+                            "key": "use_legacy_ref",
+                            "type": "boolean",
+                            "default_value": false,
+                            "description": "Set to `true` to use the legacy secret reference format for Secrets Manager secrets.",
+                            "required": false
+                        },
+                        {
+                            "key": "use_legacy_cos_tool",
+                            "type": "boolean",
+                            "default_value": false,
+                            "description": "The custom tool integration is being replaced with the new COS tool integration. To continue using the legacy tool. Set the value to `true`. See `enable_cos`",
+                            "required": false
+                        },
+                        {
+                            "key": "enable_concert",
+                            "type": "boolean",
+                            "default_value": false,
+                            "description": "Set to `true` to enable the Concert tool integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "concert_dashboard_url",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The dashboard URL for the Concert tool",
+                            "required": false
+                        },
+                        {
+                            "key": "concert_description",
+                            "type": "string",
+                            "default_value": "IBM Concert combines traditional analytics and generative AI to deliver comprehensive insights into your operational health and identify critical risk across your application lifecycle",
+                            "description": "The description of the Concert toolcard.",
+                            "required": false
+                        },
+                        {
+                            "key": "concert_documentation_url",
+                            "type": "string",
+                            "default_value": "https://www.ibm.com/docs/en/concert",
+                            "description": "The documentation URL that appears on the tool card.",
+                            "required": false
+                        },
+                        {
+                            "key": "concert_integration_name",
+                            "type": "string",
+                            "default_value": "Concert",
+                            "description": "The name of the Concert integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_hmac_access_key_id_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The name of the secret in Secrets Manager for the HMAC Access Key ID.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_hmac_secret_access_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The name of the secret in Secrets Manager for the HMAC Secret Access Key.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_hmac_access_key_secret_crn",
+                            "type": "password",
+                            "description": "The CRN for the HMAC Secret Access Key.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_hmac_secret_access_id_crn",
+                            "type": "password",
+                            "description": "The CRN for the HMAC Access Key ID.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_instance_crn",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The CRN of the Cloud Object Storage instance.",
+                            "required": false
+                        },
+                        {
+                            "key": "event_notifications_tool_name",
+                            "type": "string",
+                            "default_value": "Event Notifications",
+                            "description": "The name of the Event Notifications integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "artifactory_integration_name",
+                            "type": "string",
+                            "default_value": "artifactory-dockerconfigjson",
+                            "description": "The name of the Artifactory tool integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "kp_integration_name",
+                            "type": "string",
+                            "default_value": "kp-compliance-secrets",
+                            "description": "The name of the Key Protect integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "sm_integration_name",
+                            "type": "string",
+                            "default_value": "sm-compliance-secrets",
+                            "description": "The name of the Secrets Manager integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_integration_name",
+                            "type": "string",
+                            "default_value": "slack-compliance",
+                            "description": "The name of the Slack integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_pipeline_fail",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate pipeline failed notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_pipeline_start",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate pipeline start notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_pipeline_success",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate pipeline succeeded notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_toolchain_bind",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate tool added to toolchain notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_toolchain_unbind",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate tool removed from toolchain notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "sonarqube_integration_name",
+                            "type": "string",
+                            "default_value": "SonarQube",
+                            "description": "The name of the SonarQube integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "trigger_git_name",
+                            "type": "string",
+                            "default_value": "Git CI Trigger",
+                            "description": "The name of the CI pipeline GIT trigger.",
+                            "required": false
+                        },
+                        {
+                            "key": "trigger_timed_name",
+                            "type": "string",
+                            "default_value": "Git CI Timed Trigger",
+                            "description": "The name of the CI pipeline Timed trigger.",
+                            "required": false
+                        },
+                        {
+                            "key": "trigger_manual_name",
+                            "type": "string",
+                            "default_value": "Manual Trigger",
+                            "description": "The name of the CI pipeline Manual trigger.",
+                            "required": false
+                        },
+                        {
+                            "key": "trigger_pr_git_name",
+                            "type": "string",
+                            "default_value": "Git PR Trigger",
+                            "description": "The name of the PR pipeline GIT trigger.",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "app_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for app-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "app_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for app-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "app_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for app-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "app_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for app-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "issues_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for issues-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "issues_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for issues-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "issues_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for issues-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "issues_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for issues-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "inventory_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for inventory-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "inventory_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for inventory-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "inventory_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for inventory-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "inventory_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for inventory-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "compliance_pipeline_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for compliance-pipeline-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "compliance_pipeline_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for compliance-pipeline-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "compliance_pipeline_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for compliance-pipeline-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "compliance_pipeline_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for compliance-pipeline-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "pipeline_config_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for pipeline-config-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "pipeline_config_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for pipeline-config-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "pipeline_config_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for pipeline-config-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "pipeline_config_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for pipeline-config-repo. Only used when auth method is `github_app`.",
                             "required": false
                         }
                     ],
@@ -1729,7 +2085,7 @@
                             "key": "app_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -1965,7 +2321,7 @@
                             "key": "compliance_pipeline_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -2257,7 +2613,7 @@
                             "key": "inventory_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -2389,7 +2745,7 @@
                             "key": "issues_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -2549,7 +2905,7 @@
                             "key": "pipeline_config_repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'",
+                            "description": "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`",
                             "required": false
                         },
                         {
@@ -2742,7 +3098,7 @@
                             "key": "repo_auth_type",
                             "type": "string",
                             "default_value": "",
-                            "description": "The auth type for the repo `oauth` or 'pat` (personal access token). Applies to all the default compliance repositories but can be overriden by the repository specific variable.",
+                            "description": "The auth type for the repo `oauth`, `pat` (personal access token) or `github_app`. Applies to all the default compliance repositories but can be overriden by the repository specific variable.",
                             "required": false
                         },
                         {
@@ -2965,6 +3321,394 @@
                             "type": "string",
                             "default_value": "public",
                             "description": "The identifier for the Managed Pipeline worker.",
+                            "required": false
+                        },
+                        {
+                            "key": "enable_ci_pipeline",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Set `enable_ci_pipeline` to true to create CI pipeline."
+                        },
+                        {
+                            "key": "enable_pr_pipeline",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Set `enable_pr_pipeline` to true to create PR pipeline."
+                        },
+                        {
+                            "key": "enable_app_repo_integration",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Set `enable_app_repo_integration` to false if you don't want to create default app repo integration.You can make use of `repository.json` to create the integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "pr_worker_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The identifier for the Managed Pipeline worker for the PR pipeline. If not set it will use the value set in `worker_id`.",
+                            "required": false
+                        },
+                        {
+                            "key": "use_legacy_ref",
+                            "type": "boolean",
+                            "default_value": false,
+                            "description": "Set to `true` to use the legacy secret reference format for Secrets Manager secrets.",
+                            "required": false
+                        },
+                        {
+                            "key": "use_legacy_cos_tool",
+                            "type": "boolean",
+                            "default_value": false,
+                            "description": "The custom tool integration is being replaced with the new COS tool integration. To continue using the legacy tool. Set the value to `true`. See `enable_cos`",
+                            "required": false
+                        },
+                        {
+                            "key": "enable_concert",
+                            "type": "boolean",
+                            "default_value": false,
+                            "description": "Set to `true` to enable the Concert tool integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "concert_dashboard_url",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The dashboard URL for the Concert tool",
+                            "required": false
+                        },
+                        {
+                            "key": "concert_description",
+                            "type": "string",
+                            "default_value": "IBM Concert combines traditional analytics and generative AI to deliver comprehensive insights into your operational health and identify critical risk across your application lifecycle",
+                            "description": "The description of the Concert toolcard.",
+                            "required": false
+                        },
+                        {
+                            "key": "concert_documentation_url",
+                            "type": "string",
+                            "default_value": "https://www.ibm.com/docs/en/concert",
+                            "description": "The documentation URL that appears on the tool card.",
+                            "required": false
+                        },
+                        {
+                            "key": "concert_integration_name",
+                            "type": "string",
+                            "default_value": "Concert",
+                            "description": "The name of the Concert integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_hmac_access_key_id_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The name of the secret in Secrets Manager for the HMAC Access Key ID.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_hmac_secret_access_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The name of the secret in Secrets Manager for the HMAC Secret Access Key.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_hmac_access_key_secret_crn",
+                            "type": "password",
+                            "description": "The CRN for the HMAC Secret Access Key.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_hmac_secret_access_id_crn",
+                            "type": "password",
+                            "description": "The CRN for the HMAC Access Key ID.",
+                            "required": false
+                        },
+                        {
+                            "key": "cos_instance_crn",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The CRN of the Cloud Object Storage instance.",
+                            "required": false
+                        },
+                        {
+                            "key": "event_notifications_tool_name",
+                            "type": "string",
+                            "default_value": "Event Notifications",
+                            "description": "The name of the Event Notifications integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "artifactory_integration_name",
+                            "type": "string",
+                            "default_value": "artifactory-dockerconfigjson",
+                            "description": "The name of the Artifactory tool integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "kp_integration_name",
+                            "type": "string",
+                            "default_value": "kp-compliance-secrets",
+                            "description": "The name of the Key Protect integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "sm_integration_name",
+                            "type": "string",
+                            "default_value": "sm-compliance-secrets",
+                            "description": "The name of the Secrets Manager integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_integration_name",
+                            "type": "string",
+                            "default_value": "slack-compliance",
+                            "description": "The name of the Slack integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_pipeline_fail",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate pipeline failed notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_pipeline_start",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate pipeline start notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_pipeline_success",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate pipeline succeeded notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_toolchain_bind",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate tool added to toolchain notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "slack_toolchain_unbind",
+                            "type": "boolean",
+                            "default_value": true,
+                            "description": "Generate tool removed from toolchain notifications.",
+                            "required": false
+                        },
+                        {
+                            "key": "sonarqube_integration_name",
+                            "type": "string",
+                            "default_value": "SonarQube",
+                            "description": "The name of the SonarQube integration.",
+                            "required": false
+                        },
+                        {
+                            "key": "signing_key_secret_crn",
+                            "type": "password",
+                            "description": "The CRN for the signing key secret.",
+                            "required": false
+                        },
+                        {
+                            "key": "signing_key_secret_group",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Secret group prefix for the signing secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.",
+                            "required": false
+                        },
+                        {
+                            "key": "trigger_git_name",
+                            "type": "string",
+                            "default_value": "Git CI Trigger",
+                            "description": "The name of the CI pipeline GIT trigger.",
+                            "required": false
+                        },
+                        {
+                            "key": "trigger_timed_name",
+                            "type": "string",
+                            "default_value": "Git CI Timed Trigger",
+                            "description": "The name of the CI pipeline Timed trigger.",
+                            "required": false
+                        },
+                        {
+                            "key": "trigger_manual_name",
+                            "type": "string",
+                            "default_value": "Manual Trigger",
+                            "description": "The name of the CI pipeline Manual trigger.",
+                            "required": false
+                        },
+                        {
+                            "key": "trigger_pr_git_name",
+                            "type": "string",
+                            "default_value": "Git PR Trigger",
+                            "description": "The name of the PR pipeline GIT trigger.",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "app_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for app-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "app_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for app-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "app_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for app-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "app_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for app-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "issues_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for issues-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "issues_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for issues-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "issues_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for issues-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "issues_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for issues-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "inventory_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for inventory-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "inventory_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for inventory-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "inventory_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for inventory-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "inventory_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for inventory-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "compliance_pipeline_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for compliance-pipeline-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "compliance_pipeline_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for compliance-pipeline-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "compliance_pipeline_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for compliance-pipeline-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "compliance_pipeline_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for compliance-pipeline-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "pipeline_config_repo_github_app_auth_method",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App authorization method for pipeline-config-repo. E.g. `custom` or `managed`",
+                            "required": false
+                        },
+                        {
+                            "key": "pipeline_config_repo_github_app_credential_app_id",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "The GitHub App App ID for pipeline-config-repo",
+                            "required": false
+                        },
+                        {
+                            "key": "pipeline_config_repo_github_app_credential_private_key_crn",
+                            "type": "password",
+                            "description": "CRN of the GitHub App private key secret in the secret provider for pipeline-config-repo. Only used when auth method is `github_app`.",
+                            "required": false
+                        },
+                        {
+                            "key": "pipeline_config_repo_github_app_credential_private_key_secret_name",
+                            "type": "string",
+                            "default_value": "",
+                            "description": "Name of the GitHub App private key secret in the secret provider for pipeline-config-repo. Only used when auth method is `github_app`.",
                             "required": false
                         }
                     ],

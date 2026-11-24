@@ -7,14 +7,15 @@ locals {
   # `default_branch`
   # `worker_id`
 
-  git_token_secret_ref = try(var.repository_data.git_token_secret_ref, var.git_token_secret_ref)
-  default_branch       = try(var.repository_data.default_branch, var.default_branch)
-  repository_owner     = try(var.repository_data.repository_owner, var.repository_owner)
-  mode                 = try(var.repository_data.mode, var.mode)
-  worker_id            = try(var.repository_data.worker_id, var.worker_id)
-  blind_connection     = try(var.repository_data.blind_connection, var.blind_connection)
-  root_url             = try(var.repository_data.root_url, var.root_url)
-  title                = try(var.repository_data.title, var.title)
+  git_token_secret_ref                         = try(var.repository_data.git_token_secret_ref, var.git_token_secret_ref)
+  github_app_credential_private_key_secret_ref = try(var.repository_data.github_app_credential_private_key_secret_ref, var.github_app_credential_private_key_secret_ref)
+  default_branch                               = try(var.repository_data.default_branch, var.default_branch)
+  repository_owner                             = try(var.repository_data.repository_owner, var.repository_owner)
+  mode                                         = try(var.repository_data.mode, var.mode)
+  worker_id                                    = try(var.repository_data.worker_id, var.worker_id)
+  blind_connection                             = try(var.repository_data.blind_connection, var.blind_connection)
+  root_url                                     = try(var.repository_data.root_url, var.root_url)
+  title                                        = try(var.repository_data.title, var.title)
   #if not provided use `hostedgit` as the default.
   repo_url_raw = try(trimsuffix(var.repository_data.repository_url, ".git"), "")
 
@@ -50,26 +51,30 @@ locals {
   triggers = try(var.repository_data.triggers, [])
   #pre-process to ensure the element key is present
   pre_process_trigger_data = flatten([for trigger in local.triggers : {
-    type                     = (trigger.type == "") ? "manual" : trigger.type
-    name                     = trigger.name
-    worker_id                = (trigger.worker_id == "") ? local.worker_id : trigger.worker_id
-    properties               = trigger.properties                                                             # Set to empty list if not set
-    event_listener           = (trigger.event_listener == "") ? local.event_listener : trigger.event_listener # If not set infer from repo url
-    timezone                 = trigger.timezone                                                               #only required by timed trigger
-    cron                     = trigger.cron                                                                   #Only required for timed trigger
-    enabled                  = trigger.enabled
-    max_concurrent_runs      = trigger.max_concurrent_runs
-    pipeline_id              = trigger.pipeline_id
-    default_branch           = (trigger.default_branch != "") ? trigger.default_branch : local.default_branch
-    pattern                  = trigger.pattern
-    filter                   = trigger.filter
-    events                   = trigger.events
-    repo_url                 = local.repo_url_raw
-    config_data              = var.config_data
-    pipeline_data            = var.pipeline_data
-    enable_events_from_forks = trigger.enable_events_from_forks
+    type                = (trigger.type == "") ? "manual" : trigger.type
+    name                = trigger.name
+    worker_id           = (trigger.worker_id == "") ? local.worker_id : trigger.worker_id
+    properties          = trigger.properties                                                             # Set to empty list if not set
+    event_listener      = (trigger.event_listener == "") ? local.event_listener : trigger.event_listener # If not set infer from repo url
+    timezone            = trigger.timezone                                                               #only required by timed trigger
+    cron                = trigger.cron                                                                   #Only required for timed trigger
+    enabled             = trigger.enabled
+    max_concurrent_runs = trigger.max_concurrent_runs
+    pipeline_id         = var.pipeline_id
+    default_branch      = local.default_branch
+    events              = trigger.events
+    repo_url            = local.repo_url_raw
+    config_data         = var.config_data
     }
   ])
+
+  auth_type = try(var.repository_data.auth_type, var.auth_type, (local.git_token_secret_ref != "") ? "pat" : "oauth")
+
+  github_app_auth_method       = (local.auth_type == "github_app") ? try(var.repository_data.github_app_auth_method, var.github_app_auth_method, "managed") : "managed"
+  github_app_credential_app_id = (local.github_app_auth_method == "custom") ? try(var.repository_data.github_app_credential_app_id, var.github_app_credential_app_id, "") : ""
+
+  #
+  selected_secret = (local.auth_type == "pat") ? local.git_token_secret_ref : (local.auth_type == "github_app" ? local.github_app_credential_private_key_secret_ref : "")
 
   secret_ref_prefix = (
     (var.config_data.secrets_provider_type == "kp") ? "{vault::${var.config_data.secrets_integration_name}." :
@@ -77,33 +82,35 @@ locals {
   )
 
   #check if provided secret contains the full ref
-  is_secret_ref = ((startswith(local.git_token_secret_ref, "{vault::")) || (startswith(local.git_token_secret_ref, "crn:")) || (startswith(local.git_token_secret_ref, "ref://"))) ? true : false
-  secret_ref    = (local.is_secret_ref) ? local.git_token_secret_ref : "${local.secret_ref_prefix}${local.git_token_secret_ref}}"
+  is_secret_ref = ((startswith(local.selected_secret, "{vault::")) || (startswith(local.selected_secret, "crn:")) || (startswith(local.selected_secret, "ref://"))) ? true : false
+  secret_ref    = (local.is_secret_ref) ? local.selected_secret : "${local.secret_ref_prefix}${local.selected_secret}}"
 
 }
 
 # Create a repository integration
 module "app_repo" {
-  source                = "../../repositories"
-  tool_name             = local.repo_name
-  toolchain_id          = var.toolchain_id
-  git_provider          = local.git_provider
-  initialization_type   = (local.mode == "clone") ? "clone_if_not_exists" : "link"
-  repository_url        = local.repo_url_raw
-  source_repository_url = local.repo_url_raw
-  repository_name       = local.repo_name
-  is_private_repo       = true
-  owner_id              = local.repository_owner
-  issues_enabled        = true
-  traceability_enabled  = false
-  integration_owner     = ""
-  auth_type             = (local.git_token_secret_ref == "") ? "oauth" : "pat"
-  secret_ref            = (local.git_token_secret_ref == "") ? "" : local.secret_ref
-  git_id                = local.git_id
-  blind_connection      = local.blind_connection
-  root_url              = local.root_url
-  title                 = local.title
-  default_git_provider  = ""
+  source                       = "../../repositories"
+  tool_name                    = local.repo_name
+  toolchain_id                 = var.toolchain_id
+  git_provider                 = local.git_provider
+  initialization_type          = (local.mode == "clone") ? "clone_if_not_exists" : "link"
+  repository_url               = local.repo_url_raw
+  source_repository_url        = local.repo_url_raw
+  repository_name              = local.repo_name
+  is_private_repo              = true
+  owner_id                     = local.repository_owner
+  issues_enabled               = true
+  traceability_enabled         = false
+  integration_owner            = ""
+  auth_type                    = local.auth_type
+  secret_ref                   = (local.selected_secret == "") ? "" : local.secret_ref
+  git_id                       = local.git_id
+  blind_connection             = local.blind_connection
+  root_url                     = local.root_url
+  title                        = local.title
+  default_git_provider         = ""
+  github_app_auth_method       = local.github_app_auth_method
+  github_app_credential_app_id = local.github_app_credential_app_id
 }
 
 
@@ -132,19 +139,4 @@ module "triggers" {
   trigger_data = each.value
   # This is to ensure that the repository integration has been created before proceeding. A Git trigger requires the tool_id to be available
   repository_integration_id = module.app_repo.repository.tool_id
-}
-
-module "default_triggers" {
-  count                         = ((var.create_default_triggers == true) && (length(local.triggers) == 0)) ? 1 : 0
-  depends_on                    = [module.app_repo.repository]
-  source                        = "./default_triggers"
-  repository_url                = module.app_repo.repository_url
-  default_branch                = local.default_branch
-  default_trigger_ci_cel_filter = var.default_trigger_ci_cel_filter
-  default_trigger_ci_pattern    = var.default_trigger_ci_pattern
-  default_trigger_pr_cel_filter = var.default_trigger_pr_cel_filter
-  default_trigger_pr_pattern    = var.default_trigger_pr_pattern
-  repository_integration_id     = module.app_repo.repository.tool_id
-  config_data                   = var.config_data
-  pipeline_data                 = var.pipeline_data
 }

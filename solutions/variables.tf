@@ -34,6 +34,18 @@ variable "toolchain_resource_region_override" {
   default     = ""
 }
 
+variable "enable_ci_pipeline" {
+  type        = bool
+  description = "Set `enable_ci_pipeline` to true to create CI pipeline."
+  default     = true
+}
+
+variable "enable_pr_pipeline" {
+  type        = bool
+  description = "Set `enable_pr_pipeline` to true to create PR pipeline."
+  default     = true
+}
+
 variable "app_name" {
   type        = string
   description = "Name of the application image and inventory entry."
@@ -234,7 +246,7 @@ variable "pipeline_config_repo_clone_from_url" {
 
 variable "pipeline_config_repo_auth_type" {
   type        = string
-  description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  description = "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`"
   default     = ""
 }
 
@@ -246,25 +258,25 @@ variable "pipeline_config_initialization_type" {
 
 variable "app_repo_auth_type" {
   type        = string
-  description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  description = "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`"
   default     = ""
 }
 
 variable "compliance_pipeline_repo_auth_type" {
   type        = string
-  description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  description = "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`"
   default     = ""
 }
 
 variable "issues_repo_auth_type" {
   type        = string
-  description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  description = "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`"
   default     = ""
 }
 
 variable "inventory_repo_auth_type" {
   type        = string
-  description = "Select the method of authentication that will be used to access the git provider. 'oauth' or 'pat'"
+  description = "Select the method of authentication that will be used to access the git provider. `oauth`, `pat` or `github_app`"
   default     = ""
 }
 
@@ -367,6 +379,28 @@ variable "cos_api_key_secret_crn" {
   }
 }
 
+variable "cos_hmac_access_key_secret_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the HMAC Secret Access Key. The HMAC Secret Access Key which is part of an HMAC (Hash Message Authentication Code) credential set. HMAC is identified by a combination of an Access Key ID and a Secret Access Key."
+  default     = ""
+  validation {
+    condition     = startswith(var.cos_hmac_access_key_secret_crn, "crn:") || var.cos_hmac_access_key_secret_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
+variable "cos_hmac_secret_access_id_crn" {
+  type        = string
+  sensitive   = true
+  description = "The CRN for the HMAC Access Key ID. The HMAC Access Key ID which is part of an HMAC (Hash Message Authentication Code) credential set. HMAC is identified by a combination of an Access Key ID and a Secret Access Key."
+  default     = ""
+  validation {
+    condition     = startswith(var.cos_hmac_secret_access_id_crn, "crn:") || var.cos_hmac_secret_access_id_crn == ""
+    error_message = "Must be a CRN or left empty."
+  }
+}
+
 variable "pipeline_ibmcloud_api_key_secret_crn" {
   type        = string
   sensitive   = true
@@ -440,6 +474,12 @@ variable "signing_key_secret_name" {
 }
 
 ###########################
+variable "enable_app_repo_integration" {
+  type        = bool
+  description = "Set `enable_app_repo_integration` to false if you don't want to create default app repo integration.You can make use of `repository.json` to create the integration."
+  default     = true
+}
+
 variable "app_repo_secret_group" {
   type        = string
   description = "Secret group prefix for the App repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`."
@@ -908,6 +948,36 @@ variable "cos_bucket_name" {
   default     = ""
 }
 
+variable "concert_dashboard_url" {
+  type        = string
+  description = "The dashboard URL for the Concert tool"
+  default     = ""
+}
+
+variable "concert_description" {
+  type        = string
+  description = "The description of the Concert toolcard."
+  default     = "IBM Concert combines traditional analytics and generative AI to deliver comprehensive insights into your operational health and identify critical risk across your application lifecycle"
+}
+
+variable "concert_documentation_url" {
+  type        = string
+  description = "The documentation URL that appears on the tool card."
+  default     = "https://www.ibm.com/docs/en/concert"
+}
+
+variable "concert_integration_name" {
+  type        = string
+  description = "The name of the Concert integration."
+  default     = "Concert"
+}
+
+variable "enable_concert" {
+  type        = bool
+  description = "Set to `true` to enable the Concert tool integration."
+  default     = false
+}
+
 variable "cos_dashboard_url" {
   type        = string
   description = "The dashboard URL for the COS toolcard."
@@ -926,10 +996,34 @@ variable "cos_description" {
   default     = "Cloud Object Storage to store evidences within DevSecOps Pipelines"
 }
 
+variable "cos_hmac_access_key_id_secret_name" {
+  type        = string
+  description = "The name of the secret in Secrets Manager for the HMAC Access Key ID."
+  default     = ""
+}
+
+variable "cos_hmac_secret_access_key_secret_name" {
+  type        = string
+  description = "The name of the secret in Secrets Manager for the HMAC Secret Access Key."
+  default     = ""
+}
+
 variable "cos_integration_name" {
   type        = string
   description = "The name of the COS integration."
   default     = "Evidence Store"
+}
+
+variable "cos_instance_crn" {
+  type        = string
+  description = "The CRN of the Cloud Object Storage instance."
+  default     = ""
+}
+
+variable "use_legacy_cos_tool" {
+  type        = bool
+  description = "The custom tool integration is being replaced with the new COS tool integration. To continue using the legacy tool. Set the value to `true`. See `enable_cos`"
+  default     = false
 }
 
 variable "sm_secret_group" {
@@ -1124,6 +1218,12 @@ variable "worker_id" {
   description = "The identifier for the Managed Pipeline worker."
 }
 
+variable "pr_worker_id" {
+  type        = string
+  default     = ""
+  description = "The identifier for the Managed Pipeline worker for the PR pipeline. If not set it will use the value set in `worker_id`."
+}
+
 variable "artifactory_token_secret_name" {
   type        = string
   default     = "artifactory-token"
@@ -1172,6 +1272,7 @@ variable "privateworker_name" {
 }
 
 ######SonarQube ############################
+
 variable "sonarqube_integration_name" {
   type        = string
   description = "The name of the SonarQube integration."
@@ -1363,12 +1464,162 @@ variable "repo_git_token_secret_name" {
 
 variable "repo_auth_type" {
   type        = string
-  description = "The auth type for the repo `oauth` or 'pat` (personal access token). Applies to all the default compliance repositories but can be overriden by the repository specific variable."
+  description = "The auth type for the repo `oauth`, `pat` (personal access token) or `github_app`. Applies to all the default compliance repositories but can be overriden by the repository specific variable."
   default     = ""
 }
 
 variable "repo_integration_owner" {
   type        = string
   description = "The integration owner of the repository. Applies to all the default compliance repositories but can be overriden by the repository specific variable."
+  default     = ""
+}
+
+variable "use_legacy_ref" {
+  type        = bool
+  description = "Set to `true` to use the legacy secret reference format for Secrets Manager secrets."
+  default     = false
+}
+
+variable "repo_github_app_auth_method" {
+  type        = string
+  description = "The GitHub App authorization method. E.g. `custom` or `managed`"
+  default     = ""
+}
+
+variable "repo_github_app_credential_app_id" {
+  type        = string
+  description = "The GitHub App App ID"
+  default     = ""
+}
+
+variable "repo_github_app_credential_private_key_crn" {
+  type        = string
+  description = "CRN of the GitHub App private key secret in the secret provider. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "repo_github_app_credential_private_key_secret_name" {
+  type        = string
+  description = "Name of the GitHub App private key secret in the secret provider. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "issues_repo_github_app_auth_method" {
+  type        = string
+  description = "The GitHub App authorization method for issues-repo. E.g. `custom` or `managed`"
+  default     = ""
+}
+
+variable "issues_repo_github_app_credential_app_id" {
+  type        = string
+  description = "The GitHub App App ID for issues-repo"
+  default     = ""
+}
+
+variable "issues_repo_github_app_credential_private_key_crn" {
+  type        = string
+  description = "CRN of the GitHub App private key secret in the secret provider for issues-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "issues_repo_github_app_credential_private_key_secret_name" {
+  type        = string
+  description = "Name of the GitHub App private key secret in the secret provider for issues-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "inventory_repo_github_app_auth_method" {
+  type        = string
+  description = "The GitHub App authorization method for inventory-repo. E.g. `custom` or `managed`"
+  default     = ""
+}
+
+variable "inventory_repo_github_app_credential_app_id" {
+  type        = string
+  description = "The GitHub App App ID for inventory-repo"
+  default     = ""
+}
+
+variable "inventory_repo_github_app_credential_private_key_crn" {
+  type        = string
+  description = "CRN of the GitHub App private key secret in the secret provider for inventory-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "inventory_repo_github_app_credential_private_key_secret_name" {
+  type        = string
+  description = "Name of the GitHub App private key secret in the secret provider for inventory-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "compliance_pipeline_repo_github_app_auth_method" {
+  type        = string
+  description = "The GitHub App authorization method for compliance-pipeline-repo. E.g. `custom` or `managed`"
+  default     = ""
+}
+
+variable "compliance_pipeline_repo_github_app_credential_app_id" {
+  type        = string
+  description = "The GitHub App App ID for compliance-pipeline-repo"
+  default     = ""
+}
+
+variable "compliance_pipeline_repo_github_app_credential_private_key_crn" {
+  type        = string
+  description = "CRN of the GitHub App private key secret in the secret provider for compliance-pipeline-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "compliance_pipeline_repo_github_app_credential_private_key_secret_name" {
+  type        = string
+  description = "Name of the GitHub App private key secret in the secret provider for compliance-pipeline-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "pipeline_config_repo_github_app_auth_method" {
+  type        = string
+  description = "The GitHub App authorization method for pipeline-config-repo. E.g. `custom` or `managed`"
+  default     = ""
+}
+
+variable "pipeline_config_repo_github_app_credential_app_id" {
+  type        = string
+  description = "The GitHub App App ID for pipeline-config-repo"
+  default     = ""
+}
+
+variable "pipeline_config_repo_github_app_credential_private_key_crn" {
+  type        = string
+  description = "CRN of the GitHub App private key secret in the secret provider for pipeline-config-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "pipeline_config_repo_github_app_credential_private_key_secret_name" {
+  type        = string
+  description = "Name of the GitHub App private key secret in the secret provider for pipeline-config-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "app_repo_github_app_auth_method" {
+  type        = string
+  description = "The GitHub App authorization method for app-repo. E.g. `custom` or `managed`"
+  default     = ""
+}
+
+variable "app_repo_github_app_credential_app_id" {
+  type        = string
+  description = "The GitHub App App ID for app-repo"
+  default     = ""
+}
+
+variable "app_repo_github_app_credential_private_key_crn" {
+  type        = string
+  description = "CRN of the GitHub App private key secret in the secret provider for app-repo. Only used when auth method is `github_app`."
+  default     = ""
+}
+
+variable "app_repo_github_app_credential_private_key_secret_name" {
+  type        = string
+  description = "Name of the GitHub App private key secret in the secret provider for app-repo. Only used when auth method is `github_app`."
   default     = ""
 }
