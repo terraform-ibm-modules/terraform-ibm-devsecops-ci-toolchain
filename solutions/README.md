@@ -333,7 +333,7 @@ No resources.
 | <a name="output_pr_pipeline_id"></a> [pr\_pipeline\_id](#output\_pr\_pipeline\_id) | The PR pipeline ID. |
 | <a name="output_private_worker_id"></a> [private\_worker\_id](#output\_private\_worker\_id) | The ID of the pipeline worker. |
 | <a name="output_secret_tool"></a> [secret\_tool](#output\_secret\_tool) | The secret tool. |
-| <a name="output_secret_tool_v1"></a> [secret\_tool\_v1](#output\_secret\_tool\_v1) | The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name. |
+| <a name="output_secret_tool_v1"></a> [secret\_tool\_v1](#output\_secret\_tool\_v1) | The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrets Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name. |
 | <a name="output_secrets_manager_instance_id"></a> [secrets\_manager\_instance\_id](#output\_secrets\_manager\_instance\_id) | The Secrets Manager instance ID. |
 | <a name="output_toolchain_id"></a> [toolchain\_id](#output\_toolchain\_id) | The CI toolchain ID. |
 | <a name="output_toolchain_url"></a> [toolchain\_url](#output\_toolchain\_url) | The CI toolchain URL. |

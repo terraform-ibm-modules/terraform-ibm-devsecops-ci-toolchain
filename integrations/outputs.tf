@@ -41,7 +41,7 @@ output "secret_tool_v1" {
     ibm_cd_toolchain_tool_secretsmanager.secretsmanager,
     ibm_cd_toolchain_tool_keyprotect.keyprotect
   ]
-  description = "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrests Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
+  description = "The legacy secret tool. Used as part of secret references to point to the secret tool integration. This is the legacy version of the secrets tool. The new version was updated to support using different secret groups with Secrets Manager. This only effects Secrets Manager. The net difference is that the legacy secret tool returns the tool name and the secret group name whereas the new tool returns only the tool name."
 }
 
 output "sonarqube_tool" {
