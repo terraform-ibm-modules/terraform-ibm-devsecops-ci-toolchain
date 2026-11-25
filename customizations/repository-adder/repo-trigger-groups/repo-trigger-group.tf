@@ -51,20 +51,24 @@ locals {
   triggers = try(var.repository_data.triggers, [])
   #pre-process to ensure the element key is present
   pre_process_trigger_data = flatten([for trigger in local.triggers : {
-    type                = (trigger.type == "") ? "manual" : trigger.type
-    name                = trigger.name
-    worker_id           = (trigger.worker_id == "") ? local.worker_id : trigger.worker_id
-    properties          = trigger.properties                                                             # Set to empty list if not set
-    event_listener      = (trigger.event_listener == "") ? local.event_listener : trigger.event_listener # If not set infer from repo url
-    timezone            = trigger.timezone                                                               #only required by timed trigger
-    cron                = trigger.cron                                                                   #Only required for timed trigger
-    enabled             = trigger.enabled
-    max_concurrent_runs = trigger.max_concurrent_runs
-    pipeline_id         = var.pipeline_id
-    default_branch      = local.default_branch
-    events              = trigger.events
-    repo_url            = local.repo_url_raw
-    config_data         = var.config_data
+    type                     = (trigger.type == "") ? "manual" : trigger.type
+    name                     = trigger.name
+    worker_id                = (trigger.worker_id == "") ? local.worker_id : trigger.worker_id
+    properties               = trigger.properties                                                             # Set to empty list if not set
+    event_listener           = (trigger.event_listener == "") ? local.event_listener : trigger.event_listener # If not set infer from repo url
+    timezone                 = trigger.timezone                                                               #only required by timed trigger
+    cron                     = trigger.cron                                                                   #Only required for timed trigger
+    enabled                  = trigger.enabled
+    max_concurrent_runs      = trigger.max_concurrent_runs
+    pipeline_id              = trigger.pipeline_id
+    default_branch           = (trigger.default_branch != "") ? trigger.default_branch : local.default_branch
+    pattern                  = trigger.pattern
+    filter                   = trigger.filter
+    events                   = trigger.events
+    repo_url                 = local.repo_url_raw
+    config_data              = var.config_data
+    pipeline_data            = var.pipeline_data
+    enable_events_from_forks = trigger.enable_events_from_forks
     }
   ])
 
@@ -139,4 +143,19 @@ module "triggers" {
   trigger_data = each.value
   # This is to ensure that the repository integration has been created before proceeding. A Git trigger requires the tool_id to be available
   repository_integration_id = module.app_repo.repository.tool_id
+}
+
+module "default_triggers" {
+  count                         = ((var.create_default_triggers == true) && (length(local.triggers) == 0)) ? 1 : 0
+  depends_on                    = [module.app_repo.repository]
+  source                        = "./default_triggers"
+  repository_url                = module.app_repo.repository_url
+  default_branch                = local.default_branch
+  default_trigger_ci_cel_filter = var.default_trigger_ci_cel_filter
+  default_trigger_ci_pattern    = var.default_trigger_ci_pattern
+  default_trigger_pr_cel_filter = var.default_trigger_pr_cel_filter
+  default_trigger_pr_pattern    = var.default_trigger_pr_pattern
+  repository_integration_id     = module.app_repo.repository.tool_id
+  config_data                   = var.config_data
+  pipeline_data                 = var.pipeline_data
 }

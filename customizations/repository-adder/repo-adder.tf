@@ -93,7 +93,6 @@ module "repos_and_triggers" {
   github_app_credential_app_id                 = local.github_app_credential_app_id
   github_app_credential_private_key_secret_ref = local.github_app_credential_private_key_secret_ref
   repository_data                              = each.value # each repository payload
-  pipeline_id                                  = var.pipeline_id
   default_branch                               = local.default_branch
   default_trigger_ci_cel_filter                = try(var.pipeline_repo_data.default_trigger_ci_cel_filter, "")
   default_trigger_pr_cel_filter                = try(var.pipeline_repo_data.default_trigger_pr_cel_filter, "")
